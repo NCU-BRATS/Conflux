@@ -13,7 +13,6 @@
 /.ruby-version
 /.ruby-gemset
 /.powrc
-/.rspec
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
