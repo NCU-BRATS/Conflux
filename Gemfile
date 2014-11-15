@@ -5,6 +5,9 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.7'
 # Use postgres as the database for Active Record
 gem 'pg'
+# Slim templating engine
+gem 'slim-rails'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
