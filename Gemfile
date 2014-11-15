@@ -9,6 +9,9 @@ gem 'pg'
 gem 'ransack'
 # for backend pagination
 gem 'kaminari'
+# better form builders
+gem 'simple_form', '~> 3.1.0rc2'
+gem 'nested_form', '~> 0.3.2'
 # Slim templating engine
 gem 'slim-rails'
 
