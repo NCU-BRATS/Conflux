@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require jquery_nested_form
 //= require bootstrap-sprockets
+//= require selectize
 //= require_tree .
