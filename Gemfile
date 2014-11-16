@@ -14,6 +14,8 @@ gem 'simple_form', '~> 3.1.0rc2'
 gem 'nested_form', '~> 0.3.2'
 # Slim templating engine
 gem 'slim-rails'
+# for SEO-friendly meta tags
+gem 'meta-tags'
 
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
