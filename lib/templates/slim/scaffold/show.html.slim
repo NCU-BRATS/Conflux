@@ -1,0 +1,9 @@
+<% attributes.each do |attribute| -%>
+p
+  strong <%= attribute.human_name %>:
+  = @<%= singular_table_name %>.<%= attribute.name %>
+<% end -%>
+
+= link_to '編輯', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>)
+'|
+= link_to '返回', <%= index_helper %>_path

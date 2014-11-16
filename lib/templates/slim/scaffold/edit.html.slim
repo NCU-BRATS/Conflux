@@ -1,0 +1,7 @@
+h1 = "編輯 #{<%= class_name %>.model_name.human}"
+
+== render 'form'
+
+= link_to '詳情', @<%= singular_table_name %>
+'|
+= link_to '返回', <%= index_helper %>_path
