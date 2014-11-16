@@ -33,6 +33,8 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # better select widget
 gem 'selectize-rails', '~> 0.11.2'
+# bootstrap data-confirm-modal
+gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
