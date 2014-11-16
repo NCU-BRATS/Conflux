@@ -8,7 +8,8 @@ class <%= controller_class_name %>Controller < ApplicationController
   before_action :set_<%= singular_table_name %>, only: [:show, :edit, :update, :destroy]
 
   def index
-    @<%= plural_table_name %> = <%= class_name %>.search(params[:q]).result.page(params[:page]).per(params[:per])
+    @q = <%= class_name %>.search(params[:q])
+    @<%= plural_table_name %> = @q.result.page(params[:page]).per(params[:per])
     respond_with @<%= plural_table_name %>
   end
 

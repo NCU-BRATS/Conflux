@@ -1,10 +1,18 @@
 h1 = title "#{<%= class_name %>.model_name.human}列表"
 
+= search_form_for @q do |f|
+<% attributes.each do |attribute| -%>
+  .form-group
+    = f.label :<%= attribute.name %>_cont
+    = f.search_field :<%= attribute.name %>_cont, class: 'form-control'
+<% end -%>
+  = f.submit 'Ransack 搜尋', class: 'btn btn-default'
+
 table.table
   thead
     tr
 <% attributes.each do |attribute| -%>
-      th <%= attribute.human_name %>
+      th = sort_link(@q, :<%= attribute.name %>)
 <% end -%>
       th = link_to "新增#{<%= class_name %>.model_name.human}", new_<%= singular_table_name %>_path, class: 'btn btn-success pull-right'
 
