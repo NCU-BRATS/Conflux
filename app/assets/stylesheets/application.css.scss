@@ -19,3 +19,6 @@
 @import "bootstrap";
 @import "selectize";
 @import "selectize.bootstrap3";
+
+// for fix-top-navbar
+body { padding-top: 70px; }
