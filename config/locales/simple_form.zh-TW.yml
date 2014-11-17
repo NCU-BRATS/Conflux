@@ -15,6 +15,7 @@ zh-TW:
         current_password: "目前密碼"
         password: "登入密碼"
         password_confirmation: "密碼確認"
+        remember_me: "記住我"
     # Examples
     # labels:
     #   defaults:

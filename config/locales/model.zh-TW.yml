@@ -6,4 +6,5 @@ zh-TW:
       user:
         name: '暱稱'
         title: '職稱'
+        password: '密碼'
 

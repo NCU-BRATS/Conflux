@@ -1,8 +1,6 @@
 p
-  | Welcome 
+  | 歡迎
   = @email
   | !
-p
-  | You can confirm your account email through the link below:
-p
-  = link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+p 您可以經由下面的連結啟用您的帳號：
+p = link_to '啟用我的帳號', confirmation_url(@resource, confirmation_token: @token)

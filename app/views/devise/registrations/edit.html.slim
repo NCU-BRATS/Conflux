@@ -1,22 +1,20 @@
 h2
-  | Edit 
-  = resource_name.to_s.humanize
+  ' 編輯
+  = resource.class.model_name.human
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = f.error_notification
   .form-inputs
     = f.input :email, required: true, autofocus: true
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       p
-        | Currently waiting confirmation for: 
+        | Currently waiting confirmation for:
         = resource.unconfirmed_email
-    = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
+    = f.input :password, autocomplete: "off", hint: "留空將不會更新此欄位", required: false
     = f.input :password_confirmation, required: false
-    = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
+    = f.input :current_password, hint: "輸入您目前的密碼確認身份", required: true
   .form-actions
-    = f.button :submit, "Update"
-h3
-  | Cancel my account
-p
-  | Unhappy? 
-  = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
-= link_to "Back", :back
+    = f.button :submit, "更新"
+h3 帳號停用
+p 不高興嗎?
+= link_to "點此停用我的帳號", registration_path(resource_name), data: { confirm: "你確定要停用嗎?" }, method: :delete, class: 'btn btn-danger'
+= link_to "返回", :back, class: 'btn btn-default pull-right'
