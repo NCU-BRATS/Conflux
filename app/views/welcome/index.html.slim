@@ -1,1 +1,3 @@
-h1 歡迎來到 Conflux
+h1
+  | 歡迎來到 Conflux
+  = ", #{current_user.email}" if user_signed_in?
