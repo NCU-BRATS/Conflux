@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.7'
 # Use postgres as the database for Active Record
 gem 'pg'
+# for authentication solution
+gem 'devise'
 # for backend meta searching
 gem 'ransack'
 # for backend pagination
