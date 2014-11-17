@@ -38,12 +38,12 @@ $ rake db:migrate
 
 用 scaffold 創建完一個新的 resource 後，有幾件事情記得要手動去做：
 
-1. 到 config/locales/app.zh-TW.yml 補上 resource 還有其欄位的中文翻譯
+1. 到 config/locales/model.zh-TW.yml 補上 resource 還有其欄位的中文翻譯
 2. 到 db/seeds.rb 裡面加入測試用的 seed data
 
 例如：
 ```yml
-# config/locales/app.zh-TW.yml
+# config/locales/model.zh-TW.yml
 zh-TW:
   activerecord:
     models:
