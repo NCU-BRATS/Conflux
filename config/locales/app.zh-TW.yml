@@ -1,6 +1,9 @@
 zh-TW:
   activerecord:
     models:
-
+      user: '使用者'
     attributes:
+      user:
+        name: '暱稱'
+        title: '職稱'
 
