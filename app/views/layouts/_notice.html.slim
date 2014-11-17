@@ -6,3 +6,12 @@
           span aria-hidden="true" ×
           span class="sr-only" 關閉
         p.text-center = notice
+
+- if alert
+  .navbar.navbar-fixed-bottom role="navigation"
+    .container-fluid
+      .alert.alert-danger.alert-dismissible.fade.in role="alert"
+        button.close type="button" data-dismiss="alert"
+          span aria-hidden="true" ×
+          span class="sr-only" 關閉
+        p.text-center = alert
