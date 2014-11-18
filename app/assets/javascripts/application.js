@@ -17,4 +17,5 @@
 //= require bootstrap-sprockets
 //= require data-confirm-modal
 //= require selectize
+//= require gravtastic
 //= require_tree .

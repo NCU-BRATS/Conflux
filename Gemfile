@@ -19,6 +19,8 @@ gem 'slim-rails'
 # for SEO-friendly meta tags
 gem 'meta-tags'
 
+# Gravatar Integration
+gem 'gravtastic'
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
 # Icons css
