@@ -3,7 +3,7 @@ $(document).on "ready page:load", () ->
     $imgTag = $(@)
     unless $imgTag.attr('src')?
       avatarUrl = Gravtastic $imgTag.data('gravatar'),
-        size: $imgTag.data('size')
+        size: $imgTag.data('size') * 2
         default: 'identicon'
 
       $imgTag.attr('src', avatarUrl)
