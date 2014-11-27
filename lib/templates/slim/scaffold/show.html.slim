@@ -2,7 +2,7 @@ h1 = title "#{<%= class_name %>.model_name.human}詳情"
 
 dl.dl-horizontal
 <% attributes.each do |attribute| -%>
-  dt <%= attribute.human_name %>:
+  dt = "#{<%= class_name %>.human_attribute_name(:<%= attribute.name %>)}:"
   dd = @<%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
 
