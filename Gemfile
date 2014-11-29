@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use postgres as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.18.0.pre'
 # for authentication solution
 gem 'devise'
 # for backend meta searching
