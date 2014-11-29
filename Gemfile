@@ -18,6 +18,8 @@ gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
 # for SEO-friendly meta tags
 gem 'meta-tags'
+# issue tagging
+gem 'acts-as-taggable-on', '~> 3.4'
 
 # Gravatar Integration
 gem 'gravtastic'
