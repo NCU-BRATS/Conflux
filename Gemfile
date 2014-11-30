@@ -20,6 +20,8 @@ gem 'slim-rails'
 gem 'meta-tags'
 # issue tagging
 gem 'acts-as-taggable-on', '~> 3.4'
+# favorite system
+gem 'acts_as_votable', '~> 0.10.0'
 
 # Gravatar Integration
 gem 'gravtastic'
