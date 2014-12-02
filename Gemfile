@@ -61,6 +61,7 @@ group :development, :test do
   gem 'faker', '~> 1.4.3'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 # Use ActiveModel has_secure_password
