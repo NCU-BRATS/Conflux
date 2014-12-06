@@ -104,6 +104,10 @@ GEM
     nested_form (0.3.2)
     orm_adapter (0.5.0)
     pg (0.18.0.pre20141117110243)
+    pg_search (0.7.8)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     rack (1.5.2)
@@ -223,6 +227,7 @@ DEPENDENCIES
   meta_request
   nested_form (~> 0.3.2)
   pg (~> 0.18.0.pre)
+  pg_search
   rails (= 4.1.8)
   ransack
   rspec-rails (~> 3.0.0)
