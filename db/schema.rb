@@ -11,12 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141206115455) do
+ActiveRecord::Schema.define(version: 20141206130720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
+
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "leader_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "issues", force: true do |t|
+    t.string   "title"
+    t.integer  "sequential_id"
+    t.string   "status"
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "sprint_id"
+    t.datetime "begin_at"
+    t.datetime "due_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pg_search_documents", force: true do |t|
     t.text     "content"
@@ -24,6 +54,33 @@ ActiveRecord::Schema.define(version: 20141206115455) do
     t.string   "searchable_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "projects", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "repositories", force: true do |t|
+    t.string   "name"
+    t.string   "link"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sprints", force: true do |t|
+    t.string   "title"
+    t.integer  "sequential_id"
+    t.string   "status"
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "begin_at"
+    t.datetime "due_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "taggings", force: true do |t|
@@ -74,6 +131,27 @@ ActiveRecord::Schema.define(version: 20141206115455) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
+
+  create_table "users_groups", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users_issues", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "issue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users_projects", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "votes", force: true do |t|
     t.integer  "votable_id"
