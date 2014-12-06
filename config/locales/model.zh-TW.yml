@@ -8,3 +8,7 @@ zh-TW:
         title: '職稱'
         password: '密碼'
 
+  validation:
+    user:
+      format: '不符格式 [A-Za-z0-9_]'
+
