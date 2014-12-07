@@ -1,0 +1,11 @@
+h1 = title "#{Project.model_name.human}詳情"
+
+dl.dl-horizontal
+  dt = "#{Project.human_attribute_name(:name)}:"
+  dd = @project.name
+  dt = "#{Project.human_attribute_name(:description)}:"
+  dd = @project.description
+
+.btn-toolbar.pull-right
+  = link_to '編輯', edit_project_path(@project), class: 'btn btn-warning'
+  = link_to '返回', projects_path, class: 'btn btn-default'
