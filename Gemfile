@@ -28,6 +28,8 @@ gem 'pg_search'
 gem 'friendly_id'
 # creating human-friendly identifiers, work with friendly_id
 gem 'babosa'
+# authorization system
+gem 'pundit'
 
 # Gravatar Integration
 gem 'gravtastic'

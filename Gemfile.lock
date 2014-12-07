@@ -113,6 +113,8 @@ GEM
       arel
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    pundit (0.3.0)
+      activesupport (>= 3.0.0)
     rack (1.5.2)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
@@ -233,6 +235,7 @@ DEPENDENCIES
   nested_form (~> 0.3.2)
   pg (~> 0.18.0.pre)
   pg_search
+  pundit
   rails (= 4.1.8)
   ransack
   rspec-rails (~> 3.0.0)
