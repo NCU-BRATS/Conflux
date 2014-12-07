@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141206130720) do
+ActiveRecord::Schema.define(version: 20141207133932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,9 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "updated_at"
   end
 
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
   create_table "groups", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -34,6 +37,8 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "groups", ["leader_id"], name: "index_groups_on_leader_id", using: :btree
 
   create_table "issues", force: true do |t|
     t.string   "title"
@@ -47,6 +52,10 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
+  add_index "issues", ["sprint_id"], name: "index_issues_on_sprint_id", using: :btree
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
   create_table "pg_search_documents", force: true do |t|
     t.text     "content"
@@ -63,6 +72,8 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "updated_at"
   end
 
+  add_index "projects", ["name"], name: "index_projects_on_name", unique: true, using: :btree
+
   create_table "repositories", force: true do |t|
     t.string   "name"
     t.string   "link"
@@ -70,6 +81,8 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "repositories", ["project_id"], name: "index_repositories_on_project_id", using: :btree
 
   create_table "sprints", force: true do |t|
     t.string   "title"
@@ -82,6 +95,9 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "sprints", ["project_id"], name: "index_sprints_on_project_id", using: :btree
+  add_index "sprints", ["user_id"], name: "index_sprints_on_user_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -129,6 +145,7 @@ ActiveRecord::Schema.define(version: 20141206130720) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
@@ -139,6 +156,9 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "updated_at"
   end
 
+  add_index "users_groups", ["group_id"], name: "index_users_groups_on_group_id", using: :btree
+  add_index "users_groups", ["user_id"], name: "index_users_groups_on_user_id", using: :btree
+
   create_table "users_issues", force: true do |t|
     t.integer  "user_id"
     t.integer  "issue_id"
@@ -146,12 +166,18 @@ ActiveRecord::Schema.define(version: 20141206130720) do
     t.datetime "updated_at"
   end
 
+  add_index "users_issues", ["issue_id"], name: "index_users_issues_on_issue_id", using: :btree
+  add_index "users_issues", ["user_id"], name: "index_users_issues_on_user_id", using: :btree
+
   create_table "users_projects", force: true do |t|
     t.integer  "user_id"
     t.integer  "project_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users_projects", ["project_id"], name: "index_users_projects_on_project_id", using: :btree
+  add_index "users_projects", ["user_id"], name: "index_users_projects_on_user_id", using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "votable_id"
