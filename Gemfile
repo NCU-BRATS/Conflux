@@ -26,6 +26,8 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'pg_search'
 # perttify url
 gem 'friendly_id'
+# creating human-friendly identifiers, work with friendly_id
+gem 'babosa'
 
 # Gravatar Integration
 gem 'gravtastic'
