@@ -20,22 +20,25 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    authorize @project
     respond_with @project
   end
 
   def create
     @project = Project.new(project_params)
-    @project.users << current_user
+    @project.members << current_user
     flash[:notice] = "已成功創建#{Project.model_name.human}" if @project.save
     respond_with @project
   end
 
   def update
+    authorize @project
     flash[:notice] = "已成功修改#{Project.model_name.human}" if @project.update(project_params)
     respond_with @project
   end
 
   def destroy
+    authorize @project
     @project.destroy
     flash[:notice] = "已成功刪除#{Project.model_name.human}"
     respond_with @project
