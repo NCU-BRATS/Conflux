@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-  respond_to :html, :json, :js
 
   before_action :authenticate_user!
   before_action :set_project, only: [:show, :edit, :update, :destroy]
