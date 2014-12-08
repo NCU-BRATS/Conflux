@@ -6,4 +6,5 @@ class IssueAssigment < ActiveRecord::Base
 
   validates :user, presence: true
   validates :issue, presence: true
+  validates :user, uniqueness: { scope: :issue }
 end

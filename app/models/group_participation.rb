@@ -6,4 +6,5 @@ class GroupParticipation < ActiveRecord::Base
 
   validates :user, presence: true
   validates :group, presence: true
+  validates :user, uniqueness: { scope: :group }
 end
