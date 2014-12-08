@@ -2,11 +2,18 @@ zh-TW:
   activerecord:
     models:
       user: '使用者'
+      project: '專案'
+      project_participation: '專案成員'
     attributes:
       user:
-        name: '暱稱'
+        name: '名稱'
         title: '職稱'
         password: '密碼'
+      project:
+        name: '名稱'
+        description: '描述'
+      project_participation:
+        user: '使用者'
 
   validation:
     user:
