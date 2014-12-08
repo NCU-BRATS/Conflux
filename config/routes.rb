@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :projects do
+
+    scope module: 'projects' do
+      resources :members
+    end
+
+    # rematch ProjectParticipation Model path to project_member_path
+    resources :project_participations, as: :participations, path: :members
+  end
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

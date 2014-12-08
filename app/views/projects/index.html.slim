@@ -1,0 +1,23 @@
+h1 = title "#{Project.model_name.human}列表"
+
+table.table
+  thead
+    tr
+      th = sort_link(@q, :name)
+      th = sort_link(@q, :description)
+      th = link_to "新增#{Project.model_name.human}", new_project_path, class: 'btn btn-success pull-right'
+
+  tbody
+    - @projects.each do |project|
+      tr
+        td = project.name
+        td = project.description
+        td
+          .btn-toolbar.pull-right
+            = link_to '詳情', project, class: 'btn btn-xs  btn-info'
+            = link_to '編輯', edit_project_path(project), class: 'btn btn-xs btn-warning'
+            = link_to '刪除', project, data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: ' btn btn-xs btn-danger'
+
+br
+
+= paginate @projects

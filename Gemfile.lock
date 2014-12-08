@@ -38,6 +38,7 @@ GEM
       activerecord (>= 3.2, < 5)
     acts_as_votable (0.10.0)
     arel (5.0.1.20140414130214)
+    babosa (0.3.11)
     bcrypt (3.1.9)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
@@ -77,6 +78,8 @@ GEM
       i18n (~> 0.5)
     font-awesome-sass (4.2.2)
       sass (~> 3.2)
+    friendly_id (5.0.4)
+      activerecord (>= 4.0.0)
     gravtastic (3.2.6)
     hike (1.2.3)
     i18n (0.6.11)
@@ -110,6 +113,8 @@ GEM
       arel
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    pundit (0.3.0)
+      activesupport (>= 3.0.0)
     rack (1.5.2)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
@@ -210,6 +215,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
   acts_as_votable (~> 0.10.0)
+  babosa
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.1)
@@ -219,6 +225,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   faker (~> 1.4.3)
   font-awesome-sass (~> 4.2.0)
+  friendly_id
   gravtastic
   jbuilder (~> 2.0)
   jquery-rails
@@ -228,6 +235,7 @@ DEPENDENCIES
   nested_form (~> 0.3.2)
   pg (~> 0.18.0.pre)
   pg_search
+  pundit
   rails (= 4.1.8)
   ransack
   rspec-rails (~> 3.0.0)
