@@ -70,6 +70,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'web-console'
 end
 
 # Use ActiveModel has_secure_password
