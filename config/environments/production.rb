@@ -1,4 +1,9 @@
 Rails.application.configure do
+  # Add http basic auth if ENV['HTTP_BASIC_AUTH'] exists.
+  config.middleware.use '::Rack::Auth::Basic' do |u, p|
+    [u, p] == [ENV['HTTP_USER'], ENV['HTTP_PASSWORD']]
+  end if ENV['HTTP_BASIC_AUTH']
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
