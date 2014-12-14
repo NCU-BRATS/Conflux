@@ -23,4 +23,5 @@
 //= require bootstrap-datetimepicker
 //= require sync
 //= require semantic
+//= require handlebars.runtime
 //= require_tree .

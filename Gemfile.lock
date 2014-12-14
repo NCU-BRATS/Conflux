@@ -134,6 +134,11 @@ GEM
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     gravtastic (3.2.6)
+    handlebars_assets (0.18)
+      execjs (>= 1.2.9)
+      multi_json
+      sprockets (>= 2.0.3)
+      tilt
     hike (1.2.3)
     html-pipeline (1.11.0)
       activesupport (>= 2)
@@ -331,6 +336,7 @@ DEPENDENCIES
   gemoji
   github-markdown
   gravtastic
+  handlebars_assets
   html-pipeline
   jbuilder (~> 2.0)
   jquery-rails
