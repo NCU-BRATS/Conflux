@@ -24,6 +24,7 @@ GEM
       actionpack (= 4.2.0)
       actionview (= 4.2.0)
       activejob (= 4.2.0)
+    aasm (4.0.5)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 1.0, >= 1.0.5)
     actionpack (4.2.0)
@@ -262,6 +263,9 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     selectize-rails (0.11.2)
+    sequenced (2.0.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -311,6 +315,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  aasm
   acts-as-taggable-on (~> 3.4)
   acts_as_votable (~> 0.10.0)
   babosa
@@ -354,6 +359,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.0)
   sdoc (~> 0.4.0)
   selectize-rails (~> 0.11.2)
+  sequenced
   simple_form (~> 3.1.0rc2)
   slim-rails!
   spring

@@ -1,0 +1,13 @@
+h1 = title "#{Issue.model_name.human}詳情"
+
+dl.dl-horizontal
+  dt = "#{Issue.human_attribute_name(:title)}:"
+  dd = @issue.title
+
+  - @issue.comments.each do | comment |
+    = comment.content
+    br
+
+.btn-toolbar.pull-right
+  = link_to '編輯', project_issue_path( @project, @issue ), class: 'btn btn-warning'
+  = link_to '返回', project_issues_path( @project ), class: 'btn btn-default'
