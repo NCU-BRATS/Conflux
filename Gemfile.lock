@@ -20,12 +20,13 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
+    aasm (4.0.5)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
     actionmailer (4.2.0)
       actionpack (= 4.2.0)
       actionview (= 4.2.0)
       activejob (= 4.2.0)
-      mail (~> 2.5, >= 2.5.4)
-      rails-dom-testing (~> 1.0, >= 1.0.5)
     actionpack (4.2.0)
       actionview (= 4.2.0)
       activesupport (= 4.2.0)
