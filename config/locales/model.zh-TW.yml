@@ -4,6 +4,8 @@ zh-TW:
       user: '使用者'
       project: '專案'
       project_participation: '專案成員'
+      issue: '任務'
+      comment: '回覆'
     attributes:
       user:
         name: '名稱'
@@ -14,6 +16,12 @@ zh-TW:
         description: '描述'
       project_participation:
         user: '使用者'
+      issue:
+        sequential_id: '序號'
+        title: '標題'
+        comments: '回覆'
+      comment:
+        contnet: '內容'
 
   validation:
     user:

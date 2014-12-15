@@ -1,0 +1,16 @@
+h1 = title "新增 #{Issue.model_name.human}"
+
+= simple_nested_form_for [ @project, @issue ] do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+
+  = f.fields_for :comments do |cf|
+    = cf.input :content
+    = cf.input :user_id, input_html: { value: current_user.id }, as: :hidden
+
+  .form-actions
+    = f.button :submit
+
+= link_to '返回', project_issues_path( @project ), class: 'btn btn-default pull-right'

@@ -1,14 +1,18 @@
-class Projects::ApplicationController < ApplicationController
-  layout :determine_layout
+module Projects
 
-  before_action :set_project
+  class ApplicationController < ::ApplicationController
+    layout :determine_layout
 
-  def determine_layout
-    'application'
-  end
+    before_action :set_project
 
-  protected
+    def determine_layout
+      'application'
+    end
+
+    protected
     def set_project
       @project = Project.friendly.find(params[:project_id])
     end
+  end
+
 end

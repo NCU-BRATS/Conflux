@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
     scope module: 'projects' do
       resources :members
+      resources :issues
     end
 
     # rematch ProjectParticipation Model path to project_member_path
