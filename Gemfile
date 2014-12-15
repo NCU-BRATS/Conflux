@@ -50,6 +50,11 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'selectize-rails', '~> 0.11.2'
 # bootstrap data-confirm-modal
 gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
+# Parse, validate, manipulate, and display dates in JavaScript.
+gem 'momentjs-rails'
+# datetime-picker widget
+gem 'bootstrap3-datetimepicker-rails'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
