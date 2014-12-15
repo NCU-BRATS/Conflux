@@ -5,6 +5,8 @@ h1 = title "新增 #{Issue.model_name.human}"
 
   .form-inputs
     = f.input :title
+    = f.input :begin_at
+    = f.input :due_at
 
   = f.fields_for :comments do |cf|
     = cf.input :content

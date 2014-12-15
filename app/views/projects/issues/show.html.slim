@@ -1,13 +1,19 @@
+.btn-toolbar.pull-right
+  = link_to '編輯', project_issue_path( @project, @issue ), class: 'btn btn-warning'
+  = link_to '返回', project_issues_path( @project ), class: 'btn btn-default'
+
 h1 = title "#{Issue.model_name.human}詳情"
+
 
 dl.dl-horizontal
   dt = "#{Issue.human_attribute_name(:title)}:"
   dd = @issue.title
+  dt = "#{Issue.human_attribute_name(:begin_at)}:"
+  dd = @issue.begin_at
+  dt = "#{Issue.human_attribute_name(:due_at)}:"
+  dd = @issue.due_at
 
-  - @issue.comments.each do | comment |
-    = comment.content
-    br
-
-.btn-toolbar.pull-right
-  = link_to '編輯', project_issue_path( @project, @issue ), class: 'btn btn-warning'
-  = link_to '返回', project_issues_path( @project ), class: 'btn btn-default'
+dl.dl-horizontal
+  - @issue.comments.each do |comment|
+    dt = comment.user.name
+    dd = comment.content
