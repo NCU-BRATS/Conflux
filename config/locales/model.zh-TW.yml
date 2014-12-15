@@ -20,6 +20,8 @@ zh-TW:
         sequential_id: '序號'
         title: '標題'
         comments: '回覆'
+        begin_at: '開始時間'
+        due_at: '結束時間'
       comment:
         contnet: '內容'
 

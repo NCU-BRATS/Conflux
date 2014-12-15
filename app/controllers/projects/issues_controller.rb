@@ -41,11 +41,11 @@ module Projects
     private
 
     def set_issue
-      @issue = @project.issues.find_by_sequential_id( params[:id] )
+      @issue = @project.issues.includes( :user ).find_by_sequential_id( params[:id] )
     end
 
     def issue_params
-      params.require(:issue).permit( :title, comments_attributes: [ :user_id, :content ] )
+      params.require(:issue).permit( :title, :begin_at, :due_at, comments_attributes: [ :user_id, :content ] )
     end
 
     def authorize_issue

@@ -15,7 +15,6 @@ table.table
         td
           .btn-toolbar.pull-right
             = link_to '詳情', project_issue_path( @project, issue ), class: 'btn btn-xs  btn-info'
-            = link_to '編輯', edit_project_issue_path( @project, issue ), class: 'btn btn-xs btn-warning'
             = link_to '關閉', project_issue_path( @project, issue ), data: {:confirm => '你確定要關閉嗎?'}, :method => :delete, class: ' btn btn-xs btn-danger'
 
 br
