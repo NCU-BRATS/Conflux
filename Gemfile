@@ -41,6 +41,10 @@ gem "email_reply_parser",   :require => false
 gem "sanitize",   :require => false
 gem "escape_utils",   :require => false
 # gem "github-linguist",  :require => false
+# generates scoped sequential IDs
+gem 'sequenced'
+# state machine
+gem 'aasm'
 
 # responders
 gem 'responders', '~> 2.0'
