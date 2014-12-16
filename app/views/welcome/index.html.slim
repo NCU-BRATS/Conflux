@@ -3,3 +3,6 @@ h1
   = ", #{current_user.email}" if user_signed_in?
   - if user_signed_in?
     = avatar_tag current_user, :size => "80"
+
+.markdown-body
+  = @text
