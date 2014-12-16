@@ -29,6 +29,8 @@ gem 'friendly_id'
 gem 'babosa'
 # authorization system
 gem 'pundit'
+# Github Flavored Markdown
+gem 'github-markdown', require: 'github/markdown'
 
 # Gravatar Integration
 gem 'gravtastic'

@@ -21,4 +21,5 @@
 //= require moment
 //= require moment/zh-tw
 //= require bootstrap-datetimepicker
+//= require highlight.pack.js
 //= require_tree .
