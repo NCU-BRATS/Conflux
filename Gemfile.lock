@@ -8,6 +8,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    RedCloth (4.2.9)
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
       actionview (= 4.1.8)
@@ -52,6 +53,7 @@ GEM
       momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     callsite (0.0.11)
+    charlock_holmes (0.7.3)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -60,6 +62,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    crass (0.2.1)
     debug_inspector (0.0.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -69,7 +72,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    email_reply_parser (0.5.8)
     erubis (2.7.0)
+    escape_utils (1.0.1)
     execjs (2.2.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -82,9 +87,18 @@ GEM
       sass (~> 3.2)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    gemoji (2.1.0)
+    github-linguist (4.2.3)
+      charlock_holmes (~> 0.7.3)
+      escape_utils (~> 1.0.1)
+      mime-types (>= 1.19)
+      rugged (~> 0.22.0b4)
     github-markdown (0.6.8)
     gravtastic (3.2.6)
     hike (1.2.3)
+    html-pipeline (1.11.0)
+      activesupport (>= 2)
+      nokogiri (~> 1.4)
     i18n (0.6.11)
     jbuilder (2.2.5)
       activesupport (>= 3.0.0, < 5)
@@ -105,11 +119,16 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     mime-types (2.4.3)
+    mini_portile (0.6.1)
     minitest (5.4.3)
     momentjs-rails (2.8.3)
       railties (>= 3.1)
     multi_json (1.10.1)
     nested_form (0.3.2)
+    nokogiri (1.6.5)
+      mini_portile (~> 0.6.0)
+    nokogumbo (1.1.12)
+      nokogiri
     orm_adapter (0.5.0)
     pg (0.18.0.pre20141117110243)
     pg_search (0.7.8)
@@ -156,6 +175,7 @@ GEM
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rinku (1.7.3)
     rspec-core (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.4)
@@ -172,6 +192,11 @@ GEM
       rspec-mocks (~> 3.0.0)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
+    rugged (0.22.0b4)
+    sanitize (3.0.4)
+      crass (~> 0.2.0)
+      nokogiri (>= 1.4.4)
+      nokogumbo (= 1.1.12)
     sass (3.2.19)
     sass-css-importer (1.0.0.beta.0)
       sass (>= 3.1)
@@ -228,6 +253,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
   acts-as-taggable-on (~> 3.4)
   acts_as_votable (~> 0.10.0)
   babosa
@@ -238,12 +264,17 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   data-confirm-modal!
   devise
+  email_reply_parser
+  escape_utils
   factory_girl_rails (~> 4.0)
   faker (~> 1.4.3)
   font-awesome-sass (~> 4.2.0)
   friendly_id
+  gemoji
+  github-linguist
   github-markdown
   gravtastic
+  html-pipeline
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
@@ -257,7 +288,9 @@ DEPENDENCIES
   rails (= 4.1.8)
   rails_12factor
   ransack
+  rinku
   rspec-rails (~> 3.0.0)
+  sanitize
   sass-css-importer
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
