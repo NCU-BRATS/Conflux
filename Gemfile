@@ -29,8 +29,18 @@ gem 'friendly_id'
 gem 'babosa'
 # authorization system
 gem 'pundit'
-# Github Flavored Markdown
-gem 'github-markdown', require: 'github/markdown'
+# html-pipeline
+gem 'html-pipeline'
+# html-pipeline dependencies
+gem "rouge"
+gem "rinku",   :require => false
+gem "gemoji",   :require => false
+gem "RedCloth", :require => false
+gem "github-markdown",   :require => false
+gem "email_reply_parser",   :require => false
+gem "sanitize",   :require => false
+gem "escape_utils",   :require => false
+gem "github-linguist",  :require => false
 
 # Gravatar Integration
 gem 'gravtastic'
