@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
       HTML::Pipeline::HttpsFilter,
       HTML::Pipeline::MentionFilter,
       HTML::Pipeline::EmojiFilter,
-      HTML::Pipeline::RougeSyntaxHighlightFilter
+      RougeSyntaxHighlightFilter
     ], context.merge(:gfm => true) # enable github formatted markdown
 
     filename = "#{Rails.root}/readme.md"
