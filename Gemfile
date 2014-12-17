@@ -32,6 +32,7 @@ gem 'pundit'
 # html-pipeline
 gem 'html-pipeline'
 # html-pipeline dependencies
+gem "rouge"
 gem "rinku",   :require => false
 gem "gemoji",   :require => false
 gem "RedCloth", :require => false

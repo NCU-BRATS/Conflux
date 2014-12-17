@@ -176,6 +176,7 @@ GEM
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rinku (1.7.3)
+    rouge (1.7.4)
     rspec-core (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.4)
@@ -289,6 +290,7 @@ DEPENDENCIES
   rails_12factor
   ransack
   rinku
+  rouge
   rspec-rails (~> 3.0.0)
   sanitize
   sass-css-importer
