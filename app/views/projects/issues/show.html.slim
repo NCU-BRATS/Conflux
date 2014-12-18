@@ -13,7 +13,11 @@ dl.dl-horizontal
   dt = "#{Issue.human_attribute_name(:due_at)}:"
   dd = @issue.due_at
 
-dl.dl-horizontal
+
   - @issue.comments.each do |comment|
-    dt = comment.user.name
-    dd = comment.content
+    .row.comment
+      .col-md-1.comment-user
+        = avatar_tag current_user
+        p = comment.user.name
+      .col-md-10.comment-content
+        = comment.content

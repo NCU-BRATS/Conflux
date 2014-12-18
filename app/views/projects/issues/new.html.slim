@@ -10,7 +10,6 @@ h1 = title "新增 #{Issue.model_name.human}"
 
   = f.fields_for :comments do |cf|
     = cf.input :content
-    = cf.input :user_id, input_html: { value: current_user.id }, as: :hidden
 
   .form-actions
     = f.button :submit

@@ -27,6 +27,7 @@ class Projects::IssuesController < Projects::ApplicationController
   def create
     @issue = @project.issues.build( issue_params )
     @issue.user = current_user
+    @issue.comments.each { |comment| comment.user = current_user }
     flash[:notice] = "已成功創建#{ Issue.model_name.human }" if @issue.save
     respond_with @project, @issue
   end
@@ -43,7 +44,7 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def issue_params
-    params.require(:issue).permit( :title, :begin_at, :due_at, comments_attributes: [ :user_id, :content ] )
+    params.require(:issue).permit( :title, :begin_at, :due_at, comments_attributes: [ :content ] )
   end
 
   def authorize_issue
