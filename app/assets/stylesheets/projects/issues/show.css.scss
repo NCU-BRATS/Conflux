@@ -1,0 +1,22 @@
+.comment{
+  margin-top: 20px;
+  .comment-user {
+    display: block;
+    text-align: center;
+    img {
+      width: 80%;
+      float: left;
+
+    }
+    p {
+      width: 80%;
+    }
+  }
+
+  .comment-content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: solid 1px #BBBBBB;
+    border-radius: 3px;
+  }
+}
