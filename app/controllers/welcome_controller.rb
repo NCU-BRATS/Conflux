@@ -15,7 +15,7 @@ class WelcomeController < ApplicationController
       RougeSyntaxHighlightFilter
     ], context.merge(:gfm => true) # enable github formatted markdown
 
-    filename = "#{Rails.root}/readme.md"
+    filename = "#{Rails.root}/README.md"
     @contents = File.read(filename)
     @text = markdown_pipeline.call(@contents)[:output]
   end
