@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
+  responders :flash, :http_cache
   respond_to :html, :json, :js
 
   # Prevent CSRF attacks by raising an exception.

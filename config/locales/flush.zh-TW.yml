@@ -1,0 +1,10 @@
+zh-TW:
+  flash:
+    actions:
+      create:
+        notice: "已成功新增%{resource_name}"
+      update:
+        notice: "已成功更新%{resource_name}"
+      destroy:
+        notice: "已成功刪除%{resource_name}"
+        alert: "%{resource_name}不能被刪除"

@@ -26,20 +26,19 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.members << current_user
-    flash[:notice] = "已成功創建#{Project.model_name.human}" if @project.save
+    @project.save
     respond_with @project
   end
 
   def update
     authorize @project
-    flash[:notice] = "已成功修改#{Project.model_name.human}" if @project.update(project_params)
+    @project.update(project_params)
     respond_with @project
   end
 
   def destroy
     authorize @project
     @project.destroy
-    flash[:notice] = "已成功刪除#{Project.model_name.human}"
     respond_with @project
   end
 
@@ -53,4 +52,9 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:name, :description)
     end
+
+    def interpolation_options
+      { resource_name: @project.name }
+    end
+
 end
