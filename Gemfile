@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 # Use postgres as the database for Active Record
 gem 'pg', '~> 0.18.0.pre'
 # for authentication solution
@@ -14,7 +14,7 @@ gem 'kaminari'
 gem 'simple_form', '~> 3.1.0rc2'
 gem 'nested_form', '~> 0.3.2'
 # Slim templating engine
-gem 'slim-rails'
+gem 'slim-rails', github: 'ericboehs/slim-rails'
 # for SEO-friendly meta tags
 gem 'meta-tags'
 # issue tagging
@@ -42,6 +42,9 @@ gem "sanitize",   :require => false
 gem "escape_utils",   :require => false
 # gem "github-linguist",  :require => false
 
+# responders
+gem 'responders', '~> 2.0'
+
 # Gravatar Integration
 gem 'gravtastic'
 # Twitter Bootstrap
@@ -49,12 +52,12 @@ gem 'bootstrap-sass', '~> 3.3.1'
 # Icons css
 gem 'font-awesome-sass', '~> 4.2.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.0'
 gem 'sass-css-importer'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -80,7 +83,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker', '~> 1.4.3'
   gem 'better_errors'
