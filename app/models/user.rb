@@ -20,4 +20,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :name, format: { with: /[A-Za-z0-9_]/, message: I18n.t('validation.user.format') }
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
 end

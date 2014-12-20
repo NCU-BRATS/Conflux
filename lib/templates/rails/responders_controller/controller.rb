@@ -28,18 +28,17 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   def create
     @<%= singular_table_name %> = <%= orm_class.build(class_name, "#{singular_table_name}_params") %>
-    flash[:notice] = "已成功創建#{<%= class_name %>.model_name.human}" if @<%= orm_instance.save %>
+    @<%= orm_instance.save %>
     respond_with @<%= singular_table_name %>
   end
 
   def update
-    flash[:notice] = "已成功修改#{<%= class_name %>.model_name.human}" if @<%= orm_instance.update("#{singular_table_name}_params") %>
+    @<%= orm_instance.update("#{singular_table_name}_params") %>
     respond_with @<%= singular_table_name %>
   end
 
   def destroy
     @<%= orm_instance.destroy %>
-    flash[:notice] = "已成功刪除#{<%= class_name %>.model_name.human}"
     respond_with @<%= singular_table_name %>
   end
 
