@@ -44,6 +44,10 @@ gem "escape_utils",   :require => false
 
 # responders
 gem 'responders', '~> 2.0'
+# sync
+gem 'faye'
+gem 'thin', require: false
+gem 'sync'
 
 # Gravatar Integration
 gem 'gravtastic'
