@@ -23,8 +23,8 @@ test:
   async: false
 
 production:
-  server: "http://conflux.com/faye"
-  adapter_javascript_url: "http://localhost:9292/faye/faye.js"
+  server: <=% ENV["SYNC_SERVER"] %> #"http://example.com/faye"
+  adapter_javascript_url: <=% ENV["SYNC_JS_PATH"] %> #"http://localhost:9292/faye/faye.js"
   adapter: "Faye"
   auth_token: <=% ENV["SYNC_AUTH_TOKEN"] %>
   async: true
