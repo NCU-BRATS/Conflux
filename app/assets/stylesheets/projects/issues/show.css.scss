@@ -1,16 +1,10 @@
 .comment{
+
   margin-top: 20px;
+
   .comment-user {
     display: block;
     text-align: center;
-    img {
-      width: 80%;
-      float: left;
-
-    }
-    p {
-      width: 80%;
-    }
   }
 
   .comment-content {
@@ -19,4 +13,5 @@
     border: solid 1px #BBBBBB;
     border-radius: 3px;
   }
+
 }

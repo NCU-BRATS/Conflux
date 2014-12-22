@@ -15,9 +15,9 @@ dl.dl-horizontal
 
 
   - @issue.comments.each do |comment|
-    .row.comment
+    .comment
       .col-md-1.comment-user
-        = avatar_tag current_user
+        = avatar_tag current_user, :size => 50
         p = comment.user.name
       .col-md-10.comment-content
-        = comment.content
+        == comment.content

@@ -1,5 +1,6 @@
 class Issue < ActiveRecord::Base
   include AASM
+  include ParserConcern
 
   belongs_to :project
   belongs_to :user

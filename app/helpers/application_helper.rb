@@ -1,5 +1,6 @@
 module ApplicationHelper
   def avatar_tag(user, options={})
+    options.merge!({:class => 'img-rounded'})
     if user.try(:avatar_url).present?
       image_tag(user.avatar_url, options)
     else
