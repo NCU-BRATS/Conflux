@@ -21,4 +21,5 @@
 //= require moment
 //= require moment/zh-tw
 //= require bootstrap-datetimepicker
+//= require sync
 //= require_tree .

@@ -9,6 +9,8 @@ class Project < ActiveRecord::Base
   has_many :sprints,      dependent: :destroy
   has_many :repositories, dependent: :destroy
 
+  sync :all
+
   validates :name, presence: true
   validates :name, uniqueness: true
 
