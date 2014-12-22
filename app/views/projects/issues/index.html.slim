@@ -1,21 +1,24 @@
 h1 = title "#{Issue.model_name.human}列表"
 
-table.table
+table.table.table-striped
   thead
-    tr
-      th = sort_link(@query, :sequential_id)
-      th = sort_link(@query, :title)
-      th = link_to "新增#{Issue.model_name.human}", new_project_issue_path, class: 'btn btn-success pull-right'
+    tr.row
+      th.col-md-1 = sort_link(@query, :sequential_id)
+      th.col-md-8 = sort_link(@query, :title)
+      th.col-md-3 = link_to "新增#{Issue.model_name.human}", new_project_issue_path, class: 'btn btn-success pull-right'
 
   tbody
     - @issues.each do |issue|
-      tr
-        td = issue.sequential_id
-        td = issue.title
-        td
+      tr.row
+        td.col-md-1 = issue.sequential_id
+        td.col-md-8 = issue.title
+        td.col-md-3
           .btn-toolbar.pull-right
-            = link_to '詳情', project_issue_path( @project, issue ), class: 'btn btn-xs  btn-info'
-            = link_to '關閉', project_issue_path( @project, issue ), data: {:confirm => '你確定要關閉嗎?'}, :method => :delete, class: ' btn btn-xs btn-danger'
+
+            = link_to project_issue_path( @project, issue ), class: 'btn btn-xs  btn-info' do
+              span.fa.fa-info-circle
+            = link_to project_issue_path( @project, issue ), data: {:confirm => '你確定要關閉嗎?'}, :method => :delete, class: ' btn btn-xs btn-danger' do
+              span.fa.fa-times-circle
 
 br
 

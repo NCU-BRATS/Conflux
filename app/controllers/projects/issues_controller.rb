@@ -10,6 +10,9 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def show
+    @issue.comments.each { |comment|
+      comment.content = Issue.parse( comment.content )
+    }
     respond_with @project, @issue
   end
 
