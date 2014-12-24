@@ -1,9 +1,9 @@
-.btn-toolbar.pull-right
-  = link_to '編輯', project_issue_path( @project, @issue ), class: 'btn btn-warning'
-  = link_to '返回', project_issues_path( @project ), class: 'btn btn-default'
 
-h1 = title "#{Issue.model_name.human}詳情"
-
+h1
+  = title "#{Issue.model_name.human}詳情"
+  .btn-toolbar.pull-right
+    = link_to '編輯', project_issue_path(@project, @issue), class: 'btn btn-warning'
+    = link_to '返回', project_issues_path(@project), class: 'btn btn-default'
 
 dl.dl-horizontal
   dt = "#{Issue.human_attribute_name(:title)}:"
@@ -16,8 +16,11 @@ dl.dl-horizontal
 
   - @issue.comments.each do |comment|
     .comment
-      .col-md-1.comment-user
-        = avatar_tag current_user, :size => 50
-        p = comment.user.name
-      .col-md-10.comment-content
-        == comment.content
+      .col-sm-2.comment-user
+        = avatar_tag comment.user, :size => 80
+      .col-sm-10.comment-content
+        .panel.panel-default
+          .panel-heading
+            = comment.user.name
+          .panel-body
+            == comment.content

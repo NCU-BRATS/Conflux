@@ -1,7 +1,6 @@
 class Projects::IssuesController < Projects::ApplicationController
   before_action :authenticate_user!
   before_action :set_issue, only: [ :show, :edit, :update ]
-  # before_action :authorize_issue, only: [ :new, :create, :edit, :update, :destroy ]
 
   def index
     @query  = Issue.search( params[:q] )
@@ -10,9 +9,7 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def show
-    @issue.comments.each { |comment|
-      comment.content = Issue.parse( comment.content )
-    }
+    @issue.comments.each { |comment| comment.content = Issue.parse( comment.content ) }
     respond_with @project, @issue
   end
 
@@ -43,7 +40,7 @@ class Projects::IssuesController < Projects::ApplicationController
   private
 
   def set_issue
-    @issue = @project.issues.includes( :user ).find_by_sequential_id( params[:id] )
+    @issue = @project.issues.where( :sequential_id => params[:id] ).first
   end
 
   def issue_params
