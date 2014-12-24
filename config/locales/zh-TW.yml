@@ -201,3 +201,5 @@ zh-TW:
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
     pm: 下午
+  action:
+    post_at: 發表於
