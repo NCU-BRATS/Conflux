@@ -21,3 +21,5 @@
 
 en:
   hello: "Hello world"
+  action:
+    post_at: "posted at"
