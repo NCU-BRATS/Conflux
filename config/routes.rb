@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   resources :projects do
+    concern :commentable do
+      resources :comments , only: [:create]
+    end
 
     scope module: 'projects' do
       resources :members
-      resources :issues
+      resources :issues , concerns: :commentable
+      resources :comments ,only: [:update, :destroy]
     end
 
     # rematch ProjectParticipation Model path to project_member_path
