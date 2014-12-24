@@ -6,7 +6,7 @@ module ApplicationHelper
       options = options.symbolize_keys
       options[:alt] = options[:alt] || user.name
 
-      if size = options.delete(:size)
+      if ( size = options.delete(:size) ).present?
         options[:width] = options[:height] = size
       end
 
