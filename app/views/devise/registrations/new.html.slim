@@ -8,5 +8,5 @@ h2 註冊
     = f.input :password, required: true, hint: ("最少 #{@minimum_password_length} 個字元" if @validatable)
     = f.input :password_confirmation, required: true
   .form-actions
-    = f.button :submit, "註冊"
-= render "devise/shared/links"
+    = f.button :submit, '註冊'
+= render 'devise/shared/links'

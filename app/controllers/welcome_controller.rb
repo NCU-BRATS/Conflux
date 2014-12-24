@@ -1,8 +1,8 @@
 class WelcomeController < ApplicationController
   def index
     context = {
-      :asset_root => "http://your-domain.com/where/your/images/live/icons",
-      :base_url   => "http://your-domain.com"
+      :asset_root => 'http://your-domain.com/where/your/images/live/icons',
+      :base_url   => 'http://your-domain.com'
     }
     markdown_pipeline = HTML::Pipeline.new [
       HTML::Pipeline::MarkdownFilter,

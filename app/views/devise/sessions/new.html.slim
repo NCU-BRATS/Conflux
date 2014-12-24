@@ -6,4 +6,4 @@ h2 登入
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
   .form-actions
     = f.button :submit, '登入'
-= render "devise/shared/links"
+= render 'devise/shared/links'

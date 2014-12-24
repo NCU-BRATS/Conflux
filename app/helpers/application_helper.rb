@@ -14,7 +14,7 @@ module ApplicationHelper
       options[:data][:gravatar] = user.email
       options[:data][:size] = size
 
-      tag("img", options)
+      tag('img', options)
     end
   end
 end

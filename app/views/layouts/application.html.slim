@@ -13,10 +13,10 @@ html
     = csrf_meta_tags
 
   body
-    = render "layouts/navbar"
+    = render 'layouts/navbar'
     .container
       .row
         = yield
 
-    = render "layouts/notice"
+    = render 'layouts/notice'
     = yield :javascripts

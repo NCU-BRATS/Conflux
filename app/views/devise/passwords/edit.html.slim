@@ -4,8 +4,8 @@ h2 重設密碼
   = f.input :reset_password_token, as: :hidden
   = f.full_error :reset_password_token
   .form-inputs
-    = f.input :password, label: "新密碼", required: true, autofocus: true
-    = f.input :password_confirmation, label: "確認新密碼", required: true
+    = f.input :password, label: '新密碼', required: true, autofocus: true
+    = f.input :password_confirmation, label: '確認新密碼', required: true
   .form-actions
-    = f.button :submit, "改變密碼"
-= render "devise/shared/links"
+    = f.button :submit, '改變密碼'
+= render 'devise/shared/links'

@@ -18,7 +18,7 @@
         - if user_signed_in?
           li
             a class="navbar-avatar" href="#"
-              = avatar_tag current_user, :size => "20"
+              = avatar_tag current_user, :size => '20'
               span = current_user.name
           li
             a href=destroy_user_session_path data-method="delete" 登出
