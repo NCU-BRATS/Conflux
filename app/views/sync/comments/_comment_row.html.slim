@@ -1,0 +1,11 @@
+.comment
+  .col-sm-2.comment-user
+    = avatar_tag comment.user, :size => 80
+  .col-sm-10.comment-content
+    .panel.panel-default
+      .panel-heading
+        a = "#{comment.user.name} "
+        = "#{t('action.post_at')} "
+        = time_format_relative_tag comment.created_at
+      .panel-body
+        == comment.content
