@@ -20,27 +20,31 @@ module ApplicationHelper
   end
 
   def time_format_absolute_tag( time, options={} )
-    options = options.symbolize_keys
+    if time.present?
+      options = options.symbolize_keys
 
-    options[:data] ||= {}
-    options[:data][:moment] = time.to_s
-    options[:data][:type] = 'absolute'
+      options[:data] ||= {}
+      options[:data][:moment] = time.to_s
+      options[:data][:type] = 'absolute'
 
-    unless ( format = options.delete(:format) ).nil?
-      options[:data][:format] = format
+      unless ( format = options.delete(:format) ).nil?
+        options[:data][:format] = format
+      end
+
+      tag( 'span', options )
     end
-
-    tag( 'span', options )
   end
 
   def time_format_relative_tag( time, options={} )
-    options = options.symbolize_keys
+    if time.present?
+      options = options.symbolize_keys
 
-    options[:data] ||= {}
-    options[:data][:moment] = time.to_s
-    options[:data][:type] = 'relative'
+      options[:data] ||= {}
+      options[:data][:moment] = time.to_s
+      options[:data][:type] = 'relative'
 
-    tag( 'span', options )
+      tag( 'span', options )
+    end
   end
 
 end
