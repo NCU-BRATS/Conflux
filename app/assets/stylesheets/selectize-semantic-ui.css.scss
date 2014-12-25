@@ -1,0 +1,29 @@
+.selectize-input {
+  -webkit-transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  &.focus {
+    color: rgba(0, 0, 0, 0.85);
+    border-color: rgba(39, 41, 43, 0.3);
+    border-radius: 0 .2857rem .2857rem 0;
+    background: #fff;
+    box-shadow: 1px 0 0 0 rgba(39, 41, 43, 0.3) inset;
+  }
+}
+.field.error {
+  .selectize-input, .selectize-input.input-active {
+    background: #fff0f0 !important;
+    border-color: #dbb1b1 !important;
+    color: #d95c5c;
+    border-radius: 0 .2857rem .2857rem 0;
+    box-shadow: 2px 0 0 0 #d95c5c inset;
+  }
+  .selectize-dropdown {
+    background: #fff0f0 !important;
+    border-color: #dbb1b1 !important;
+    color: #d95c5c;
+    .option.active {
+      background: #ffeaea !important;
+      color: #d95c5c;
+    }
+  }
+}

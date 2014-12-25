@@ -20,6 +20,7 @@
 @import "bootstrap-datetimepicker";
 @import "selectize";
 @import "selectize.bootstrap3";
+@import "selectize-semantic-ui";
 @import "github-markdown";
 @import "highlight/solarized";
 @import "semantic";
@@ -49,4 +50,9 @@ nav {
   border-bottom: 1px solid #DDDDDD;
   padding: 2em 2em 7em;
   z-index: 1;
+}
+
+.checkbox, .radio {
+  margin-bottom: 4px;
+  margin-top: 4px;
 }
