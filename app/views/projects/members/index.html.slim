@@ -2,7 +2,7 @@ table.table
   thead
     tr
       th = User.human_attribute_name(:name)
-      th = link_to "新增#{ProjectParticipation.model_name.human}", new_project_member_path, class: 'btn btn-success pull-right'
+      th = link_to "新增#{ProjectParticipation.model_name.human}", new_project_member_path, class: 'ui mini green button pull-right'
 
   tbody
     - @participations.each do |participation|
@@ -10,7 +10,7 @@ table.table
         td = participation.user.name
         td
           .btn-toolbar.pull-right
-            = link_to '刪除', project_member_path(@project, participation), data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: ' btn btn-xs btn-danger'
+            = link_to '刪除', project_member_path(@project, participation), data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: 'ui mini red button'
 
 .btn-toolbar.pull-right
-  = link_to '返回', project_path(@project), class: 'btn btn-default'
+  = link_to '返回', project_path(@project), class: 'ui button'
