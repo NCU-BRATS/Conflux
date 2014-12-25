@@ -1,3 +1,2 @@
-li
-  = link_to_unless current_page.first?, raw(t 'views.pagination.first'),
-    url, remote: remote
+= link_to_unless current_page.first?, '<i class="angle double left icon"></i>'.html_safe,
+  url, remote: remote, class: 'icon item'

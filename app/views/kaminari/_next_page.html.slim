@@ -1,3 +1,2 @@
-li
-  = link_to_unless current_page.last?, raw(t 'views.pagination.next'),
-    url, rel: 'next', remote: remote
+= link_to_unless current_page.last?, '<i class="angle right icon"></i>'.html_safe,
+  url, rel: 'next', remote: remote, class: 'icon item'

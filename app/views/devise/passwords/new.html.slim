@@ -1,8 +1,8 @@
 h2 忘記密碼了?
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-  .form-actions
-    = f.button :submit, '寄給我重設密碼的步驟信'
+
+  = f.input :email, required: true, autofocus: true
+
+  = f.button :submit, '寄給我重設密碼的步驟信'
 = render 'devise/shared/links'

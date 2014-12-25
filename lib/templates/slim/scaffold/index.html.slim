@@ -8,13 +8,13 @@ h1 = title "#{<%= class_name %>.model_name.human}列表"
 <% end -%>
   = f.submit 'Ransack 搜尋', class: 'btn btn-default'
 
-table.table
+table.ui.table
   thead
     tr
 <% attributes.each do |attribute| -%>
       th = sort_link(@q, :<%= attribute.name %>)
 <% end -%>
-      th = link_to "新增#{<%= class_name %>.model_name.human}", new_<%= singular_table_name %>_path, class: 'btn btn-success pull-right'
+      th = link_to "新增#{<%= class_name %>.model_name.human}", new_<%= singular_table_name %>_path, class: 'ui mini green button pull-right'
 
   tbody
     - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
@@ -24,9 +24,9 @@ table.table
 <% end -%>
         td
           .btn-toolbar.pull-right
-            = link_to '詳情', <%= singular_table_name %>, class: 'btn btn-xs  btn-info'
-            = link_to '編輯', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-xs btn-warning'
-            = link_to '刪除', <%= singular_table_name %>, data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: ' btn btn-xs btn-danger'
+            = link_to '詳情', <%= singular_table_name %>, class: 'ui mini blue button'
+            = link_to '編輯', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'ui mini yellow button'
+            = link_to '刪除', <%= singular_table_name %>, data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: 'ui mini red button'
 
 br
 

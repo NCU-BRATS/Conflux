@@ -14,9 +14,8 @@ html
 
   body
     = render 'layouts/navbar'
-    .container
-      .row
-        = yield
+    .main.container
+      = yield
 
     = render 'layouts/notice'
     = yield :javascripts

@@ -1,8 +1,6 @@
 = simple_form_for(@participation) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.association :user
+  = f.association :user
 
-  .form-actions
-    = f.button :submit
+  = f.button :submit

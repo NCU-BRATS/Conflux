@@ -1,17 +1,19 @@
 - if notice
-  .navbar.navbar-fixed-bottom role="navigation"
-    .container-fluid
-      .alert.alert-success.alert-dismissible.fade.in role="alert"
-        button.close type="button" data-dismiss="alert"
-          span aria-hidden="true" ×
-          span class="sr-only" 關閉
-        p.text-center = notice
+  .navbar.navbar-fixed-bottom#global_notice
+    .ui.two.column.centered.grid
+      .ui.positive.message.large.column
+        .header.text-center = notice
+  coffee:
+    setTimeout( () ->
+      $('#global_notice').fadeOut()
+    , 3000)
 
 - if alert
-  .navbar.navbar-fixed-bottom role="navigation"
-    .container-fluid
-      .alert.alert-danger.alert-dismissible.fade.in role="alert"
-        button.close type="button" data-dismiss="alert"
-          span aria-hidden="true" ×
-          span class="sr-only" 關閉
-        p.text-center = alert
+  .navbar.navbar-fixed-bottom#global_alert
+    .ui.two.column.centered.grid
+      .ui.negative.message.large.column
+        i.close.icon
+        .header.text-center = alert
+  coffee:
+    $('#global_alert .close').on 'click', () ->
+      $('#global_alert').fadeOut()
