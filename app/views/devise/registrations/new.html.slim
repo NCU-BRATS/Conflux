@@ -1,12 +1,12 @@
 h2 註冊
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = f.error_notification
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-    = f.input :name, required: true
-    = f.input :title
-    = f.input :password, required: true, hint: ("最少 #{@minimum_password_length} 個字元" if @validatable)
-    = f.input :password_confirmation, required: true
-  .form-actions
-    = f.button :submit, '註冊'
+
+  = f.input :email, required: true, autofocus: true
+  = f.input :name, required: true
+  = f.input :title
+  = f.input :password, required: true, hint: ("最少 #{@minimum_password_length} 個字元" if @validatable)
+  = f.input :password_confirmation, required: true
+
+  = f.button :submit, '註冊'
 = render 'devise/shared/links'
