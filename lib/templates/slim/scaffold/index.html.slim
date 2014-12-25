@@ -24,9 +24,9 @@ table.table
 <% end -%>
         td
           .btn-toolbar.pull-right
-            = link_to '詳情', <%= singular_table_name %>, class: 'btn btn-xs  btn-info'
-            = link_to '編輯', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-xs btn-warning'
-            = link_to '刪除', <%= singular_table_name %>, data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: ' btn btn-xs btn-danger'
+            = link_to '詳情', <%= singular_table_name %>, class: 'ui mini blue button'
+            = link_to '編輯', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'ui mini yellow button'
+            = link_to '刪除', <%= singular_table_name %>, data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: 'ui mini red button'
 
 br
 
