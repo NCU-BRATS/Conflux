@@ -14,7 +14,7 @@ gem 'kaminari'
 gem 'simple_form', '~> 3.1.0rc2'
 gem 'nested_form', '~> 0.3.2'
 # Slim templating engine
-gem 'slim-rails', github: 'ericboehs/slim-rails'
+gem 'slim-rails', github: 'slim-template/slim-rails'
 # for SEO-friendly meta tags
 gem 'meta-tags'
 # issue tagging
