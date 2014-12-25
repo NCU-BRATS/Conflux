@@ -11,6 +11,10 @@ class Comment < ActiveRecord::Base
 
   delegate :project, to: :commentable
 
+  scope :asc, -> { order(:created_at) }
+
+  sync_scope :by_commentable, ->(commentable){ where( commentable_type: commentable.class.name, commentable_id: commentable.id ) }
+
   def parse_content
     self.html = self.class.parse content
   end
