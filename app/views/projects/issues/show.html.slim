@@ -2,12 +2,23 @@
 h1
   = title "##{@issue.sequential_id} #{@issue.title}"
   .btn-toolbar.pull-right
-    = link_to '編輯', project_issue_path(@project, @issue), class: 'btn btn-warning'
-    = link_to '返回', project_issues_path(@project), class: 'btn btn-default'
+    = link_to '編輯', project_issue_path(@project, @issue), class: 'ui button basic red'
+    = link_to '返回', project_issues_path(@project), class: 'ui button basic'
+
+div
+  - if @issue.status.upcase == 'OPEN'
+    .ui.label.large
+      i.icon.green.unlock
+      = @issue.status.upcase
+  - if @issue.status.upcase == 'CLOSED'
+    .ui.label.large
+      i.icon.red.lock
+      = @issue.status.upcase
+  span.ui.secondary
+    = "#{@issue.user.name} #{t('action.created_at')}"
+    = time_format_relative_tag @issue.created_at
 
 dl.dl-horizontal
-  dt = "#{Issue.human_attribute_name(:created_at)}:"
-  dd = time_format_absolute_tag @issue.created_at, :format => 'YYYY-MM-DD HH:mm'
   - if @issue.begin_at.present?
     dt = "#{Issue.human_attribute_name(:begin_at)}:"
     dd = time_format_absolute_tag @issue.begin_at, :format => 'YYYY-MM-DD HH:mm'
