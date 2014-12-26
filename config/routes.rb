@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :project_participations, as: :participations, path: :members
   end
 
+  resources :profiles
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
