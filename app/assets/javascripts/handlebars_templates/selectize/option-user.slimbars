@@ -1,0 +1,11 @@
+div
+  .pull-left
+    | {{ gravtastic email 40 }}
+
+  div style="padding-left: 50px;"
+    strong
+      | {{ name }}
+    small.text-muted style="padding-left: 5px"
+      | {{ title }}
+    .text-muted
+      | {{ email }}

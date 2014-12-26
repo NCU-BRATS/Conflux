@@ -24,4 +24,6 @@
 //= require sync
 //= require semantic
 //= require handlebars.runtime
+//= require_tree ./handlebars_helpers
+//= require_tree ./handlebars_templates
 //= require_tree .
