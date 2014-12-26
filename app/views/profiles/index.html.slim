@@ -1,0 +1,16 @@
+body
+  h1 = title "#{User.model_name.human}"
+
+
+  table.ui.table
+    thead
+      tr
+        th = sort_link(@q, :name)
+        th = sort_link(@q, :title)
+        th
+    tbody
+      = render partial: "user_row", collection: @users
+
+
+= paginate @users
+

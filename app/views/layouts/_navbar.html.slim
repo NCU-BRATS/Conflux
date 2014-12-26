@@ -1,10 +1,11 @@
 nav.ui.menu
   a.brand.item href=root_path Conflux
   a.active.item href=root_path Home
+  a.item href=profiles_path 使用者
 
   .right.menu
     - if user_signed_in?
-      a.item.navbar-avatar href="#"
+      a.item.navbar-avatar href=profile_path(current_user.slug)
         = avatar_tag current_user, :size => '20'
         span = current_user.name
       a.item href=destroy_user_session_path data-method="delete" 登出

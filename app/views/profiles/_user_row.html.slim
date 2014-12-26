@@ -1,0 +1,7 @@
+tr
+  td = user_row.name
+  td = user_row.title
+  td
+    .btn-toolbar.pull-right
+      = link_to 'see profile', profile_path(user_row.slug), class: 'ui mini blue button'
+
