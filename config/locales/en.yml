@@ -24,3 +24,5 @@ en:
   action:
     post_at: "posted at"
     created_at: "created at"
+    edit: "edit"
+    back: "back"

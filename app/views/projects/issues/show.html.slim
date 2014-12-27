@@ -1,10 +1,13 @@
 
 h1
   = title "##{@issue.sequential_id} #{@issue.title}"
-  .btn-toolbar.pull-right
-    = link_to '編輯', project_issue_path(@project, @issue), class: 'ui button basic red'
-    = link_to '返回', project_issues_path(@project), class: 'ui button basic'
-
+  .ui.right.floated.buttons
+    a.ui.button.basic.red href="#{project_issue_path(@project, @issue)}"
+      i.icon.edit
+      = t('action.edit')
+    a.ui.button.basic.green href="#{project_issues_path(@project)}"
+      i.icon.chevron.left
+      = t('action.back')
 div
   - if @issue.status.upcase == 'OPEN'
     .ui.label.large
@@ -14,7 +17,7 @@ div
     .ui.label.large
       i.icon.red.lock
       = @issue.status.upcase
-  span.ui.secondary
+  span
     = "#{@issue.user.name} #{t('action.created_at')}"
     = time_format_relative_tag @issue.created_at
 
@@ -32,7 +35,5 @@ dl.dl-horizontal
 
 = simple_form_for( [ @project, @issue, @issue.comments.build ], remote: true )  do |f|
   = f.error_notification
-  .form-inputs
-    = f.input :content
-  .form-actions
-    = f.button :submit, class: 'pull-right'
+  = f.input :content
+  = f.button :submit, class: 'pull-right'

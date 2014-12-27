@@ -1,17 +1,20 @@
-h1 = title "新增 #{Issue.model_name.human}"
+h1
+  = title "新增#{Issue.model_name.human}"
+  .ui.right.floated.buttons
+    a.ui.button.basic.green href="#{project_issues_path(@project)}"
+      i.icon.chevron.left
+      = t('action.back')
 
 = simple_nested_form_for [ @project, @issue ] do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.input :title
-    = f.input :begin_at
-    = f.input :due_at
+  = f.input :title
+  = f.input :begin_at
+  = f.input :due_at
 
   = f.fields_for :comments do |cf|
     = cf.input :content
 
-  .form-actions
-    = f.button :submit
+  = f.button :submit
 
-= link_to '返回', project_issues_path( @project ), class: 'btn btn-default pull-right'
+
