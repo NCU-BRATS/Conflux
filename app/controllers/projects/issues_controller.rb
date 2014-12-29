@@ -24,12 +24,12 @@ class Projects::IssuesController < Projects::ApplicationController
     @issue = @project.issues.build( issue_params )
     @issue.user = current_user
     @issue.comments.each { |comment| comment.user = current_user }
-    flash[:notice] = "已成功創建#{ Issue.model_name.human }" if @issue.save
+    @issue.save
     respond_with @project, @issue
   end
 
   def update
-    flash[:notice] = "已成功修改#{ Issue.model_name.human }" if @issue.update( issue_params )
+    @issue.update( issue_params )
     respond_with @project, @issue
   end
 
