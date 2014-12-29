@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
     scope module: 'projects' do
       resources :members
-      resources :issues , concerns: :commentable
+      resources :issues , concerns: :commentable do
+        member do
+          put :close
+        end
+      end
       resources :comments ,only: [:update, :destroy]
     end
 

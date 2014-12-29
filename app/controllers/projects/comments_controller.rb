@@ -28,7 +28,7 @@ class Projects::CommentsController < Projects::ApplicationController
     def commentable
       params.each do |name, value|
         if name=~ /(.+)_id$/
-          return $1.classify.constantize.find(value) if name != 'project_id'
+          return $1.classify.constantize.commentable_find( @project, value ).first if name != 'project_id'
         end
       end
       nil

@@ -1,7 +1,7 @@
 class Projects::IssuesController < Projects::ApplicationController
-  enable_sync only: [:create, :update]
+  enable_sync only: [:create, :update, :close]
   before_action :authenticate_user!
-  before_action :set_issue, only: [ :show, :edit, :update ]
+  before_action :set_issue, only: [ :show, :update, :close ]
 
   def index
     @query  = Issue.search( params[:q] )
@@ -20,10 +20,6 @@ class Projects::IssuesController < Projects::ApplicationController
     respond_with @project, @issue
   end
 
-  def edit
-    respond_with @project, @issue
-  end
-
   def create
     @issue = @project.issues.build( issue_params )
     @issue.user = current_user
@@ -37,6 +33,10 @@ class Projects::IssuesController < Projects::ApplicationController
     respond_with @project, @issue
   end
 
+  def close
+    @issue.close!
+  end
+
   private
 
   def set_issue
@@ -44,7 +44,7 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def issue_params
-    params.require(:issue).permit( :title, :begin_at, :due_at, comments_attributes: [ :content ] )
+    params.require(:issue).permit( :title, :begin_at, :due_at, :status, comments_attributes: [ :content ] )
   end
 
   def authorize_issue

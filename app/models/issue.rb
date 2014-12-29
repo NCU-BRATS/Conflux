@@ -31,6 +31,14 @@ class Issue < ActiveRecord::Base
 
   end
 
+  def to_param
+    self.sequential_id.to_s
+  end
+
+  def self.commentable_find_key
+    :sequential_id
+  end
+
   validates :title, :status, :project, :user, presence: true
 
 end

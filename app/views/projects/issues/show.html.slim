@@ -15,7 +15,7 @@
     = simple_form_for([@project, @issue, @issue.comments.build], remote: true) do |f|
       = f.error_notification
       = f.input :content
-      a.ui.button.red.inverted.right.floated href='#'
+      = link_to close_project_issue_path(@project,@issue), data:{ method: :put, remote: true }, class: 'ui button red inverted right floated' do
         i.icon.circle.remove
         = '關閉任務'
       = f.button :submit, class: 'right floated icon inverted'
