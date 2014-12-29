@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :issues , concerns: :commentable do
         member do
           put :close
+          put :reopen
         end
       end
       resources :comments ,only: [:update, :destroy]

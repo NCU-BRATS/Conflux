@@ -26,3 +26,5 @@ en:
     created_at: "created at"
     edit: "edit"
     back: "back"
+    open: "open"
+    close: "close"

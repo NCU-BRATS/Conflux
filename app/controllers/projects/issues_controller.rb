@@ -1,7 +1,7 @@
 class Projects::IssuesController < Projects::ApplicationController
-  enable_sync only: [:create, :update, :close]
+  enable_sync only: [:create, :update, :close, :reopen]
   before_action :authenticate_user!
-  before_action :set_issue, only: [ :show, :update, :close ]
+  before_action :set_issue, only: [ :show, :update, :close, :reopen ]
 
   def index
     @query  = Issue.search( params[:q] )
@@ -35,6 +35,10 @@ class Projects::IssuesController < Projects::ApplicationController
 
   def close
     @issue.close!
+  end
+
+  def reopen
+    @issue.reopen!
   end
 
   private
