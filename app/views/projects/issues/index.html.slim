@@ -7,7 +7,9 @@ table.ui.table.stripped
       th = sort_link(@query, :title)
       th
         .right.aligned
-          = link_to "新增#{Issue.model_name.human}", new_project_issue_path, class: 'ui button green'
+          = link_to new_project_issue_path, class: 'ui button green' do
+            i.ui.icon.write
+            = "#{t('action.create')}#{Issue.model_name.human}"
 
   tbody
     - @issues.each do |issue|

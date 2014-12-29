@@ -8,9 +8,9 @@
 .ui.segment.tertiary
   .ui.top.attached.tabular.menu
     a.active.item data-tab='origin'
-      = '原始'
+      = t('action.write')
     a.item data-tab='preview'
-      = '預覽'
+      = t('action.preview')
   .ui.bottom.attached.active.tab.segment data-tab='origin'
     = simple_form_for([@project, @issue, @issue.comments.build], remote: true) do |f|
       = f.error_notification

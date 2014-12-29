@@ -24,7 +24,10 @@ en:
   action:
     post_at: "posted at"
     created_at: "created at"
+    create: "create"
     edit: "edit"
     back: "back"
     open: "open"
     close: "close"
+    write: "write"
+    preview: "preview"

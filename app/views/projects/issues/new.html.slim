@@ -1,5 +1,5 @@
 h1
-  = title "新增#{Issue.model_name.human}"
+  = title "#{t('action.create')}#{Issue.model_name.human}"
   .ui.right.floated.buttons
     a.ui.button.basic.green href="#{project_issues_path(@project)}"
       i.icon.chevron.left
