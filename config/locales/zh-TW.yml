@@ -201,3 +201,13 @@ zh-TW:
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
     pm: 下午
+  action:
+    post_at: 發表於
+    created_at: 創建於
+    create: 創建
+    edit: 編輯
+    back: 返回
+    open: 開啟
+    close: 關閉
+    write: 撰寫
+    preview: 預覽

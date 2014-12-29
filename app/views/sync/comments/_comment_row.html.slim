@@ -1,0 +1,12 @@
+.ui.grid
+  .three.wide.column
+    = avatar_tag comment.user, :size => 80
+  .thirteen.wide.column
+    .ui.stacked.segment
+      .ui.ribbon.teal.label
+        a
+          = "#{comment.user.name} "
+        = "#{t('action.post_at')}"
+        = time_format_relative_tag comment.created_at
+      p
+        == comment.html

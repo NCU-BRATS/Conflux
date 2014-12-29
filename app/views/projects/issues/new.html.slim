@@ -1,0 +1,20 @@
+h1
+  = title "#{t('action.create')}#{Issue.model_name.human}"
+  .ui.right.floated.buttons
+    a.ui.button.basic.green href="#{project_issues_path(@project)}"
+      i.icon.chevron.left
+      = t('action.back')
+
+= simple_nested_form_for [ @project, @issue ] do |f|
+  = f.error_notification
+
+  = f.input :title
+  = f.input :begin_at
+  = f.input :due_at
+
+  = f.fields_for :comments do |cf|
+    = cf.input :content
+
+  = f.button :submit
+
+

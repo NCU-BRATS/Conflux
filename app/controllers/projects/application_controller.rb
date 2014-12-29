@@ -8,7 +8,8 @@ class Projects::ApplicationController < ApplicationController
   end
 
   protected
-    def set_project
-      @project = Project.friendly.find(params[:project_id])
-    end
+  def set_project
+    @project = Project.friendly.find(params[:project_id])
+  end
+
 end

@@ -1,5 +1,6 @@
 module ApplicationHelper
   def avatar_tag(user, options={})
+    options.merge!({:class => 'img-rounded'})
     if user.try(:avatar_url).present?
       image_tag(user.avatar_url, options)
     else
@@ -17,4 +18,33 @@ module ApplicationHelper
       tag('img', options)
     end
   end
+
+  def time_format_absolute_tag( time, options={} )
+    if time.present?
+      options = options.symbolize_keys
+
+      options[:data] ||= {}
+      options[:data][:moment] = time.to_s
+      options[:data][:type] = 'absolute'
+
+      unless ( format = options.delete(:format) ).nil?
+        options[:data][:format] = format
+      end
+
+      tag( 'span', options )
+    end
+  end
+
+  def time_format_relative_tag( time, options={} )
+    if time.present?
+      options = options.symbolize_keys
+
+      options[:data] ||= {}
+      options[:data][:moment] = time.to_s
+      options[:data][:type] = 'relative'
+
+      tag( 'span', options )
+    end
+  end
+
 end
