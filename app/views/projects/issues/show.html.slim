@@ -1,34 +1,5 @@
 
-h1
-  = title "##{@issue.sequential_id} #{@issue.title}"
-  .ui.right.floated.buttons
-    a.ui.button.basic.red href="#{project_issue_path(@project, @issue)}"
-      i.icon.edit
-      = t('action.edit')
-    a.ui.button.basic.green href="#{project_issues_path(@project)}"
-      i.icon.chevron.left
-      = t('action.back')
-div
-  - if @issue.status.upcase == 'OPEN'
-    .ui.label.large
-      i.icon.green.unlock
-      = @issue.status.upcase
-  - if @issue.status.upcase == 'CLOSED'
-    .ui.label.large
-      i.icon.red.lock
-      = @issue.status.upcase
-  span
-    = "#{@issue.user.name} #{t('action.created_at')}"
-    = time_format_relative_tag @issue.created_at
-
-dl.dl-horizontal
-  - if @issue.begin_at.present?
-    dt = "#{Issue.human_attribute_name(:begin_at)}:"
-    dd = time_format_absolute_tag @issue.begin_at, :format => 'YYYY-MM-DD HH:mm'
-  - if @issue.due_at.present?
-    dt = "#{Issue.human_attribute_name(:due_at)}:"
-    dd = time_format_absolute_tag @issue.due_at, :format => 'YYYY-MM-DD HH:mm'
-
+= sync partial: 'issue_header', resource: @issue
 
 = sync partial: 'comment_row', collection: @issue.comments.asc
 = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable( @issue )

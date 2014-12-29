@@ -2,6 +2,7 @@ class Issue < ActiveRecord::Base
   include AASM
   include ParserConcern
   include CommentableConcern
+  sync :all
 
   belongs_to :project
   belongs_to :user

@@ -1,4 +1,5 @@
 class Projects::IssuesController < Projects::ApplicationController
+  enable_sync only: [:create, :update]
   before_action :authenticate_user!
   before_action :set_issue, only: [ :show, :edit, :update ]
 
