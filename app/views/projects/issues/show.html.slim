@@ -33,7 +33,24 @@ dl.dl-horizontal
 = sync partial: 'comment_row', collection: @issue.comments.asc
 = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable( @issue )
 
-= simple_form_for( [ @project, @issue, @issue.comments.build ], remote: true )  do |f|
-  = f.error_notification
-  = f.input :content
-  = f.button :submit, class: 'pull-right'
+.ui.section.divider
+.ui.segment.tertiary
+  .ui.top.attached.tabular.menu
+    a.active.item data-tab='origin'
+      = '原始'
+    a.item data-tab='preview'
+      = '預覽'
+  .ui.bottom.attached.active.tab.segment data-tab='origin'
+    = simple_form_for([@project, @issue, @issue.comments.build], remote: true) do |f|
+      = f.error_notification
+      = f.input :content
+      a.ui.button.red.inverted.right.floated href='#'
+        i.icon.circle.remove
+        = '關閉任務'
+      = f.button :submit, class: 'right floated icon inverted'
+  .ui.bottom.attached.tab.segment data-tab='preview'
+    = 'On Working'
+
+- content_for :javascripts
+  coffee:
+    $('.menu .item').tab()
