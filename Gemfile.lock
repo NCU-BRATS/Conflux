@@ -5,28 +5,17 @@ GIT
     data-confirm-modal (1.0.1)
       railties (>= 3.0)
 
-GIT
-  remote: git://github.com/slim-template/slim-rails.git
-  revision: d59278f41b54ce05a2cdb74d6207ed69d7dbcd81
-  specs:
-    slim-rails (3.0.0)
-      actionmailer (>= 3.1, < 5.0)
-      actionpack (>= 3.1, < 5.0)
-      activesupport (>= 3.1, < 5.0)
-      railties (>= 3.1, < 5.0)
-      slim (~> 3.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
-    aasm (4.0.5)
-      mail (~> 2.5, >= 2.5.4)
-      rails-dom-testing (~> 1.0, >= 1.0.5)
+    aasm (4.0.8)
     actionmailer (4.2.0)
       actionpack (= 4.2.0)
       actionview (= 4.2.0)
       activejob (= 4.2.0)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
     actionpack (4.2.0)
       actionview (= 4.2.0)
       activesupport (= 4.2.0)
@@ -149,7 +138,7 @@ GEM
     jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jquery-rails (4.0.2)
+    jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -168,7 +157,7 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     mime-types (2.4.3)
-    mini_portile (0.6.1)
+    mini_portile (0.6.2)
     minitest (5.5.0)
     momentjs-rails (2.8.3)
       railties (>= 3.1)
@@ -179,7 +168,7 @@ GEM
     nokogumbo (1.2.0)
       nokogiri
     orm_adapter (0.5.0)
-    pg (0.18.0.pre20141117110243)
+    pg (0.18.0)
     pg_search (0.7.8)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -258,7 +247,7 @@ GEM
     sass (3.4.9)
     sass-css-importer (1.0.0.beta.0)
       sass (>= 3.1)
-    sass-rails (5.0.0)
+    sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -277,6 +266,12 @@ GEM
     slim (3.0.1)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
+    slim-rails (3.0.1)
+      actionmailer (>= 3.1, < 5.0)
+      actionpack (>= 3.1, < 5.0)
+      activesupport (>= 3.1, < 5.0)
+      railties (>= 3.1, < 5.0)
+      slim (~> 3.0)
     spring (1.2.0)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -287,7 +282,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sync (0.3.2)
+    sync (0.3.3)
       em-http-request
     temple (0.7.4)
     thin (1.6.3)
@@ -301,7 +296,7 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.6.0)
+    uglifier (2.6.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     warden (1.2.3)
@@ -350,7 +345,7 @@ DEPENDENCIES
   meta_request
   momentjs-rails
   nested_form (~> 0.3.2)
-  pg (~> 0.18.0.pre)
+  pg (~> 0.18.0)
   pg_search
   pundit
   rails (= 4.2.0)
@@ -362,12 +357,12 @@ DEPENDENCIES
   rspec-rails (~> 3.1.0)
   sanitize
   sass-css-importer
-  sass-rails (~> 5.0.0)
+  sass-rails (~> 5.0.1)
   sdoc (~> 0.4.0)
   selectize-rails (~> 0.11.2)
   sequenced
   simple_form (~> 3.1.0rc2)
-  slim-rails!
+  slim-rails (~> 3.0.1)
   spring
   sync
   thin
