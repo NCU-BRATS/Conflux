@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgres as the database for Active Record
-gem 'pg', '~> 0.18.0.pre'
+gem 'pg', '~> 0.18.0'
 # for authentication solution
 gem 'devise'
 # for backend meta searching
@@ -14,7 +14,7 @@ gem 'kaminari'
 gem 'simple_form', '~> 3.1.0rc2'
 gem 'nested_form', '~> 0.3.2'
 # Slim templating engine
-gem 'slim-rails', github: 'slim-template/slim-rails'
+gem 'slim-rails', '~> 3.0.1'
 # for SEO-friendly meta tags
 gem 'meta-tags'
 # issue tagging
@@ -60,7 +60,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 # Icons css
 gem 'font-awesome-sass', '~> 4.2.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.0'
+gem 'sass-rails', '~> 5.0.1'
 gem 'sass-css-importer'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
