@@ -203,12 +203,13 @@ en:
       short: ! '%d %b %H:%M'
     pm: pm
   action:
-    post_at: "posted at"
-    created_at: "created at"
-    create: "create"
-    edit: "edit"
-    back: "back"
-    open: "open"
-    close: "close"
-    write: "write"
-    preview: "preview"
+    post_at: posted at
+    created_at: created at
+    create: create
+    edit: edit
+    back: back
+    open: open
+    close: close
+    cancel: cancel
+    write: write
+    preview: preview

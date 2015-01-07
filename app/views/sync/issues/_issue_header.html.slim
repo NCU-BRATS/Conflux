@@ -1,38 +1,56 @@
 div
-  h1
-    = title "##{issue.sequential_id} #{issue.title}"
-    .ui.right.floated.buttons
+  div#editable_title
+    h1
+      = title "##{issue.sequential_id} #{issue.title}"
+      .ui.buttons.basic.right.floated
+        - if issue.status.upcase == 'OPEN'
+          a.ui.button.basic.red href="#{close_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
+            i.icon.lock
+            = "#{t('action.close')}#{Issue.model_name.human}"
+        - elsif issue.status.upcase == 'CLOSED'
+          a.ui.button.basic.blue href="#{reopen_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
+            i.icon.unlock
+            = "#{t('action.open')}#{Issue.model_name.human}"
+        a.ui.button.basic.red data-editable='title'
+          i.icon.edit
+          = t('action.edit')
+        a.ui.button.basic.teal href="#{project_issues_path(issue.project)}"
+          i.icon.chevron.left
+          = t('action.back')
+    div
       - if issue.status.upcase == 'OPEN'
-        a.ui.button.basic.red href="#{close_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
-          i.icon.lock
-          = "#{t('action.close')}#{Issue.model_name.human}"
-      - elsif issue.status.upcase == 'CLOSED'
-        a.ui.button.basic.blue href="#{reopen_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
-          i.icon.unlock
-          = "#{t('action.open')}#{Issue.model_name.human}"
-      a.ui.button.basic.red href="#{project_issue_path(issue.project, issue)}"
-        i.icon.edit
-        = t('action.edit')
-      a.ui.button.basic.green href="#{project_issues_path(issue.project)}"
-        i.icon.chevron.left
-        = t('action.back')
-  div
-    - if issue.status.upcase == 'OPEN'
-      .ui.label.large
-        i.icon.green.unlock
-        = issue.status.upcase
-    - if issue.status.upcase == 'CLOSED'
-      .ui.label.large
-        i.icon.red.lock
-        = issue.status.upcase
-    span
-      = "#{issue.user.name} #{t('action.created_at')}"
-      = time_format_relative_tag issue.created_at
+        .ui.label.large
+          i.icon.green.unlock
+          = issue.status.upcase
+      - if issue.status.upcase == 'CLOSED'
+        .ui.label.large
+          i.icon.red.lock
+          = issue.status.upcase
+      span
+        = "#{issue.user.name} #{t('action.created_at')}"
+        = time_format_relative_tag issue.created_at
 
-  dl.dl-horizontal
-    - if issue.begin_at.present?
-      dt = "#{Issue.human_attribute_name(:begin_at)}:"
-      dd = time_format_absolute_tag issue.begin_at, :format => 'YYYY-MM-DD HH:mm'
-    - if issue.due_at.present?
-      dt = "#{Issue.human_attribute_name(:due_at)}:"
-      dd = time_format_absolute_tag issue.due_at, :format => 'YYYY-MM-DD HH:mm'
+    dl.dl-horizontal
+      - if issue.begin_at.present?
+        dt = "#{Issue.human_attribute_name(:begin_at)}:"
+        dd = time_format_absolute_tag issue.begin_at, :format => 'YYYY-MM-DD'
+      - if issue.due_at.present?
+        dt = "#{Issue.human_attribute_name(:due_at)}:"
+        dd = time_format_absolute_tag issue.due_at, :format => 'YYYY-MM-DD'
+
+  #editable_title_form
+    .ui.segment
+      = simple_form_for [issue.project, issue], remote: true do |f|
+        .ui.buttons.right.floated
+          button.ui.button.basic.green
+            i.icon.checkmark
+            = t('helpers.submit.update', model: Issue.model_name.human)
+          a#editable_title_cancel.ui.button.basic.teal
+            i.icon.chevron.left
+            = t('action.cancel')
+        = f.input :title
+        .two.fields
+          = f.input :begin_at
+          = f.input :due_at
+
+    .ui.divider.section
