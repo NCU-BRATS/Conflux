@@ -1,5 +1,5 @@
 div
-  h1
+  h1#editable_title
     = title "##{issue.sequential_id} #{issue.title}"
     .ui.right.floated.buttons
       - if issue.status.upcase == 'OPEN'
@@ -10,12 +10,19 @@ div
         a.ui.button.basic.blue href="#{reopen_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
           i.icon.unlock
           = "#{t('action.open')}#{Issue.model_name.human}"
-      a.ui.button.basic.red href="#{project_issue_path(issue.project, issue)}"
+      a.ui.button.basic.red data-editable='title'
         i.icon.edit
         = t('action.edit')
       a.ui.button.basic.green href="#{project_issues_path(issue.project)}"
         i.icon.chevron.left
         = t('action.back')
+  = simple_form_for [issue.project, issue], remote: true, html: { id: 'editable_title_form' } do |f|
+    .inline.fields
+      = f.input :title, wrapper_html: { class: 'ten wide' }
+      .two.wide.field
+        = f.button :submit
+      .two.wide.field
+        a#editable_title_cancel.ui.button 取消
   div
     - if issue.status.upcase == 'OPEN'
       .ui.label.large
