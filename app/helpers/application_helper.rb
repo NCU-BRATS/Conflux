@@ -31,7 +31,7 @@ module ApplicationHelper
         options[:data][:format] = format
       end
 
-      tag( 'span', options )
+      content_tag( 'span', '', options )
     end
   end
 
@@ -43,7 +43,7 @@ module ApplicationHelper
       options[:data][:moment] = time.to_s
       options[:data][:type] = 'relative'
 
-      tag( 'span', options )
+      content_tag( 'span', '', options )
     end
   end
 
