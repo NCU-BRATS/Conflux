@@ -3,15 +3,19 @@ $(document).on 'ready page:load', () ->
   $('[data-editable]').each ()->
 
     $element = $(@)
+    return if $element.data('editable-binded')
+
     name = $element.data('editable')
-    $form    = $("#editable_#{name}_form")
-    $content = $("#editable_#{name}")
+    $editForm  = $("#editable_#{name}_form")
+    $content   = $("#editable_#{name}")
     $cancelBtn = $("#editable_#{name}_cancel")
 
-    $form.hide()
+    $editForm.hide()
     $element.on 'click', () ->
-      $form.show()
+      $editForm.show()
       $content.hide()
     $cancelBtn.on 'click', () ->
-      $form.hide()
+      $editForm.hide()
       $content.show()
+
+    $element.data('editable-binded', true )
