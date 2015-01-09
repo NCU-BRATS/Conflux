@@ -7,14 +7,11 @@ class Issue < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
   belongs_to :sprint
-
-  has_many :issue_assigments
-  has_many :assignees, through: :issue_assigments, source: :user
+  belongs_to :assignee, class_name: 'User'
 
   acts_as_sequenced scope: :project_id
 
   accepts_nested_attributes_for :comments
-  accepts_nested_attributes_for :issue_assigments, allow_destroy: true
 
   aasm :column => 'status' do
 
