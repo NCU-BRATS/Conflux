@@ -3,10 +3,10 @@
     .ui.two.column.centered.grid
       .ui.positive.message.large.column
         .header.text-center = notice
-  coffee:
-    setTimeout( () ->
-      $('#global_notice').fadeOut()
-    , 3000)
+    coffee:
+      setTimeout( () ->
+        $('#global_notice').fadeOut()
+      , 3000)
 
 - if alert
   .navbar.navbar-fixed-bottom#global_alert
@@ -14,6 +14,6 @@
       .ui.negative.message.large.column
         i.close.icon
         .header.text-center = alert
-  coffee:
-    $('#global_alert .close').on 'click', () ->
-      $('#global_alert').fadeOut()
+    coffee:
+      $('#global_alert .close').on 'click', () ->
+        $('#global_alert').fadeOut()
