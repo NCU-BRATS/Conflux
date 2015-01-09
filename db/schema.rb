@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221170406) do
+ActiveRecord::Schema.define(version: 20150109065452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,10 @@ ActiveRecord::Schema.define(version: 20141221170406) do
     t.datetime "due_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "assignee_id"
   end
 
+  add_index "issues", ["assignee_id"], name: "index_issues_on_assignee_id", using: :btree
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
   add_index "issues", ["sprint_id"], name: "index_issues_on_sprint_id", using: :btree
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
@@ -163,16 +165,6 @@ ActiveRecord::Schema.define(version: 20141221170406) do
 
   add_index "users_groups", ["group_id"], name: "index_users_groups_on_group_id", using: :btree
   add_index "users_groups", ["user_id"], name: "index_users_groups_on_user_id", using: :btree
-
-  create_table "users_issues", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "issue_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "users_issues", ["issue_id"], name: "index_users_issues_on_issue_id", using: :btree
-  add_index "users_issues", ["user_id"], name: "index_users_issues_on_user_id", using: :btree
 
   create_table "users_projects", force: :cascade do |t|
     t.integer  "user_id"
