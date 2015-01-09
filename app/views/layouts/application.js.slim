@@ -1,0 +1,9 @@
+= yield
+
+| var notice = '#{j render :file => "layouts/_notice.html"}';
+| if (notice != '') {
+|   if ($('#global_notice').size() > 0)
+|     $('#global_notice').replaceWith(notice);
+|   else
+|     $('body').append(notice);
+|}
