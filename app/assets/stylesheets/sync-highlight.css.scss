@@ -1,0 +1,20 @@
+@-webkit-keyframes highlight {
+  0% { background: #FFFFDE; }
+  100% { background: none; }
+}
+
+@-moz-keyframes highlight {
+  0% { background: #FFFFDE; }
+  100% { background: none; }
+}
+
+@keyframes highlight {
+  0% { background: #FFFFDE; }
+  100% { background: none; }
+}
+
+.sync-highlight {
+  -webkit-animation: highlight 1s;
+  -moz-animation: highlight 1s;
+  animation: highlight 1s;
+}
