@@ -14,7 +14,7 @@
   .ui.bottom.attached.active.tab.segment data-tab='origin'
     = simple_form_for([@project, @issue, @issue.comments.build], remote: true) do |f|
       = f.error_notification
-      = f.input :content
+      = f.input :content, input_html: { id: 'comment_content_post_field' }
       = f.button :submit, class: 'right floated icon inverted'
   .ui.bottom.attached.tab.segment data-tab='preview'
     = 'On Working'
