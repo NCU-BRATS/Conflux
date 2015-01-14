@@ -213,3 +213,5 @@ en:
     cancel: cancel
     write: write
     preview: preview
+  state:
+    none: none

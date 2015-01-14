@@ -212,3 +212,5 @@ zh-TW:
     cancel: 取消
     write: 撰寫
     preview: 預覽
+  state:
+    none: 無

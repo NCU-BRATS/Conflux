@@ -30,13 +30,47 @@ div
         = "#{issue.user.name} #{t('action.created_at')}"
         = time_format_relative_tag issue.created_at
 
-    dl.dl-horizontal
-      - if issue.begin_at.present?
-        dt = "#{Issue.human_attribute_name(:begin_at)}:"
-        dd = time_format_absolute_tag issue.begin_at, :format => 'YYYY-MM-DD'
-      - if issue.due_at.present?
-        dt = "#{Issue.human_attribute_name(:due_at)}:"
-        dd = time_format_absolute_tag issue.due_at, :format => 'YYYY-MM-DD'
+    .ui.divider
+    .ui.grid
+      .ten.wide.column
+        .ui.orange.segment.center.aligned
+          = '日曆位置'
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+        .ui.two.column.grid.center.aligned
+          - if issue.begin_at.present?
+            .column
+              i.icon.circle.green
+              => "#{Issue.human_attribute_name(:begin_at)}:"
+              = time_format_absolute_tag issue.begin_at, :format => 'YYYY-MM-DD'
+          - if issue.due_at.present?
+            .column
+              i.icon.circle.red
+              => "#{Issue.human_attribute_name(:due_at)}:"
+              = time_format_absolute_tag issue.due_at, :format => 'YYYY-MM-DD'
+      .six.wide.column
+        .ui.blue.segment.form
+          .field
+            .ui.attached.tertiary.segment = Sprint.model_name.human
+            .ui.attached.segment
+              - if issue.sprint.present?
+                = issue.sprint.title
+              - else
+                = t('state.none')
+          .field
+            .ui.attached.tertiary.segment = Issue.human_attribute_name(:assignee)
+            .ui.attached.segment
+              - if issue.assignee.present?
+                => avatar_tag issue.assignee, :size => 20
+                = issue.assignee.name
+              - else
+                = t('state.none')
 
   #editable_title_form
     .ui.segment
@@ -53,4 +87,4 @@ div
           = f.input :begin_at
           = f.input :due_at
 
-    .ui.divider.section
+  .ui.divider
