@@ -1,4 +1,15 @@
 GIT
+  remote: git://github.com/NCU-BRATS/clndr-rails.git
+  revision: 09db759640ba95024342428482944bb5ac8e9ca4
+  specs:
+    clndr-rails (1.2.6.1)
+      jquery-rails
+      momentjs-rails
+      rails (~> 4.1)
+      railties (~> 4.1)
+      underscore-rails
+
+GIT
   remote: git://github.com/ifad/data-confirm-modal.git
   revision: 9e9ba3ce2f1e17ebfe768331b955102d32d20400
   specs:
@@ -297,6 +308,7 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.7.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.0.0)
@@ -321,6 +333,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.3.1)
   bootstrap3-datetimepicker-rails
+  clndr-rails!
   coffee-rails (~> 4.1.0)
   data-confirm-modal!
   devise
