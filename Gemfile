@@ -75,7 +75,7 @@ gem 'handlebars_assets'
 # better select widget
 gem 'selectize-rails', '~> 0.11.2'
 # bootstrap data-confirm-modal
-gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
+gem 'data-confirm-modal', github: 'NCU-BRATS/data-confirm-modal', branch: 'semantic-ui'
 # Parse, validate, manipulate, and display dates in JavaScript.
 gem 'momentjs-rails'
 # datetime-picker widget

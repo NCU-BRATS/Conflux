@@ -10,8 +10,9 @@ GIT
       underscore-rails
 
 GIT
-  remote: git://github.com/ifad/data-confirm-modal.git
-  revision: 9e9ba3ce2f1e17ebfe768331b955102d32d20400
+  remote: git://github.com/NCU-BRATS/data-confirm-modal.git
+  revision: 79290ad58eb683d83d8d3ccf55ac093773cb3c87
+  branch: semantic-ui
   specs:
     data-confirm-modal (1.0.1)
       railties (>= 3.0)
