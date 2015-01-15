@@ -1,4 +1,4 @@
-h1 = title "#{Project.model_name.human}詳情"
+h1 = title t('attribute.target.info', target: Project.model_name.human)
 
 dl.dl-horizontal
   dt = "#{Project.human_attribute_name(:name)}:"

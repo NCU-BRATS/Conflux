@@ -233,6 +233,11 @@ en:
       logout: logout
   state:
     none: none
+  attribute:
+    target:
+      info: info of %{target}
+    word:
+      info: info
   question:
     confirm:
      action: are you sure to %{action}?

@@ -232,6 +232,11 @@ zh-TW:
       logout: 登出
   state:
     none: 無
+  attribute:
+    target:
+      info: '%{target}詳情'
+    word:
+      info: 詳情
   question:
     confirm:
       action: 你確定要%{action}嗎?

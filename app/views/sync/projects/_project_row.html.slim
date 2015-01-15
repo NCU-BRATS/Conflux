@@ -3,6 +3,6 @@ tr
   td = project.description
   td
     .btn-toolbar.pull-right
-      = link_to '詳情', project, class: 'ui mini blue button'
+      = link_to t('attribute.word.info'), project, class: 'ui mini blue button'
       = link_to t('action.word.edit'), edit_project_path(project), class: 'ui mini yellow button'
       = link_to t('action.word.delete'), project, data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: ' ui mini red button'
