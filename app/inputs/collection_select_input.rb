@@ -4,9 +4,10 @@ class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
   end
 
   def input(wrapper_options = nil)
-    return super if input_html_options[:data]['resource-path'].blank?
-    label_method, value_method = detect_collection_methods
+    data_options = input_html_options[:data].symbolize_keys
+    return super if data_options[:'resource-path'].blank?
 
+    label_method, value_method = detect_collection_methods
     merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
     @builder.select(
