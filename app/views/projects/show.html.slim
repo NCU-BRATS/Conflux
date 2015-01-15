@@ -1,4 +1,4 @@
-h1 = title "#{Project.model_name.human}詳情"
+h1 = title t('attribute.target.info', target: Project.model_name.human)
 
 dl.dl-horizontal
   dt = "#{Project.human_attribute_name(:name)}:"
@@ -7,6 +7,6 @@ dl.dl-horizontal
   dd = @project.description
 
 .btn-toolbar.pull-right
-  = link_to '成員列表', project_members_path(@project), class: 'ui blue button'
-  = link_to '編輯', edit_project_path(@project), class: 'ui yellow button'
-  = link_to '返回', projects_path, class: 'ui button'
+  = link_to t('structure.list', element: ProjectParticipation.model_name.human), project_members_path(@project), class: 'ui blue button'
+  = link_to t('action.word.edit'), edit_project_path(@project), class: 'ui yellow button'
+  = link_to t('action.word.back'), projects_path, class: 'ui button'

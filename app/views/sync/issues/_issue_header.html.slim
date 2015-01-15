@@ -7,17 +7,17 @@ div
         - if issue.status.upcase == 'OPEN'
           a.ui.button.basic.red href="#{close_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
             i.icon.lock
-            = "#{t('action.close')}#{Issue.model_name.human}"
+            = t('action.target.close', target: Issue.model_name.human)
         - elsif issue.status.upcase == 'CLOSED'
           a.ui.button.basic.blue href="#{reopen_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
             i.icon.unlock
-            = "#{t('action.open')}#{Issue.model_name.human}"
+            = t('action.target.open', target: Issue.model_name.human)
         a.ui.button.basic.red data-editable='title'
           i.icon.edit
-          = t('action.edit')
+          = t('action.word.edit')
         a.ui.button.basic.teal href="#{project_issues_path(issue.project)}"
           i.icon.chevron.left
-          = t('action.back')
+          = t('action.word.back')
     div
       - if issue.status.upcase == 'OPEN'
         .ui.label.large
@@ -28,7 +28,8 @@ div
           i.icon.red.lock
           = issue.status.upcase
       span
-        = "#{issue.user.name} #{t('action.created_at')}"
+        => issue.user.name
+        = t('action.target.created_at', target: '')
         = time_format_relative_tag issue.created_at
 
     .ui.divider
@@ -82,7 +83,7 @@ div
             = t('helpers.submit.update', model: Issue.model_name.human)
           a#editable_title_cancel.ui.button.basic.teal
             i.icon.chevron.left
-            = t('action.cancel')
+            = t('action.word.cancel')
         = f.input :title
         .two.fields
           = f.input :begin_at

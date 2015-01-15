@@ -1,7 +1,7 @@
-h1 = title "編輯 #{Project.model_name.human}"
+h1 = title t('action.target.edit', target: Project.model_name.human)
 
 == render 'form'
 
 .btn-toolbar.pull-right
-  = link_to '詳情', @project, class: 'ui blue button'
-  = link_to '返回', projects_path, class: 'ui button'
+  = link_to t('attribute.word.info'), @project, class: 'ui blue button'
+  = link_to t('action.word.back'), projects_path, class: 'ui button'

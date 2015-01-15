@@ -9,7 +9,7 @@ body
         th = sort_link(@q, :title)
         th
     tbody
-      = render partial: "user_row", collection: @users
+      = render partial: 'user_row', collection: @users
 
 
 = paginate @users
