@@ -1,5 +1,5 @@
-h1 = title "新增 #{Project.model_name.human}"
+h1 = title t('action.target.add', target: Project.model_name.human)
 
 == render 'form'
 
-= link_to '返回', projects_path, class: 'ui button pull-right'
+= link_to t('action.word.back'), projects_path, class: 'ui button pull-right'

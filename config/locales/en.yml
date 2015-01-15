@@ -203,17 +203,34 @@ en:
       short: ! '%d %b %H:%M'
     pm: pm
   action:
-    post_at: posted at
-    created_at: created at
-    create: create
-    edit: edit
-    back: back
-    open: open
-    close: close
-    delete: delete
-    cancel: cancel
-    write: write
-    preview: preview
+    target:
+      post_at: posted at %{target}
+      created_at: created at %{target}
+      create: create %{target}
+      add: add %{target}
+      edit: edit %{target}
+      back: back to %{target}
+      open: open %{target}
+      close: close %{target}
+      delete: delete %{target}
+      cancel: cancel %{target}
+      write: write %{target}
+      preview: preview %{target}
+      login: login to %{target}
+      logout: logout from %{target}
+    word:
+      create: create
+      add: add
+      edit: edit
+      back: back
+      open: open
+      close: close
+      delete: delete
+      cancel: cancel
+      write: write
+      preview: preview
+      login: login
+      logout: logout
   state:
     none: none
   question:

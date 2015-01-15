@@ -1,9 +1,9 @@
 h1
-  = title "#{t('action.create')}#{Issue.model_name.human}"
+  = title t('action.target.create', target: Issue.model_name.human)
   .ui.right.floated.buttons
     a.ui.button.basic.green href="#{project_issues_path(@project)}"
       i.icon.chevron.left
-      = t('action.back')
+      = t('action.word.back')
 
 = simple_nested_form_for [ @project, @issue ] do |f|
   = f.error_notification

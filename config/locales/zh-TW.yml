@@ -202,17 +202,34 @@ zh-TW:
       short: ! '%b%d日 %H:%M'
     pm: 下午
   action:
-    post_at: 發表於
-    created_at: 創建於
-    create: 創建
-    edit: 編輯
-    back: 返回
-    open: 開啟
-    close: 關閉
-    delete: 刪除
-    cancel: 取消
-    write: 撰寫
-    preview: 預覽
+    target:
+      post_at: 發表於%{target}
+      created_at: 創建於%{target}
+      create: 創建%{target}
+      add: 新增%{target}
+      edit: 編輯%{target}
+      back: 返回%{target}
+      open: 開啟%{target}
+      close: 關閉%{target}
+      delete: 刪除%{target}
+      cancel: 取消%{target}
+      write: 撰寫%{target}
+      preview: 預覽%{target}
+      login: 登入%{target}
+      logout: 登出%{target}
+    word:
+      create: 創建
+      add: 新增
+      edit: 編輯
+      back: 返回
+      open: 開啟
+      close: 關閉
+      delete: 刪除
+      cancel: 取消
+      write: 撰寫
+      preview: 預覽
+      login: 登入
+      logout: 登出
   state:
     none: 無
   question:

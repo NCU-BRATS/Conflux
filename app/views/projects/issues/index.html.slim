@@ -9,7 +9,7 @@ table.ui.table.stripped
         .right.aligned
           = link_to new_project_issue_path, class: 'ui button green' do
             i.ui.icon.write
-            = "#{t('action.create')}#{Issue.model_name.human}"
+            = t('action.target.create', target: Issue.model_name.human)
 
   tbody
     - @issues.each do |issue|
@@ -21,7 +21,7 @@ table.ui.table.stripped
 
             = link_to project_issue_path( @project, issue ), class: 'ui icon button basic blue small' do
               i.icon.info.circle
-            = link_to project_issue_path( @project, issue ), data: {:confirm => '你確定要關閉嗎?'}, :method => :delete, class: 'ui icon button basic red small' do
+            = link_to project_issue_path( @project, issue ), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon button basic red small' do
               i.icon.minus.circle
 
 = paginate @issues
