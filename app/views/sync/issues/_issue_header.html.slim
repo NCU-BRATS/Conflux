@@ -1,5 +1,6 @@
 div
   div#editable_title
+
     h1
       = title "##{issue.sequential_id} #{issue.title}"
       .ui.buttons.basic.right.floated
@@ -31,31 +32,18 @@ div
         = time_format_relative_tag issue.created_at
 
     .ui.divider
+
     .ui.grid
       .ten.wide.column
-        .ui.orange.segment.center.aligned
-          = '日曆位置'
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-          br
-        .ui.two.column.grid.center.aligned
-          - if issue.begin_at.present?
-            .column
-              i.icon.circle.green
-              => "#{Issue.human_attribute_name(:begin_at)}:"
-              = time_format_absolute_tag issue.begin_at, :format => 'YYYY-MM-DD'
-          - if issue.due_at.present?
-            .column
-              i.icon.circle.red
-              => "#{Issue.human_attribute_name(:due_at)}:"
-              = time_format_absolute_tag issue.due_at, :format => 'YYYY-MM-DD'
+        .ui.teal.segment.center.aligned
+          - if issue.begin_at.present? and issue.due_at.present?
+            = clndr_tag  multiple_events:[ { start_date: issue.begin_at, end_date: issue.due_at } ]
+          - elsif issue.begin_at.present?
+            = clndr_tag  single_events:[ { date: issue.begin_at } ]
+          - else
+            = clndr_tag
       .six.wide.column
-        .ui.blue.segment.form
+        .ui.teal.segment.form
           .field
             .ui.attached.tertiary.segment = Sprint.model_name.human
             .ui.attached.segment
@@ -71,6 +59,19 @@ div
                 = issue.assignee.name
               - else
                 = t('state.none')
+          - if issue.begin_at.present? or issue.due_at.present?
+            .ui.segment
+              - if issue.begin_at.present?
+                .field
+                  i.icon.circle.green
+                  => "#{Issue.human_attribute_name(:begin_at)}:"
+                  = time_format_absolute_tag issue.begin_at, :format => 'YYYY-MM-DD'
+              - if issue.due_at.present?
+                .field
+                  i.icon.circle.red
+                  => "#{Issue.human_attribute_name(:due_at)}:"
+                  = time_format_absolute_tag issue.due_at, :format => 'YYYY-MM-DD'
+
 
   #editable_title_form
     .ui.segment
