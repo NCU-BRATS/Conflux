@@ -219,3 +219,5 @@ en:
   question:
     confirm:
      action: are you sure to %{action}?
+  structure:
+    list: '%{element} list'

@@ -218,3 +218,5 @@ zh-TW:
   question:
     confirm:
       action: 你確定要%{action}嗎?
+  structure:
+    list: '%{element}列表'
