@@ -210,8 +210,12 @@ en:
     back: back
     open: open
     close: close
+    delete: delete
     cancel: cancel
     write: write
     preview: preview
   state:
     none: none
+  question:
+    confirm:
+     action: are you sure to %{action}?

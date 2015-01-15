@@ -209,8 +209,12 @@ zh-TW:
     back: 返回
     open: 開啟
     close: 關閉
+    delete: 刪除
     cancel: 取消
     write: 撰寫
     preview: 預覽
   state:
     none: 無
+  question:
+    confirm:
+      action: 你確定要%{action}嗎?

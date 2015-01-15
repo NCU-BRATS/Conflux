@@ -6,8 +6,10 @@
       a> = comment.user.name
       => t('action.post_at')
       = time_format_relative_tag( comment.created_at )
-      .ui.icon.button.basic.right.floated data-editable="comment#{comment.id}" style="margin:-7px -6px -10px -5px"
+      .ui.icon.button.basic.right.floated data-editable="comment#{comment.id}" style="margin:-7px -6px -10px 10px"
         i.icon.write
+      a.ui.icon.button.basic.right.floated href="#{project_comment_path(comment.project, comment)}" data-remote=true data-method='delete' data-confirm=t('question.confirm.action', action: t('action.delete') ) style="margin:-7px -6px -10px -5px"
+        i.icon.trash
 
     .ui.segment.attached id="editable_comment#{comment.id}"
       p
