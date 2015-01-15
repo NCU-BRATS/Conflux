@@ -23,6 +23,7 @@ zh-TW:
         created_at: '創建時間'
         begin_at: '開始時間'
         due_at: '結束時間'
+        assignee: '執行者'
       comment:
         contnet: '內容'
 

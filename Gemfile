@@ -45,6 +45,8 @@ gem "escape_utils",   :require => false
 gem 'sequenced'
 # state machine
 gem 'aasm'
+# calendar
+gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails'
 
 # responders
 gem 'responders', '~> 2.0'
