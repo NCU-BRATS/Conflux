@@ -16,7 +16,7 @@
         == comment.html
     .ui.segment.attached id="editable_comment#{comment.id}_form"
       = simple_form_for [comment.project, comment], remote: true do |f|
-        = f.input :content
+        = f.input :content, label: false
         .ui.buttons.right.floated
           button.ui.button.basic.green
             i.icon.checkmark

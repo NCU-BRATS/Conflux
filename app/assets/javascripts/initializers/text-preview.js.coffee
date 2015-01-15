@@ -8,6 +8,10 @@ $(document).on 'ready page:load', () ->
     name = $element.data('preview')
 
     $element.on 'click', () ->
+      $("##{name}_preview_field").html('
+        <div class="ui active inverted dimmer">
+          <div class="ui text loader">Loading</div>
+        </div>')
       $.ajax
         url: '/text/preview'
         type: 'put'
