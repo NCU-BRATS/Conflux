@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     resources :project_participations, as: :participations, path: :members
   end
 
+  namespace :text do
+    put :preview
+  end
+
   resources :profiles
 
   devise_for :users
