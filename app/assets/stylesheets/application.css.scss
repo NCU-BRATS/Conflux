@@ -15,8 +15,6 @@
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import "bootstrap-sprockets";
-@import "bootstrap";
 @import "bootstrap-datetimepicker";
 @import "selectize";
 @import "selectize.bootstrap3";
@@ -26,6 +24,11 @@
 @import "semantic.css";
 @import "sync-highlight";
 @import "clndr-rails";
+
+.bs {
+  @import "bootstrap-sprockets";
+  @import "bootstrap";
+}
 
 // disable border-radius of navbar
 nav {
