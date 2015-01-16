@@ -79,7 +79,7 @@ gem 'data-confirm-modal', github: 'NCU-BRATS/data-confirm-modal', branch: 'seman
 # Parse, validate, manipulate, and display dates in JavaScript.
 gem 'momentjs-rails'
 # datetime-picker widget
-gem 'bootstrap3-datetimepicker-rails'
+gem 'bootstrap3-datetimepicker-rails', github: 'NCU-BRATS/bootstrap3-datetimepicker-rails', branch: 'bs-scope'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
