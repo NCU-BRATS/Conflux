@@ -11,7 +11,7 @@ class CollectionRadioButtonsInput < SimpleForm::Inputs::CollectionRadioButtonsIn
     tag << '<div class="ui radio checkbox">'.html_safe
     tag << collection_builder.radio_button + collection_builder.label
     tag << '</div>'.html_safe
-    return tag.html_safe
+    tag.html_safe
   end
 
 end
