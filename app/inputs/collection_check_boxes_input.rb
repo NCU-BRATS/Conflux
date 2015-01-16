@@ -7,7 +7,7 @@ class CollectionCheckBoxesInput < CollectionRadioButtonsInput
     tag << '<div class="ui checkbox">'.html_safe
     tag << collection_builder.check_box + collection_builder.label
     tag << '</div>'.html_safe
-    return tag.html_safe
+    tag.html_safe
   end
 
 end
