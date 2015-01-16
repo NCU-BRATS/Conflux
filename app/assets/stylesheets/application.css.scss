@@ -15,7 +15,6 @@
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import "bootstrap-datetimepicker";
 @import "selectize";
 @import "selectize.bootstrap3";
 @import "selectize-semantic-ui";
@@ -28,6 +27,7 @@
 .bs {
   @import "bootstrap-sprockets";
   @import "bootstrap";
+  @import "bootstrap-datetimepicker";
 }
 
 // disable border-radius of navbar
