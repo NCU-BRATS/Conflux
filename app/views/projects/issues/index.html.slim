@@ -1,27 +1,67 @@
-h1 = title t('structure.list', element: Issue.model_name.human )
 
-table.ui.table.stripped
-  thead
-    tr
-      th = sort_link(@query, :sequential_id)
-      th = sort_link(@query, :title)
-      th
-        .right.aligned
-          = link_to new_project_issue_path, class: 'ui button green' do
-            i.ui.icon.write
-            = t('action.target.create', target: Issue.model_name.human)
+.ui.grid
+  .doubling.four.column.row
+    .four.wide.column
+      h1.ui.header
+        i.icon.tasks
+        .content
+          = title t('structure.list', element: Issue.model_name.human )
+    .right.floated.right.aligned.four.wide.column#new_issue_btn_grid
+      = link_to new_project_issue_path, class: 'ui green button' do
+        i.ui.icon.write
+        = t('action.target.create', target: Issue.model_name.human)
+    .right.floated.six.wide.column#issue_search_input_grid
+      .ui.left.icon.fluid.input
+        input type='text' placeholder=t('action.word.search')
+        i.icon.search
 
-  tbody
-    - @issues.each do |issue|
-      tr
-        td = "# #{issue.sequential_id}"
-        td = issue.title
-        td
-          .buttons.right.aligned
 
-            = link_to project_issue_path( @project, issue ), class: 'ui icon button basic blue small' do
-              i.icon.info.circle
-            = link_to project_issue_path( @project, issue ), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon button basic red small' do
-              i.icon.minus.circle
+.ui.divider
+
+div
+  - @issues.each do |issue|
+
+    .ui.attached.segment
+      .ui.grid
+        .ten.wide.column
+          .ui.header
+            - if issue.status.upcase == 'OPEN'
+              i.green.icon.unlock
+            - elsif issue.status.upcase == 'CLOSED'
+              i.red.icon.lock
+            .content
+              = link_to issue.title, project_issue_path(@project, issue)
+              .sub.header
+                = "##{issue.sequential_id} "
+                => issue.user.name
+                => t('action.target.created_at', target: '')
+                span = time_format_relative_tag( issue.created_at )
+        .six.wide.column
+          - if issue.assignee.present?
+            .ui.image.label.right.floated
+              = avatar_tag issue.assignee, :size => 25
+              = issue.assignee.name
 
 = paginate @issues
+
+- content_for :stylesheets
+  scss:
+    #new_issue_btn_grid {
+      max-width: 160px;
+      .button {
+        width: 130px;
+      }
+    }
+
+    #issue_search_input_grid {
+      border-right: 1px solid #eee;
+    }
+
+    @media only screen and (max-width: 991px) {
+      #issue_search_input_grid {
+        border-right: 0;
+        width: 100% !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+    }

@@ -5,7 +5,7 @@ class Projects::IssuesController < Projects::ApplicationController
 
   def index
     @query  = Issue.search( params[:q] )
-    @issues = @query.result.page( params[:page] ).per( params[:per] )
+    @issues = @query.result.includes(:user, :assignee).order('id DESC').page( params[:page] ).per( params[:per] )
     respond_with @project, @issue
   end
 
