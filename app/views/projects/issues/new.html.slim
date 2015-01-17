@@ -9,12 +9,32 @@ h1
   = f.error_notification
 
   = f.input :title
-  = f.input :begin_at
-  = f.input :due_at
+  .two.fields
+    = f.input :begin_at
+    = f.input :due_at
+  .two.fields
+    = f.association :assignee, collection: @project.members,
+                    input_html: { data: { :'resource-path' => project_members_path( @project ),
+                                          :'search-field' => '["name", "email"]',
+                                          :'option-tpl' => 'option-user'} }
 
   = f.fields_for :comments do |cf|
-    = cf.input :content
+    .ui.section.divider
+    .ui.segment.tertiary
 
-  = f.button :submit
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='origin'
+          = t('action.word.write')
+        a.item data-tab='preview' data-preview='comment_content'
+          = t('action.word.preview')
+      .ui.attached.active.tab.segment data-tab='origin'
+        = cf.input :content, label: false, input_html: { id: 'comment_content_post_field' }
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+      .ui.bottom.attached.segment
+        = f.button :submit, class: 'right floated icon inverted'
+
+- content_for :javascripts
+  coffee:
+    $('.menu .item').tab()
 
 
