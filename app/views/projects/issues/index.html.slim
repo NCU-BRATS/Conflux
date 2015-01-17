@@ -1,27 +1,59 @@
-h1 = title t('structure.list', element: Issue.model_name.human )
 
-table.ui.table.stripped
-  thead
-    tr
-      th = sort_link(@query, :sequential_id)
-      th = sort_link(@query, :title)
-      th
-        .right.aligned
-          = link_to new_project_issue_path, class: 'ui button green' do
-            i.ui.icon.write
-            = t('action.target.create', target: Issue.model_name.human)
+.ui.grid
+  .five.wide.column
+    h1.ui.header
+      i.icon.tasks
+      .content
+        = title t('structure.list', element: Issue.model_name.human )
 
-  tbody
-    - @issues.each do |issue|
-      tr
-        td = "# #{issue.sequential_id}"
-        td = issue.title
-        td
-          .buttons.right.aligned
+  .eleven.wide.column
+    .ui.form
+      .ui.action.left.icon.input
+        input type='text'
+        i.icon.search
+        = link_to new_project_issue_path, class: 'ui compact button' do
+          i.ui.icon.write
+          = t('action.target.create', target: Issue.model_name.human)
 
-            = link_to project_issue_path( @project, issue ), class: 'ui icon button basic blue small' do
-              i.icon.info.circle
-            = link_to project_issue_path( @project, issue ), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon button basic red small' do
-              i.icon.minus.circle
+.ui.divider
+
+div
+  .ui.top.attached.segment
+
+    = sort_link @query, :sequential_id, :class => 'ui basic button'
+    span.vdivider
+    = sort_link @query, :title, class: 'ui basic button'
+
+  - @issues.each do |issue|
+
+    .ui.attached.segment
+      .ui.mini.statistic.teal
+        .value = "##{issue.sequential_id}"
+
+      span.vdivider
+      - if issue.status.upcase == 'OPEN'
+        i.bordered.green.icon.unlock
+      - elsif issue.status.upcase == 'CLOSED'
+        i.bordered.red.icon.lock
+
+      span.vdivider
+      = link_to issue.title, project_issue_path(@project, issue), class: 'ui basic button'
+
+      span.vdivider
+      span.not-important= time_format_relative_tag( issue.created_at )
+
+      - if issue.assignee.present?
+        .ui.image.label.right.floated
+          = avatar_tag issue.assignee, :size => 25
+          = issue.assignee.name
 
 = paginate @issues
+
+- content_for :stylesheets
+  css:
+    .vdivider {
+      margin-right: 12px;
+    }
+    .not-important {
+      color: rgba(0, 0, 0, 0.35);
+    }
