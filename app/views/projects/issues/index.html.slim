@@ -12,7 +12,7 @@
         = t('action.target.create', target: Issue.model_name.human)
     .right.floated.six.wide.column#issue_search_input_grid
       .ui.left.icon.fluid.input
-        input type='text' placeholder="搜尋"
+        input type='text' placeholder=t('action.word.search')
         i.icon.search
 
 
@@ -33,9 +33,9 @@ div
               = link_to issue.title, project_issue_path(@project, issue)
               .sub.header
                 = "##{issue.sequential_id} "
-                = "由 #{issue.user.name } 於"
+                => issue.user.name
+                => t('action.target.created_at', target: '')
                 span = time_format_relative_tag( issue.created_at )
-                ' 創建
         .six.wide.column
           - if issue.assignee.present?
             .ui.image.label.right.floated

@@ -218,6 +218,7 @@ en:
       preview: preview %{target}
       login: login to %{target}
       logout: logout from %{target}
+      search: search for %{target}
     word:
       create: create
       add: add
@@ -231,6 +232,7 @@ en:
       preview: preview
       login: login
       logout: logout
+      search: search
   state:
     none: none
   attribute:
