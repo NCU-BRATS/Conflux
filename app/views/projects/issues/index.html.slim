@@ -1,19 +1,20 @@
 
 .ui.grid
-  .five.wide.column
-    h1.ui.header
-      i.icon.tasks
-      .content
-        = title t('structure.list', element: Issue.model_name.human )
-
-  .eleven.wide.column
-    .ui.form
-      .ui.action.left.icon.input
-        input type='text'
+  .doubling.four.column.row
+    .four.wide.column
+      h1.ui.header
+        i.icon.tasks
+        .content
+          = title t('structure.list', element: Issue.model_name.human )
+    .right.floated.right.aligned.four.wide.column#new_issue_btn_grid
+      = link_to new_project_issue_path, class: 'ui green button' do
+        i.ui.icon.write
+        = t('action.target.create', target: Issue.model_name.human)
+    .right.floated.six.wide.column#issue_search_input_grid
+      .ui.left.icon.fluid.input
+        input type='text' placeholder="搜尋"
         i.icon.search
-        = link_to new_project_issue_path, class: 'ui compact button' do
-          i.ui.icon.write
-          = t('action.target.create', target: Issue.model_name.human)
+
 
 .ui.divider
 
@@ -44,7 +45,23 @@ div
 = paginate @issues
 
 - content_for :stylesheets
-  css:
-    .vdivider {
-      margin-right: 12px;
+  scss:
+    #new_issue_btn_grid {
+      max-width: 160px;
+      .button {
+        width: 130px;
+      }
+    }
+
+    #issue_search_input_grid {
+      border-right: 1px solid #eee;
+    }
+
+    @media only screen and (max-width: 991px) {
+      #issue_search_input_grid {
+        border-right: 0;
+        width: 100% !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
     }
