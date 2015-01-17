@@ -18,34 +18,28 @@
 .ui.divider
 
 div
-  .ui.top.attached.segment
-
-    = sort_link @query, :sequential_id, :class => 'ui basic button'
-    span.vdivider
-    = sort_link @query, :title, class: 'ui basic button'
-
   - @issues.each do |issue|
 
     .ui.attached.segment
-      .ui.mini.statistic.teal
-        .value = "##{issue.sequential_id}"
-
-      span.vdivider
-      - if issue.status.upcase == 'OPEN'
-        i.bordered.green.icon.unlock
-      - elsif issue.status.upcase == 'CLOSED'
-        i.bordered.red.icon.lock
-
-      span.vdivider
-      = link_to issue.title, project_issue_path(@project, issue), class: 'ui basic button'
-
-      span.vdivider
-      span.not-important= time_format_relative_tag( issue.created_at )
-
-      - if issue.assignee.present?
-        .ui.image.label.right.floated
-          = avatar_tag issue.assignee, :size => 25
-          = issue.assignee.name
+      .ui.grid
+        .ten.wide.column
+          .ui.header
+            - if issue.status.upcase == 'OPEN'
+              i.green.icon.unlock
+            - elsif issue.status.upcase == 'CLOSED'
+              i.red.icon.lock
+            .content
+              = link_to issue.title, project_issue_path(@project, issue)
+              .sub.header
+                = "##{issue.sequential_id} "
+                = "由 #{issue.user.name } 於"
+                span = time_format_relative_tag( issue.created_at )
+                ' 創建
+        .six.wide.column
+          - if issue.assignee.present?
+            .ui.image.label.right.floated
+              = avatar_tag issue.assignee, :size => 25
+              = issue.assignee.name
 
 = paginate @issues
 
@@ -53,7 +47,4 @@ div
   css:
     .vdivider {
       margin-right: 12px;
-    }
-    .not-important {
-      color: rgba(0, 0, 0, 0.35);
     }
