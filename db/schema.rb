@@ -80,6 +80,9 @@ ActiveRecord::Schema.define(version: 20150120151617) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "label_links", ["label_id"], name: "index_label_links_on_label_id", using: :btree
+  add_index "label_links", ["target_id", "target_type"], name: "index_label_links_on_target_id_and_target_type", using: :btree
+
   create_table "labels", force: :cascade do |t|
     t.string   "title"
     t.string   "color"
@@ -87,6 +90,8 @@ ActiveRecord::Schema.define(version: 20150120151617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "labels", ["project_id"], name: "index_labels_on_project_id", using: :btree
 
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
