@@ -8,6 +8,8 @@ class Issue < ActiveRecord::Base
   belongs_to :user
   belongs_to :sprint
   belongs_to :assignee, class_name: 'User'
+  has_many :label_links, as: :target, dependent: :destroy
+  has_many :labels, through: :label_links
 
   acts_as_sequenced scope: :project_id
 
