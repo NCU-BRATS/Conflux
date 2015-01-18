@@ -33,12 +33,12 @@ div
               = link_to issue.title, project_issue_path(@project, issue)
               .sub.header
                 = "##{issue.sequential_id} "
-                => issue.user.name
+                => user_tag issue.user, class: 'gray link'
                 => t('action.target.created_at', target: '')
                 span = time_format_relative_tag( issue.created_at )
         .six.wide.column
           - if issue.assignee.present?
-            .ui.image.label.right.floated
+            a.ui.image.label.right.floated href=user_link(issue.assignee)
               = avatar_tag issue.assignee, :size => 25
               = issue.assignee.name
 

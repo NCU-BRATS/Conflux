@@ -68,4 +68,14 @@ module ApplicationHelper
     show_calendar( name, options[:html] || {} )
   end
 
+  def user_tag( user, options={} )
+    options = options.symbolize_keys
+    options[:href] = user_link( user )
+    content_tag( 'a', user.name, options )
+  end
+
+  def user_link( user )
+    profile_path( user.slug )
+  end
+
 end

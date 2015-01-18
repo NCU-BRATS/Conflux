@@ -28,7 +28,7 @@ div
           i.icon.red.lock
           = issue.status.upcase
       span
-        => issue.user.name
+        => user_tag issue.user, class: 'bold black link'
         = t('action.target.created_at', target: '')
         = time_format_relative_tag issue.created_at
 
@@ -56,8 +56,9 @@ div
             .ui.attached.tertiary.segment = Issue.human_attribute_name(:assignee)
             .ui.attached.segment
               - if issue.assignee.present?
-                => avatar_tag issue.assignee, :size => 20
-                = issue.assignee.name
+                a.ui.image.label href=user_link(issue.assignee)
+                  = avatar_tag issue.assignee, :size => 25
+                  = issue.assignee.name
               - else
                 = t('state.none')
           - if issue.begin_at.present? or issue.due_at.present?
