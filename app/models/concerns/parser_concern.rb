@@ -20,7 +20,8 @@ module ParserConcern
                                                  HTML::Pipeline::EmojiFilter,
                                                  RougeSyntaxHighlightFilter
                                              ], context.merge(:gfm => true) # enable github formatted markdown
-      markdown_pipeline.call( text )[:output]
+
+      '<div class="markdown-body">' + markdown_pipeline.call( text )[:output].to_s + '</div>'
     end
 
   end
