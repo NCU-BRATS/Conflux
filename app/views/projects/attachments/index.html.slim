@@ -1,0 +1,11 @@
+.ui.basic.segment
+  .ui.inverted.buttons.right.floated
+    = link_to "上傳#{Attachment.model_name.human}", new_project_attachment_path, class: 'ui basic green button'
+    = link_to "新增#{Attachment::Post.model_name.human}", new_project_attachment_post_path, class: 'ui basic green button'
+    = link_to "新增#{Attachment::Snippet.model_name.human}", new_project_attachment_snippet_path, class: 'ui basic green button'
+.ui.divider
+.ui.relaxed.divided.items
+  - @attachments.each do |attachment|
+    .item
+      = render partial: attachment.type.downcase + '_preview', locals: {attachment: attachment}
+= link_to '返回', project_attachments_path(@project), class: 'ui basic green button right floated'
