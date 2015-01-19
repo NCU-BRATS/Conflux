@@ -90,7 +90,7 @@ div
           = f.input :begin_at
           = f.input :due_at
         .two.fields
-          = f.association :assignee, collection: issue.project.members,
+          = f.association :assignee, collection: [issue.assignee],
                           input_html: { data: { :'resource-path' => project_members_path( issue.project ),
                                                 :'search-field' => '["name", "email"]',
                                                 :'option-tpl' => 'option-user'} }
