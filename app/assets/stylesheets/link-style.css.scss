@@ -18,6 +18,13 @@
   }
 }
 
+.red.link {
+  color: rgba(217, 92, 92, 0.80);
+  &:hover {
+    color: rgb(217, 92, 92);
+  }
+}
+
 .bold.link {
   font-weight: bold;
   &:hover {
