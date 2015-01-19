@@ -235,6 +235,8 @@ en:
       search: search
   state:
     none: none
+    in_progress: in progress
+    not_in_progress: not in progress
   attribute:
     target:
       info: info of %{target}
