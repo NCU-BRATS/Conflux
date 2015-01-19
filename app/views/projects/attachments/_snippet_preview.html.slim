@@ -1,0 +1,14 @@
+.ui.grid
+  .fourteen.wide.column
+    h4.ui.header
+      = link_to [@project, attachment] do
+        i.file.blue.powerpoint.outline.large.icon
+        = "#{Attachment::Snippet.model_name.human} - #{attachment.name}"
+  .two.wide.column
+    = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}
+    = render partial: 'edit_button', locals: {path: edit_project_attachment_snippet_path(@project, attachment)}
+.content
+  .meta
+    = render partial: 'meta', locals: {attachment: attachment}
+  .description
+    .ui.basic.segment == attachment.preview_html
