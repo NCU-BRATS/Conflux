@@ -82,6 +82,12 @@ GEM
       sass (~> 3.2)
     builder (3.2.2)
     callsite (0.0.11)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    charlock_holmes (0.7.3)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -111,6 +117,8 @@ GEM
     em-socksify (0.3.0)
       eventmachine (>= 1.0.0.beta.4)
     email_reply_parser (0.5.8)
+    enumerize (0.9.0)
+      activesupport (>= 3.2)
     erubis (2.7.0)
     escape_utils (1.0.1)
     eventmachine (1.0.4)
@@ -138,6 +146,11 @@ GEM
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
     gemoji (2.1.0)
+    github-linguist (4.2.6)
+      charlock_holmes (~> 0.7.3)
+      escape_utils (~> 1.0.1)
+      mime-types (>= 1.19)
+      rugged (~> 0.22.0b4)
     github-markdown (0.6.8)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
@@ -175,6 +188,8 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     mime-types (2.4.3)
+    mimetype-fu (0.1.2)
+    mini_magick (4.0.1)
     mini_portile (0.6.2)
     minitest (5.5.1)
     momentjs-rails (2.8.3)
@@ -258,6 +273,7 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
+    rugged (0.22.0b5)
     sanitize (3.1.0)
       crass (~> 1.0.1)
       nokogiri (>= 1.4.4)
@@ -340,11 +356,13 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.3.1)
   bootstrap3-datetimepicker-rails!
+  carrierwave
   clndr-rails!
   coffee-rails (~> 4.1.0)
   data-confirm-modal!
   devise
   email_reply_parser
+  enumerize
   escape_utils
   factory_girl_rails (~> 4.0)
   faker (~> 1.4.3)
@@ -352,6 +370,7 @@ DEPENDENCIES
   font-awesome-sass (~> 4.2.0)
   friendly_id
   gemoji
+  github-linguist
   github-markdown
   gravtastic
   handlebars_assets
@@ -361,6 +380,8 @@ DEPENDENCIES
   kaminari
   meta-tags
   meta_request
+  mimetype-fu
+  mini_magick
   momentjs-rails
   nested_form (~> 0.3.2)
   pg (~> 0.18.0)
