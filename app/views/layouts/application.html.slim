@@ -6,11 +6,12 @@ html
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 
-    = yield :stylesheets
     = stylesheet_link_tag    'application', 'data-turbolinks-track' => true, media: 'all'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = javascript_include_tag Sync.adapter_javascript_url, 'data-turbolinks-track' => true
     = csrf_meta_tags
+
+    = yield :stylesheets
 
   body
     = render 'layouts/navbar'
