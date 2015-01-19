@@ -1,0 +1,18 @@
+.ui.comments
+  .comment
+    .avatar
+      = avatar_tag attachment.user
+    .content
+      a.author = attachment.user.name
+      .metadata = time_format_absolute_tag attachment.updated_at, :format => 'MMM Do a h:mm', class: 'date'
+      .text #{Attachment::Image.model_name.human}
+.ui.top.attached.segment
+  h2.ui.center.aligned.header = attachment.name
+.ui.attached.segment
+  img.ui.centered.bordered.rounded.image src = attachment.path
+.ui.attached.segment
+  = link_to project_attachment_path(@project, attachment), data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: 'ui icon basic button left floated' do
+    i.icon.trash
+  = link_to project_attachments_path, class: 'ui basic green button right floated' do
+    i.icon.chevron.left
+    = t('action.word.back')

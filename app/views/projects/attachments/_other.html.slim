@@ -1,0 +1,22 @@
+.ui.comments
+  .comment
+    .avatar
+      = avatar_tag attachment.user
+    .content
+      a.author = attachment.user.name
+      .metadata = time_format_absolute_tag attachment.updated_at, :format => 'MMM Do a h:mm', class: 'date'
+      .text #{Attachment::Other.model_name.human}
+.ui.top.center.aligned.attached.segment
+  i.massive.file.icon
+  h3.ui.center.aligned.header = attachment.name
+  h4.ui.center.aligned.header = "1111 MB Binary"
+  = link_to attachment.path.url do
+    .ui.circular.icon.button
+      i.cloud.download.icon
+    = "Download File"
+.ui.attached.segment
+  = link_to project_attachment_path(@project, attachment), data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: 'ui icon basic button left floated' do
+    i.icon.trash
+  = link_to project_attachments_path, class: 'ui basic green button right floated' do
+    i.icon.chevron.left
+    = t('action.word.back')
