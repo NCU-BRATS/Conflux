@@ -24,5 +24,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/public/uploads
+!/public/uploads/.keep
 
 .DS_Store
