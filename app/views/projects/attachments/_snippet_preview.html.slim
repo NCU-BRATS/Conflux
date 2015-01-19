@@ -2,7 +2,7 @@
   .fourteen.wide.column
     h4.ui.header
       = link_to [@project, attachment] do
-        i.file.blue.powerpoint.outline.large.icon
+        i.file.blue.code.outline.large.icon
         = "#{Attachment::Snippet.model_name.human} - #{attachment.name}"
   .two.wide.column
     = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}
