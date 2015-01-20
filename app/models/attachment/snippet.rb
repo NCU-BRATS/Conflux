@@ -2,9 +2,9 @@ class Attachment::Snippet < Attachment
   include ParserConcern
 
   LANGUAGES = ["Text", "C", "C#", "C++", "Clojure", "CoffeeScript", "Common Lisp",
-                  "CSS", "Diff", "Emacs Lisp", "Erlang", "Haskell", "HTML", "Java", "JavaScript",
-                  "Lua", "Objective-C", "Perl", "PHP", "Python", "Ruby", "Scala",
-                  "Scheme", "Shell", "SQL"]
+               "CSS", "Diff", "Emacs Lisp", "Erlang", "Haskell", "HTML", "Java", "JavaScript",
+               "Lua", "Objective-C", "Perl", "PHP", "Python", "Ruby", "Scala",
+               "Scheme", "Shell", "SQL"]
   enumerize :language, in: LANGUAGES
 
   validates :content, :language, :name, presence: true
