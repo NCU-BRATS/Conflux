@@ -2,16 +2,12 @@ class ProjectsController < ApplicationController
   enable_sync only: [:create, :update, :destroy]
 
   before_action :authenticate_user!
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:edit, :update, :destroy]
 
   def index
     @q = Project.search(params[:q])
     @projects = @q.result.page(params[:page]).per(params[:per])
     respond_with @projects
-  end
-
-  def show
-    respond_with @project
   end
 
   def new
