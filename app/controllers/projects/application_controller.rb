@@ -4,7 +4,7 @@ class Projects::ApplicationController < ApplicationController
   before_action :set_project
 
   def determine_layout
-    'application'
+    'project'
   end
 
   protected
