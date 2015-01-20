@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     end
 
     scope module: 'projects' do
+      resource :dashboard
       resources :members
       resources :issues , concerns: :commentable do
         member do

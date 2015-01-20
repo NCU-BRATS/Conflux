@@ -1,0 +1,102 @@
+.ui.grid
+  .doubling.four.column.row
+    .four.wide.column
+      .ui.header
+        i.rocket.icon
+        .content
+          = title @project.name
+          .sub-header
+            = @project.description
+    .right.floated.right.aligned.four.wide.column#new_issue_btn_grid
+      = link_to edit_project_path(@project), class: 'ui yellow button' do
+        i.ui.icon.write
+        = t('action.word.edit')
+
+.ui.divider
+.ui.grid
+  .doubling.two.column.row
+    .column.right.floated
+      h3.ui.dividing.header
+        i.icon.tasks
+        .content
+          = link_to t('structure.list', element: Issue.model_name.human ), project_issues_path
+      .ui.top.attached.tabular.menu
+        a.item data-tab="assigned_to_me" 我被指派的任務
+        a.item data-tab="opened_by_me" 我開啟的任務
+        a.item data-tab="opened" 最近的任務
+      - @issues.each do |key, issues|
+        .ui.bottom.attached.tab.segment data-tab=key
+          .ui.selection.divided.list
+            - issues.each do |issue|
+              .item
+                - if issue.status.upcase == 'OPEN'
+                  i.green.icon.unlock
+                - elsif issue.status.upcase == 'CLOSED'
+                  i.red.icon.lock
+                .content
+                  .header
+                    = link_to issue.title, project_issue_path(@project, issue)
+                  = "##{issue.sequential_id} "
+                  => user_tag issue.user, class: 'gray link'
+                  => t('action.target.created_at', target: '')
+                  span = time_format_relative_tag( issue.created_at )
+
+      h3.ui.dividing.header
+        i.icon.tasks
+        .content
+          = link_to t('structure.list', element: Attachment::Post.model_name.human ), project_attachments_path
+      .ui.segment
+        - @posts.each do |post|
+          .ui.vertical.segment
+            h4.ui.header
+              = link_to [@project, post] do
+                i.file.blue.text.outline.large.icon
+                = post.name
+            .content
+              .meta
+                = render partial: 'projects/attachments/meta', locals: {attachment: post}
+              .description
+                .ui.basic.segment == post.preview_html
+    .column
+      .ui.filter-btns.icon.menu
+        a.item
+          i.announcement.icon
+        a.item
+          i.comments.icon
+        a.item
+          i.tasks.icon
+        a.item
+          i.file.icon
+        a.item
+          i.users.icon
+      .ui.feed
+        .event
+          .label
+            img src="https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/48.jpg"
+          .content
+            .date 3 minutes ago
+            .summary
+              a.user> Username
+              | added you as a friend
+        .event
+          .label
+            img src="https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/48.jpg"
+          .content
+            .date 3 hours ago
+            .summary
+              a.user> Username
+              | uploaded a file.
+        .event
+          .label
+            img src="https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/48.jpg"
+          .content
+            .date 3 days ago
+            .summary
+              ' You added Username to the group
+              a Group Name
+
+
+- content_for :javascripts
+  coffee:
+    $('.item[data-tab]').tab()
+    $('.item[data-tab]')[0].click()
