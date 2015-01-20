@@ -1,11 +1,11 @@
 class ProjectPolicy < ApplicationPolicy
 
   def update?
-    record.is_memeber?(user)
+    record.has_member?(user)
   end
 
   def destroy?
-    record.is_memeber?(user)
+    record.has_member?(user)
   end
 
 end

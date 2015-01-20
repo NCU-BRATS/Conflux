@@ -1,13 +1,13 @@
 class AttachmentPolicy < ApplicationPolicy
   def create?
-    record.project.is_memeber?(user)
+    record.project.has_member?(user)
   end
 
   def destroy?
-    record.project.is_memeber?(user)
+    record.project.has_member?(user)
   end
 
   def update?
-    record.project.is_memeber?(user)
+    record.project.has_member?(user)
   end
 end

@@ -20,7 +20,7 @@ class Project < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
 
-  def is_memeber?(user)
+  def has_member?(user)
     members.include? user
   end
 
