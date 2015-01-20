@@ -8,4 +8,3 @@
   - @attachments.each do |attachment|
     .item
       = render partial: attachment.type.downcase + '_preview', locals: {attachment: attachment}
-= link_to t('action.word.back'), project_attachments_path(@project), class: 'ui basic green button right floated'
