@@ -1,0 +1,19 @@
+#new_issue_btn_grid {
+  max-width: 160px;
+  .button {
+    width: 130px;
+  }
+}
+
+#issue_search_input_grid {
+  border-right: 1px solid #eee;
+}
+
+@media only screen and (max-width: 991px) {
+  #issue_search_input_grid {
+    border-right: 0;
+    width: 100% !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
