@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/projects/:id', to: redirect('/projects/%{id}/dashboard')
   resources :projects do
     concern :commentable do
       resources :comments , only: [:create]
