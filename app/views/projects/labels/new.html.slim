@@ -1,1 +1,11 @@
-== render 'form'
+h1
+  = title t('action.target.create', target: Label.model_name.human)
+  .ui.right.floated.buttons
+    a.ui.button.basic.green href="#{project_labels_path(@project)}"
+      i.icon.chevron.left
+      = t('action.word.back')
+= render 'form'
+
+-content_for :javascripts
+    coffee:
+      new Labels()
