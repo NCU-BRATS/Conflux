@@ -116,3 +116,24 @@ body.pushable > .pusher {
 #post_content_preview_field {
   min-height: 198px;
 }
+
+#new_button_grid {
+  max-width: 160px;
+  .button {
+    width: 130px;
+  }
+}
+
+#search_input_grid {
+  border-right: 1px solid #eee;
+}
+
+@media only screen and (max-width: 991px) {
+  #search_input_grid {
+    border-right: 0;
+    width: 100% !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
