@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  get '/projects/:id', to: redirect('/projects/%{id}/dashboard')
   resources :projects do
     concern :commentable do
       resources :comments , only: [:create]
     end
 
     scope module: 'projects' do
+      resource :dashboard
       resources :members
       resources :issues , concerns: :commentable do
         member do

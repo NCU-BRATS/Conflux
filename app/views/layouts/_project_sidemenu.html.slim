@@ -1,5 +1,5 @@
 .ui.vertical.pointing.main.menu
-  a.item
+  = active_link_to project_dashboard_path, class: 'item' do
     i.dashboard.icon
     span = t('project.dashboard')
   = active_link_to project_members_path, class: 'item' do

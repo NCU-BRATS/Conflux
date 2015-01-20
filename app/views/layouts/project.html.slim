@@ -1,3 +1,6 @@
+- content_for :sub_brand
+  = link_to @project.name, project_dashboard_path, class: 'brand item'
+
 - content_for :sidebars
   = render 'layouts/project_sidebar'
 
