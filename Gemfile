@@ -40,7 +40,7 @@ gem "github-markdown",   :require => false
 gem "email_reply_parser",   :require => false
 gem "sanitize",   :require => false
 gem "escape_utils",   :require => false
-# gem "github-linguist",  :require => false
+gem "github-linguist"
 # generates scoped sequential IDs
 gem 'sequenced'
 # state machine
@@ -54,6 +54,10 @@ gem 'responders', '~> 2.0'
 gem 'faye'
 gem 'thin', require: false
 gem 'sync'
+gem 'enumerize'
+gem 'carrierwave'
+gem 'mimetype-fu'
+gem 'mini_magick'
 
 # Gravatar Integration
 gem 'gravtastic'

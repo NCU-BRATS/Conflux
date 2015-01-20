@@ -27,5 +27,7 @@ module Conflux
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    # prevent STI add prefix module name in type field
+    config.active_record.store_full_sti_class = false
   end
 end

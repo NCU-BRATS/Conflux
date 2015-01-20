@@ -13,6 +13,9 @@ Rails.application.routes.draw do
         end
       end
       resources :comments ,only: [:update, :destroy]
+      resources :attachments
+      resources :posts, as: 'attachment_posts'
+      resources :snippets, as: 'attachment_snippets'
     end
 
     # rematch ProjectParticipation Model path to project_member_path
