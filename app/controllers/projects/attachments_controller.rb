@@ -14,7 +14,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   def create
     @attachment = Attachment::intelligent_construct(attachment_params, @project, current_user)
     authorize @attachment
-    flash[:notice] = "已成功創建#{@attachment.class.model_name.human}" if @attachment.save
+    @attachment.save
     respond_with @attachment, location: project_attachments_path
   end
 
@@ -27,7 +27,6 @@ class Projects::AttachmentsController < Projects::ApplicationController
     @attachment = @project.attachments.find(params[:id])
     authorize @attachment
     @attachment.destroy
-    flash[:notice] = "已成功刪除#{Attachment.model_name.human}"
     respond_with @attachment, location: project_attachments_path
   end
 

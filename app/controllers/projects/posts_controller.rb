@@ -10,7 +10,7 @@ class Projects::PostsController < Projects::ApplicationController
     @post = @project.posts.build(post_params)
     @post.user = current_user
     authorize @post, :create?
-    flash[:notice] = "已成功創建#{Attachment::Post.model_name.human}" if @post.save
+    @post.save
     respond_with @project, @post
   end
 
@@ -27,7 +27,7 @@ class Projects::PostsController < Projects::ApplicationController
   def update
     @post = @project.posts.find(params[:id])
     authorize @post
-    flash[:notice] = "已成功修改#{Attachment::Post.model_name.human}" if @post.update(post_params)
+    @post.update(post_params)
     respond_with @project, @post
   end
 

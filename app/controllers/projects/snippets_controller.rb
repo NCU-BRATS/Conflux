@@ -10,7 +10,7 @@ class Projects::SnippetsController < Projects::ApplicationController
     @snippet = @project.snippets.build(snippet_params)
     @snippet.user = current_user
     authorize @snippet
-    flash[:notice] = "已成功創建#{Attachment::Post.model_name.human}" if @snippet.save
+    @snippet.save
     respond_with @project, @snippet
   end
 
@@ -27,7 +27,7 @@ class Projects::SnippetsController < Projects::ApplicationController
   def update
     @snippet = @project.snippets.find(params[:id])
     authorize @snippet
-    flash[:notice] = "已成功修改#{Attachment.model_name.human}" if @snippet.update(snippet_params)
+    @snippet.update(snippet_params)
     respond_with @project, @snippet
   end
 
