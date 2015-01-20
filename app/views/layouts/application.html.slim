@@ -14,9 +14,11 @@ html
     = yield :stylesheets
 
   body
+    = yield :sidebars
     = render 'layouts/navbar'
-    .main.container
-      = yield
+    .pusher
+      .main.container
+        = yield
 
-    = render 'layouts/notice'
+      = render 'layouts/notice'
     = yield :javascripts

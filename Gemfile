@@ -45,8 +45,8 @@ gem "github-linguist"
 gem 'sequenced'
 # state machine
 gem 'aasm'
-# calendar
-gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails'
+# advance link_to helper for adding 'active' css class
+gem 'active_link_to'
 
 # responders
 gem 'responders', '~> 2.0'
@@ -84,6 +84,8 @@ gem 'data-confirm-modal', github: 'NCU-BRATS/data-confirm-modal', branch: 'seman
 gem 'momentjs-rails'
 # datetime-picker widget
 gem 'bootstrap3-datetimepicker-rails', github: 'NCU-BRATS/bootstrap3-datetimepicker-rails', branch: 'bs-scope'
+# calendar
+gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

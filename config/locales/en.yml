@@ -245,3 +245,10 @@ en:
      action: are you sure to %{action}?
   structure:
     list: '%{element} list'
+  project:
+    dashboard: Dashboard
+    members: Members
+    issues: Issues
+    sprints: Sprints
+    attachments: Files
+    channels: Channels

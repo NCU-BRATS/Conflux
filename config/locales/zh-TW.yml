@@ -246,3 +246,10 @@ zh-TW:
       action: 你確定要%{action}嗎?
   structure:
     list: '%{element}列表'
+  project:
+    dashboard: 主頁
+    members: 成員
+    issues: 任務
+    sprints: 衝刺
+    attachments: 檔案
+    channels: 頻道

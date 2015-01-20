@@ -1,0 +1,17 @@
+- content_for :sidebars
+  = render 'layouts/project_sidebar'
+
+.content-with-sidemenu
+  .content-sidemenu
+    = render 'layouts/project_sidemenu'
+
+  .content-container
+    = yield
+
+- content_for :javascripts
+  coffee:
+    $('.sidebar').sidebar({dimPage: false})
+    $('.channels-toggle').click ->
+      $('.sidebar').sidebar('toggle')
+
+- parent_layout "application"

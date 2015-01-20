@@ -24,6 +24,8 @@
 @import "sync-highlight";
 @import "clndr-rails";
 @import "link-style";
+@import "projects";
+@import "issues";
 
 .bs {
   @import "bootstrap-sprockets";
@@ -47,15 +49,59 @@ nav {
   }
 }
 
-.main.container {
+body {
+  height: 100%;
   background-color: #FFFFFF;
-  margin: 0em auto;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.05);
-  border-left: 1px solid #DDDDDD;
-  border-right: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
-  padding: 2em 2em 7em;
-  z-index: 1;
+}
+
+body.pushable > .pusher {
+  background-color: #FFFFFF;
+}
+
+.main.container {
+  padding-top: 60px;
+}
+
+.content-with-sidemenu {
+  padding: 0 0 0 210px;
+  .content-sidemenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    .main.menu {
+      height: 100%;
+      padding-top: 60px;
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  .content-container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .content-with-sidebar {
+    padding: 0 0 0 52px;
+    .content-sidebar {
+      .main.menu {
+        width: 52px;
+        .item {
+          padding-bottom: 24px;
+          i.icon { padding-right: 19px; }
+          span { display: none; }
+        }
+      }
+    }
+
+    .content-container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
 }
 
 .checkbox, .radio {
