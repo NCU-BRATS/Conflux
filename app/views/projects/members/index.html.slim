@@ -1,16 +1,39 @@
-table.ui.table
-  thead
-    tr
-      th = User.human_attribute_name(:name)
-      th = link_to t('action.target.add', target: ProjectParticipation.model_name.human), new_project_member_path, class: 'ui mini green button pull-right'
+.ui.grid
+  .doubling.four.column.row
+    .four.wide.column
+      h1.ui.header
+        i.users.icon
+        .content
+          = title t('structure.list', element: ProjectParticipation.model_name.human )
+    .right.floated.right.aligned.four.wide.column#new_button_grid
+      = link_to new_project_member_path, class: 'ui green button' do
+        i.ui.icon.write
+        = t('action.target.add', target: ProjectParticipation.model_name.human)
+    .right.floated.six.wide.column#search_input_grid
+      .ui.left.icon.fluid.input
+        input type='text' placeholder=t('action.word.search')
+        i.icon.search
 
-  tbody
-    - @participations.each do |participation|
-      tr
-        td = participation.user.name
-        td
-          .btn-toolbar.pull-right
-            = link_to t('action.word.delete'), project_member_path(@project, participation), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui mini red button'
+.ui.divider
 
-.btn-toolbar.pull-right
-  = link_to t('action.word.back'), project_path(@project), class: 'ui button'
+.ui.eight.cards
+  - @participations.each do |participation|
+    .card
+      .dimmable.image
+        .ui.dimmer
+          .content
+            .center
+              a.ui.inverted.button href=profile_path(participation.user)
+                = t('attribute.word.info')
+        = avatar_tag participation.user, :size => '192'
+      .content
+        .header = participation.user.name
+        .meta
+          a.group = participation.user.title
+          a.group
+            => t('action.target.created_at', target: '')
+            span = time_format_relative_tag( participation.created_at )
+
+- content_for :javascripts
+  coffee:
+    $('.cards .image').dimmer({on: 'hover'})
