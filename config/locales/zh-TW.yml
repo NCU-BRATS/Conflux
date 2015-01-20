@@ -218,6 +218,7 @@ zh-TW:
       login: 登入%{target}
       logout: 登出%{target}
       search: 搜尋%{target}
+      upload: 上傳%{target}
     word:
       create: 創建
       add: 新增
@@ -232,6 +233,7 @@ zh-TW:
       login: 登入
       logout: 登出
       search: 搜尋
+      upload: 上傳
   state:
     none: 無
   attribute:
