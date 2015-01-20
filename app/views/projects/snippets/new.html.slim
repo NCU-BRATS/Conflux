@@ -1,5 +1,5 @@
 h1
-  = title "新增#{Attachment::Snippet.model_name.human}"
+  = title t('action.target.create', target: Attachment::Snippet.model_name.human)
   = link_to project_attachments_path, class: 'ui basic green button right floated' do
     i.icon.chevron.left
     = t('action.word.back')

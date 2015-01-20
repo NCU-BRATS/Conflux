@@ -1,2 +1,2 @@
-= link_to path, data: {:confirm => '你確定要刪除嗎?'}, :method => :delete, class: 'ui circular right floated icon basic button' do
+= link_to path, data: {:confirm => t('question.confirm.action', action: t('action.target.delete'))}, :method => :delete, class: 'ui circular right floated icon basic button' do
   i.trash.icon
