@@ -1,9 +1,9 @@
 nav.ui.fixed.menu
   a.brand.item href=root_path Conflux
-  a.active.item href=root_path Home
-  a.item href=profiles_path = User.model_name.human
+  = yield :sub_brand
 
   .right.menu
+    a.item href=profiles_path = User.model_name.human
     - if user_signed_in?
       a.item.navbar-avatar href=profile_path(current_user.slug)
         = avatar_tag current_user, :size => '20'
