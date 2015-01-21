@@ -1,0 +1,51 @@
+div
+  div#editable_title
+
+    h1
+      = title "##{sprint.sequential_id} #{sprint.title}"
+      - if sprint.expired?
+        i.red.icon.warning.sign
+      .ui.buttons.basic.right.floated
+        - if sprint.open?
+          a.ui.button.basic.red href="#{close_project_sprint_path(sprint.project, sprint)}" data-remote=true data-method='put'
+            i.icon.lock
+            = t('action.target.close', target: Sprint.model_name.human)
+        - elsif sprint.closed?
+          a.ui.button.basic.blue href="#{reopen_project_sprint_path(sprint.project, sprint)}" data-remote=true data-method='put'
+            i.icon.unlock
+            = t('action.target.open', target: Sprint.model_name.human)
+        a.ui.button.basic.red data-editable='title'
+          i.icon.edit
+          = t('action.word.edit')
+        a.ui.button.basic.teal href="#{project_sprints_path(sprint.project)}"
+          i.icon.chevron.left
+          = t('action.word.back')
+    div
+      - if sprint.open?
+        .ui.label.large
+          i.icon.green.unlock
+          = sprint.status.upcase
+      - if sprint.closed?
+        .ui.label.large
+          i.icon.red.lock
+          = sprint.status.upcase
+      span
+        => user_tag sprint.user, class: 'bold black link'
+        = t('action.target.created_at', target: '')
+        = time_format_relative_tag sprint.created_at
+
+
+  #editable_title_form
+    .ui.segment
+      = simple_form_for [sprint.project, sprint], remote: true do |f|
+        .ui.buttons.right.floated
+          button.ui.button.basic.green
+            i.icon.checkmark
+            = t('helpers.submit.update', model: Sprint.model_name.human)
+          a#editable_title_cancel.ui.button.basic.teal
+            i.icon.chevron.left
+            = t('action.word.cancel')
+        = f.input :title
+        .two.fields
+          = f.input :begin_at
+          = f.input :due_at

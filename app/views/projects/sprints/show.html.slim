@@ -1,0 +1,76 @@
+
+= sync partial: 'sprint_header', resource: @sprint
+
+.ui.top.tiered.menu
+
+  a.active.teal.item data-tab='comment'
+    i.icon.comments
+    = Comment.model_name.human
+    .ui.circular.label = @sprint.comments.size
+
+  a.teal.item data-tab='issue'
+    i.icon.tasks
+    = Issue.model_name.human
+    .ui.circular.label = @sprint.issues.size
+
+  a.teal.item data-tab='calendar'
+    i.icon.calendar
+    = '日程'
+
+.ui.active.tab data-tab='comment'
+
+  = sync partial: 'comment_row', collection: @sprint.comments.asc
+  = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable(@sprint)
+
+  .ui.segment.tertiary
+    = simple_form_for([@project, @sprint, @sprint.comments.build], remote: true) do |f|
+      = f.error_notification
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='comment-origin'
+          = t('action.target.write', target: Comment.model_name.human)
+        a.item data-tab='comment-preview' data-preview='comment_content'
+          = t('action.target.preview', target: Comment.model_name.human)
+      .ui.attached.active.tab.segment data-tab='comment-origin'
+        = f.input :content, label: false, input_html: { id: 'comment_content_post_field' }
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='comment-preview'
+      .ui.bottom.attached.segment
+        = f.button :submit, class: 'right floated icon inverted'
+
+- if @sprint.issues.present?
+  .ui.tab data-tab='issue'
+    - @sprint.issues.each do |issue|
+      .ui.attached.segment
+        .ui.grid
+          .ten.wide.column
+            .ui.header
+              - if issue.open?
+                i.green.icon.unlock
+              - elsif issue.closed?
+                i.red.icon.lock
+              .content
+                = link_to issue.title, project_issue_path(@project, issue)
+                .sub.header
+                  = "##{issue.sequential_id} "
+                  => user_tag issue.user, class: 'gray link'
+                  => t('action.target.created_at', target: '')
+                  span = time_format_relative_tag(issue.created_at)
+          .six.wide.column
+            - if issue.assignee.present?
+              a.ui.image.label.right.floated href=user_link(issue.assignee)
+                = avatar_tag issue.assignee, :size => 25
+                = issue.assignee.name
+
+.ui.tab data-tab='calendar'
+  .center.aligned
+    - if @sprint.issues.present?
+      - @calendar_events = @sprint.issues.select do |issue|
+        - issue.begin_at.present? and issue.due_at.present?
+      - @calendar_events = @calendar_events.map do |issue|
+        - { start_date: issue.begin_at, end_date: issue.due_at, name: "##{issue.sequential_id} #{issue.title}" }
+      = clndr_tag multiple_events: @calendar_events, template:Clndr::Template::FULL
+    - else
+      = clndr_tag template:Clndr::Template::FULL
+
+- content_for :javascripts
+  coffee:
+    $('.menu .item').tab()
