@@ -1,16 +1,17 @@
-h1 = title t('structure.list', element: Project.model_name.human)
+h1.ui.center.aligned.header
+  .content
+    = title t('structure.list', element: Project.model_name.human)
 
-table.ui.table
-  thead
-    tr
-      th = sort_link(@q, :name)
-      th = sort_link(@q, :description)
-      th = link_to t('action.target.add', target: Project.model_name.human), new_project_path, class: 'ui mini green button pull-right'
+= search_form_for @q, class: 'ui form' do |f|
+  .fields
+    .four.wide.field
+    .eight.wide.field
+      .ui.left.icon.input
+        i.search.icon
+        = f.search_field :name_cont, placeholder: t('ransack.search'), type: 'text'
 
-  tbody
-    = sync partial: 'project_row', collection: @projects
-    = sync_new partial: 'project_row', resource: Project.new
-
-br
+.ui.very.massive.relaxed.divided.selection.list
+  = sync partial: 'project_row', collection: @projects
+  = sync_new partial: 'project_row', resource: Project.new
 
 = paginate @projects
