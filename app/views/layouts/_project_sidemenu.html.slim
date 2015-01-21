@@ -11,6 +11,9 @@
   a.item
     i.flag.icon
     span = t('project.sprints')
+  = active_link_to project_labels_path, class: 'item' do
+    i.bookmark.icon
+    span = t('project.labels')
   = active_link_to project_attachments_path, class: 'item' do
     i.file.icon
     span = t('project.attachments')
