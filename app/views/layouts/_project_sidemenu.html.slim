@@ -8,7 +8,7 @@
   = active_link_to project_issues_path, class: 'item' do
     i.tasks.icon
     span = t('project.issues')
-  a.item
+  = active_link_to project_sprints_path, class: 'item' do
     i.flag.icon
     span = t('project.sprints')
   = active_link_to project_labels_path, class: 'item' do
