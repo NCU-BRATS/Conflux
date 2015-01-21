@@ -1,8 +1,9 @@
-.ten.wide.column
- ui.header
-   = render_colored_label(label)
-.two.wide.column.right.floated
-  .ui.blue.basic.button
-    = link_to 'Edit', edit_project_label_path(@project, label)
-  .ui.red.button#label_remove_button
-    = link_to 'Remove', project_label_path(@project, label), method: :delete, data: {confirm: "Remove this label? Are you sure?"}
+.two.column.row
+  .ten.wide.column
+   ui.header
+     = render_colored_label(label)
+  .six.wide.column.right.aligned
+    => link_to edit_project_label_path(@project, label), class: 'ui circular icon basic button' do
+      i.write.icon
+    = link_to project_label_path(@project, label), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui circular icon basic button' do
+      i.trash.icon
