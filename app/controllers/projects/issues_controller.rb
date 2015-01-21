@@ -21,10 +21,12 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def create
-    @issue = @project.issues.build( issue_params )
+    @issue = @project.issues.build( issue_params.except(:label_ids) )
     @issue.user = current_user
     @issue.comments.each { |comment| comment.user = current_user }
     @issue.save
+    label_params = issue_params[:label_ids]
+    @issue.update_attributes(label_ids: label_params)
     respond_with @project, @issue
   end
 
