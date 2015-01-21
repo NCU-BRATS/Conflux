@@ -3,8 +3,12 @@ nav.ui.fixed.menu
   = yield :sub_brand
 
   .right.menu
-    a.item href=projects_path = Project.model_name.human
-    a.item href=profiles_path = User.model_name.human
+    a.icon.item href=projects_path data-content=t('structure.list', element: Project.model_name.human)
+      i.world.icon
+    a.icon.item href=new_project_path data-content=t('action.target.create', target: Project.model_name.human)
+      i.plus.icon
+    a.icon.item href=profiles_path data-content=t('structure.list', element: User.model_name.human)
+      i.users.icon
     - if user_signed_in?
       a.item.navbar-avatar href=profile_path(current_user.slug)
         = avatar_tag current_user, :size => '20'
@@ -13,3 +17,10 @@ nav.ui.fixed.menu
 
     - else
       a.item href=new_user_session_path = t('action.word.login')
+
+- content_for :javascripts
+  coffee:
+    $('nav.menu a.item[data-content]').popup
+      inline: true
+      hoverable: true
+      position: 'bottom left'
