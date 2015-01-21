@@ -21,7 +21,13 @@ class Projects::MembersController < Projects::ApplicationController
   def destroy
     @participation = @project.project_participations.find(params[:id])
     authorize @participation
-    @participation.destroy
+
+    if @project.project_participations.size > 1
+      @participation.destroy
+    else
+      @participation.errors.add(:base, '')
+    end
+
     respond_with @participation, location: project_members_path
   end
 
