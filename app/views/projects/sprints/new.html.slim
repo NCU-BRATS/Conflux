@@ -1,0 +1,35 @@
+h1
+  = title t('action.target.create', target: Sprint.model_name.human)
+  .ui.right.floated.buttons
+    a.ui.button.basic.green href="#{project_sprints_path(@project)}"
+      i.icon.chevron.left
+      = t('action.word.back')
+
+= simple_nested_form_for [ @project, @sprint ] do |f|
+  = f.error_notification
+
+  = f.input :title
+  .two.fields
+    = f.input :begin_at
+    = f.input :due_at
+
+  = f.fields_for :comments do |cf|
+    .ui.section.divider
+    .ui.segment.tertiary
+
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='origin'
+          = t('action.word.write')
+        a.item data-tab='preview' data-preview='comment_content'
+          = t('action.word.preview')
+      .ui.attached.active.tab.segment data-tab='origin'
+        = cf.input :content, label: false, input_html: { id: 'comment_content_post_field' }
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+      .ui.bottom.attached.segment
+        = f.button :submit, class: 'right floated icon inverted'
+
+- content_for :javascripts
+  coffee:
+    $('.menu .item').tab()
+
+
