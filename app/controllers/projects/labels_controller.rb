@@ -1,5 +1,5 @@
 class Projects::LabelsController < Projects::ApplicationController
-  before_filter :label, only: [:edit, :update, :destroy]
+  before_filter :set_label, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!
 
   def index
@@ -14,23 +14,15 @@ class Projects::LabelsController < Projects::ApplicationController
 
   def create
     @label = @project.labels.create(label_params)
-
-    if @label.valid?
-      redirect_to project_labels_path(@project)
-    else
-      render 'new'
-    end
+    respond_with @project, @label, location: project_labels_path(@project)
   end
 
   def edit
   end
 
   def update
-    if @label.update_attributes(label_params)
-      redirect_to project_labels_path(@project)
-    else
-      render 'edit'
-    end
+    @label.update_attributes(label_params)
+    respond_with @project, @label, location: project_labels_path(@project)
   end
 
   def destroy
@@ -38,11 +30,13 @@ class Projects::LabelsController < Projects::ApplicationController
     respond_with @project, @label
   end
 
+  protected
+
   def label_params
     params.require(:label).permit(:title, :color)
   end
 
-  def label
-    @label = @project.labels.find(params[:id])
+  def set_label
+    @label ||= @project.labels.find(params[:id])
   end
 end
