@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
+  layout 'default'
+
   responders :flash, :http_cache, :js_default
   respond_to :html, :json, :js
 

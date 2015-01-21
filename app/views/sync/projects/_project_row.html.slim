@@ -1,8 +1,7 @@
-tr
-  td = project.name
-  td = project.description
-  td
-    .btn-toolbar.pull-right
-      = link_to t('attribute.word.info'), project, class: 'ui mini blue button'
-      = link_to t('action.word.edit'), edit_project_path(project), class: 'ui mini yellow button'
-      = link_to t('action.word.delete'), project, data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: ' ui mini red button'
+.item
+  .ui.header
+    i.world.icon
+    .content
+      = link_to project.name, project
+      .sub.header.gray
+         = project.description

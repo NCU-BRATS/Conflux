@@ -63,6 +63,31 @@ body.pushable > .pusher {
   padding-top: 60px;
 }
 
+@media all and (min-width: 768px) {
+  .content-without-sidemenu {
+    width: 750px;
+  }
+}
+
+@media all and (min-width: 992px) {
+  .content-without-sidemenu {
+    width: 970px;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .content-without-sidemenu {
+    width: 1170px;
+  }
+}
+
+.content-without-sidemenu {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .content-with-sidemenu {
   padding: 0 0 0 210px;
   .content-sidemenu {
@@ -136,5 +161,8 @@ body.pushable > .pusher {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
+}
+.ui.list .list > .item .header, .ui.list > .item .sub.header {
+  color: rgba(0, 0, 0, 0.5);
 }
 
