@@ -3,16 +3,18 @@ Rails.application.routes.draw do
     concern :commentable do
       resources :comments , only: [:create]
     end
+    concern :closeable do
+      member do
+        put :close
+        put :reopen
+      end
+    end
 
     scope module: 'projects' do
       resource :dashboard
       resources :members
-      resources :issues , concerns: :commentable do
-        member do
-          put :close
-          put :reopen
-        end
-      end
+      resources :issues  , concerns: [:commentable, :closeable]
+      resources :sprints , concerns: [:commentable, :closeable]
       resources :comments ,only: [:update, :destroy]
       resources :attachments
       resources :posts, as: 'attachment_posts'

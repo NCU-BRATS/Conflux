@@ -1,0 +1,90 @@
+
+.ui.grid
+  .doubling.four.column.row
+    .four.wide.column
+      h1.ui.header
+        i.icon.tasks
+        .content
+          = title t('structure.list', element: Sprint.model_name.human )
+    .right.floated.right.aligned.four.wide.column#new_button_grid
+      = link_to new_project_sprint_path, class: 'ui green button' do
+        i.ui.icon.write
+        = t('action.target.create', target: Sprint.model_name.human)
+    .right.floated.six.wide.column#search_input_grid
+      .ui.left.icon.fluid.input
+        input type='text' placeholder=t('action.word.search')
+        i.icon.search
+
+.ui.divider
+
+- @working, @not_working = @sprints.partition { |sprint|
+-  sprint.working? or sprint.expired?
+- }
+
+.ui.attached.tertiary.red.segment
+  = t('state.in_progress')
+- if @working.empty?
+  .ui.attached.segment
+    = t('state.none')
+- else
+  - @working.each do |sprint|
+    .ui.attached.segment
+      .ui.grid
+        .eight.wide.column
+          .ui.header
+            - if sprint.expired?
+              i.red.icon.warning.sign
+            - else
+              i.green.icon.wait
+            .content
+              - if sprint.expired?
+                = link_to sprint.title, project_sprint_path(@project, sprint), class: 'red link'
+              - else
+                = link_to sprint.title, project_sprint_path(@project, sprint)
+              .sub.header
+                = "###{sprint.sequential_id} "
+                => user_tag sprint.user, class: 'gray link'
+                => t('action.target.created_at', target: '')
+                span = time_format_relative_tag(sprint.created_at)
+        .eight.wide.column
+          .ui.teal.tiny.statistic
+            .value = '80'
+            .label = '完成度'
+          .ui.green.tiny.statistic
+            .value = '8'
+            .label = '已完成'
+          .ui.red.tiny.statistic
+            .value = '2'
+            .label = '未完成'
+          .ui.orange.tiny.statistic
+            .value = '20'
+            .label = '剩餘天數'
+
+.ui.divider
+
+div
+  .ui.attached.tertiary.segment
+    = t('state.not_in_progress')
+  - if @not_working.empty?
+    .ui.attached.segment
+      = t('state.none')
+  - else
+    - @not_working.each do |sprint|
+
+      .ui.attached.segment
+        .ui.grid
+          .ten.wide.column
+            .ui.header
+              - if sprint.open?
+                i.green.icon.unlock
+              - elsif sprint.closed?
+                i.red.icon.lock
+              .content
+                = link_to sprint.title, project_sprint_path(@project, sprint)
+                .sub.header
+                  = "###{sprint.sequential_id} "
+                  => user_tag sprint.user, class: 'gray link'
+                  => t('action.target.created_at', target: '')
+                  span = time_format_relative_tag( sprint.created_at )
+
+= paginate @sprints

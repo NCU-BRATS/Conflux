@@ -236,6 +236,8 @@ zh-TW:
       upload: 上傳
   state:
     none: 無
+    in_progress: 進行中
+    not_in_progress: 非進行中
   attribute:
     target:
       info: '%{target}詳情'

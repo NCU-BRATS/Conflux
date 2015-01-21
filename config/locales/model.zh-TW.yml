@@ -12,6 +12,7 @@ zh-TW:
       attachment/snippet: '程式碼'
       attachment/other: '其他檔案'
       label: '標籤'
+      sprint: '戰役'
     attributes:
       user:
         name: '名稱'
@@ -30,6 +31,13 @@ zh-TW:
         begin_at: '開始時間'
         due_at: '結束時間'
         assignee: '執行者'
+      sprint:
+        sequential_id: '序號'
+        title: '標題'
+        comments: '回覆'
+        created_at: '創建時間'
+        begin_at: '開始時間'
+        due_at: '結束時間'
       comment:
         contnet: '內容'
       attachment:
