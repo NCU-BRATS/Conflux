@@ -253,3 +253,7 @@ zh-TW:
     sprints: 衝刺
     attachments: 檔案
     channels: 頻道
+    labels: '標籤'
+  hint:
+    label:
+      color: '請填入以 # 為開頭的六字元 hex 色碼值。 或是從下方選擇建議的顏色。'

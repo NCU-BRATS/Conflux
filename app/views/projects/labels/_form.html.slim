@@ -1,0 +1,12 @@
+= simple_form_for [@project, @label] do |f|
+  = f.error_notification
+
+  = f.input :title
+
+  = f.input :color, as: :label_color, placeholder: "#AA33EE", hint: t('hint.label.color')
+
+  .suggest-colors.field
+    - suggested_colors.each do |color|
+      a> href="#" style="background-color: #{color}" data-color=color
+
+  = f.button :submit, class: 'js-save-button'

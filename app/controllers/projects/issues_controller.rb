@@ -48,7 +48,7 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def issue_params
-    params.require(:issue).permit( :title, :begin_at, :due_at, :status, :assignee_id, comments_attributes: [ :content ] )
+    params.require(:issue).permit( :title, :begin_at, :due_at, :status, :assignee_id, comments_attributes: [ :content ], label_ids: [] )
   end
 
   def authorize_issue

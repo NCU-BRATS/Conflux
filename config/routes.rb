@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :attachments
       resources :posts, as: 'attachment_posts'
       resources :snippets, as: 'attachment_snippets'
+      resources :labels, constraints: {id: /\d+/}
     end
 
     # rematch ProjectParticipation Model path to project_member_path
