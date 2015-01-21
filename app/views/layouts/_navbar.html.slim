@@ -3,6 +3,7 @@ nav.ui.fixed.menu
   = yield :sub_brand
 
   .right.menu
+    a.item href=projects_path = Project.model_name.human
     a.item href=profiles_path = User.model_name.human
     - if user_signed_in?
       a.item.navbar-avatar href=profile_path(current_user.slug)
