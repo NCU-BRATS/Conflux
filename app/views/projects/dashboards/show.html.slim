@@ -5,7 +5,7 @@
         i.rocket.icon
         .content
           = title @project.name
-          .sub-header
+          .sub.header
             = @project.description
     .right.floated.right.aligned.four.wide.column#new_button_grid
       = link_to edit_project_path(@project), class: 'ui yellow button' do
