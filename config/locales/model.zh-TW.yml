@@ -11,6 +11,7 @@ zh-TW:
       attachment/post: '貼文'
       attachment/snippet: '程式碼'
       attachment/other: '其他檔案'
+      label: '標籤'
     attributes:
       user:
         name: '名稱'
@@ -35,6 +36,9 @@ zh-TW:
         name: '名稱'
         content: '內容'
         type: '類型'
+      label:
+        title: '標題'
+        color: '顏色'
 
   validation:
     user:

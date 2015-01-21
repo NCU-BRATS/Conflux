@@ -3,7 +3,7 @@
 
   = f.input :title
 
-  = f.input :color, as: :label_color, placeholder: "#AA33EE", hint: '6 character hex values starting with a # sign. Or you can choose one of suggested colors below'
+  = f.input :color, as: :label_color, placeholder: "#AA33EE", hint: t('hint.label.color')
 
   .suggest-colors.field
     - suggested_colors.each do |color|
