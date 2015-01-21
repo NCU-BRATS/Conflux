@@ -18,7 +18,7 @@ div
         a.ui.button.basic.teal href="#{project_issues_path(issue.project)}"
           i.icon.chevron.left
           = t('action.word.back')
-    div
+    div#issues_index_label
       - if issue.status.upcase == 'OPEN'
         .ui.label.large
           i.icon.green.unlock
@@ -31,7 +31,8 @@ div
         => user_tag issue.user, class: 'bold black link'
         = t('action.target.created_at', target: '')
         = time_format_relative_tag issue.created_at
-
+      - issue.labels.each do |label|
+        = render_colored_label(label)
     .ui.divider
 
     .ui.grid
