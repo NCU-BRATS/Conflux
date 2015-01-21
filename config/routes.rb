@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get '/projects/:id', to: redirect('/projects/%{id}/dashboard')
-  resources :projects do
+  resources :projects, except: [:show] do
     concern :commentable do
       resources :comments , only: [:create]
     end
@@ -24,6 +23,7 @@ Rails.application.routes.draw do
     # rematch ProjectParticipation Model path to project_member_path
     resources :project_participations, as: :participations, path: :members
   end
+  get '/projects/:id', to: redirect('/projects/%{id}/dashboard')
 
   namespace :text do
     put :preview
