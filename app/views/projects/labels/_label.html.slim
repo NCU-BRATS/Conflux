@@ -1,7 +1,7 @@
 .two.column.row
   .ten.wide.column
    ui.header
-     = render_colored_label(label)
+     = render_colored_label(label, class: 'huge')
   .six.wide.column.right.aligned
     => link_to edit_project_label_path(@project, label), class: 'ui circular icon basic button' do
       i.write.icon
