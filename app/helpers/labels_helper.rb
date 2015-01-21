@@ -3,11 +3,13 @@ module LabelsHelper
     @project.labels.pluck(:title)
   end
 
-  def render_colored_label(label)
+  def render_colored_label(label, options = {})
+    options = options.symbolize_keys
+
     label_color = label.color || Label::DEFAULT_COLOR
     text_color = text_color_for_bg(label_color)
 
-    content_tag :span, class: 'ui tag label', style: "background:#{label_color};color:#{text_color}" do
+    content_tag :span, class: 'ui tag label colored ' + (options[:class] || ''), style: "background:#{label_color};color:#{text_color}" do
       label.name
     end
   end
