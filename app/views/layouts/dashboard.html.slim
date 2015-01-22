@@ -1,0 +1,11 @@
+- content_for :sub_brand
+  a.brand.item href=dashboard_path Dashboard
+
+.content-with-sidemenu
+  .content-sidemenu
+    = render 'layouts/dashboard_sidemenu'
+
+  .content-container
+    = yield
+
+- parent_layout "application"
