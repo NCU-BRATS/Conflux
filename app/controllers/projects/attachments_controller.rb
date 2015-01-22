@@ -1,7 +1,8 @@
 class Projects::AttachmentsController < Projects::ApplicationController
 
   def index
-    @attachments = @project.attachments.all
+    @q = @project.attachments.search(params[:q])
+    @attachments = @q.result.uniq.page(params[:page]).per(params[:per])
     respond_with @attachments
   end
 
