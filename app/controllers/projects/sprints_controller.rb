@@ -4,8 +4,8 @@ class Projects::SprintsController < Projects::ApplicationController
   before_action :set_sprint, only: [ :show, :update, :close, :reopen ]
 
   def index
-    @query  = Sprint.search( params[:q] )
-    @sprints = @query.result.includes(:user).page( params[:page] ).per( params[:per] )
+    @q  = @project.sprints.includes(:user).search(params[:q])
+    @sprints = @q.result.uniq.page(params[:page]).per(params[:per])
     respond_with @project, @sprints
   end
 
