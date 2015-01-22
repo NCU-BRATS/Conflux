@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :issues
   has_many :sprints
   has_many :comments
+  has_many :attachments
 
   validates :name, presence: true
   validates :name, uniqueness: true

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     member do
       get :projects
       get :issues
+      get :attachments
     end
   end
 

@@ -1,0 +1,12 @@
+.ui.grid
+  .doubling.four.column.row
+    .four.wide.column
+      h1.ui.header
+        i.icon.file
+        .content
+          = title t('structure.list', element: Attachment.model_name.human )
+.ui.divider
+.ui.relaxed.divided.items
+  - @attachments.each do |attachment|
+    .item
+      = render partial: attachment.type.downcase + '_preview', locals: {attachment: attachment}

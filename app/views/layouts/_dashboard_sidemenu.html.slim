@@ -1,5 +1,5 @@
 .ui.vertical.pointing.main.menu
-  = active_link_to dashboard_path, class: 'item' do
+  = active_link_to dashboard_path, :active => :exclusive, class: 'item' do
     i.dashboard.icon
     span = t('project.events')
   = active_link_to projects_dashboard_path, class: 'item' do
@@ -8,3 +8,6 @@
   = active_link_to issues_dashboard_path, class: 'item' do
     i.tasks.icon
     span = t('structure.list', element: Issue.model_name.human)
+  = active_link_to attachments_dashboard_path, class: 'item' do
+    i.file.icon
+    span = t('structure.list', element: Attachment.model_name.human)

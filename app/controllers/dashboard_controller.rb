@@ -19,4 +19,9 @@ class DashboardController < ApplicationController
     @issues = current_user.issues.page(params[:page]).per(20)
     respond_with @issues
   end
+
+  def attachments
+    @attachments = current_user.attachments.page(params[:page]).per(20)
+    respond_with @attachments
+  end
 end
