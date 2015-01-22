@@ -1,0 +1,7 @@
+h1
+  | 歡迎來到 Conflux
+  = ", #{current_user.email}" if user_signed_in?
+  - if user_signed_in?
+    = avatar_tag current_user, :size => '80'
+
+|This is dashboard
