@@ -1,3 +1,7 @@
 div
   div
-    | {{name}}
+    | {{#if name}}
+    |   {{name}}
+    | {{else}}
+    |   {{title}}
+    | {{/if}}

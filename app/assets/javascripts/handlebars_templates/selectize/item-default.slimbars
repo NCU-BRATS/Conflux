@@ -1,2 +1,6 @@
 .item
-  | {{name}}
+  | {{#if name}}
+  |   {{name}}
+  | {{else}}
+  |   {{title}}
+  | {{/if}}
