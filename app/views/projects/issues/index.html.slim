@@ -11,9 +11,10 @@
         i.ui.icon.write
         = t('action.target.create', target: Issue.model_name.human)
     .right.floated.six.wide.column#search_input_grid
-      .ui.left.icon.fluid.input
-        input type='text' placeholder=t('action.word.search')
-        i.icon.search
+      = search_form_for [@project, @q] do |f|
+        .ui.left.icon.fluid.input
+          = f.search_field :title_or_comments_content_cont, type: :text, placeholder: t('action.word.search')
+          i.icon.search
 
 
 .ui.divider
