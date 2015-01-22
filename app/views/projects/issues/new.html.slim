@@ -20,6 +20,8 @@ h1
     = f.association :labels, collection: {},
                     input_html: { data: { :'resource-path' => project_labels_path( @project ),
                                           :'search-field' => '["title"]',
+                                          :'option-tpl' => 'option-label',
+                                          :'item-tpl' => 'item-label',
                                           :'add-new' => true} }
 
   = f.fields_for :comments do |cf|

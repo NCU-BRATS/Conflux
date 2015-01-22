@@ -1,0 +1,4 @@
+div
+  .ui.mini.label style='background:{{color}};color:#FFF'
+    | {{title}}
+

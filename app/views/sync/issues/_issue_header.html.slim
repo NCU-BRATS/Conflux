@@ -98,5 +98,7 @@ div
           = f.association :labels, collection: issue.labels,
                           input_html: { data: { :'resource-path' => project_labels_path( issue.project ),
                                                 :'search-field' => '["title"]',
+                                                :'option-tpl' => 'option-label',
+                                                :'item-tpl' => 'item-label',
                                                 :'add-new' => true} }
   .ui.divider
