@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resource :dashboard, controller: "dashboard", only: [:show] do
     member do
       get :projects
+      get :issues
     end
   end
 

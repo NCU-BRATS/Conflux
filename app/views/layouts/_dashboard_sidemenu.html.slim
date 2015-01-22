@@ -5,3 +5,6 @@
   = active_link_to projects_dashboard_path, class: 'item' do
     i.world.icon
     span = t('structure.list', element: Project.model_name.human)
+  = active_link_to issues_dashboard_path, class: 'item' do
+    i.tasks.icon
+    span = t('structure.list', element: Issue.model_name.human)
