@@ -10,9 +10,10 @@
         i.ui.icon.write
         = t('action.target.add', target: ProjectParticipation.model_name.human)
     .right.floated.six.wide.column#search_input_grid
-      .ui.left.icon.fluid.input
-        input type='text' placeholder=t('action.word.search')
-        i.icon.search
+      = search_form_for @q do |f|
+        .ui.left.icon.fluid.input
+          i.icon.search
+          = f.search_field :user_name_cont, type: :text, placeholder: t('action.word.search')
 
 .ui.divider
 
@@ -37,6 +38,8 @@
       = link_to project_member_path(@project, participation), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'mini ui bottom attached button' do
         i.trash.icon
         = t('action.word.delete')
+
+= paginate @participations
 
 - content_for :javascripts
   coffee:

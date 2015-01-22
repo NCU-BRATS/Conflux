@@ -1,7 +1,8 @@
 class Projects::MembersController < Projects::ApplicationController
 
   def index
-    @participations = @project.project_participations.includes(:user).all
+    @q = @project.project_participations.includes(:user).search(params[:q])
+    @participations = @q.result.page(params[:page]).per(params[:per])
     respond_with @participations
   end
 
