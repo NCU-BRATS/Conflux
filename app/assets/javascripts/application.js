@@ -28,4 +28,5 @@
 //= require clndr-rails
 //= require_tree ./handlebars_helpers
 //= require_tree ./handlebars_templates
+//= require_tree ./lib
 //= require_tree .

@@ -18,7 +18,7 @@ div
         a.ui.button.basic.teal href="#{project_issues_path(issue.project)}"
           i.icon.chevron.left
           = t('action.word.back')
-    div
+    div#issues_index_label
       - if issue.status.upcase == 'OPEN'
         .ui.label.large
           i.icon.green.unlock
@@ -31,7 +31,8 @@ div
         => user_tag issue.user, class: 'bold black link'
         = t('action.target.created_at', target: '')
         = time_format_relative_tag issue.created_at
-
+      - issue.labels.each do |label|
+        = render_colored_label(label)
     .ui.divider
 
     .ui.grid
@@ -94,4 +95,10 @@ div
                           input_html: { data: { :'resource-path' => project_members_path( issue.project ),
                                                 :'search-field' => '["name", "email"]',
                                                 :'option-tpl' => 'option-user'} }
+          = f.association :labels, collection: issue.labels,
+                          input_html: { data: { :'resource-path' => project_labels_path( issue.project ),
+                                                :'search-field' => '["title"]',
+                                                :'option-tpl' => 'option-label',
+                                                :'item-tpl' => 'item-label',
+                                                :'add-new' => true} }
   .ui.divider

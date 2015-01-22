@@ -1,0 +1,2 @@
+.item style='background:{{color}};color:#FFF'
+  | {{title}}

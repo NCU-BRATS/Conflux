@@ -23,5 +23,7 @@ $(document).on "ready page:load", () ->
         $.get($element.data('resource-path')+'.json?', queryData)
         .done (res)-> callback(res)
 
-    settings = $.extend({}, selectizeDefault, $element.data())
+    settings = $.extend({
+      plugins: ['select_add_new']
+    }, selectizeDefault, $element.data())
     $element.selectize settings

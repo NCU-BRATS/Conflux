@@ -16,3 +16,9 @@
 .ui.tag.labels .label.colored:before, .ui.tag.label.colored:before {
   background: inherit;
 }
+
+#issues_index_label {
+  .label{
+    margin-left: 1.5em;
+  }
+}

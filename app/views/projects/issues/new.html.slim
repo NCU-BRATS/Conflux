@@ -17,6 +17,12 @@ h1
                     input_html: { data: { :'resource-path' => project_members_path( @project ),
                                           :'search-field' => '["name", "email"]',
                                           :'option-tpl' => 'option-user'} }
+    = f.association :labels, collection: {},
+                    input_html: { data: { :'resource-path' => project_labels_path( @project ),
+                                          :'search-field' => '["title"]',
+                                          :'option-tpl' => 'option-label',
+                                          :'item-tpl' => 'item-label',
+                                          :'add-new' => true} }
 
   = f.fields_for :comments do |cf|
     .ui.section.divider
