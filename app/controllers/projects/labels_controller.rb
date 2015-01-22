@@ -3,7 +3,8 @@ class Projects::LabelsController < Projects::ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @labels = @project.labels.order_by_name.page(params[:page]).per(20)
+    @q = @project.labels.search(params[:q])
+    @labels = @q.result.order_by_name.page(params[:page]).per(20)
     respond_with @project, @labels
   end
 
