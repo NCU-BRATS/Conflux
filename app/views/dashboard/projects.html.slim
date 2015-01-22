@@ -1,0 +1,8 @@
+h1.ui.center.aligned.header
+  .content
+    = title t('structure.list', element: Project.model_name.human)
+
+.ui.very.massive.relaxed.divided.selection.list
+  = sync partial: 'project_row', collection: @projects
+  = sync_new partial: 'project_row', resource: Project.new
+

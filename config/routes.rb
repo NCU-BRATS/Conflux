@@ -33,7 +33,11 @@ Rails.application.routes.draw do
 
   resources :profiles
 
-  resource :dashboard, controller: "dashboard", only: [:show]
+  resource :dashboard, controller: "dashboard", only: [:show] do
+    member do
+      get :projects
+    end
+  end
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

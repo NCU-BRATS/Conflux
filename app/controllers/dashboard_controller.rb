@@ -9,4 +9,9 @@ class DashboardController < ApplicationController
   def show
 
   end
+
+  def projects
+    @projects =current_user.projects.page(params[:page]).per(20)
+    respond_with @projects
+  end
 end
