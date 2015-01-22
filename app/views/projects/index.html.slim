@@ -8,7 +8,7 @@ h1.ui.center.aligned.header
     .eight.wide.field
       .ui.left.icon.input
         i.search.icon
-        = f.search_field :name_cont, placeholder: t('ransack.search'), type: 'text'
+        = f.search_field :name_or_description_cont, placeholder: t('ransack.search'), type: 'text'
 
 .ui.very.massive.relaxed.divided.selection.list
   = sync partial: 'project_row', collection: @projects
