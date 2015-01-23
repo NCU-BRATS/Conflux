@@ -11,14 +11,14 @@ class DashboardController < ApplicationController
   end
 
   def projects
-    @q  = current_user.projects.page.search( params[:q] )
+    @q = current_user.projects.page.search( params[:q] )
     @projects = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @projects
   end
 
   def issues
-    @issues=Issue.where("user_id = ? OR assignee_id = ?", current_user.id, current_user.id).includes(:user, :assignee, :labels, :project).order('id DESC')
-    @q  = @issues.search( params[:q] )
+    @issues = Issue.where("user_id = ? OR assignee_id = ?", current_user.id, current_user.id).includes(:user, :assignee, :labels, :project).order('id DESC')
+    @q = @issues.search( params[:q] )
     @issues = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @issues
   end

@@ -4,7 +4,7 @@ class Projects::IssuesController < Projects::ApplicationController
   before_action :set_issue, only: [ :show, :update, :close, :reopen ]
 
   def index
-    @q  = @project.issues.includes(:user, :assignee, :labels).order('id DESC').search( params[:q] )
+    @q = @project.issues.includes(:user, :assignee, :labels).order('id DESC').search( params[:q] )
     @issues = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @project, @issue
   end
