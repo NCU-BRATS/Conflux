@@ -13,12 +13,14 @@ class User < ActiveRecord::Base
   has_many :project_participations
   has_many :projects, through: :project_participations
 
-  has_many :issue_assigments
-  has_many :assigned_issues, through: :issue_assigments, source: :issue
-
   has_many :issues
+  has_many :issues_assigned, class_name: 'Issue', foreign_key: 'assignee_id'
   has_many :sprints
   has_many :comments
+  has_many :attachments
+  has_many :posts,    class_name: 'Attachment::Post'
+  has_many :images,   class_name: 'Attachment::Image'
+  has_many :snippets, class_name: 'Attachment::Snippet'
 
   validates :name, presence: true
   validates :name, uniqueness: true

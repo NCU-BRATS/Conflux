@@ -1,0 +1,15 @@
+.ui.grid
+  .fourteen.wide.column
+    h4.ui.header
+      = link_to [attachment.project, attachment] do
+        i.file.blue.code.outline.large.icon
+        = "#{Attachment::Snippet.model_name.human} - #{attachment.name}"
+      == " (#{link_to attachment.project.name, project_path(attachment.project)})"
+  .two.wide.column
+    = render partial: 'delete_button', locals: {path: project_attachment_path(attachment.project, attachment)}
+    = render partial: 'edit_button', locals: {path: edit_project_attachment_snippet_path(attachment.project, attachment)}
+.content
+  .meta
+    = render partial: 'meta', locals: {attachment: attachment}
+  .description
+    .ui.basic.segment == attachment.preview_html

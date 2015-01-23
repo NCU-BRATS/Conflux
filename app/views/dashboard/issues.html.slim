@@ -1,0 +1,45 @@
+
+.ui.grid
+  .doubling.four.column.row
+    .four.wide.column
+      h1.ui.header
+        i.icon.tasks
+        .content
+          = title t('structure.list', element: Issue.model_name.human )
+    .right.floated.six.wide.column#search_input_grid
+      = search_form_for @q,url: issues_dashboard_path do |f|
+        .ui.left.icon.fluid.input
+          = f.search_field :title_or_comments_content_cont, type: :text, placeholder: t('action.word.search')
+          i.icon.search
+
+
+.ui.divider
+
+div
+  - @issues.each do |issue|
+
+    .ui.attached.segment
+      .ui.grid
+        .ten.wide.column
+          .ui.header
+            - if issue.status.upcase == 'OPEN'
+              i.green.icon.unlock
+            - elsif issue.status.upcase == 'CLOSED'
+              i.red.icon.lock
+            .content
+              = link_to issue.title, project_issue_path(issue.project, issue)
+              == " (#{link_to issue.project.name, project_path(issue.project)})"
+              .sub.header#issues_index_label
+                = "##{issue.sequential_id} "
+                => user_tag issue.user, class: 'gray link'
+                => t('action.target.created_at', target: '')
+                span = time_format_relative_tag( issue.created_at )
+                - issue.labels.each do |label|
+                  = render_colored_label(label)
+        .six.wide.column
+          - if issue.assignee.present?
+            a.ui.image.label.right.floated href=user_link(issue.assignee)
+              = avatar_tag issue.assignee, :size => 25
+              = issue.assignee.name
+
+= paginate @issues
