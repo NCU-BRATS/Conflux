@@ -11,7 +11,8 @@ class DashboardController < ApplicationController
   end
 
   def projects
-    @projects =current_user.projects.page(params[:page]).per(20)
+    @q  = current_user.projects.page.search( params[:q] )
+    @projects = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @projects
   end
 

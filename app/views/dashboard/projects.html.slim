@@ -1,8 +1,18 @@
-h1.ui.center.aligned.header
-  .content
-    = title t('structure.list', element: Project.model_name.human)
+.ui.grid
+  .doubling.four.column.row
+    .four.wide.column
+      h1.ui.header
+        i.icon.world
+        .content
+          = title t('structure.list', element: Project.model_name.human)
+    .right.floated.six.wide.column#search_input_grid
+      = search_form_for @q, url: projects_dashboard_path, class: 'ui form' do |f|
+        .ui.left.icon.fluid.input
+          i.search.icon
+          = f.search_field :name_or_description_cont, placeholder: t('ransack.search'), type: 'text'
 
 .ui.very.massive.relaxed.divided.selection.list
   = sync partial: 'project_row', collection: @projects
   = sync_new partial: 'project_row', resource: Project.new
 
+= paginate @projects
