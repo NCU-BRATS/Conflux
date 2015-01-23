@@ -1,21 +1,17 @@
 - if notice
-  .bs#global_notice
-    .navbar.navbar-fixed-bottom
-      .ui.two.column.centered.grid
-        .ui.positive.message.large.column
-          .header.text-center = notice
+  #global_notice
+    .ui.positive.message
+      .header = notice
     coffee:
       setTimeout( () ->
         $('#global_notice').fadeOut()
       , 3000)
 
 - if alert
-  .bs#global_alert
-    .navbar.navbar-fixed-bottom
-      .ui.two.column.centered.grid
-        .ui.negative.message.large.column
-          i.close.icon
-          .header.text-center = alert
+  #global_notice
+    .ui.negative.message
+      i.close.icon
+      .header = alert
     coffee:
-      $('#global_alert .close').on 'click', () ->
-        $('#global_alert').fadeOut()
+      $('#global_notice .close').on 'click', () ->
+        $('#global_notice').fadeOut()

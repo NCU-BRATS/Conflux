@@ -1,0 +1,15 @@
+#global_notice {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  text-align: center;
+  width: 300px;
+  margin-left: -150px;
+}
+
+@media all and (min-width: 992px) {
+  #global_notice {
+    width: 500px;
+    margin-left: -250px;
+  }
+}
