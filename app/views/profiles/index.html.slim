@@ -1,16 +1,16 @@
 body
-  h1 = title "#{User.model_name.human}"
-
+  h1 = title t('structure.list', element: User.model_name.human )
 
   table.ui.table
     thead
       tr
+        th 
         th = sort_link(@q, :name)
         th = sort_link(@q, :title)
+        th = sort_link(@q, :email)
         th
     tbody
       = render partial: 'user_row', collection: @users
-
 
 = paginate @users
 
