@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
   end
 
   def issues
-    @issues = Issue.where("user_id = ? OR assignee_id = ?", current_user.id, current_user.id).includes(:user, :assignee, :labels, :project).order('id DESC')
+    @issues = Issue.where("issues.user_id = ? OR issues.assignee_id = ?", current_user.id, current_user.id).includes(:user, :assignee, :labels, :project).order('id DESC')
     @q = @issues.search( params[:q] )
     @issues = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @issues
