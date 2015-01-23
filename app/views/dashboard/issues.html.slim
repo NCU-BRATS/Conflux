@@ -28,6 +28,7 @@ div
               i.red.icon.lock
             .content
               = link_to issue.title, project_issue_path(issue.project, issue)
+              == " (#{link_to issue.project.name, project_path(issue.project)})"
               .sub.header#issues_index_label
                 = "##{issue.sequential_id} "
                 => user_tag issue.user, class: 'gray link'
