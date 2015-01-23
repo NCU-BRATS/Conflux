@@ -17,7 +17,8 @@ class DashboardController < ApplicationController
   end
 
   def issues
-    @issues = current_user.issues.page(params[:page]).per(20)
+    @q  = current_user.issues.includes(:user, :assignee, :labels, :project).order('id DESC').search( params[:q] )
+    @issues = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @issues
   end
 
