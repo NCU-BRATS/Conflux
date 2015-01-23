@@ -2,32 +2,27 @@
   .four.wide.column
     .ui.card
       .image
-        = avatar_tag @user, :size => '80'
+        = avatar_tag @user, :size => '260'
       .content
-        a.ui.blue.large.header href = "#" 
+        a.ui.blue.large.header href = "#"
           = @user.name
         .meta
           = @user.title
   .ten.wide.column
     table.ui.table
       thead
-        tr 
-          th 
-            .ui.huge.header = t('structure.list', element: Project.model_name.human) 
+        tr
+          th
+            .ui.huge.header = t('structure.list', element: Project.model_name.human)
           th
           th
-        tr 
+        tr
           th = sort_link(@q, :name)
           th = sort_link(@q, :description)
-          th  
-            
+          th
+
       tbody
         = sync partial: 'user_project_row', collection: @projects
 
     .ui.bottom.attach
       = paginate @projects
-
-
-
-
-      
