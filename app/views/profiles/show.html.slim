@@ -1,2 +1,33 @@
-body
-  h1  This is #{@user.name}
+.ui.grid
+  .four.wide.column
+    .ui.card
+      .image
+        = avatar_tag @user, :size => '80'
+      .content
+        a.ui.blue.large.header href = "#" 
+          = @user.name
+        .meta
+          = @user.title
+  .ten.wide.column
+    table.ui.table
+      thead
+        tr 
+          th 
+            .ui.huge.header = t('structure.list', element: Project.model_name.human) 
+          th
+          th
+        tr 
+          th = sort_link(@q, :name)
+          th = sort_link(@q, :description)
+          th  
+            
+      tbody
+        = sync partial: 'user_project_row', collection: @projects
+
+    .ui.bottom.attach
+      = paginate @projects
+
+
+
+
+      
