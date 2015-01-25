@@ -1,4 +1,4 @@
-class LabelPolicy
+class LabelPolicy < ApplicationPolicy
 
   def update?
     record.project.has_member?(user)
