@@ -1,9 +1,10 @@
 class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
+
   def input_html_options
     {:data => { :toggle => 'selectize' }}.deep_merge(super)
   end
 
-  def input(wrapper_options = nil)
+  def input( wrapper_options = nil )
     data_options = input_html_options[:data].symbolize_keys
     return super if data_options[:'resource-path'].blank?
 
@@ -16,4 +17,5 @@ class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
       input_options, merged_input_options
     )
   end
+
 end
