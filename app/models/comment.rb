@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   include ParserConcern
+
   sync :all
 
   belongs_to :user
@@ -18,4 +19,5 @@ class Comment < ActiveRecord::Base
   def parse_content
     self.html = self.class.parse content
   end
+
 end

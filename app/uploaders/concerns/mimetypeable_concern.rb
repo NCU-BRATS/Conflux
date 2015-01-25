@@ -1,4 +1,5 @@
 module CarrierWave
+
   module MimetypeableConcern
     extend ActiveSupport::Concern
 
@@ -13,14 +14,14 @@ module CarrierWave
       end
     end
 
-    def cache_with_file_type_magic!(new_file = sanitized_file)
+    def cache_with_file_type_magic!( new_file = sanitized_file )
       real_content_type = get_file_type(new_file)
       new_file = CarrierWave::SanitizedFile.new(new_file)
       new_file.content_type = real_content_type
       cache_without_file_type_magic!(new_file)
     end
 
-    def get_file_type(file)
+    def get_file_type( file )
       opened_file = File.new(file.path)
       begin
         real_content_type = File.mime_type?(opened_file).split(';').first
@@ -34,5 +35,7 @@ module CarrierWave
         return classified_rank.first.name
       end
     end
+
   end
+
 end

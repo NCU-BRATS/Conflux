@@ -1,5 +1,7 @@
 class Projects::IssuesController < Projects::ApplicationController
+
   enable_sync only: [:create, :update, :close, :reopen]
+
   before_action :authenticate_user!
   before_action :set_issue, only: [ :show, :update, :close, :reopen ]
 
@@ -47,7 +49,7 @@ class Projects::IssuesController < Projects::ApplicationController
     @issue.reopen!
   end
 
-  private
+  protected
 
   def set_issue
     @issue = @project.issues.where( :sequential_id => params[:id] ).first

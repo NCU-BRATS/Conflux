@@ -9,11 +9,11 @@
 .ui.top.center.aligned.attached.segment
   i.massive.file.icon
   h3.ui.center.aligned.header = attachment.name
-  h4.ui.center.aligned.header = "1111 MB Binary"
+  h4.ui.center.aligned.header = '1111 MB Binary'
   = link_to attachment.path.url do
     .ui.circular.icon.button
       i.cloud.download.icon
-    = "Download File"
+    = 'Download File'
 .ui.attached.segment
   = link_to project_attachment_path(@project, attachment), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
     i.icon.trash

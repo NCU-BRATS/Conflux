@@ -1,4 +1,5 @@
 class AttachmentPolicy < ApplicationPolicy
+
   def create?
     record.project.has_member?(user)
   end
@@ -10,4 +11,5 @@ class AttachmentPolicy < ApplicationPolicy
   def update?
     record.project.has_member?(user)
   end
+
 end

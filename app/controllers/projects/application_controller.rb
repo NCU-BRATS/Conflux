@@ -1,4 +1,5 @@
 class Projects::ApplicationController < ApplicationController
+
   layout :determine_layout
 
   before_action :set_project
@@ -8,6 +9,7 @@ class Projects::ApplicationController < ApplicationController
   end
 
   protected
+
   def set_project
     @project = Project.friendly.find(params[:project_id])
   end

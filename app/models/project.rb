@@ -1,5 +1,8 @@
 class Project < ActiveRecord::Base
   include FriendlyId
+
+  sync :all
+
   friendly_id :name, use: :slugged
 
   has_many :project_participations, dependent: :destroy
@@ -16,8 +19,6 @@ class Project < ActiveRecord::Base
   has_many :snippets,     dependent: :destroy, class_name: 'Attachment::Snippet'
   has_many :other_attachments, dependent: :destroy, class_name: 'Attachment::Other'
 
-  sync :all
-
   validates :name, presence: true
   validates :name, uniqueness: true
 
@@ -28,4 +29,5 @@ class Project < ActiveRecord::Base
   def should_generate_new_friendly_id?
     name_changed? || super
   end
+
 end

@@ -14,15 +14,15 @@ class ProfilesController < ApplicationController
   end
 
 
-  private
+  protected
 
-    def set_profile
-      @user = User.friendly.find(params[:id])
-    end
+  def set_profile
+    @user = User.friendly.find(params[:id])
+  end
 
-    def set_project
-      @q = @user.projects.search(params[:q])
-      @projects = @q.result.page(params[:page]).per(4)
-    end
+  def set_project
+    @q = @user.projects.search(params[:q])
+    @projects = @q.result.page(params[:page]).per(4)
+  end
 
 end

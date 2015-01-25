@@ -1,4 +1,5 @@
 class Projects::DashboardsController < Projects::ApplicationController
+
   def show
     @issues = {
       assigned_to_me: @project.issues.includes(:user, :assignee).open.where(assignee: current_user).first(5),
@@ -8,4 +9,5 @@ class Projects::DashboardsController < Projects::ApplicationController
     @posts = @project.posts.first(5)
     respond_with @project
   end
+
 end

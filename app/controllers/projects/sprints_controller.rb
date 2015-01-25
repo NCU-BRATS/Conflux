@@ -1,5 +1,7 @@
 class Projects::SprintsController < Projects::ApplicationController
+
   enable_sync only: [:create, :update, :close, :reopen]
+
   before_action :authenticate_user!
   before_action :set_sprint, only: [ :show, :update, :close, :reopen ]
 
@@ -45,7 +47,7 @@ class Projects::SprintsController < Projects::ApplicationController
     @sprint.reopen!
   end
 
-  private
+  protected
 
   def set_sprint
     @sprint = @project.sprints.where( :sequential_id => params[:id] ).first

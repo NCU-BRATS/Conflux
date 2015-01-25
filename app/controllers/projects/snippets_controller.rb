@@ -1,5 +1,7 @@
 class Projects::SnippetsController < Projects::ApplicationController
 
+  before_action :set_snippet, only: [ :show, :edit, :update ]
+
   def new
     @snippet = @project.snippets.build
     authorize @snippet
@@ -15,26 +17,28 @@ class Projects::SnippetsController < Projects::ApplicationController
   end
 
   def show
-    @snippet = @project.snippets.find(params[:id])
     respond_with @project, @snippet
   end
 
   def edit
     authorize @snippet
-    @snippet = @project.snippets.find(params[:id])
     respond_with @project, @snippet
   end
 
   def update
-    @snippet = @project.snippets.find(params[:id])
     authorize @snippet
     @snippet.update(snippet_params)
     respond_with @project, @snippet
   end
 
   protected
-    def snippet_params
-      params.require(:attachment_snippet).permit(:name, :language, :content)
-    end
+
+  def snippet_params
+    params.require(:attachment_snippet).permit(:name, :language, :content)
+  end
+
+  def set_snippet
+    @snippet = @project.snippets.find(params[:id])
+  end
 
 end

@@ -1,4 +1,5 @@
 class Projects::LabelsController < Projects::ApplicationController
+
   before_filter :set_label, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!
 
@@ -45,4 +46,5 @@ class Projects::LabelsController < Projects::ApplicationController
   def set_label
     @label ||= @project.labels.find(params[:id])
   end
+
 end
