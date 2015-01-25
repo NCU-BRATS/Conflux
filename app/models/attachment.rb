@@ -14,6 +14,10 @@ class Attachment < ActiveRecord::Base
     became
   end
 
+  def download_filename
+    original_filename || "#{name}.#{path.file.extension}"
+  end
+
   def self.intelligent_construct(params, project, user)
     attachment = Attachment::Other.new(params.merge(project: project, user: user))
 
@@ -32,6 +36,8 @@ class Attachment < ActiveRecord::Base
     if attachment.name.blank?
       attachment.name = attachment.path.file.filename
     end
+
+    attachment.original_filename = attachment.path.file.filename
 
     attachment
   end
