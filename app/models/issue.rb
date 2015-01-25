@@ -57,4 +57,20 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def working?
+    begin_at <= Time.now and Time.now <= due_at
+  end
+
+  def expired?
+    Time.now > due_at and open?
+  end
+
+  def finished?
+    Time.now > due_at and closed?
+  end
+
+  def planed?
+    begin_at.present? and due_at.present?
+  end
+
 end
