@@ -24,6 +24,6 @@ $(document).on "ready page:load", () ->
         .done (res)-> callback(res)
 
     settings = $.extend({
-      plugins: ['select_add_new']
+      plugins: ['select_add_new', 'remove_button']
     }, selectizeDefault, $element.data())
     $element.selectize settings
