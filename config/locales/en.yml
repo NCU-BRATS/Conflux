@@ -219,6 +219,7 @@ en:
       login: login to %{target}
       logout: logout from %{target}
       search: search for %{target}
+      upload: upload %{target}
     word:
       create: create
       add: add
@@ -233,6 +234,7 @@ en:
       login: login
       logout: logout
       search: search
+      upload: upload
   state:
     none: none
     in_progress: in progress
