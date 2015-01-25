@@ -10,23 +10,28 @@ class Projects::LabelsController < Projects::ApplicationController
 
   def new
     @label = @project.labels.new
+    authorize @label
     respond_with @project, @label
   end
 
   def create
     @label = @project.labels.create(label_params)
+    authorize @label
     respond_with @project, @label, location: project_labels_path(@project)
   end
 
   def edit
+    authorize @label
   end
 
   def update
+    authorize @label
     @label.update_attributes(label_params)
     respond_with @project, @label, location: project_labels_path(@project)
   end
 
   def destroy
+    authorize @label
     @label.destroy
     respond_with @project, @label
   end

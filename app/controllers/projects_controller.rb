@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    authorize @project
     @project.members << current_user
     @project.save
     respond_with @project

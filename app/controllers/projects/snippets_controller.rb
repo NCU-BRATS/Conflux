@@ -20,6 +20,7 @@ class Projects::SnippetsController < Projects::ApplicationController
   end
 
   def edit
+    authorize @snippet
     @snippet = @project.snippets.find(params[:id])
     respond_with @project, @snippet
   end

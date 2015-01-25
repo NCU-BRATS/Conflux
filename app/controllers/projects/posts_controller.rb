@@ -20,6 +20,7 @@ class Projects::PostsController < Projects::ApplicationController
   end
 
   def edit
+    authorize @post
     @post = @project.posts.find(params[:id])
     respond_with @project, @post
   end
