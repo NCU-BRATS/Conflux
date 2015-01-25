@@ -8,6 +8,8 @@ class Attachment < ActiveRecord::Base
 
   validates :type, :project_id, :user_id, :project, :user, presence: true
 
+  scope :lastest, -> { order(created_at: :desc) }
+
   def deep_becomes!(klass)
     became = becomes!(klass)
     became.path = self.path
