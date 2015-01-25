@@ -19,7 +19,7 @@
 .ui.divider
 
 - @working, @not_working = @sprints.partition { |sprint|
--  sprint.working? or sprint.expired?
+-  sprint.planed? and ( sprint.working? or sprint.expired? )
 - }
 
 .ui.attached.tertiary.red.segment
@@ -47,6 +47,22 @@
                 => user_tag sprint.user, class: 'gray link'
                 => t('action.target.created_at', target: '')
                 span = time_format_relative_tag(sprint.created_at)
+
+                - if sprint.planed?
+                  = '。'
+                  - if sprint.working?
+                    => time_format_relative_tag sprint.due_at
+                    = t('state.end')
+                  - elsif sprint.expired?
+                    => time_format_relative_tag sprint.due_at
+                    = t('state.expired')
+                  - elsif sprint.finished?
+                    => time_format_relative_tag sprint.due_at
+                    = t('state.finish')
+                  - else
+                    => time_format_relative_tag sprint.begin_at
+                    = t('state.start')
+                
         .eight.wide.column
           .ui.teal.tiny.statistic
             .value = '80'
