@@ -4,11 +4,11 @@ div
     h1
       = title "##{issue.sequential_id} #{issue.title}"
       .ui.buttons.basic.right.floated
-        - if issue.status.upcase == 'OPEN'
+        - if issue.open?
           a.ui.button.basic.red href="#{close_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
             i.icon.lock
             = t('action.target.close', target: Issue.model_name.human)
-        - elsif issue.status.upcase == 'CLOSED'
+        - elsif issue.closed?
           a.ui.button.basic.blue href="#{reopen_project_issue_path(issue.project, issue)}" data-remote=true data-method='put'
             i.icon.unlock
             = t('action.target.open', target: Issue.model_name.human)
@@ -18,63 +18,45 @@ div
         a.ui.button.basic.teal href="#{project_issues_path(issue.project)}"
           i.icon.chevron.left
           = t('action.word.back')
-    div#issues_index_label
-      - if issue.status.upcase == 'OPEN'
+
+    div
+      - if issue.open?
         .ui.label.large
           i.icon.green.unlock
-          = issue.status.upcase
-      - if issue.status.upcase == 'CLOSED'
+          = issue.aasm.human_state
+      - if issue.closed?
         .ui.label.large
           i.icon.red.lock
-          = issue.status.upcase
+          = issue.aasm.human_state
       span
         => user_tag issue.user, class: 'bold black link'
         = t('action.target.created_at', target: '')
         = time_format_relative_tag issue.created_at
-      - issue.labels.each do |label|
-        = render_colored_label(label)
-    .ui.divider
 
-    .ui.grid
-      .ten.wide.column
-        .ui.teal.segment.center.aligned
-          - if issue.begin_at.present? and issue.due_at.present?
-            = clndr_tag  multiple_events:[ { start_date: issue.begin_at, end_date: issue.due_at } ]
-          - elsif issue.begin_at.present?
-            = clndr_tag  single_events:[ { date: issue.begin_at } ]
-          - else
-            = clndr_tag
-      .six.wide.column
-        .ui.teal.segment.form
-          .field
-            .ui.attached.tertiary.segment = Sprint.model_name.human
-            .ui.attached.segment
-              - if issue.sprint.present?
-                = issue.sprint.title
-              - else
-                = t('state.none')
-          .field
-            .ui.attached.tertiary.segment = Issue.human_attribute_name(:assignee)
-            .ui.attached.segment
-              - if issue.assignee.present?
-                a.ui.image.label href=user_link(issue.assignee)
-                  = avatar_tag issue.assignee, :size => 25
-                  = issue.assignee.name
-              - else
-                = t('state.none')
-          - if issue.begin_at.present? or issue.due_at.present?
-            .ui.segment
-              - if issue.begin_at.present?
-                .field
-                  i.icon.circle.green
-                  => "#{Issue.human_attribute_name(:begin_at)}:"
-                  = time_format_absolute_tag issue.begin_at, :format => 'YYYY-MM-DD'
-              - if issue.due_at.present?
-                .field
-                  i.icon.circle.red
-                  => "#{Issue.human_attribute_name(:due_at)}:"
-                  = time_format_absolute_tag issue.due_at, :format => 'YYYY-MM-DD'
+      - if issue.sprint.present?
+        = "。#{Sprint.model_name.human}-" + issue.sprint.title
 
+      - if issue.assignee.present?
+        = "。#{Issue.human_attribute_name(:assignee)}-"
+        = user_tag issue.assignee, class: 'bold black link'
+
+      - if issue.planed?
+        = '。'
+        - if issue.working?
+          => time_format_relative_tag issue.due_at
+          = t('state.end')
+        - elsif issue.expired?
+          => time_format_relative_tag issue.due_at
+          = t('state.expired')
+        - elsif issue.finished?
+          => time_format_relative_tag issue.due_at
+          = t('state.finish')
+        - else
+          => time_format_relative_tag issue.begin_at
+          = t('state.start')
+      span#issues_index_label
+        - issue.labels.each do |label|
+          = render_colored_label label
 
   #editable_title_form
     .ui.segment
