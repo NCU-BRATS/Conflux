@@ -2,7 +2,6 @@ class Projects::IssuesController < Projects::ApplicationController
 
   enable_sync only: [:create, :update, :close, :reopen]
 
-  before_action :authenticate_user!
   before_action :set_issue, only: [ :show, :update, :close, :reopen ]
 
   def index

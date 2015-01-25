@@ -1,7 +1,6 @@
 class Projects::LabelsController < Projects::ApplicationController
 
-  before_filter :set_label, only: [:edit, :update, :destroy]
-  before_filter :authenticate_user!
+  before_action :set_label, only: [:edit, :update, :destroy]
 
   def index
     @q = @project.labels.search(params[:q])

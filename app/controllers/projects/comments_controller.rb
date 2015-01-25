@@ -2,7 +2,6 @@ class Projects::CommentsController < Projects::ApplicationController
 
   enable_sync only: [:create, :update, :destroy]
 
-  before_action :authenticate_user!
   before_action :set_comment, only: [ :destroy, :update ]
 
   def create

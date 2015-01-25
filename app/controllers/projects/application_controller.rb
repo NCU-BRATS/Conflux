@@ -2,6 +2,7 @@ class Projects::ApplicationController < ApplicationController
 
   layout :determine_layout
 
+  before_action :authenticate_user!
   before_action :set_project
 
   def determine_layout
