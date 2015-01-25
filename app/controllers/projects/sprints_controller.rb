@@ -22,6 +22,7 @@ class Projects::SprintsController < Projects::ApplicationController
 
   def create
     @sprint = @project.sprints.build( sprint_params )
+    authorize @sprint
     @sprint.user = current_user
     @sprint.comments.each { |comment| comment.user = current_user }
     @sprint.save
@@ -29,15 +30,18 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def update
+    authorize @sprint
     @sprint.update( sprint_params )
     respond_with @project, @sprint
   end
 
   def close
+    authorize @sprint
     @sprint.close!
   end
 
   def reopen
+    authorize @sprint
     @sprint.reopen!
   end
 

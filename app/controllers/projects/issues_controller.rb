@@ -22,6 +22,7 @@ class Projects::IssuesController < Projects::ApplicationController
 
   def create
     @issue = @project.issues.build( issue_params.except(:label_ids) )
+    authorize @issue
     @issue.user = current_user
     @issue.comments.each { |comment| comment.user = current_user }
     @issue.save
@@ -31,15 +32,18 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def update
+    authorize @issue
     @issue.update( issue_params )
     respond_with @project, @issue
   end
 
   def close
+    authorize @issue
     @issue.close!
   end
 
   def reopen
+    authorize @issue
     @issue.reopen!
   end
 
