@@ -4,7 +4,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
 
   def index
     @q = @project.attachments.search(params[:q])
-    @attachments = @q.result.uniq.lastest.page(params[:page]).per(params[:per])
+    @attachments = @q.result.uniq.latest.page(params[:page]).per(params[:per])
     respond_with @attachments
   end
 
