@@ -12,4 +12,8 @@ class AttachmentPolicy < ApplicationPolicy
     record.project.has_member?(user)
   end
 
+  def download?
+    record.project.has_member?(user)
+  end
+
 end
