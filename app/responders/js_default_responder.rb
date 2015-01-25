@@ -1,4 +1,5 @@
 module Responders
+
   module JsDefaultResponder
     def to_js
       super
@@ -6,4 +7,5 @@ module Responders
       render 'layouts/application'
     end
   end
+
 end
