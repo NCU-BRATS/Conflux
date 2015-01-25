@@ -1,6 +1,6 @@
 class Projects::AttachmentsController < Projects::ApplicationController
 
-  before_action :set_attachment, only: [ :show, :destroy ]
+  before_action :set_attachment, only: [ :show, :destroy, :download ]
 
   def index
     @q = @project.attachments.search(params[:q])
@@ -29,6 +29,11 @@ class Projects::AttachmentsController < Projects::ApplicationController
     authorize @attachment
     @attachment.destroy
     respond_with @attachment, location: project_attachments_path
+  end
+
+  def download
+    authorize @attachment
+    send_data(@attachment.path.url, :filename => @attachment.download_filename)
   end
 
   protected

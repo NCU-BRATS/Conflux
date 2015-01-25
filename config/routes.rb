@@ -16,7 +16,9 @@ Rails.application.routes.draw do
       resources :issues  , concerns: [:commentable, :closeable]
       resources :sprints , concerns: [:commentable, :closeable]
       resources :comments ,only: [:update, :destroy]
-      resources :attachments
+      resources :attachments do
+        get 'download', on: :member
+      end
       resources :posts, as: 'attachment_posts'
       resources :snippets, as: 'attachment_snippets'
       resources :labels, constraints: {id: /\d+/}

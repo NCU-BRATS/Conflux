@@ -10,7 +10,7 @@
   i.massive.file.icon
   h3.ui.center.aligned.header = attachment.name
   h4.ui.center.aligned.header = '1111 MB Binary'
-  = link_to attachment.path.url do
+  = link_to download_project_attachment_path(@project, attachment) do
     .ui.circular.icon.button
       i.cloud.download.icon
     = 'Download File'

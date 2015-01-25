@@ -1,6 +1,6 @@
 class Attachment::Other < Attachment
 
-  validates :path, presence: true
+  validates :path, :original_filename, presence: true
 
   def self.policy_class
     AttachmentPolicy
