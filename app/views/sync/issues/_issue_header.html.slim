@@ -77,6 +77,11 @@ div
                           input_html: { data: { :'resource-path' => project_members_path( issue.project ),
                                                 :'search-field' => '["name", "email"]',
                                                 :'option-tpl' => 'option-user'} }
+          = f.association :sprint, collection: [issue.sprint],
+                          input_html: { data: { :'resource-path' => project_sprints_path(issue.project),
+                                                :'search-field' => '["title"]',
+                                                :'add-new'      => true } }
+        .field
           = f.association :labels, collection: issue.labels,
                           input_html: { data: { :'resource-path' => project_labels_path( issue.project ),
                                                 :'search-field' => '["title"]',
