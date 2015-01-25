@@ -1,23 +1,42 @@
 
 = sync partial: 'issue_header', resource: @issue
 
-= sync partial: 'comment_row', collection: @issue.comments.includes(:user).asc
-= sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable( @issue )
+.ui.top.tiered.menu
 
-.ui.section.divider
-.ui.segment.tertiary
-  = simple_form_for([@project, @issue, @issue.comments.build], remote: true) do |f|
-    = f.error_notification
-    .ui.top.attached.tabular.menu
-      a.active.item data-tab='origin'
-        = t('action.target.write', target: Comment.model_name.human)
-      a.item data-tab='preview' data-preview='comment_content'
-        = t('action.target.preview', target: Comment.model_name.human)
-    .ui.attached.active.tab.segment data-tab='origin'
-      = f.input :content, label: false, input_html: { id: 'comment_content_post_field' }
-    .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
-    .ui.bottom.attached.segment
-      = f.button :submit, class: 'right floated icon inverted'
+  a.active.item data-tab='comment'
+    i.icon.comments
+    = Comment.model_name.human
+    .ui.circular.label = @issue.comments.size
+
+  a.item data-tab='calendar'
+    i.icon.calendar
+    = '日程'
+
+.ui.active.tab data-tab='comment'
+
+  = sync partial: 'comment_row', collection: @issue.comments.includes(:user).asc
+  = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable(@issue)
+
+  .ui.segment.tertiary
+    = simple_form_for([@project, @issue, @issue.comments.build], remote: true) do |f|
+      = f.error_notification
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='origin'
+          = t('action.target.write', target: Comment.model_name.human)
+        a.item data-tab='preview' data-preview='comment_content'
+          = t('action.target.preview', target: Comment.model_name.human)
+      .ui.attached.active.tab.segment data-tab='origin'
+        = f.input :content, label: false, input_html: { id: 'comment_content_post_field' }
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+      .ui.bottom.attached.segment
+        = f.button :submit, class: 'right floated icon inverted'
+
+.ui.tab data-tab='calendar'
+  .center.aligned
+    - if @issue.planed?
+      = clndr_tag  multiple_events:[ { start_date: @issue.begin_at, end_date: @issue.due_at } ]
+    - else
+      = clndr_tag
 
 - content_for :javascripts
   coffee:

@@ -24,7 +24,7 @@ div
 
     .ui.attached.segment
       .ui.grid
-        .ten.wide.column
+        .thirteen.wide.column
           .ui.header
             - if issue.status.upcase == 'OPEN'
               i.green.icon.unlock
@@ -37,12 +37,33 @@ div
                 => user_tag issue.user, class: 'gray link'
                 => t('action.target.created_at', target: '')
                 span = time_format_relative_tag( issue.created_at )
-                - issue.labels.each do |label|
-                  = render_colored_label(label)
-        .six.wide.column
+
+                - if issue.planed?
+                  = '。'
+                  - if issue.working?
+                    => time_format_relative_tag issue.due_at
+                    = t('state.end')
+                  - elsif issue.expired?
+                    => time_format_relative_tag issue.due_at
+                    = t('state.expired')
+                  - elsif issue.finished?
+                    => time_format_relative_tag issue.due_at
+                    = t('state.finish')
+                  - else
+                    => time_format_relative_tag issue.begin_at
+                    = t('state.start')
+                span#issues_index_label
+                  - issue.labels.each do |label|
+                    = render_colored_label label
+
+        .three.wide.column
           - if issue.assignee.present?
             a.ui.image.label.right.floated href=user_link(issue.assignee)
               = avatar_tag issue.assignee, :size => 25
               = issue.assignee.name
+          - if issue.sprint.present?
+            .ui.image.label.right.floated
+              i.icon.flag
+              = issue.sprint.title
 
 = paginate @issues
