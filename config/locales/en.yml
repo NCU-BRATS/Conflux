@@ -239,6 +239,10 @@ en:
     none: none
     in_progress: in progress
     not_in_progress: not in progress
+    end: end
+    expired: expired
+    finish: finish
+    start: start
   attribute:
     target:
       info: info of %{target}

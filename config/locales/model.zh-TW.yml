@@ -31,6 +31,11 @@ zh-TW:
         begin_at: '開始時間'
         due_at: '結束時間'
         assignee: '執行者'
+        sprint: '戰役'
+        labels: '標籤'
+        status:
+          open: 開啟
+          closed: 關閉
       sprint:
         sequential_id: '序號'
         title: '標題'

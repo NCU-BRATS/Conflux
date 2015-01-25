@@ -238,6 +238,10 @@ zh-TW:
     none: 無
     in_progress: 進行中
     not_in_progress: 非進行中
+    end: 結束
+    expired: 過期
+    finish: 完成
+    start: 開始
   attribute:
     target:
       info: '%{target}詳情'
