@@ -34,8 +34,8 @@ class Projects::MembersController < Projects::ApplicationController
 
   protected
 
-    def participation_params
-      params.require(:project_participation).permit(:user_id)
-    end
+  def participation_params
+    params.require(:project_participation).permit(:user_id)
+  end
 
 end

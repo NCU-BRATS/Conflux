@@ -1,5 +1,7 @@
 class Projects::AttachmentsController < Projects::ApplicationController
 
+  before_action :set_attachment, only: [ :show, :destroy ]
+
   def index
     @q = @project.attachments.search(params[:q])
     @attachments = @q.result.uniq.page(params[:page]).per(params[:per])
@@ -20,20 +22,23 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   def show
-    @attachment = @project.attachments.find(params[:id])
     respond_with @attachment
   end
 
   def destroy
-    @attachment = @project.attachments.find(params[:id])
     authorize @attachment
     @attachment.destroy
     respond_with @attachment, location: project_attachments_path
   end
 
   protected
-    def attachment_params
-      params.require(:attachment).permit(:name, :path, :path_cache)
-    end
+
+  def attachment_params
+    params.require(:attachment).permit(:name, :path, :path_cache)
+  end
+
+  def set_attachment
+    @attachment = @project.attachments.find(params[:id])
+  end
 
 end

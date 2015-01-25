@@ -1,6 +1,8 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!
+
   layout :determine_layout
+
+  before_action :authenticate_user!
 
   def determine_layout
     'dashboard'
@@ -17,7 +19,7 @@ class DashboardController < ApplicationController
   end
 
   def issues
-    @issues = Issue.where("issues.user_id = ? OR issues.assignee_id = ?", current_user.id, current_user.id).includes(:user, :assignee, :labels, :project).order('id DESC')
+    @issues = Issue.where('issues.user_id = ? OR issues.assignee_id = ?', current_user.id, current_user.id).includes(:user, :assignee, :labels, :project).order('id DESC')
     @q = @issues.search( params[:q] )
     @issues = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @issues
@@ -28,4 +30,5 @@ class DashboardController < ApplicationController
     @attachments = @q.result.uniq.page( params[:page] ).per( params[:per] )
     respond_with @attachments
   end
+
 end

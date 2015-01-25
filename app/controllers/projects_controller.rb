@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+
   enable_sync only: [:create, :update, :destroy]
 
   before_action :authenticate_user!
@@ -39,19 +40,20 @@ class ProjectsController < ApplicationController
     respond_with @project
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.friendly.find(params[:id])
-    end
+  protected
 
-    # Only allow a trusted parameter "white list" through.
-    def project_params
-      params.require(:project).permit(:name, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    @project = Project.friendly.find(params[:id])
+  end
 
-    def interpolation_options
-      { resource_name: @project.name }
-    end
+  # Only allow a trusted parameter "white list" through.
+  def project_params
+    params.require(:project).permit(:name, :description)
+  end
+
+  def interpolation_options
+    { resource_name: @project.name }
+  end
 
 end

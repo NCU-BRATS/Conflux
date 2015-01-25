@@ -1,5 +1,7 @@
 class Projects::CommentsController < Projects::ApplicationController
+
   enable_sync only: [:create, :update, :destroy]
+
   before_action :authenticate_user!
   before_action :set_comment, only: [ :destroy, :update ]
 
@@ -25,20 +27,21 @@ class Projects::CommentsController < Projects::ApplicationController
 
   protected
 
-    def commentable
-      params.each do |name, value|
-        if name=~ /(.+)_id$/
-          return $1.classify.constantize.commentable_find( @project, value ).first if name != 'project_id'
-        end
+  def commentable
+    params.each do |name, value|
+      if name=~ /(.+)_id$/
+        return $1.classify.constantize.commentable_find( @project, value ).first if name != 'project_id'
       end
-      nil
     end
+    nil
+  end
 
-    def set_comment
-      @comment ||= Comment.find(params[:id])
-    end
+  def set_comment
+    @comment ||= Comment.find(params[:id])
+  end
 
-    def comment_params
-      params.require(:comment).permit( :content )
-    end
+  def comment_params
+    params.require(:comment).permit( :content )
+  end
+
 end
