@@ -40,13 +40,19 @@ class Sprint < ActiveRecord::Base
   end
 
   def working?
-    return false if begin_at.blank? or due_at.blank?
-    Time.now >= begin_at and due_at <= Time.now
+    begin_at <= Time.now and Time.now <= due_at
   end
 
   def expired?
-    return false if due_at.blank?
-    Time.now > due_at and status.upcase == 'OPEN'
+    Time.now > due_at and open?
+  end
+
+  def finished?
+    Time.now > due_at and closed?
+  end
+
+  def planed?
+    begin_at.present? and due_at.present?
   end
 
 end
