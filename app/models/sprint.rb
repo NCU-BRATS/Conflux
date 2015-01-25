@@ -2,6 +2,7 @@ class Sprint < ActiveRecord::Base
   include AASM
   include ParserConcern
   include CommentableConcern
+
   sync :all
 
   belongs_to :project
@@ -28,6 +29,8 @@ class Sprint < ActiveRecord::Base
 
   end
 
+  validates :title, :status, :project, :user, presence: true
+
   def to_param
     self.sequential_id.to_s
   end
@@ -45,7 +48,5 @@ class Sprint < ActiveRecord::Base
     return false if due_at.blank?
     Time.now > due_at and status.upcase == 'OPEN'
   end
-
-  validates :title, :status, :project, :user, presence: true
 
 end

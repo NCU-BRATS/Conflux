@@ -1,4 +1,5 @@
 class ProjectParticipation < ActiveRecord::Base
+
   self.table_name = 'users_projects'
 
   belongs_to :user
@@ -7,4 +8,5 @@ class ProjectParticipation < ActiveRecord::Base
   validates :user, presence: true
   validates :project, presence: true
   validates :user, uniqueness: { scope: :project }
+
 end

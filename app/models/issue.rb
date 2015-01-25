@@ -2,6 +2,7 @@ class Issue < ActiveRecord::Base
   include AASM
   include ParserConcern
   include CommentableConcern
+
   sync :all
 
   belongs_to :project
@@ -30,6 +31,8 @@ class Issue < ActiveRecord::Base
 
   end
 
+  validates :title, :status, :project, :user, presence: true
+
   def to_param
     self.sequential_id.to_s
   end
@@ -53,7 +56,5 @@ class Issue < ActiveRecord::Base
       self.labels << label
     end
   end
-
-  validates :title, :status, :project, :user, presence: true
 
 end
