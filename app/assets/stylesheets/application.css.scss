@@ -151,16 +151,30 @@ body.pushable > .pusher {
   }
 }
 
-#search_input_grid {
-  border-right: 1px solid #eee;
+.page-header {
+  h1.header {
+    display: inline-block;
+  }
+  .search-field {
+    width: 250px;
+    border-right: 1px solid #eee;
+    display: inline-block;
+    float: right;
+    margin-right: 6px;
+    padding-right: 10px;
+  }
 }
 
 @media only screen and (max-width: 991px) {
-  #search_input_grid {
-    border-right: 0;
-    width: 100% !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+  .page-header {
+    .search-field {
+      border-right: 0;
+      float: none;
+      padding-right: 0;
+      width: 100% !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
   }
 }
 .ui.list .list > .item .header, .ui.list > .item .sub.header {

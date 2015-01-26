@@ -1,15 +1,12 @@
-
-.ui.grid
-  .doubling.four.column.row
-    .four.wide.column
-      h1.ui.header
-        i.icon.bookmark
-        .content
-          = title t('structure.list', element: Label.model_name.human )
-    .right.floated.right.aligned.four.wide.column#new_label_btn_grid
-      = link_to new_project_label_path, class: 'ui green button' do
-        i.ui.icon.write
-        = t('action.target.create', target: Label.model_name.human)
+.page-header
+  h1.ui.header
+    i.icon.bookmark
+    .content
+      = title t('structure.list', element: Label.model_name.human )
+  .ui.right.floated.buttons
+    = link_to new_project_label_path, class: 'ui green button' do
+      i.ui.icon.write
+      = t('action.target.create', target: Label.model_name.human)
 
 
 .ui.divider
