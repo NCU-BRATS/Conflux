@@ -1,16 +1,14 @@
-.ui.grid
-  .doubling.four.column.row
-    .four.wide.column
-      h1.ui.header
-        i.rocket.icon
-        .content
-          = title @project.name
-          .sub.header
-            = @project.description
-    .right.floated.right.aligned.four.wide.column#new_button_grid
-      = link_to edit_project_path(@project), class: 'ui yellow button' do
-        i.ui.icon.write
-        = t('action.word.edit')
+.page-header
+  h1.ui.header
+    i.rocket.icon
+    .content
+      = title @project.name
+      .sub.header
+        = @project.description
+  .ui.right.floated.buttons
+    = link_to edit_project_path(@project), class: 'ui yellow button' do
+      i.ui.icon.write
+      = t('action.word.edit')
 
 .ui.divider
 .ui.grid
