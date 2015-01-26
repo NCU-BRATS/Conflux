@@ -7,7 +7,7 @@
     = link_to new_project_sprint_path, class: 'ui green button' do
       i.ui.icon.write
       = t('action.target.create', target: Sprint.model_name.human)
-  .search-field
+  .search-field.divided
     = search_form_for [@project, @q] do |f|
       .ui.left.icon.fluid.input
         = f.search_field :title_or_comments_content_cont, type: :text, placeholder: t('action.word.search')

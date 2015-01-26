@@ -7,7 +7,7 @@
     = link_to new_project_member_path, class: 'ui green button' do
       i.ui.icon.write
       = t('action.target.add', target: ProjectParticipation.model_name.human)
-  .search-field
+  .search-field.divided
     = search_form_for @q do |f|
       .ui.left.icon.fluid.input
         i.icon.search
