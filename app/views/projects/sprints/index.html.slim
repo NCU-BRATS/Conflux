@@ -104,4 +104,19 @@ div
                   => t('action.target.created_at', target: '')
                   span = time_format_relative_tag( sprint.created_at )
 
+                  - if sprint.planed?
+                    = '。'
+                    - if sprint.working?
+                      => time_format_relative_tag sprint.due_at
+                      = t('state.end')
+                    - elsif sprint.expired?
+                      => time_format_relative_tag sprint.due_at
+                      = t('state.expired')
+                    - elsif sprint.finished?
+                      => time_format_relative_tag sprint.due_at
+                      = t('state.finish')
+                    - else
+                      => time_format_relative_tag sprint.begin_at
+                      = t('state.start')
+
 = paginate @sprints

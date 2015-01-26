@@ -12,4 +12,12 @@ class SprintPolicy < ApplicationPolicy
     record.project.has_member?(user)
   end
 
+  def close?
+    record.project.has_member?(user)
+  end
+
+  def reopen?
+    record.project.has_member?(user)
+  end
+
 end
