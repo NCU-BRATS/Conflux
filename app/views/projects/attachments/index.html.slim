@@ -8,7 +8,7 @@
       = link_to t('action.target.upload', target: Attachment.model_name.human), new_project_attachment_path, class: 'ui basic green button'
       = link_to t('action.target.create', target: Attachment::Post.model_name.human), new_project_attachment_post_path, class: 'ui basic green button'
       = link_to t('action.target.create', target: Attachment::Snippet.model_name.human), new_project_attachment_snippet_path, class: 'ui basic green button'
-  .search-field
+  .search-field.divided
     = search_form_for [@project, @q] do |f|
       .ui.left.icon.fluid.input
         i.search.icon
