@@ -9,10 +9,6 @@ class Attachment::Snippet < Attachment
 
   validates :content, :language, :name, presence: true
 
-  def self.policy_class
-    AttachmentPolicy
-  end
-
   def html
     @html ||= self.class.parse("```#{language.downcase}\n#{content}\n```")
   end

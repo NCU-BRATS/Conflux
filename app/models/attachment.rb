@@ -10,14 +10,8 @@ class Attachment < ActiveRecord::Base
 
   scope :latest, -> { order(created_at: :desc) }
 
-  def deep_becomes!(klass)
-    became = becomes!(klass)
-    became.path = self.path
-    became
-  end
-
-  def download_filename
-    original_filename || "#{name}.#{path.file.extension}"
+  def self.policy_class
+    AttachmentPolicy
   end
 
   def self.intelligent_construct(params, project, user)
@@ -42,6 +36,16 @@ class Attachment < ActiveRecord::Base
     attachment.original_filename = attachment.path.file.filename
 
     attachment
+  end
+
+  def deep_becomes!(klass)
+    became = becomes!(klass)
+    became.path = self.path
+    became
+  end
+
+  def download_filename
+    original_filename || "#{name}.#{path.file.extension}"
   end
 
 end

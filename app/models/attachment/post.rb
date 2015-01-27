@@ -3,10 +3,6 @@ class Attachment::Post < Attachment
 
   validates :content, :name, presence: true
 
-  def self.policy_class
-    AttachmentPolicy
-  end
-
   def html
     @html ||= self.class.parse(content)
   end
