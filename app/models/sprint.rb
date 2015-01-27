@@ -1,5 +1,5 @@
 class Sprint < ActiveRecord::Base
-  include AASM
+  include CloseableConcern
   include ParserConcern
   include CommentableConcern
 
@@ -14,21 +14,6 @@ class Sprint < ActiveRecord::Base
 
   accepts_nested_attributes_for :comments
 
-  aasm :column => 'status' do
-
-    state :open, :initial => true
-    state :closed
-
-    event :close do
-      transitions :from => :open, :to => :closed
-    end
-
-    event :reopen do
-      transitions :from => :closed, :to => :open
-    end
-
-  end
-
   validates :title, :status, :project, :user, presence: true
 
   def to_param
@@ -37,22 +22,6 @@ class Sprint < ActiveRecord::Base
 
   def self.commentable_find_key
     :sequential_id
-  end
-
-  def working?
-    begin_at <= Time.now and Time.now <= due_at
-  end
-
-  def expired?
-    Time.now > due_at and open?
-  end
-
-  def finished?
-    Time.now > due_at and closed?
-  end
-
-  def planed?
-    begin_at.present? and due_at.present?
   end
 
 end
