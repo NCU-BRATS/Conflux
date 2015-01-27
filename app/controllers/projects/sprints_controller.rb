@@ -2,7 +2,6 @@ class Projects::SprintsController < Projects::ApplicationController
 
   enable_sync only: [:create, :update, :close, :reopen]
 
-  before_action :authenticate_user!
   before_action :set_sprint, only: [ :show, :update, :close, :reopen ]
 
   def index
