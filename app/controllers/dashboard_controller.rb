@@ -1,15 +1,11 @@
 class DashboardController < ApplicationController
 
-  layout :determine_layout
+  layout 'dashboard'
 
   before_action :authenticate_user!
 
-  def determine_layout
-    'dashboard'
-  end
-
   def show
-
+    # stub for none processing action
   end
 
   def projects
