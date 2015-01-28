@@ -7,10 +7,10 @@ module AuthorizationConcern
 
   def authorize_resourse
     case params[:action]
-      when 'index', 'create', 'new'
-        authorize policy_target
-      else
-        authorize set_resourse
+    when 'index', 'create', 'new'
+      authorize policy_target
+    else
+      authorize set_resourse
     end
   end
 
