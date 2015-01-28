@@ -2,8 +2,6 @@ class Projects::SprintsController < Projects::ApplicationController
 
   enable_sync only: [:create, :update, :close, :reopen]
 
-  before_action :set_sprint, only: [ :show, :update, :close, :reopen ]
-
   def index
     @q = @project.sprints.includes(:user).search(params[:q])
     @sprints = @q.result.uniq.page(params[:page]).per(params[:per])
@@ -17,13 +15,11 @@ class Projects::SprintsController < Projects::ApplicationController
   def new
     @sprint = @project.sprints.build
     @sprint.comments.build
-    authorize @sprint
     respond_with @project, @sprint
   end
 
   def create
     @sprint = @project.sprints.build( sprint_params )
-    authorize @sprint
     @sprint.user = current_user
     @sprint.comments.each { |comment| comment.user = current_user }
     @sprint.save
@@ -31,24 +27,21 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def update
-    authorize @sprint
     @sprint.update( sprint_params )
     respond_with @project, @sprint
   end
 
   def close
-    authorize @sprint
     @sprint.close!
   end
 
   def reopen
-    authorize @sprint
     @sprint.reopen!
   end
 
   protected
 
-  def set_sprint
+  def set_resourse
     @sprint = @project.sprints.where( :sequential_id => params[:id] ).first
   end
 
