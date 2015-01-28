@@ -1,11 +1,15 @@
 class ProjectParticipationPolicy < ApplicationPolicy
 
+  def index?
+    user.is_project_member?
+  end
+
   def create?
-    record.project.has_member?(user)
+    user.is_project_member?
   end
 
   def destroy?
-    record.project.has_member?(user)
+    user.is_project_member?
   end
 
 end
