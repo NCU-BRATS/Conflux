@@ -10,11 +10,11 @@ module AuthorizationConcern
     when 'index', 'create', 'new'
       authorize policy_target
     else
-      authorize set_resourse
+      authorize resource
     end
   end
 
-  def set_resourse
+  def resource
     policy_target
   end
 

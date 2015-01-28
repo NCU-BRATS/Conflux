@@ -33,8 +33,8 @@ class Projects::MembersController < Projects::ApplicationController
     params.require(:project_participation).permit(:user_id)
   end
 
-  def set_resourse
-    @participation = @project.project_participations.find(params[:id])
+  def resource
+    @participation ||= @project.project_participations.find(params[:id])
   end
 
   def policy_target

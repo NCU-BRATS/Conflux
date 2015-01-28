@@ -43,8 +43,8 @@ class Projects::IssuesController < Projects::ApplicationController
 
   protected
 
-  def set_resourse
-    @issue = @project.issues.where( :sequential_id => params[:id] ).first
+  def resource
+    @issue ||= @project.issues.where( :sequential_id => params[:id] ).first
   end
 
   def issue_params

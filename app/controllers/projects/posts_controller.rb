@@ -31,8 +31,8 @@ class Projects::PostsController < Projects::ApplicationController
     params.require(:attachment_post).permit(:name, :content)
   end
 
-  def set_resourse
-    @post = @project.posts.find(params[:id])
+  def resource
+    @post ||= @project.posts.find(params[:id])
   end
 
 end

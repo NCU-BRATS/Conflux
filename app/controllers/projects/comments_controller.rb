@@ -30,7 +30,7 @@ class Projects::CommentsController < Projects::ApplicationController
     nil
   end
 
-  def set_resourse
+  def resource
     @comment ||= Comment.find(params[:id])
   end
 

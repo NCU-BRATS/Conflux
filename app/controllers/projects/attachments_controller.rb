@@ -36,8 +36,8 @@ class Projects::AttachmentsController < Projects::ApplicationController
     params.require(:attachment).permit(:name, :path, :path_cache)
   end
 
-  def set_resourse
-    @attachment = @project.attachments.find(params[:id])
+  def resource
+    @attachment ||= @project.attachments.find(params[:id])
   end
 
 end

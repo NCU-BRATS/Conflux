@@ -12,7 +12,7 @@ class Projects::DashboardsController < Projects::ApplicationController
 
   protected
 
-  def policy_target
+  def resource
     :dashboard
   end
 

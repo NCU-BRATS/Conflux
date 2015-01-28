@@ -36,7 +36,7 @@ class Projects::LabelsController < Projects::ApplicationController
     params.require(:label).permit(:title, :color)
   end
 
-  def set_resourse
+  def resource
     @label ||= @project.labels.find(params[:id])
   end
 

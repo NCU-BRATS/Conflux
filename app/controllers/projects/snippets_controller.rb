@@ -31,8 +31,8 @@ class Projects::SnippetsController < Projects::ApplicationController
     params.require(:attachment_snippet).permit(:name, :language, :content)
   end
 
-  def set_resourse
-    @snippet = @project.snippets.find(params[:id])
+  def resource
+    @snippet ||= @project.snippets.find(params[:id])
   end
 
 end

@@ -41,8 +41,8 @@ class Projects::SprintsController < Projects::ApplicationController
 
   protected
 
-  def set_resourse
-    @sprint = @project.sprints.where( :sequential_id => params[:id] ).first
+  def resource
+    @sprint ||= @project.sprints.where( :sequential_id => params[:id] ).first
   end
 
   def sprint_params
