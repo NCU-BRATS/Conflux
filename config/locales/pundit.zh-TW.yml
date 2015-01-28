@@ -1,0 +1,3 @@
+zh-TW:
+ pundit:
+   default: '您權限不足，無法執行這個動作'

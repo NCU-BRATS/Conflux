@@ -1,9 +1,12 @@
 module AuthorizationConcern
-  class ResourceMethodNotOverridedError < StandardError; end
-
   extend ActiveSupport::Concern
 
-  include Pundit
+  class ResourceMethodNotOverridedError < StandardError; end
+
+  included do
+    include Pundit
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  end
 
   protected
 
@@ -22,6 +25,13 @@ module AuthorizationConcern
 
   def policy_target
     @model ||= controller_name.classify.constantize
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+
+    flash[:alert] = t "#{policy_name}.#{exception.query}", scope: 'pundit', default: :default
+    redirect_to(request.referrer || root_path)
   end
 
 end
