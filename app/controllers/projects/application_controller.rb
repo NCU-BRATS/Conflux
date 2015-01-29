@@ -4,6 +4,7 @@ class Projects::ApplicationController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_project
+  before_action :authorize_resourse
 
   def determine_layout
     'project'
@@ -12,7 +13,11 @@ class Projects::ApplicationController < ApplicationController
   protected
 
   def set_project
-    @project = Project.friendly.find(params[:project_id])
+    @project ||= Project.friendly.find(params[:project_id])
+  end
+
+  def pundit_user
+    ProjectUserContext.new( current_user, set_project )
   end
 
 end

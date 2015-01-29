@@ -1,19 +1,7 @@
-class AttachmentPolicy < ApplicationPolicy
-
-  def create?
-    record.project.has_member?(user)
-  end
-
-  def destroy?
-    record.project.has_member?(user)
-  end
-
-  def update?
-    record.project.has_member?(user)
-  end
+class AttachmentPolicy < ProjectResourcePolicy
 
   def download?
-    record.project.has_member?(user)
+    user.is_project_member?
   end
 
 end

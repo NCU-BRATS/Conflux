@@ -2,24 +2,19 @@ class Projects::CommentsController < Projects::ApplicationController
 
   enable_sync only: [:create, :update, :destroy]
 
-  before_action :set_comment, only: [ :destroy, :update ]
-
   def create
     @comment = commentable.comments.build comment_params
-    authorize @comment
     @comment.user = current_user
     @comment.save
     respond_with @project, @comment
   end
 
   def update
-    authorize @comment
     @comment.update_attributes(comment_params)
     respond_with @project, @comment
   end
 
   def destroy
-    authorize @comment
     @comment.destroy
     respond_with @project, @comment
   end
@@ -35,7 +30,7 @@ class Projects::CommentsController < Projects::ApplicationController
     nil
   end
 
-  def set_comment
+  def resource
     @comment ||= Comment.find(params[:id])
   end
 

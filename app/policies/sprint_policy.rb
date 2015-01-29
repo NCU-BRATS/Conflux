@@ -1,23 +1,11 @@
-class SprintPolicy < ApplicationPolicy
-
-  def update?
-    record.project.has_member?(user)
-  end
-
-  def destroy?
-    record.project.has_member?(user)
-  end
-
-  def create?
-    record.project.has_member?(user)
-  end
+class SprintPolicy < ProjectResourcePolicy
 
   def close?
-    record.project.has_member?(user)
+    user.is_project_member?
   end
 
   def reopen?
-    record.project.has_member?(user)
+    user.is_project_member?
   end
 
 end

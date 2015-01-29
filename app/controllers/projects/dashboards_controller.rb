@@ -10,4 +10,10 @@ class Projects::DashboardsController < Projects::ApplicationController
     respond_with @project
   end
 
+  protected
+
+  def resource
+    :dashboard
+  end
+
 end
