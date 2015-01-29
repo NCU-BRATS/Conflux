@@ -5,7 +5,7 @@ module TimeHelper
       options = options.symbolize_keys
 
       options[:data] ||= {}
-      options[:data][:moment] = time.to_s
+      options[:data][:moment] = time.to_formatted_s(:iso8601)
       options[:data][:type] = 'absolute'
 
       unless ( format = options.delete(:format) ).nil?
@@ -21,7 +21,7 @@ module TimeHelper
       options = options.symbolize_keys
 
       options[:data] ||= {}
-      options[:data][:moment] = time.to_s
+      options[:data][:moment] = time.to_formatted_s(:iso8601)
       options[:data][:type] = 'relative'
 
       content_tag( 'span', '', options )
