@@ -1,5 +1,6 @@
 module AuthorizationConcern
   extend ActiveSupport::Concern
+  include ModelGuessableConcern
 
   class ResourceMethodNotOverridedError < StandardError; end
 
@@ -16,10 +17,6 @@ module AuthorizationConcern
 
   def resource
     raise ResourceMethodNotOverridedError.new('This method should be overrided in controller to prepare the resource for Pundit.')
-  end
-
-  def policy_target
-    @model ||= controller_name.classify.constantize
   end
 
   def user_not_authorized(exception)
