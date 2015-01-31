@@ -11,12 +11,7 @@ module AuthorizationConcern
   protected
 
   def authorize_resourse
-    case params[:action]
-    when 'index', 'create', 'new'
-      authorize policy_target
-    else
-      authorize resource
-    end
+    authorize (params[:id] ? resource : model)
   end
 
   def resource
