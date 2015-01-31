@@ -37,7 +37,7 @@ class Projects::MembersController < Projects::ApplicationController
     @participation ||= @project.project_participations.find(params[:id])
   end
 
-  def policy_target
+  def model
     :project_participation
   end
 
