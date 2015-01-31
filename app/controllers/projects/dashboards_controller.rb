@@ -12,7 +12,7 @@ class Projects::DashboardsController < Projects::ApplicationController
 
   protected
 
-  def resource
+  def model
     :dashboard
   end
 
