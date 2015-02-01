@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       resources :issues  , concerns: [:commentable, :closeable]
       resources :sprints , concerns: [:commentable, :closeable]
       resources :comments ,only: [:update, :destroy]
-      resources :attachments do
+      resources :attachments, concerns: [:commentable] do
         get 'download', on: :member
       end
       resources :posts, as: 'attachment_posts'

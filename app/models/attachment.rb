@@ -1,4 +1,5 @@
 class Attachment < ActiveRecord::Base
+  include CommentableConcern
   extend Enumerize
 
   belongs_to :project
