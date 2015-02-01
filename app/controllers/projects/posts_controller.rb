@@ -25,6 +25,14 @@ class Projects::PostsController < Projects::ApplicationController
     respond_with @project, @post
   end
 
+  def model
+    @model ||= Attachment::Post
+  end
+
+  def model_sym
+    :"Attachment::Post"
+  end
+
   protected
 
   def post_params
