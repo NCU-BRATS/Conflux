@@ -18,3 +18,5 @@
   = link_to project_attachments_path, class: 'ui right floated basic green button' do
     i.icon.chevron.left
     = t('action.word.back')
+
+= render partial: '/projects/attachments/comments', locals: {attachment: @snippet}

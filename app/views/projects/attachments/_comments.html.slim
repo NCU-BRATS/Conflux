@@ -1,0 +1,22 @@
+.ui.active.tab data-tab='comment'
+
+  = sync partial: 'comment_row', collection: attachment.comments.includes(:user).asc
+  = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable(attachment)
+
+  .ui.segment.tertiary
+    = simple_form_for([@project, attachment, attachment.comments.build], url: project_attachment_comments_path(@project, attachment), remote: true) do |f|
+      = f.error_notification
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='origin'
+          = t('action.target.write', target: Comment.model_name.human)
+        a.item data-tab='preview' data-preview='comment_content'
+          = t('action.target.preview', target: Comment.model_name.human)
+      .ui.attached.active.tab.segment data-tab='origin'
+        = f.input :content, label: false, input_html: { id: 'comment_content_post_field' }
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+      .ui.bottom.attached.segment
+        = f.button :submit, class: 'right floated icon inverted'
+
+- content_for :javascripts
+  coffee:
+    $('.menu .item').tab()
