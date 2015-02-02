@@ -1,0 +1,11 @@
+.content
+  .date
+    => time_format_relative_tag event.created_at
+  .summary
+    = link_to event.author.name, profile_path(event.author)
+    | &nbsp;commented on&nbsp;
+    = event.target.commentable.class.name.downcase
+    strong
+      = link_to " #" + event.target.commentable.id.to_s, [event.project, event.target.commentable]
+    | &nbsp;at&nbsp;
+    = link_to event.project.name, event.project
