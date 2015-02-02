@@ -20,4 +20,8 @@ class Projects::ApplicationController < ApplicationController
     ProjectUserContext.new( current_user, set_project )
   end
 
+  def event_service
+    EventCreateService.new
+  end
+
 end
