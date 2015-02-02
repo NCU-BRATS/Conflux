@@ -11,6 +11,7 @@ class Event < ActiveRecord::Base
 
   delegate :name, :email, to: :author, prefix: true, allow_nil: true
   delegate :title, to: :issue, prefix: true, allow_nil: true
+  delegate :title, to: :comment, prefix: true, allow_nil: true
 
   belongs_to :author, class_name: "User"
   belongs_to :project
@@ -33,6 +34,10 @@ class Event < ActiveRecord::Base
 
   def issue?
     target_type == "Issue"
+  end
+
+  def comment?
+    target_type == "Comment"
   end
 
   def joined?
