@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    # stub for none processing action
+    @events = current_user.recent_events.limit(20).offset(params[:offset] || 0)
   end
 
   def projects
