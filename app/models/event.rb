@@ -8,4 +8,7 @@ class Event < ActiveRecord::Base
   belongs_to :project
   belongs_to :target, polymorphic: true
 
+  scope :recent, -> { order("created_at DESC") }
+  scope :in_projects, ->(project_ids) { where(project_id: project_ids).recent }
+
 end
