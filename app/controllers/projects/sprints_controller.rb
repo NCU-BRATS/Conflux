@@ -22,7 +22,9 @@ class Projects::SprintsController < Projects::ApplicationController
     @sprint = @project.sprints.build( sprint_params )
     @sprint.user = current_user
     @sprint.comments.each { |comment| comment.user = current_user }
-    @sprint.save
+    if @sprint.save
+      event_service.open_sprint(@sprint, current_user)
+    end
     respond_with @project, @sprint
   end
 
@@ -32,11 +34,15 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def close
-    @sprint.close!
+    if @sprint.close!
+      event_service.close_sprint(@sprint, current_user)
+    end
   end
 
   def reopen
-    @sprint.reopen!
+    if @sprint.reopen!
+      event_service.reopen_sprint(@sprint, current_user)
+    end
   end
 
   protected
