@@ -47,4 +47,16 @@ class Event < ActiveRecord::Base
   def left?
     action == LEFT
   end
+
+  def action_name
+    if closed?
+      "closed"
+    elsif joined?
+      'joined'
+    elsif left?
+      'left'
+    else
+      "opened"
+    end
+  end
 end
