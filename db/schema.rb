@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 20150205135716) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "events", force: :cascade do |t|
+    t.string   "target_type"
+    t.integer  "target_id"
+    t.string   "title"
+    t.integer  "project_id"
+    t.integer  "action"
+    t.integer  "author_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
