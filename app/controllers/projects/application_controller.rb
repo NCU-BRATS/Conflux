@@ -7,7 +7,7 @@ class Projects::ApplicationController < ApplicationController
   before_action :authorize_resourse
 
   def determine_layout
-    'project'
+    request.format.html? ? 'project' : 'application'
   end
 
   protected
