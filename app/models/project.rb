@@ -13,6 +13,7 @@ class Project < ActiveRecord::Base
   has_many :repositories, dependent: :destroy
   has_many :labels,       dependent: :destroy
   has_many :events,       dependent: :destroy
+  has_many :channels,     dependent: :destroy
 
   has_many :attachments,  dependent: :destroy
   has_many :posts,        dependent: :destroy, class_name: 'Attachment::Post'
