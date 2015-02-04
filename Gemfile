@@ -65,8 +65,6 @@ gem 'gravtastic'
 gem 'bootstrap-sass', '~> 3.3.1'
 # Semantic-ui
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass', branch: 'v1.0beta'
-# Icons css
-gem 'font-awesome-sass', '~> 4.2.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
 # Use Uglifier as compressor for JavaScript assets
