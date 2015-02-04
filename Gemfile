@@ -63,6 +63,8 @@ gem 'mini_magick'
 gem 'gravtastic'
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
+# Semantic-ui
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass', branch: 'v1.0beta'
 # Icons css
 gem 'font-awesome-sass', '~> 4.2.0'
 # Use SCSS for stylesheets

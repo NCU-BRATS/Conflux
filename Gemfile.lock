@@ -35,6 +35,14 @@ GIT
       escape_utils (~> 1.0.1)
       mime-types (>= 1.19)
 
+GIT
+  remote: git://github.com/doabit/semantic-ui-sass.git
+  revision: ba3acee5bb44f2532436f83e3d7d0cd3152b5fe9
+  branch: v1.0beta
+  specs:
+    semantic-ui-sass (1.8.1.0)
+      sass (~> 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -409,6 +417,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.1)
   sdoc (~> 0.4.0)
   selectize-rails (~> 0.11.2)
+  semantic-ui-sass!
   sequenced
   simple_form (~> 3.1.0rc2)
   slim-rails (~> 3.0.1)
