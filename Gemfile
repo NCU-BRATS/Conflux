@@ -40,7 +40,7 @@ gem "github-markdown",   :require => false
 gem "email_reply_parser",   :require => false
 gem "sanitize",   :require => false
 gem "escape_utils",   :require => false
-gem "github-linguist"
+gem "github-linguist", github: 'NCU-BRATS/linguist', branch: 'drop-rugged'
 # generates scoped sequential IDs
 gem 'sequenced'
 # state machine

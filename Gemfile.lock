@@ -25,6 +25,16 @@ GIT
     data-confirm-modal (1.0.1)
       railties (>= 3.0)
 
+GIT
+  remote: git://github.com/NCU-BRATS/linguist.git
+  revision: 8ad2650454006e3e524ba7050603b45b0106d635
+  branch: drop-rugged
+  specs:
+    github-linguist (4.3.1)
+      charlock_holmes (~> 0.7.3)
+      escape_utils (~> 1.0.1)
+      mime-types (>= 1.19)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -152,11 +162,6 @@ GEM
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     gemoji (2.1.0)
-    github-linguist (4.2.7)
-      charlock_holmes (~> 0.7.3)
-      escape_utils (~> 1.0.1)
-      mime-types (>= 1.19)
-      rugged (~> 0.22.0b4)
     github-markdown (0.6.8)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
@@ -279,7 +284,6 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    rugged (0.22.0b5)
     sanitize (3.1.0)
       crass (~> 1.0.1)
       nokogiri (>= 1.4.4)
@@ -377,7 +381,7 @@ DEPENDENCIES
   font-awesome-sass (~> 4.2.0)
   friendly_id
   gemoji
-  github-linguist
+  github-linguist!
   github-markdown
   gravtastic
   handlebars_assets
