@@ -1,5 +1,5 @@
 div
-  .pull-left
+  div style="float: left;"
     | {{ gravtastic email 40 }}
 
   div style="padding-left: 50px;"

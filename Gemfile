@@ -21,8 +21,6 @@ gem 'meta-tags'
 gem 'acts-as-taggable-on', '~> 3.4'
 # favorite system
 gem 'acts_as_votable', '~> 0.10.0'
-# PostgresSQL Full Text Search
-gem 'pg_search'
 # perttify url
 gem 'friendly_id'
 # creating human-friendly identifiers, work with friendly_id
@@ -85,7 +83,7 @@ gem 'momentjs-rails'
 # datetime-picker widget
 gem 'bootstrap3-datetimepicker-rails', github: 'NCU-BRATS/bootstrap3-datetimepicker-rails', branch: 'bs-scope'
 # calendar
-gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails'
+gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails', branch: 'fix-toplevel-constant-referenced'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -100,7 +98,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.1.0'
+  gem 'rspec-rails', '~> 3.2.0'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker', '~> 1.4.3'
   gem 'better_errors'

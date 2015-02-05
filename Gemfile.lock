@@ -8,13 +8,14 @@ GIT
 
 GIT
   remote: git://github.com/NCU-BRATS/clndr-rails.git
-  revision: 09db759640ba95024342428482944bb5ac8e9ca4
+  revision: 1b79664381473d851f81d5e9d193af3c1a16055b
+  branch: fix-toplevel-constant-referenced
   specs:
-    clndr-rails (1.2.6.1)
+    clndr-rails (1.2.7.1)
       jquery-rails
       momentjs-rails
-      rails (~> 4.1)
-      railties (~> 4.1)
+      rails (~> 4.2.0)
+      railties (~> 4.2.0)
       underscore-rails
 
 GIT
@@ -88,13 +89,13 @@ GEM
     acts-as-taggable-on (3.4.3)
       activerecord (>= 3.2, < 5)
     acts_as_votable (0.10.0)
-    addressable (2.3.6)
+    addressable (2.3.7)
     arel (6.0.0)
-    autoprefixer-rails (5.0.0.3)
+    autoprefixer-rails (5.1.3.1)
       execjs
       json
     babosa (1.0.2)
-    bcrypt (3.1.9)
+    bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -119,7 +120,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.8.0)
+    coffee-script-source (1.9.0)
     cookiejar (0.3.2)
     crass (1.0.1)
     daemons (1.1.9)
@@ -145,8 +146,8 @@ GEM
       activesupport (>= 3.2)
     erubis (2.7.0)
     escape_utils (1.0.1)
-    eventmachine (1.0.4)
-    execjs (2.2.2)
+    eventmachine (1.0.6)
+    execjs (2.3.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -206,7 +207,7 @@ GEM
       railties (>= 3.0.0, < 5.0.0)
     mime-types (2.4.3)
     mimetype-fu (0.1.2)
-    mini_magick (4.0.2)
+    mini_magick (4.0.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
     momentjs-rails (2.9.0)
@@ -219,10 +220,6 @@ GEM
       nokogiri
     orm_adapter (0.5.0)
     pg (0.18.1)
-    pg_search (0.7.8)
-      activerecord (>= 3.1)
-      activesupport (>= 3.1)
-      arel
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     pundit (0.3.0)
@@ -254,7 +251,7 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_serve_static_assets (0.0.3)
+    rails_serve_static_assets (0.0.4)
     rails_stdout_logging (0.0.3)
     railties (4.2.0)
       actionpack (= 4.2.0)
@@ -270,31 +267,32 @@ GEM
       polyamorous (~> 1.1)
     rdoc (4.2.0)
       json (~> 1.4)
-    responders (2.0.2)
-      railties (>= 4.2.0.alpha, < 5)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     rinku (1.7.3)
-    rouge (1.7.7)
-    rspec-core (3.1.7)
-      rspec-support (~> 3.1.0)
-    rspec-expectations (3.1.2)
+    rouge (1.8.0)
+    rspec-core (3.2.0)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.1.0)
-    rspec-mocks (3.1.3)
-      rspec-support (~> 3.1.0)
-    rspec-rails (3.1.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 3.1.0)
-      rspec-expectations (~> 3.1.0)
-      rspec-mocks (~> 3.1.0)
-      rspec-support (~> 3.1.0)
-    rspec-support (3.1.2)
-    sanitize (3.1.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-rails (3.2.0)
+      actionpack (>= 3.0, <= 4.2)
+      activesupport (>= 3.0, <= 4.2)
+      railties (>= 3.0, <= 4.2)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.1)
+    sanitize (3.1.1)
       crass (~> 1.0.1)
       nokogiri (>= 1.4.4)
       nokogumbo (= 1.2.0)
-    sass (3.4.10)
+    sass (3.4.11)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -311,7 +309,7 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
-    slim (3.0.1)
+    slim (3.0.2)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slim-rails (3.0.1)
@@ -401,7 +399,6 @@ DEPENDENCIES
   momentjs-rails
   nested_form (~> 0.3.2)
   pg (~> 0.18.0)
-  pg_search
   pundit
   rails (= 4.2.0)
   rails_12factor
@@ -409,7 +406,7 @@ DEPENDENCIES
   responders (~> 2.0)
   rinku
   rouge
-  rspec-rails (~> 3.1.0)
+  rspec-rails (~> 3.2.0)
   sanitize
   sass-rails (~> 5.0.1)
   sdoc (~> 0.4.0)
