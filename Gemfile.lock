@@ -272,6 +272,7 @@ GEM
       polyamorous (~> 1.1)
     rdoc (4.2.0)
       json (~> 1.4)
+    remotipart (1.2.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rinku (1.7.3)
@@ -410,6 +411,7 @@ DEPENDENCIES
   rails (= 4.2.0)
   rails_12factor
   ransack
+  remotipart (~> 1.2)
   responders (~> 2.0)
   rinku
   rouge
