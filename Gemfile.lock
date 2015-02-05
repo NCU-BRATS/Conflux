@@ -133,6 +133,9 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    dotenv (1.0.2)
+    dotenv-rails (1.0.2)
+      dotenv (= 1.0.2)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -222,6 +225,8 @@ GEM
     pg (0.18.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    puma (2.11.0)
+      rack (>= 1.1, < 2.0)
     pundit (0.3.0)
       activesupport (>= 3.0.0)
     rack (1.6.0)
@@ -376,6 +381,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   data-confirm-modal!
   devise
+  dotenv-rails
   email_reply_parser
   enumerize
   escape_utils
@@ -399,6 +405,7 @@ DEPENDENCIES
   momentjs-rails
   nested_form (~> 0.3.2)
   pg (~> 0.18.0)
+  puma
   pundit
   rails (= 4.2.0)
   rails_12factor

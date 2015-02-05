@@ -108,12 +108,15 @@ group :development, :test do
 end
 
 gem 'rails_12factor', group: :production
-
+gem 'dotenv-rails', groups: [:development, :test]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 # gem 'unicorn'
+
+# Use puma as the app server
+gem 'puma'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
