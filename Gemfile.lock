@@ -8,13 +8,14 @@ GIT
 
 GIT
   remote: git://github.com/NCU-BRATS/clndr-rails.git
-  revision: 09db759640ba95024342428482944bb5ac8e9ca4
+  revision: 1b79664381473d851f81d5e9d193af3c1a16055b
+  branch: fix-toplevel-constant-referenced
   specs:
-    clndr-rails (1.2.6.1)
+    clndr-rails (1.2.7.1)
       jquery-rails
       momentjs-rails
-      rails (~> 4.1)
-      railties (~> 4.1)
+      rails (~> 4.2.0)
+      railties (~> 4.2.0)
       underscore-rails
 
 GIT

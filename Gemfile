@@ -85,7 +85,7 @@ gem 'momentjs-rails'
 # datetime-picker widget
 gem 'bootstrap3-datetimepicker-rails', github: 'NCU-BRATS/bootstrap3-datetimepicker-rails', branch: 'bs-scope'
 # calendar
-gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails'
+gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails', branch: 'fix-toplevel-constant-referenced'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
