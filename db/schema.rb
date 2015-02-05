@@ -11,12 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125081515) do
+ActiveRecord::Schema.define(version: 20150205135716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "fuzzystrmatch"
-  enable_extension "pg_trgm"
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
@@ -93,14 +91,6 @@ ActiveRecord::Schema.define(version: 20150125081515) do
   end
 
   add_index "labels", ["project_id"], name: "index_labels_on_project_id", using: :btree
-
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "searchable_id"
-    t.string   "searchable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"

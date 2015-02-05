@@ -21,8 +21,6 @@ gem 'meta-tags'
 gem 'acts-as-taggable-on', '~> 3.4'
 # favorite system
 gem 'acts_as_votable', '~> 0.10.0'
-# PostgresSQL Full Text Search
-gem 'pg_search'
 # perttify url
 gem 'friendly_id'
 # creating human-friendly identifiers, work with friendly_id
