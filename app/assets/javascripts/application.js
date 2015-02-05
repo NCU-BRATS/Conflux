@@ -30,3 +30,4 @@
 //= require_tree ./handlebars_templates
 //= require_tree ./lib
 //= require_tree .
+//= require jquery.remotipart
