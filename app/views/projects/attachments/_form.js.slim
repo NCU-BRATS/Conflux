@@ -1,0 +1,10 @@
+- if attachment.errors.any?
+  | var form = '#{j render partial, project: project, attachment: attachment}}';
+  | $('#{target_modal}').replaceWith(form);
+  | $('#{target_modal}').modal({
+  |   duration: 0
+  | }).modal('show');
+- else
+  | var form = '#{j render partial, project: project, attachment: attachment.class.new}}';
+  | $('#{target_modal}').modal('hide');
+  | $('#{target_modal}').replaceWith(form);
