@@ -14,7 +14,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   def create
     @attachment = Attachment::intelligent_construct(attachment_params, @project, current_user)
     @attachment.save
-    respond_with @attachment, location: project_attachments_path
+    respond_with @attachment
   end
 
   def show

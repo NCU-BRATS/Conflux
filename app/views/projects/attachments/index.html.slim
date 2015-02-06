@@ -5,9 +5,9 @@
       = title t('structure.list', element: Attachment.model_name.human )
   .ui.right.floated.buttons
     .ui.inverted.buttons
-      = link_to t('action.target.upload', target: Attachment.model_name.human), new_project_attachment_path, class: 'ui basic green button'
-      = link_to t('action.target.create', target: Attachment::Post.model_name.human), new_project_attachment_post_path, class: 'ui basic green button'
-      = link_to t('action.target.create', target: Attachment::Snippet.model_name.human), new_project_attachment_snippet_path, class: 'ui basic green button'
+      #upload-btn.ui.basic.green.button = t('action.target.upload', target: Attachment.model_name.human)
+      #create-post-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Post.model_name.human)
+      #create-snippet-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Snippet.model_name.human)
   .search-field.divided
     = search_form_for [@project, @q] do |f|
       .ui.left.icon.fluid.input
@@ -21,3 +21,16 @@
       = render partial: attachment.type.downcase + '_preview', locals: {attachment: attachment}
 
 = paginate @attachments
+
+= render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, attachment: Attachment.new}
+= render partial: 'projects/attachments/modals/post', locals: {project: @project, attachment: Attachment::Post.new}
+= render partial: 'projects/attachments/modals/snippet', locals: {project: @project, attachment: Attachment::Snippet.new}
+
+- content_for :javascripts
+  coffee:
+    $('#upload-btn').on 'click', ->
+      $('#upload-modal').modal('show')
+    $('#create-post-btn').on 'click', ->
+      $('#post-modal').modal('show')
+    $('#create-snippet-btn').on 'click', ->
+      $('#snippet-modal').modal('show')

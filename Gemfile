@@ -56,6 +56,7 @@ gem 'enumerize'
 gem 'carrierwave'
 gem 'mimetype-fu'
 gem 'mini_magick'
+gem 'remotipart', '~> 1.2'
 
 # Gravatar Integration
 gem 'gravtastic'

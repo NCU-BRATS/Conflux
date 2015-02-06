@@ -1,0 +1,23 @@
+#post-modal.ui.modal
+  i.close.icon
+  .header
+    = title t('action.target.create', target: Attachment::Post.model_name.human)
+  .content
+    = simple_form_for([project, attachment], remote: true, authenticity_token: true) do |f|
+      = f.input :name
+      .ui.section.divider
+      .ui.segment.tertiary
+        .ui.top.attached.tabular.menu
+          a.active.item data-tab='origin'
+            = t('action.word.write')
+          a.item data-tab='preview' data-preview='post_content'
+            = t('action.word.preview')
+        .ui.attached.active.tab.segment data-tab='origin'
+          = f.input :content, label: false, input_html: {id: 'post_content_post_field'}
+        .ui.attached.tab.segment#post_content_preview_field data-tab='preview'
+        .ui.bottom.attached.segment
+          = f.button :submit, class: 'right floated icon inverted'
+
+- content_for :javascripts
+  coffee:
+    $('.menu .item').tab()
