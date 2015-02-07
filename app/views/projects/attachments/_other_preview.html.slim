@@ -10,5 +10,4 @@
       .meta
         = render partial: 'meta', locals: {attachment: attachment}
     .two.wide.column
-      .extra
-        = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}
+      = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}
