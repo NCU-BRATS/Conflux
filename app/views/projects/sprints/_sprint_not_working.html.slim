@@ -1,0 +1,30 @@
+.ui.attached.segment
+  .ui.grid
+    .ten.wide.column
+      .ui.header
+        - if sprint_not_working.open?
+          i.green.icon.unlock
+        - elsif sprint_not_working.closed?
+          i.red.icon.lock
+        .content
+          = link_to sprint_not_working.title, project_sprint_path(@project, sprint_not_working)
+          .sub.header
+            = "###{sprint_not_working.sequential_id} "
+            => user_tag sprint_not_working.user, class: 'gray link'
+            => t('action.target.created_at', target: '')
+            span = time_format_relative_tag( sprint_not_working.created_at )
+
+            - if sprint_not_working.planed?
+              = '。'
+              - if sprint_not_working.working?
+                => time_format_relative_tag sprint_not_working.due_at
+                = t('state.end')
+              - elsif sprint_not_working.expired?
+                => time_format_relative_tag sprint_not_working.due_at
+                = t('state.expired')
+              - elsif sprint_not_working.finished?
+                => time_format_relative_tag sprint_not_working.due_at
+                = t('state.finish')
+              - else
+                => time_format_relative_tag sprint_not_working.begin_at
+                = t('state.start')

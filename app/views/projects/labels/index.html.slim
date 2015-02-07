@@ -1,25 +1,6 @@
 = render partial: 'projects/page_header', locals: { query_key: :title_cont}
 
 .ui.divided.very.relaxed.selection.list
-  - @labels.each do |label|
-    .item
-      .ui.grid
-        = render label
-
+  = render @labels
 
 = paginate @labels
-
-- content_for :stylesheets
-  scss:
-    #new_label_btn_grid {
-      max-width: 160px;
-      .button {
-        width: 130px;
-      }
-    }
-
-    #label_remove_button{
-      a{
-        color: white;
-      }
-    }
