@@ -1,19 +1,4 @@
-.page-header
-  h1.ui.header
-    i.users.icon
-    .content
-      = title t('structure.list', element: ProjectParticipation.model_name.human)
-  .ui.right.floated.buttons
-    = link_to new_project_member_path, class: 'ui green button' do
-      i.ui.icon.write
-      = t('action.target.add', target: ProjectParticipation.model_name.human)
-  .search-field.divided
-    = search_form_for @q do |f|
-      .ui.left.icon.fluid.input
-        i.icon.search
-        = f.search_field :user_name_cont, type: :text, placeholder: t('action.word.search')
-
-.ui.divider
+= render partial: 'projects/page_header', locals: { query_key: :user_name_cont}
 
 .ui.six.cards
   - @participations.each do |participation|

@@ -1,20 +1,4 @@
-.page-header
-  h1.ui.header
-    i.icon.tasks
-    .content
-      = title t('structure.list', element: Issue.model_name.human )
-  .ui.right.floated.buttons
-    = link_to new_project_issue_path, class: 'ui green button' do
-      i.ui.icon.write
-      = t('action.target.create', target: Issue.model_name.human)
-  .search-field.divided
-    = search_form_for [@project, @q] do |f|
-      .ui.left.icon.fluid.input
-        = f.search_field :title_or_comments_content_cont, type: :text, placeholder: t('action.word.search')
-        i.icon.search
-
-
-.ui.divider
+= render partial: 'projects/page_header', locals: { query_key: :title_or_comments_content_cont}
 
 div
   - @issues.each do |issue|

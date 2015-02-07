@@ -38,7 +38,11 @@ class Projects::MembersController < Projects::ApplicationController
   end
 
   def model
-    :project_participation
+    ProjectParticipation
+  end
+
+  def model_sym
+    :member
   end
 
 end

@@ -1,15 +1,4 @@
-.page-header
-  h1.ui.header
-    i.icon.bookmark
-    .content
-      = title t('structure.list', element: Label.model_name.human )
-  .ui.right.floated.buttons
-    = link_to new_project_label_path, class: 'ui green button' do
-      i.ui.icon.write
-      = t('action.target.create', target: Label.model_name.human)
-
-
-.ui.divider
+= render partial: 'projects/page_header', locals: { query_key: :title_cont}
 
 .ui.divided.very.relaxed.selection.list
   - @labels.each do |label|
