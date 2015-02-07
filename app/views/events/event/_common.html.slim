@@ -7,5 +7,5 @@
     = event_action_name(event)
     strong
       = link_to " #" + event.target_id.to_s, [event.project, event.target]
-    | &nbsp;at&nbsp;
+    == '&nbsp;'+t("event.at")+'&nbsp;'
     = link_to event.project.name, event.project

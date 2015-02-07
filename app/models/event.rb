@@ -53,17 +53,4 @@ class Event < ActiveRecord::Base
     action == UPLOADED
   end
 
-  def action_name
-    if closed?
-      "closed"
-    elsif joined?
-      'joined'
-    elsif left?
-      'left'
-    elsif uploaded?
-      'uploaded'
-    else
-      "opened"
-    end
-  end
 end

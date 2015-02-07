@@ -220,6 +220,8 @@ en:
       logout: logout from %{target}
       search: search for %{target}
       upload: upload %{target}
+      join: join%{target}
+      left: left%{target}
     word:
       create: create
       add: add
@@ -235,6 +237,8 @@ en:
       logout: logout
       search: search
       upload: upload
+      join: join%{target}
+      left: left%{target}
   state:
     none: none
     in_progress: in progress
@@ -259,9 +263,16 @@ en:
     issues: Issues
     sprints: Sprints
     attachments: Files
+    attachment/images: image(Files)
+    attachment/others: other(Files)
+    attachment/posts: post(Files)
+    attachment/snippets: snippet(Files)
     channels: Channels
     labels: Labels
     events: Events
+    comments: comment
   hint:
     label:
       color: '6 character hex values starting with a # sign. Or you can choose one of suggested colors below'
+  event:
+    at: at

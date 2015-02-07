@@ -219,6 +219,8 @@ zh-TW:
       logout: 登出%{target}
       search: 搜尋%{target}
       upload: 上傳%{target}
+      join: 加入%{target}
+      left: 離開%{target}
     word:
       create: 創建
       add: 新增
@@ -234,6 +236,8 @@ zh-TW:
       logout: 登出
       search: 搜尋
       upload: 上傳
+      join: 加入
+      left: 離開
   state:
     none: 無
     in_progress: 進行中
@@ -258,9 +262,16 @@ zh-TW:
     issues: 任務
     sprints: 衝刺
     attachments: 檔案
+    attachment/images: 圖片(檔案)
+    attachment/others: 其他(檔案)
+    attachment/posts: 短文(檔案)
+    attachment/snippets: 程式碼(檔案)
     channels: 頻道
     labels: '標籤'
     events: 事件
+    comments: 回覆
   hint:
     label:
       color: '請填入以 # 為開頭的六字元 hex 色碼值。 或是從下方選擇建議的顏色。'
+  event:
+    at: 在
