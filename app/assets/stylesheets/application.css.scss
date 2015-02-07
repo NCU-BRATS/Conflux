@@ -103,8 +103,7 @@ body.pushable > .pusher {
   }
 
   .content-container {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 0 30px 30px 30px;
   }
 }
 
@@ -123,8 +122,7 @@ body.pushable > .pusher {
     }
 
     .content-container {
-      padding-left: 15px;
-      padding-right: 15px;
+      padding: 0 15px 15px 15px;
     }
   }
 }
