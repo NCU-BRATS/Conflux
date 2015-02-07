@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
   COMMENTED = 5
   JOINED    = 6
   LEFT      = 7
+  UPLOADED  = 8
 
   delegate :name, :email, to: :author, prefix: true, allow_nil: true
   delegate :title, to: :issue, prefix: true, allow_nil: true
@@ -48,6 +49,10 @@ class Event < ActiveRecord::Base
     action == LEFT
   end
 
+  def uploaded?
+    action == UPLOADED
+  end
+
   def action_name
     if closed?
       "closed"
@@ -55,6 +60,8 @@ class Event < ActiveRecord::Base
       'joined'
     elsif left?
       'left'
+    elsif uploaded?
+      'uploaded'
     else
       "opened"
     end

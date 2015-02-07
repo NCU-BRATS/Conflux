@@ -27,6 +27,10 @@ class EventCreateService
     create_event(comment, current_user, Event::COMMENTED)
   end
 
+  def upload_attachment(attachment, current_user)
+    create_event(attachment, current_user, Event::UPLOADED)
+  end
+
   private
 
   def create_event(record, current_user, status)

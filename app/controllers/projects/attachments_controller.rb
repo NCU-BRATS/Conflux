@@ -16,7 +16,9 @@ class Projects::AttachmentsController < Projects::ApplicationController
 
   def create
     @attachment = Attachment::intelligent_construct(attachment_params, @project, current_user)
-    @attachment.save
+    if @attachment.save
+      event_service.upload_attachment(@attachment, current_user)
+    end
     respond_with @attachment
   end
 
