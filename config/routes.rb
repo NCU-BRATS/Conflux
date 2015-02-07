@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
 
     # rematch ProjectParticipation Model path to project_member_path
-    resources :project_participations, as: :participations, path: :members
+    resources :project_participations, path: :members
   end
   get '/projects/:id', to: redirect('/projects/%{id}/dashboard')
 

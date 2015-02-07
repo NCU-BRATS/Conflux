@@ -1,0 +1,47 @@
+.ui.attached.segment
+  .ui.grid
+    .eight.wide.column
+      .ui.header
+        - if sprint_working.expired?
+          i.red.icon.warning.sign
+        - else
+          i.green.icon.wait
+        .content
+          - if sprint_working.expired?
+            = link_to sprint_working.title, project_sprint_path(@project, sprint_working), class: 'red link'
+          - else
+            = link_to sprint_working.title, project_sprint_path(@project, sprint_working)
+          .sub.header
+            = "###{sprint_working.sequential_id} "
+            => user_tag sprint_working.user, class: 'gray link'
+            => t('action.target.created_at', target: '')
+            span = time_format_relative_tag(sprint_working.created_at)
+
+            - if sprint_working.planed?
+              = '。'
+              - if sprint_working.working?
+                => time_format_relative_tag sprint_working.due_at
+                = t('state.end')
+              - elsif sprint_working.expired?
+                => time_format_relative_tag sprint_working.due_at
+                = t('state.expired')
+              - elsif sprint_working.finished?
+                => time_format_relative_tag sprint_working.due_at
+                = t('state.finish')
+              - else
+                => time_format_relative_tag sprint_working.begin_at
+                = t('state.start')
+
+    .eight.wide.column
+      .ui.teal.tiny.statistic
+        .value = '80'
+        .label = '完成度'
+      .ui.green.tiny.statistic
+        .value = '8'
+        .label = '已完成'
+      .ui.red.tiny.statistic
+        .value = '2'
+        .label = '未完成'
+      .ui.orange.tiny.statistic
+        .value = '20'
+        .label = '剩餘天數'

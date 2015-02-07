@@ -1,0 +1,19 @@
+.card
+  .dimmable.image
+    .ui.dimmer
+      .content
+        .center
+          a.ui.inverted.button href=profile_path(project_participant.user)
+            = t('attribute.word.info')
+    = avatar_tag project_participant.user, :size => '130'
+  .content
+    .header = project_participant.user.name
+    .meta
+      a.group = project_participant.user.title
+      br
+      a.group
+        => t('action.target.created_at', target: '')
+        span = time_format_relative_tag( project_participant.created_at )
+  = link_to project_member_path(@project, project_participant), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'mini ui bottom attached button' do
+    i.trash.icon
+    = t('action.word.delete')

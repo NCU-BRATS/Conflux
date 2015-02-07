@@ -1,23 +1,6 @@
-.page-header
-  h1.ui.header
-    i.icon.tasks
-    .content
-      = title t('structure.list', element: Sprint.model_name.human )
-  .ui.right.floated.buttons
-    = link_to new_project_sprint_path, class: 'ui green button' do
-      i.ui.icon.write
-      = t('action.target.create', target: Sprint.model_name.human)
-  .search-field.divided
-    = search_form_for [@project, @q] do |f|
-      .ui.left.icon.fluid.input
-        = f.search_field :title_or_comments_content_cont, type: :text, placeholder: t('action.word.search')
-        i.icon.search
+= render partial: 'projects/page_header', locals: { query_key: :title_or_comments_content_cont}
 
-.ui.divider
-
-- @working, @not_working = @sprints.partition { |sprint|
--  sprint.planed? and ( sprint.working? or sprint.expired? )
-- }
+- @working, @not_working = @sprints.partition {|sprint| sprint.planed? && (sprint.working? || sprint.expired?)}
 
 .ui.attached.tertiary.red.segment
   = t('state.in_progress')
@@ -25,54 +8,7 @@
   .ui.attached.segment
     = t('state.none')
 - else
-  - @working.each do |sprint|
-    .ui.attached.segment
-      .ui.grid
-        .eight.wide.column
-          .ui.header
-            - if sprint.expired?
-              i.red.icon.warning.sign
-            - else
-              i.green.icon.wait
-            .content
-              - if sprint.expired?
-                = link_to sprint.title, project_sprint_path(@project, sprint), class: 'red link'
-              - else
-                = link_to sprint.title, project_sprint_path(@project, sprint)
-              .sub.header
-                = "###{sprint.sequential_id} "
-                => user_tag sprint.user, class: 'gray link'
-                => t('action.target.created_at', target: '')
-                span = time_format_relative_tag(sprint.created_at)
-
-                - if sprint.planed?
-                  = '。'
-                  - if sprint.working?
-                    => time_format_relative_tag sprint.due_at
-                    = t('state.end')
-                  - elsif sprint.expired?
-                    => time_format_relative_tag sprint.due_at
-                    = t('state.expired')
-                  - elsif sprint.finished?
-                    => time_format_relative_tag sprint.due_at
-                    = t('state.finish')
-                  - else
-                    => time_format_relative_tag sprint.begin_at
-                    = t('state.start')
-
-        .eight.wide.column
-          .ui.teal.tiny.statistic
-            .value = '80'
-            .label = '完成度'
-          .ui.green.tiny.statistic
-            .value = '8'
-            .label = '已完成'
-          .ui.red.tiny.statistic
-            .value = '2'
-            .label = '未完成'
-          .ui.orange.tiny.statistic
-            .value = '20'
-            .label = '剩餘天數'
+  = render partial: 'sprint_working', collection: @working
 
 .ui.divider
 
@@ -83,37 +19,6 @@ div
     .ui.attached.segment
       = t('state.none')
   - else
-    - @not_working.each do |sprint|
-
-      .ui.attached.segment
-        .ui.grid
-          .ten.wide.column
-            .ui.header
-              - if sprint.open?
-                i.green.icon.unlock
-              - elsif sprint.closed?
-                i.red.icon.lock
-              .content
-                = link_to sprint.title, project_sprint_path(@project, sprint)
-                .sub.header
-                  = "###{sprint.sequential_id} "
-                  => user_tag sprint.user, class: 'gray link'
-                  => t('action.target.created_at', target: '')
-                  span = time_format_relative_tag( sprint.created_at )
-
-                  - if sprint.planed?
-                    = '。'
-                    - if sprint.working?
-                      => time_format_relative_tag sprint.due_at
-                      = t('state.end')
-                    - elsif sprint.expired?
-                      => time_format_relative_tag sprint.due_at
-                      = t('state.expired')
-                    - elsif sprint.finished?
-                      => time_format_relative_tag sprint.due_at
-                      = t('state.finish')
-                    - else
-                      => time_format_relative_tag sprint.begin_at
-                      = t('state.start')
+    = render partial: 'sprint_not_working', collection: @not_working
 
 = paginate @sprints

@@ -1,4 +1,4 @@
-= simple_form_for(@participation) do |f|
+= simple_form_for([@project, @participation]) do |f|
   = f.error_notification
 
   = f.association :user, input_html: {data: {:'resource-path' => profiles_path, :'search-field' => '["name", "email"]', :'option-tpl' => 'option-user'}}
