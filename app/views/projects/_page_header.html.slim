@@ -3,10 +3,11 @@
     = model_icon_tag(model)
     .content
       = title t('structure.list', element: model_human_name)
-  .ui.right.floated.buttons
-    = link_to [:new, @project, model_sym], class: 'ui green button' do
-      i.ui.icon.write
-      = t('action.target.add', target: model_human_name)
+  - if policy(model).create?
+    .ui.right.floated.buttons
+      = link_to [:new, @project, model_sym], class: 'ui green button' do
+        i.ui.icon.write
+        = t('action.target.add', target: model_human_name)
   .search-field.divided
     = search_form_for [@project, @q] do |f|
       .ui.left.icon.fluid.input
