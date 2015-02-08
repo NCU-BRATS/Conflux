@@ -11,10 +11,12 @@
 .ui.attached.segment
   == @snippet.html
 .ui.attached.segment
-  = link_to edit_project_attachment_snippet_path(@project, @snippet), class: 'ui icon basic button left floated' do
-    i.icon.write
-  = link_to project_attachment_path(@project, @snippet), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
-    i.icon.trash
+  - if policy(@snippet).update?
+    = link_to edit_project_attachment_snippet_path(@project, @snippet), class: 'ui icon basic button left floated' do
+      i.icon.write
+  - if policy(@snippet).destroy?
+    = link_to project_attachment_path(@project, @snippet), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
+      i.icon.trash
   = link_to project_attachments_path, class: 'ui right floated basic green button' do
     i.icon.chevron.left
     = t('action.word.back')
