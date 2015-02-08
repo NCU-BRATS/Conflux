@@ -1,8 +1,9 @@
 = sync partial: 'comment_row', collection: attachment.comments.includes(:user).asc
 = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable(attachment)
 
-.ui.segment.tertiary
-  = render partial: 'projects/comments/form', locals: { record: [@project, attachment, attachment.comments.build], path: project_attachment_comments_path(@project, attachment) }
+- if policy(:comment).create?
+  .ui.segment.tertiary
+    = render partial: 'projects/comments/form', locals: { record: [@project, attachment, attachment.comments.build], path: project_attachment_comments_path(@project, attachment) }
 
 - content_for :javascripts
   coffee:

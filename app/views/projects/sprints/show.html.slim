@@ -22,8 +22,9 @@
   = sync partial: 'comment_row', collection: @sprint.comments.asc
   = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable(@sprint)
 
-  .ui.segment.tertiary
-    = render partial: 'projects/comments/form', locals: { record: [@project, @sprint, @sprint.comments.build] }
+  - if policy(:comment).create?
+    .ui.segment.tertiary
+      = render partial: 'projects/comments/form', locals: { record: [@project, @sprint, @sprint.comments.build] }
 
 - if @sprint.issues.present?
   .ui.tab data-tab='issue'
