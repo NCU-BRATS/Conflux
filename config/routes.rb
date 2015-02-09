@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     scope module: 'projects' do
       resource :dashboard
       resources :members
+      resources :channels, except: :index
       resources :issues  , concerns: [:commentable, :closeable]
       resources :sprints , concerns: [:commentable, :closeable]
       resources :comments ,only: [:update, :destroy]
