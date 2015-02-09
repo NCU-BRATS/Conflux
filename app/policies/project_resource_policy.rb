@@ -19,10 +19,10 @@ class ProjectResourcePolicy < ApplicationPolicy
   protected
 
   def is_user_project_member?
-    if user.respond_to?(:is_project_member?)
+    if user.is_a?(ProjectUserContext)
       user.is_project_member?
     else
-      record.project.has_member?(user)
+      user.is_member?(record.project)
     end
   end
 
