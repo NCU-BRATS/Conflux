@@ -5,10 +5,11 @@
       = title @project.name
       .sub.header
         = @project.description
-  .ui.right.floated.buttons
-    = link_to edit_project_path(@project), class: 'ui yellow button' do
-      i.ui.icon.write
-      = t('action.word.edit')
+  - if policy(:dashboard).update?
+    .ui.right.floated.buttons
+      = link_to edit_project_path(@project), class: 'ui yellow button' do
+        i.ui.icon.write
+        = t('action.word.edit')
 
 .ui.divider
 .ui.grid

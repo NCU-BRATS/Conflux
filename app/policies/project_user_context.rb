@@ -8,7 +8,7 @@ class ProjectUserContext
   end
 
   def is_project_member?
-    @project.has_member?(@user)
+    @user.is_member?(@project)
   end
 
 end

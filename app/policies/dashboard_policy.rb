@@ -1,4 +1,4 @@
-class DashboardPolicy < ApplicationPolicy
+class DashboardPolicy < ProjectResourcePolicy
 
   def show?
     true

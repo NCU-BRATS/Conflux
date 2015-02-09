@@ -10,4 +10,5 @@
       .meta
         = render partial: 'meta', locals: {attachment: attachment}
     .two.wide.column
-      = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}
+      - if policy(attachment).destroy?
+        = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}

@@ -30,4 +30,9 @@ class User < ActiveRecord::Base
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
+  def is_member?(project)
+    @is_member = project.has_member?(self) if @is_member.nil?
+    @is_member
+  end
+
 end

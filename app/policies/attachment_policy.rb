@@ -1,7 +1,7 @@
 class AttachmentPolicy < ProjectResourcePolicy
 
   def download?
-    user.is_project_member?
+    is_user_project_member?
   end
 
 end

@@ -11,10 +11,12 @@
 .ui.attached.segment
   == @post.html
 .ui.attached.segment
-  = link_to edit_project_attachment_post_path(@project, @post), class: 'ui icon basic button left floated' do
-    i.icon.write
-  = link_to project_attachment_path(@project, @post), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
-    i.icon.trash
+  - if policy(@post).update?
+    = link_to edit_project_attachment_post_path(@project, @post), class: 'ui icon basic button left floated' do
+      i.icon.write
+  - if policy(@post).destroy?
+    = link_to project_attachment_path(@project, @post), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
+      i.icon.trash
   = link_to project_attachments_path, class: 'ui right floated basic green button' do
     i.icon.chevron.left
     = t('action.word.back')

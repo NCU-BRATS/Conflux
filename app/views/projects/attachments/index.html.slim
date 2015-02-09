@@ -3,11 +3,12 @@
     i.icon.file
     .content
       = title t('structure.list', element: Attachment.model_name.human )
-  .ui.right.floated.buttons
-    .ui.inverted.buttons
-      #upload-btn.ui.basic.green.button = t('action.target.upload', target: Attachment.model_name.human)
-      #create-post-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Post.model_name.human)
-      #create-snippet-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Snippet.model_name.human)
+  - if policy(:attachment).create?
+    .ui.right.floated.buttons
+      .ui.inverted.buttons
+        #upload-btn.ui.basic.green.button = t('action.target.upload', target: Attachment.model_name.human)
+        #create-post-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Post.model_name.human)
+        #create-snippet-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Snippet.model_name.human)
   .search-field.divided
     = search_form_for [@project, @q] do |f|
       .ui.left.icon.fluid.input
@@ -22,9 +23,10 @@
 
 = paginate @attachments
 
-= render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, attachment: Attachment.new}
-= render partial: 'projects/attachments/modals/post', locals: {project: @project, attachment: Attachment::Post.new}
-= render partial: 'projects/attachments/modals/snippet', locals: {project: @project, attachment: Attachment::Snippet.new}
+- if policy(:attachment).create?
+  = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, attachment: Attachment.new}
+  = render partial: 'projects/attachments/modals/post', locals: {project: @project, attachment: Attachment::Post.new}
+  = render partial: 'projects/attachments/modals/snippet', locals: {project: @project, attachment: Attachment::Snippet.new}
 
 - content_for :javascripts
   coffee:

@@ -5,8 +5,10 @@
         i.file.blue.text.outline.large.icon
         = "#{Attachment::Post.model_name.human} - #{attachment.name}"
   .two.wide.column
-    = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}
-    = render partial: 'edit_button', locals: {path: edit_project_attachment_post_path(@project, attachment)}
+    - if policy(attachment).destroy?
+      = render partial: 'delete_button', locals: {path: project_attachment_path(@project, attachment)}
+    - if policy(attachment).update?
+      = render partial: 'edit_button', locals: {path: edit_project_attachment_post_path(@project, attachment)}
 .content
   .meta
     = render partial: 'meta', locals: {attachment: attachment}

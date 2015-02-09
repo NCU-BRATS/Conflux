@@ -5,15 +5,25 @@ class ProjectResourcePolicy < ApplicationPolicy
   end
 
   def update?
-    user.is_project_member?
+    is_user_project_member?
   end
 
   def destroy?
-    user.is_project_member?
+    is_user_project_member?
   end
 
   def create?
-    user.is_project_member?
+    is_user_project_member?
+  end
+
+  protected
+
+  def is_user_project_member?
+    if user.is_a?(ProjectUserContext)
+      user.is_project_member?
+    else
+      user.is_member?(record.project)
+    end
   end
 
 end
