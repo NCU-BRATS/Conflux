@@ -1,0 +1,21 @@
+
+= sync partial: 'channel_header', resource: @channel, refetch: true
+
+.ui.hidden.divider
+
+= sync partial: 'message_row', collection: @channel.messages.includes(:user), refetch: true
+= sync_new partial: 'message_row', resource: Message.new, scope: Message.by_channel(@channel), refetch: true
+
+- if policy(:message).create?
+  = simple_form_for([@project, @channel, Message.new], remote: true ) do |f|
+    = f.error_notification
+    = f.input :content, label: false, placeholder: t('hint.message.input'), input_html: { id: 'message_content_post_field', style: 'min-height: 3em; height: 3em' }
+
+- content_for :javascripts
+  coffee:
+    $('#message_content_post_field').keydown (event)->
+      if event.keyCode == 13 and $(@).val().trim() != ""
+        $('#new_message').submit()
+        event.preventDefault()
+    $('#message_content_post_field').bind 'paste', ()->
+      $(@).css 'height', '12em'

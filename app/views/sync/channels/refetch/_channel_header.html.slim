@@ -1,0 +1,32 @@
+div
+  div
+    .ui.grid
+      .eleven.wide.column
+        .ui.header
+          i.users.icon
+          .content
+            = title channel.name
+            .sub.header
+              = channel.description
+      .five.wide.column
+        - if policy(channel).edit?
+          .ui.buttons.basic.right.floated
+            .ui.button.basic.orange id='channel_announcement_btn'
+              i.icon.flag
+              = Channel.human_attribute_name :announcement
+            a.ui.button.basic.red href=edit_project_channel_path( channel.project, channel )
+              i.icon.edit
+              = t('action.word.edit')
+
+  .ui.standard.modal
+    .header
+      = Channel.human_attribute_name :announcement
+    .content
+      .description
+        p
+          == channel.html
+
+- content_for :javascripts
+  coffee:
+    $('#channel_announcement_btn').on 'click', ()->
+      $('.standard.modal').modal('show')

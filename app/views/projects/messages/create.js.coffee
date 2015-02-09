@@ -1,0 +1,1 @@
+$('#message_content_post_field').val('').css('height','3em')

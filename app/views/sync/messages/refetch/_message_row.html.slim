@@ -1,0 +1,33 @@
+div style="padding:0em 1em 0em 1em"
+  .ui.items
+    .item.message id="editable_message#{message.id}"
+      .ui.avatar.image
+        = avatar_tag message.user, :size => 30
+      .content
+        .control
+          - if policy(message).update?
+            .ui.icon.circular.button.basic.right.floated data-editable="message#{message.id}"
+              i.icon.write
+          - if policy(message).destroy?
+            a.ui.icon.circular.button.basic.right.floated href="#{project_message_path(@project || message.project, message)}" data-remote=true data-method='delete' data-confirm=t('question.confirm.action', action: t('action.word.delete') )
+              i.icon.trash
+        .header
+          a.bold.black.link href=user_link(message.user)
+            => message.user.name
+          span style="font-size:0.7em;color:rgba(0, 0, 0, 0.3)"
+            = time_format_relative_tag(message.created_at)
+        .description
+          p
+            == message.html
+
+    - if policy(message).update?
+      div id="editable_message#{message.id}_form"
+        = simple_form_for [@project || message.project, message], remote: true do |f|
+          = f.input :content, label: false
+          .ui.buttons.right.floated
+            button.ui.button.basic.green
+              i.icon.checkmark
+              = t('helpers.submit.update', model: Message.model_name.human)
+            a.ui.button.basic.teal id="editable_message#{message.id}_cancel"
+              i.icon.chevron.left
+              = t('action.word.cancel')
