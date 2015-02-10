@@ -274,6 +274,8 @@ en:
   hint:
     label:
       color: '6 character hex values starting with a # sign. Or you can choose one of suggested colors below'
+    message:
+      input: write down your message here and press ENTER to submit
   event:
     at: at
     in: in
