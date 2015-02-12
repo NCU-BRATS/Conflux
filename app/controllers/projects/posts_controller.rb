@@ -1,5 +1,7 @@
 class Projects::PostsController < Projects::ApplicationController
 
+  enable_sync only: [:create, :update]
+
   def new
     @post = @project.posts.build
     respond_with @post

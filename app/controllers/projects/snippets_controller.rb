@@ -1,5 +1,7 @@
 class Projects::SnippetsController < Projects::ApplicationController
 
+  enable_sync only: [:create, :update]
+
   def new
     @snippet = @project.snippets.build
     respond_with @project, @snippet

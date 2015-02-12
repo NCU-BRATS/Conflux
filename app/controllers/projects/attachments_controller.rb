@@ -1,5 +1,7 @@
 class Projects::AttachmentsController < Projects::ApplicationController
 
+  enable_sync only: [:create, :update, :destroy]
+
   def index
     @q = @project.attachments.includes(:user).search(params[:q])
     @attachments = @q.result.uniq.latest.page(params[:page]).per(params[:per])

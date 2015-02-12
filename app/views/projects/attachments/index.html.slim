@@ -18,9 +18,11 @@
 .ui.divider
 .ui.relaxed.divided.items
   - @attachments.each do |attachment|
-    .item
-      = render partial: attachment.type.downcase + '_preview', locals: {attachment: attachment}
-
+    = sync partial: attachment.type.downcase + '_preview', resource: attachment
+  = sync_new partial: 'snippet_preview', resource: Attachment::Snippet.new, scope: Attachment::Snippet.by_project(@project)
+  = sync_new partial: 'post_preview', resource: Attachment::Post.new, scope: Attachment::Post.by_project(@project)
+  = sync_new partial: 'image_preview', resource: Attachment::Image.new, scope: Attachment::Image.by_project(@project)
+  = sync_new partial: 'other_preview', resource: Attachment::Other.new, scope: Attachment::Other.by_project(@project)
 = paginate @attachments
 
 - if policy(:attachment).create?
