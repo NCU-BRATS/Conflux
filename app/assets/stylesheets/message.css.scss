@@ -1,0 +1,7 @@
+.message .control {
+  display: none;
+}
+
+.message:hover .control {
+  display: block;
+}
