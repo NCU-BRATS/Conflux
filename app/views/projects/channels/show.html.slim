@@ -19,3 +19,8 @@
         event.preventDefault()
     $('#message_content_post_field').bind 'paste', ()->
       $(@).css 'height', '12em'
+
+    $('.message-container').each ()->
+      $next = $(@).next().next().next()
+      if $next.data('user') == $(@).data('user')
+        $next.addClass('inline-message')
