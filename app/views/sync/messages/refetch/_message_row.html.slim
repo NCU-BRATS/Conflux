@@ -1,4 +1,4 @@
-div style="padding:0em 1em 0em 1em"
+div style="padding:0em 1em 0em 1em" data-user=message.user.id
   .ui.items
     .item.message id="editable_message#{message.id}"
       .ui.avatar.image
@@ -17,8 +17,7 @@ div style="padding:0em 1em 0em 1em"
           span style="font-size:0.7em;color:rgba(0, 0, 0, 0.3)"
             = time_format_relative_tag(message.created_at)
         .description
-          p
-            == message.html
+          == message.html
 
     - if policy(message).update?
       div id="editable_message#{message.id}_form"
