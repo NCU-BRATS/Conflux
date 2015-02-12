@@ -5,3 +5,14 @@
 .message:hover .control {
   display: block;
 }
+
+.inline-message {
+  margin-top: -20px;
+  .avatar {
+    visibility: hidden;
+    height: 0 !important;
+  }
+  .content > .header {
+    display: none !important;
+  }
+}
