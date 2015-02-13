@@ -30,7 +30,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   def download
-    send_data(@attachment.path.url, :filename => @attachment.download_filename)
+    send_data(@attachment.download_data, :filename => @attachment.download_filename)
   end
 
   protected

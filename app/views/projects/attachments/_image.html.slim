@@ -11,6 +11,9 @@
 .ui.attached.segment
   img.ui.centered.bordered.rounded.image src = attachment.path
 .ui.attached.segment
+  - if policy(attachment).download?
+    = link_to download_project_attachment_path(@project, attachment), class: 'ui icon basic button left floated' do
+      i.cloud.download.icon
   - if policy(attachment).destroy?
     = link_to project_attachment_path(@project, attachment), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
       i.icon.trash
