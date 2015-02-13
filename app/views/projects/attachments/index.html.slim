@@ -31,7 +31,7 @@
     = sync partial: attachment.type.downcase + '_preview', resource: attachment
   = sync_new partial: attachment_type.downcase + '_preview',
              resource: attachment_class.new,
-             scope: attachment_class.by_project(@project) if attachment_type.presence
+             scope: attachment_class.by_project(@project.id) if attachment_type.presence
   = paginate @attachments
 
 - if policy(:attachment).create?

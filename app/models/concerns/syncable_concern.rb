@@ -3,6 +3,6 @@ module SyncableConcern
 
   included do
     sync :all
-    sync_scope :by_project, ->(project) { where(project_id: project.id) }
+    sync_scope :by_project, ->(project_id) { where(project_id: project_id) }
   end
 end
