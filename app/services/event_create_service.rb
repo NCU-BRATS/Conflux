@@ -1,34 +1,34 @@
 class EventCreateService
   def open_issue(issue, current_user)
-    create_event(issue, current_user, Event::CREATED)
+    create_event(issue, current_user, :created)
   end
 
   def close_issue(issue, current_user)
-    create_event(issue, current_user, Event::CLOSED)
+    create_event(issue, current_user, :closed)
   end
 
   def reopen_issue(issue, current_user)
-    create_event(issue, current_user, Event::REOPENED)
+    create_event(issue, current_user, :reopened)
   end
 
   def open_sprint(sprint, current_user)
-    create_event(sprint, current_user, Event::CREATED)
+    create_event(sprint, current_user, :created)
   end
 
   def close_sprint(sprint, current_user)
-    create_event(sprint, current_user, Event::CLOSED)
+    create_event(sprint, current_user, :closed)
   end
 
   def reopen_sprint(sprint, current_user)
-    create_event(sprint, current_user, Event::REOPENED)
+    create_event(sprint, current_user, :reopened)
   end
 
   def leave_comment(comment, current_user)
-    create_event(comment, current_user, Event::COMMENTED)
+    create_event(comment, current_user, :commented)
   end
 
   def upload_attachment(attachment, current_user)
-    create_event(attachment, current_user, Event::UPLOADED)
+    create_event(attachment, current_user, :uploaded)
   end
 
   private
