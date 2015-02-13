@@ -1,5 +1,6 @@
 class Attachment::Snippet < Attachment
   include ParserConcern
+  include SyncableConcern
 
   LANGUAGES = ['Text', 'C', 'C#', 'C++', 'Clojure', 'CoffeeScript', 'Common Lisp',
                'CSS', 'Diff', 'Emacs Lisp', 'Erlang', 'Haskell', 'HTML', 'Java', 'JavaScript',

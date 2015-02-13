@@ -1,5 +1,6 @@
 class Attachment::Post < Attachment
   include ParserConcern
+  include SyncableConcern
 
   validates :content, :name, presence: true
 

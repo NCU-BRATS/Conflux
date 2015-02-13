@@ -1,0 +1,15 @@
+.item
+  .ui.small.image
+    img src = image.path
+  .content
+    .ui.grid
+      .fourteen.wide.column
+        h4.ui.header
+          = link_to project_attachment_path(@project || image.project, image) do
+            i.file.image.outline.large.icon
+            = "#{Attachment::Image.model_name.human} - #{image.name}"
+        .meta
+          = render partial: 'sync/attachment/meta', locals: {attachment: image}
+      .two.wide.column
+        .extra
+          = render partial: 'sync/attachment/delete_button', locals: {path: project_attachment_path(@project || image.project, image)}

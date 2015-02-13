@@ -1,6 +1,9 @@
 class Projects::AttachmentsController < Projects::ApplicationController
 
+  enable_sync only: [:create, :update, :destroy]
+
   def index
+    params[:q] = {type_eq: 'Post'}.merge(params[:q] || {})
     @q = @project.attachments.includes(:user).search(params[:q])
     @attachments = @q.result.uniq.latest.page(params[:page]).per(params[:per])
     respond_with @attachments

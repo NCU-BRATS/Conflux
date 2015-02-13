@@ -16,12 +16,23 @@
         = f.search_field :name_or_content_cont, type: :text, placeholder: t('action.word.search')
 
 .ui.divider
+
+- attachment_type = params[:q][:type_eq]
+- attachment_class = "Attachment::#{attachment_type}".constantize
+
+.4.fluid.ui.basic.buttons
+  - Attachment.subclasses.each do |x|
+    - type = x.name.demodulize
+    = link_to x.model_name.human, [@project, model, {q: { type_eq: type} }],
+        class: "ui button #{attachment_type == type ? 'active' : ''}"
+
 .ui.relaxed.divided.items
   - @attachments.each do |attachment|
-    .item
-      = render partial: attachment.type.downcase + '_preview', locals: {attachment: attachment}
-
-= paginate @attachments
+    = sync partial: attachment.type.downcase + '_preview', resource: attachment
+  = sync_new partial: attachment_type.downcase + '_preview',
+             resource: attachment_class.new,
+             scope: attachment_class.by_project(@project.id) if attachment_type.presence
+  = paginate @attachments
 
 - if policy(:attachment).create?
   = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, attachment: Attachment.new}

@@ -53,7 +53,7 @@
                 = post.name
             .content
               .meta
-                = render partial: 'projects/attachments/meta', locals: {attachment: post}
+                = render partial: 'sync/attachment/meta', locals: {attachment: post}
               .description
                 .ui.basic.segment == post.preview_html
     .column
