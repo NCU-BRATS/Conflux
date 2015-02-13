@@ -2,11 +2,11 @@ class Attachment::Snippet < Attachment
   include ParserConcern
   include SyncableConcern
 
-  LANGUAGES = ['Text', 'C', 'C#', 'C++', 'Clojure', 'CoffeeScript', 'Common Lisp',
-               'CSS', 'Diff', 'Emacs Lisp', 'Erlang', 'Haskell', 'HTML', 'Java', 'JavaScript',
-               'Lua', 'Objective-C', 'Perl', 'PHP', 'Python', 'Ruby', 'Scala',
-               'Scheme', 'Shell', 'SQL']
-  enumerize :language, in: LANGUAGES
+  LANGUAGES = {:'Text'=>'txt', :'C'=>'c', :'C#'=>'cpp', :'C++'=>'cpp', :'Clojure'=>'clj', :'CoffeeScript'=>'coffee', :'Common Lisp'=>'lisp',
+               :'CSS'=>'css', :'Diff'=>'diff', :'Emacs Lisp'=>'el', :'Erlang'=>'erl', :'Haskell'=>'hs', :'HTML'=>'html', :'Java'=>'java', :'JavaScript'=>'js',
+               :'Lua'=>'lua', :'Objective-C'=>'m', :'Perl'=>'pl', :'PHP'=>'php', :'Python'=>'py', :'Ruby'=>'rb', :'Scala'=>'scala',
+               :'Scheme'=>'scm', :'Shell'=>'sh', :'SQL'=>'sql'}
+  enumerize :language, in: LANGUAGES.keys
 
   validates :content, :language, :name, presence: true
 
@@ -21,6 +21,10 @@ class Attachment::Snippet < Attachment
     temp << '...' if content.lines.size > 10
     temp << "\n```"
     @preview_html = self.class.parse(temp)
+  end
+
+  def download_filename
+    original_filename || "#{name}.#{LANGUAGES[language.to_sym]}"
   end
 
 end

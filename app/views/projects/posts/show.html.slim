@@ -11,6 +11,9 @@
 .ui.attached.segment
   == @post.html
 .ui.attached.segment
+  - if policy(@post).download?
+    = link_to download_project_attachment_path(@project, @post), class: 'ui icon basic button left floated' do
+      i.cloud.download.icon
   - if policy(@post).update?
     = link_to edit_project_attachment_post_path(@project, @post), class: 'ui icon basic button left floated' do
       i.icon.write

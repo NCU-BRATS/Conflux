@@ -30,7 +30,7 @@ module CarrierWave
         file_blob = Linguist::FileBlob.new(file.path)
         return file_blob.language.name unless file_blob.language.nil?
 
-        probable_languages = Attachment::Snippet::LANGUAGES.map {|language| Linguist::Language[language]}
+        probable_languages = Attachment::Snippet::LANGUAGES.map { |language, ext| Linguist::Language[language.to_s]}
         classified_rank = Linguist::Classifier.call(file_blob,  probable_languages)
         return classified_rank.first.name
       end

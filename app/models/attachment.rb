@@ -24,7 +24,7 @@ class Attachment < ActiveRecord::Base
 
     if content_type.start_with?('image')
       attachment = attachment.deep_becomes!(Attachment::Image)
-    elsif Attachment::Snippet::LANGUAGES.include?(content_type)
+    elsif Attachment::Snippet::LANGUAGES.include?(content_type.to_sym)
       attachment = attachment.deep_becomes!(Attachment::Snippet)
       attachment.language = content_type
       attachment.content = attachment.path.read
@@ -47,6 +47,10 @@ class Attachment < ActiveRecord::Base
 
   def download_filename
     original_filename || "#{name}.#{path.file.extension}"
+  end
+
+  def download_data
+    path.url || content
   end
 
 end

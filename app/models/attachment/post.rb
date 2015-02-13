@@ -15,4 +15,8 @@ class Attachment::Post < Attachment
     @preview_html = self.class.parse(temp)
   end
 
+  def download_filename
+    "#{name}.md"
+  end
+
 end
