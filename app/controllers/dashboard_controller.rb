@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @events = current_user.recent_events.limit(20).offset(params[:offset] || 0)
+    @events = current_user.recent_events.page( params[:page] ).per( params[:per] )
   end
 
   def projects
