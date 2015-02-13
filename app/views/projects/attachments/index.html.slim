@@ -17,21 +17,22 @@
 
 .ui.divider
 
-- attachment_type = params.try(:[],:q).try(:[],:type_cont)
+- attachment_type = params[:q][:type_eq]
 - attachment_class = "Attachment::#{attachment_type}".constantize
 
-.ui.tabular.menu
+.4.fluid.ui.basic.buttons
   - Attachment.subclasses.each do |x|
-    = link_to x.name.demodulize, url_for('q[type_cont]': x.name.demodulize),
-            class: 'item' + (attachment_type.try(:include?, x.name.demodulize) ? ' active' : '')
-.ui.active.tab  data-tab="tab1"
-  .ui.relaxed.divided.items
-    - @attachments.each do |attachment|
-      = sync partial: attachment.type.downcase + '_preview', resource: attachment
-    = sync_new partial: params.try(:[],:q).try(:[],:type_cont).downcase + '_preview',
-               resource: attachment_class.new,
-               scope: attachment_class.by_project(@project) if attachment_type.presence
-    = paginate @attachments
+    - type = x.name.demodulize
+    = link_to x.model_name.human, [@project, model, {q: { type_eq: type} }],
+        class: "ui button #{attachment_type == type ? 'active' : ''}"
+
+.ui.relaxed.divided.items
+  - @attachments.each do |attachment|
+    = sync partial: attachment.type.downcase + '_preview', resource: attachment
+  = sync_new partial: attachment_type.downcase + '_preview',
+             resource: attachment_class.new,
+             scope: attachment_class.by_project(@project) if attachment_type.presence
+  = paginate @attachments
 
 - if policy(:attachment).create?
   = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, attachment: Attachment.new}
@@ -46,4 +47,3 @@
       $('#post-modal').modal('show')
     $('#create-snippet-btn').on 'click', ->
       $('#snippet-modal').modal('show')
-    $('.tabular.menu .item').tab()
