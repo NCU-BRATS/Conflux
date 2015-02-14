@@ -4,5 +4,7 @@
       = avatar_tag event.author, :size => '24'
     - if event.comment?
       = render "events/event/comment", event: event
+    - elsif (event.joined? or event.left?)
+      = render "events/event/member", event: event
     - else
       = render "events/event/common", event: event

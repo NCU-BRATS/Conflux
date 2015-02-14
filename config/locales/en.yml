@@ -276,3 +276,4 @@ en:
       color: '6 character hex values starting with a # sign. Or you can choose one of suggested colors below'
   event:
     at: at
+    in: in
