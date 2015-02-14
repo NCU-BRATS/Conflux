@@ -1,1 +1,2 @@
-= render @events
+- @events.each do |event|
+  = render "events/event", event: event
