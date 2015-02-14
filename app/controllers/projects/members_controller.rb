@@ -13,7 +13,9 @@ class Projects::MembersController < Projects::ApplicationController
 
   def create
     @participation = @project.project_participations.build(participation_params)
-    @participation.save
+    if @participation.save
+      event_service.join_project(@participation, current_user)
+    end
     respond_with @participation, location: project_members_path
   end
 

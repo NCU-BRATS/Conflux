@@ -31,7 +31,21 @@ class EventCreateService
     create_event(attachment, current_user, :uploaded)
   end
 
+  def join_project(participation, current_user)
+    create_member_event(participation, current_user, :joined)
+  end
+
   private
+
+  def create_member_event(record, current_user, status)
+    Event.create(
+        project: record.project,
+        target_id: record.user.id,
+        target_type: record.user.class.name,
+        action: status,
+        author_id: current_user.id
+    )
+  end
 
   def create_event(record, current_user, status)
     Event.create(
