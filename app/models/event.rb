@@ -26,4 +26,8 @@ class Event < ActiveRecord::Base
     target_type == "Comment"
   end
 
+  def attachment?
+    target_type.include?('Attachment')
+  end
+
 end
