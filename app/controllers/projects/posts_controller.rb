@@ -10,7 +10,9 @@ class Projects::PostsController < Projects::ApplicationController
   def create
     @post = @project.posts.build(post_params)
     @post.user = current_user
-    @post.save
+    if @post.save
+      event_service.upload_attachment(@post, current_user)
+    end
     respond_with @project, @post
   end
 

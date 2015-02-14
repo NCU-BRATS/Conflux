@@ -10,7 +10,9 @@ class Projects::SnippetsController < Projects::ApplicationController
   def create
     @snippet = @project.snippets.build(snippet_params)
     @snippet.user = current_user
-    @snippet.save
+    if @snippet.save
+      event_service.upload_attachment(@snippet, current_user)
+    end
     respond_with @project, @snippet
   end
 
