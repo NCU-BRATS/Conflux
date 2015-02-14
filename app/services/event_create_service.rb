@@ -35,6 +35,10 @@ class EventCreateService
     create_member_event(participation, current_user, :joined)
   end
 
+  def left_project(participation, current_user)
+    create_member_event(participation, current_user, :left)
+  end
+
   private
 
   def create_member_event(record, current_user, status)
