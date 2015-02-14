@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
   has_many :images,   class_name: 'Attachment::Image'
   has_many :snippets, class_name: 'Attachment::Snippet'
 
+  has_many :events,        dependent: :destroy, foreign_key: :author_id,   class_name: "Event"
+  has_many :recent_events, -> { order "id DESC" }, foreign_key: :author_id,   class_name: "Event"
+
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :name, format: { with: /[A-Za-z0-9_]/, message: I18n.t('validation.user.format') }

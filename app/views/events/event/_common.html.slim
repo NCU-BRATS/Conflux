@@ -1,0 +1,11 @@
+.content
+  .date
+    => time_format_relative_tag event.created_at
+  .summary
+    = link_to event.author.name, profile_path(event.author)
+    | &nbsp;
+    = event_action_name(event)
+    strong
+      = link_to " #" + event.target_id.to_s, [event.project, event.target]
+    == '&nbsp;'+t("event.at")+'&nbsp;'
+    = link_to event.project.name, event.project

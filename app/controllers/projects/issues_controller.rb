@@ -22,9 +22,11 @@ class Projects::IssuesController < Projects::ApplicationController
     @issue = @project.issues.build( issue_params.except(:label_ids) )
     @issue.user = current_user
     @issue.comments.each { |comment| comment.user = current_user }
-    @issue.save
-    label_params = issue_params[:label_ids]
-    @issue.update_attributes(label_ids: label_params)
+    if @issue.save
+      label_params = issue_params[:label_ids]
+      @issue.update_attributes(label_ids: label_params)
+      event_service.open_issue(@issue, current_user)
+    end
     respond_with @project, @issue
   end
 
@@ -34,11 +36,15 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def close
-    @issue.close!
+    if @issue.close!
+      event_service.close_issue(@issue, current_user)
+    end
   end
 
   def reopen
-    @issue.reopen!
+    if @issue.reopen!
+      event_service.reopen_issue(@issue, current_user)
+    end
   end
 
   protected

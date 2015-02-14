@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    # stub for none processing action
+    @events = current_user.recent_events.page( params[:page] ).per( params[:per] )
   end
 
   def projects

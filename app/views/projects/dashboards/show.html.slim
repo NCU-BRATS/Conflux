@@ -58,41 +58,18 @@
                 .ui.basic.segment == post.preview_html
     .column
       .ui.filter-btns.icon.menu
-        a.item
+        = link_to project_dashboard_path(@project), class: 'item' do
           i.announcement.icon
-        a.item
+        = link_to project_dashboard_path(@project, :type => 'Comment'), class: 'item' do
           i.comments.icon
-        a.item
+        = link_to project_dashboard_path(@project, :type => 'Issue'), class: 'item' do
           i.tasks.icon
-        a.item
+        = link_to project_dashboard_path(@project, :type => 'Attachment'), class: 'item' do
           i.file.icon
-        a.item
+        = link_to project_dashboard_path(@project, :type => 'User'), class: 'item' do
           i.users.icon
-      .ui.feed
-        .event
-          .label
-            img src="https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/48.jpg"
-          .content
-            .date 3 minutes ago
-            .summary
-              a.user> Username
-              | added you as a friend
-        .event
-          .label
-            img src="https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/48.jpg"
-          .content
-            .date 3 hours ago
-            .summary
-              a.user> Username
-              | uploaded a file.
-        .event
-          .label
-            img src="https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/48.jpg"
-          .content
-            .date 3 days ago
-            .summary
-              ' You added Username to the group
-              a Group Name
+      = render "events/events", events: @events
+      = paginate @events
 
 
 - content_for :javascripts

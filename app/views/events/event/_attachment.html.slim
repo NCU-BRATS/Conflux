@@ -1,0 +1,16 @@
+.content
+  .date
+    => time_format_relative_tag event.created_at
+  .summary
+    = link_to event.author.name, profile_path(event.author)
+    | &nbsp;
+    = event_action_name(event)
+    strong
+      - case event.target
+      - when Attachment::Post, Attachment::Snippet
+        = link_to event.target.name, [event.project, event.target]
+      - else
+        = link_to event.target.name, project_attachment_path(event.project, event.target)
+
+    == '&nbsp;'+t("event.at")+'&nbsp;'
+    = link_to event.project.name, event.project

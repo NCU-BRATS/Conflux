@@ -1,0 +1,14 @@
+.content
+  .date
+    => time_format_relative_tag event.created_at
+  .summary
+    = link_to event.author.name, profile_path(event.author)
+    - if (event.joined?)
+      = t('action.word.join')
+    - else
+      = t('action.word.left')
+    = t('project.members')
+    = link_to event.target.name, profile_path(event.target)
+    | &nbsp;
+    == t("event.at")+'&nbsp;'
+    = link_to event.project.name, event.project

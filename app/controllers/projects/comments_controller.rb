@@ -5,7 +5,9 @@ class Projects::CommentsController < Projects::ApplicationController
   def create
     @comment = commentable.comments.build comment_params
     @comment.user = current_user
-    @comment.save
+    if @comment.save
+      event_service.leave_comment(@comment, current_user)
+    end
     respond_with @project, @comment
   end
 
