@@ -21,7 +21,7 @@ class Projects::DashboardsController < Projects::ApplicationController
     if !(params.has_key?(:type))
       events = @project.events.includes(:author, :target).order('id DESC')
     elsif (params[:type] === 'Attachment')
-      events = @project.events.includes(:author, :target).order('id DESC').where('events.target_type = ? OR events.target_type = ? OR events.target_type = ? OR events.target_type = ?','Attachment::Snippet','Attachment::Image','Attachment::Post','Attachment::Other')
+      events = @project.events.includes(:author, :target).order('id DESC').where(target_type: Attachment.subclasses)
     else
       events = @project.events.includes(:author, :target).order('id DESC').where(target_type: params[:type])
     end
