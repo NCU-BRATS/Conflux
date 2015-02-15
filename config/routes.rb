@@ -13,9 +13,13 @@ Rails.application.routes.draw do
     scope module: 'projects' do
       resource :dashboard
       resources :members
+      resources :channels, except: :index do
+        resources :messages, only: [:create]
+      end
+      resources :messages, only: [:update, :destroy]
       resources :issues  , concerns: [:commentable, :closeable]
       resources :sprints , concerns: [:commentable, :closeable]
-      resources :comments ,only: [:update, :destroy]
+      resources :comments, only: [:update, :destroy]
       resources :attachments, concerns: [:commentable] do
         get 'download', on: :member
       end

@@ -1,0 +1,13 @@
+h1
+  = title t('action.target.edit', target: Channel.model_name.human)
+
+= simple_nested_form_for [ @project, @channel ] do |f|
+  = f.error_notification
+
+  = f.input :name
+  = f.input :description
+  = f.input :announcement
+
+  = f.button :submit, class: 'right floated icon inverted'
+
+

@@ -1,7 +1,9 @@
 .ui.left.vertical.thin.inverted.channels.sidebar.menu
-  a.item
-    i.slack.icon
-    | Sample
-  a.item
-    i.slack.icon
-    | Sample
+  a.item href=new_project_channel_path
+    i.add.square.icon
+    = t('action.target.add', target: Channel.model_name.human)
+  - @project.channels.each do |channel|
+    a.item href=project_channel_path( @project, channel )
+      i.slack.icon
+      = channel.name
+

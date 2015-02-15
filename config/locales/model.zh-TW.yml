@@ -13,6 +13,8 @@ zh-TW:
       attachment/other: '其他檔案'
       label: '標籤'
       sprint: '戰役'
+      channel: '頻道'
+      message: '訊息'
     attributes:
       user:
         name: '名稱'
@@ -44,7 +46,7 @@ zh-TW:
         begin_at: '開始時間'
         due_at: '結束時間'
       comment:
-        contnet: '內容'
+        content: '內容'
       attachment:
         name: '名稱'
         content: '內容'
@@ -52,6 +54,12 @@ zh-TW:
       label:
         title: '標題'
         color: '顏色'
+      channel:
+        name: 名稱
+        description: 描述
+        announcement: 公告
+      message:
+        content: '內容'
 
   validation:
     user:

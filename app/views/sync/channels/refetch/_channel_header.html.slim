@@ -1,0 +1,28 @@
+div
+  .page-header
+    h3.ui.header
+      i.comments.icon
+      .content
+        = title channel.name
+        .sub.header
+          = channel.description
+    .ui.right.floated.buttons
+      .ui.button.basic.orange id='channel_announcement_btn'
+        i.icon.flag
+        = Channel.human_attribute_name :announcement
+      - if policy(channel).edit?
+        a.ui.button.basic.red href=edit_project_channel_path( channel.project, channel )
+          i.icon.edit
+          = t('action.word.edit')
+
+  .ui.standard.modal
+    .header
+      = Channel.human_attribute_name :announcement
+    .content
+      .description
+        == channel.html
+
+- content_for :javascripts
+  coffee:
+    $('#channel_announcement_btn').on 'click', ()->
+      $('.standard.modal').modal('show')

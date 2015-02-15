@@ -1,0 +1,33 @@
+.message .control {
+  display: none;
+}
+
+.message {
+  .ui.icon.buttons .button, .ui.icon.button {
+    padding: 0.5em 0.5em 0.5em;
+  }
+}
+
+.message:hover .control {
+  display: block;
+}
+
+.inline-message {
+  margin-top: -20px;
+  .avatar {
+    visibility: hidden;
+    height: 0 !important;
+  }
+  .content > .header {
+    display: none !important;
+  }
+}
+
+#channel_header {
+  padding-bottom: 10px;
+}
+
+#message_container {
+  position: relative;
+  overflow: hidden;
+}

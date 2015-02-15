@@ -26,6 +26,8 @@
 @import "issues";
 @import "labels";
 @import "notice";
+@import "message";
+@import "perfect-scrollbar.min";
 
 .bs {
   @import "bootstrap-sprockets";
@@ -58,7 +60,7 @@ body.pushable > .pusher {
   background-color: #FFFFFF;
 }
 
-.main.container {
+#main_container {
   padding-top: 60px;
 }
 
@@ -148,7 +150,7 @@ body.pushable > .pusher {
 }
 
 .page-header {
-  h1.header {
+  h1.header, h2.header, h3.header {
     margin-bottom: 0;
     display: inline-block;
   }

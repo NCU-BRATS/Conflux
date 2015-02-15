@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205135716) do
+ActiveRecord::Schema.define(version: 20150210064700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,20 @@ ActiveRecord::Schema.define(version: 20150205135716) do
     t.datetime "updated_at"
     t.string   "original_filename"
   end
+
+  create_table "channels", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.text     "announcement"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.text     "html"
+  end
+
+  add_index "channels", ["project_id"], name: "index_channels_on_project_id", using: :btree
+  add_index "channels", ["slug"], name: "index_channels_on_slug", unique: true, using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -108,6 +122,18 @@ ActiveRecord::Schema.define(version: 20150205135716) do
   end
 
   add_index "labels", ["project_id"], name: "index_labels_on_project_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "channel_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "html"
+  end
+
+  add_index "messages", ["channel_id"], name: "index_messages_on_channel_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
@@ -196,6 +222,18 @@ ActiveRecord::Schema.define(version: 20150205135716) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
+
+  create_table "users_channels", force: :cascade do |t|
+    t.integer  "last_read_message_id"
+    t.integer  "user_id"
+    t.integer  "channel_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users_channels", ["channel_id"], name: "index_users_channels_on_channel_id", using: :btree
+  add_index "users_channels", ["last_read_message_id"], name: "index_users_channels_on_last_read_message_id", using: :btree
+  add_index "users_channels", ["user_id"], name: "index_users_channels_on_user_id", using: :btree
 
   create_table "users_groups", force: :cascade do |t|
     t.integer  "user_id"

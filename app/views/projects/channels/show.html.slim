@@ -1,0 +1,52 @@
+#channel_header
+  = sync partial: 'channel_header', resource: @channel, refetch: true
+
+#message_container
+  = sync partial: 'message_row', collection: @channel.messages.includes(:user), refetch: true
+  = sync_new partial: 'message_row', resource: Message.new, scope: Message.by_channel(@channel), refetch: true
+
+#channel_footer
+  - if policy(:message).create?
+    = simple_form_for([@project, @channel, Message.new], remote: true ) do |f|
+      = f.error_notification
+      = f.input :content, label: false, placeholder: t('hint.message.input'), input_html: { id: 'message_content_post_field', style: 'min-height: 3em; height: 3em' }
+
+- content_for :javascripts
+  coffee:
+    # calculate the height of #message_container
+    $(window).bind 'load resize', ->
+      $mainContainer    = $('#main_container')
+      $contentContainer = $('.content-container')
+      $channelHeader    = $('#channel_header')
+      $channelFooter    = $('#channel_footer')
+      $messageContainer = $('#message_container')
+
+      windowHeight      = if (@window.innerHeight > 0) then @window.innerHeight else @screen.height
+      paddingTop        = $mainContainer.outerHeight() - $mainContainer.height()
+      paddingBottom     = $contentContainer.outerHeight() - $contentContainer.height()
+      headerHeight      = $channelHeader.outerHeight()
+      footerHeight      = $channelFooter.outerHeight()
+
+      height = windowHeight - paddingTop - paddingBottom - headerHeight - footerHeight
+      $messageContainer.css('height', height)
+      $messageContainer.scrollTop($messageContainer[0].scrollHeight - height) # navigate to bottom
+      $messageContainer.perfectScrollbar('update')
+
+    # initialize perfect-scrollbar
+    $('#message_container').perfectScrollbar()
+
+    $('#message_content_post_field').keydown (event)->
+      if event.keyCode == 13 and $(@).val().trim() != ""
+        $('#new_message').submit()
+        event.preventDefault()
+
+    $('#message_content_post_field').bind 'paste', ()->
+      $(@).css 'height', '12em'
+      $(window).trigger('resize')
+
+    $('.message-container').each ()->
+      $next = $(@).next().next().next()
+      if $next.data('user') == $(@).data('user')
+        nextTime = moment($next.find('.time').data('moment'))
+        time = moment($(@).find('.time').data('moment'))
+        $next.addClass('inline-message') if nextTime - time < 300000
