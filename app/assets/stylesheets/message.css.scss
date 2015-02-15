@@ -2,6 +2,12 @@
   display: none;
 }
 
+.message {
+  .ui.icon.buttons .button, .ui.icon.button {
+    padding: 0.5em 0.5em 0.5em;
+  }
+}
+
 .message:hover .control {
   display: block;
 }
