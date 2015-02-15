@@ -27,7 +27,7 @@
 //= require underscore
 //= require clndr-rails
 //= require jquery.remotipart
-//= require perfect-scrollbar.min
+//= require perfect-scrollbar
 //= require_tree ./handlebars_helpers
 //= require_tree ./handlebars_templates
 //= require_tree ./lib
