@@ -23,4 +23,6 @@
     $('.message-container').each ()->
       $next = $(@).next().next().next()
       if $next.data('user') == $(@).data('user')
-        $next.addClass('inline-message')
+        nextTime = moment($next.find('.time').data('moment'))
+        time = moment($(@).find('.time').data('moment'))
+        $next.addClass('inline-message') if nextTime - time < 300000

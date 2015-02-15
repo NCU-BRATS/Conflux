@@ -4,7 +4,9 @@ class Sync.MessageRow extends Sync.View
     super()
     $prev = @$el.prev().prev().prev()
     if $prev.data('user') == @$el.data('user')
-      @$el.addClass('inline-message')
+      prevTime = moment($prev.find('.time').data('moment'))
+      time = moment(@$el.find('.time').data('moment'))
+      @$el.addClass('inline-message') if time - prevTime < 300000
 
   beforeRemove: ->
     $prev = @$el.prev().prev().prev()

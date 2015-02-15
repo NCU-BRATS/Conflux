@@ -4,6 +4,7 @@ module TimeHelper
     if time.present?
       options = options.symbolize_keys
 
+      options[:class] = 'time'
       options[:data] ||= {}
       options[:data][:moment] = time.to_formatted_s(:iso8601)
       options[:data][:type] = 'absolute'
@@ -20,6 +21,7 @@ module TimeHelper
     if time.present?
       options = options.symbolize_keys
 
+      options[:class] = 'time'
       options[:data] ||= {}
       options[:data][:moment] = time.to_formatted_s(:iso8601)
       options[:data][:type] = 'relative'
