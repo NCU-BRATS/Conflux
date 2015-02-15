@@ -17,7 +17,9 @@ class Sync.MessageRow extends Sync.View
 
   beforeRemove: ->
     $prev = @$el.prev().prev().prev()
-    if $prev.data('user') != @$el.data('user')
-      $next = @$el.next().next().next()
+    $next = @$el.next().next().next()
+    prevTime = moment($prev.find('.time').data('moment'))
+    nextTime = moment($next.find('.time').data('moment'))
+    if $prev.data('user') != @$el.data('user') || nextTime - prevTime > 300000
       $next.removeClass('inline-message')
     super()
