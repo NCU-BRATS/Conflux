@@ -1,6 +1,5 @@
 #channel_header
   = sync partial: 'channel_header', resource: @channel, refetch: true
-  .ui.hidden.divider
 
 #message_container
   = sync partial: 'message_row', collection: @channel.messages.includes(:user), refetch: true
