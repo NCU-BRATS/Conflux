@@ -12,6 +12,8 @@ class Message < ActiveRecord::Base
 
   delegate :project, to: :channel
 
+  default_scope { order(:created_at) }
+
   sync_scope :by_channel, ->(channel){ where( channel_id: channel.id ) }
 
   def parse_content
