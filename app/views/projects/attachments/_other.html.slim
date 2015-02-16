@@ -9,7 +9,7 @@
 .ui.top.center.aligned.attached.segment
   i.massive.file.icon
   h3.ui.center.aligned.header = attachment.name
-  h4.ui.center.aligned.header = number_to_human_size(attachment.path.file.size)
+  h4.ui.center.aligned.header = number_to_human_size(attachment.size)
 .ui.attached.segment
   - if policy(attachment).download?
     = link_to download_project_attachment_path(@project, attachment), class: 'ui icon basic button left floated' do
