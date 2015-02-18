@@ -27,7 +27,7 @@ class Event < ActiveRecord::Base
   end
 
   def attachment?
-    target_type.include?('Attachment')
+    Attachment.subclasses.map(&:name).include?(target_type)
   end
 
 end
