@@ -1,6 +1,6 @@
 = simple_form_for([@project, @snippet]) do |f|
   = f.input :name
-  = f.input :language, collection: Attachment::Snippet.language.options
+  = f.input :language, collection: Snippet.language.options
   .ui.attached.active.tab.segment data-tab='origin'
     = f.input :content, as: :text
   .ui.bottom.attached.segment

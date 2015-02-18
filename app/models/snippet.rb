@@ -1,4 +1,4 @@
-class Attachment::Snippet < Attachment
+class Snippet < Attachment
   include ParserConcern
   include SyncableConcern
 

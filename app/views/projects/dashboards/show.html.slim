@@ -43,7 +43,7 @@
       h3.ui.dividing.header
         i.icon.tasks
         .content
-          = link_to t('structure.list', element: Attachment::Post.model_name.human ), project_attachments_path
+          = link_to t('structure.list', element: Post.model_name.human ), project_attachments_path
       .ui.segment
         - @posts.each do |post|
           .ui.vertical.segment

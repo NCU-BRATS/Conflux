@@ -6,7 +6,7 @@
       h4.ui.header
         = link_to project_attachment_path(attachment.project, attachment) do
           i.file.outline.large.icon
-          = "#{Attachment::Other.model_name.human} - #{attachment.name}"
+          = "#{OtherAttachment.model_name.human} - #{attachment.name}"
         == " (#{link_to attachment.project.name, project_path(attachment.project)})"
       .meta
         = render partial: 'meta', locals: {attachment: attachment}

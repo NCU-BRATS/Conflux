@@ -16,16 +16,16 @@ class Attachment < ActiveRecord::Base
   end
 
   def self.intelligent_construct(params, project, user)
-    attachment = Attachment::Other.new(params.merge(project: project, user: user))
+    attachment = OtherAttachment.new(params.merge(project: project, user: user))
 
     return attachment if attachment.path.url.nil?
 
     content_type = attachment.path.file.content_type
 
     if content_type.start_with?('image')
-      attachment = attachment.deep_becomes!(Attachment::Image)
-    elsif Attachment::Snippet::LANGUAGES.include?(content_type.to_sym)
-      attachment = attachment.deep_becomes!(Attachment::Snippet)
+      attachment = attachment.deep_becomes!(Image)
+    elsif Snippet::LANGUAGES.include?(content_type.to_sym)
+      attachment = attachment.deep_becomes!(Snippet)
       attachment.language = content_type
       attachment.content = attachment.path.read
     end

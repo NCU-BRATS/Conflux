@@ -13,6 +13,6 @@
 .ui.relaxed.divided.items
   - @attachments.each do |attachment|
     .item
-      = render partial: attachment.type.downcase + '_preview', locals: {attachment: attachment}
+      = render partial: attachment.type.underscore + '_preview', locals: {attachment: attachment}
 
 = paginate @attachments

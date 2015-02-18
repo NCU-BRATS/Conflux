@@ -30,17 +30,17 @@ class Projects::PostsController < Projects::ApplicationController
   end
 
   def model
-    @model ||= Attachment::Post
+    @model ||= Post
   end
 
   def model_sym
-    :"Attachment::Post"
+    :Post
   end
 
   protected
 
   def post_params
-    params.require(:attachment_post).permit(:name, :content)
+    params.require(:post).permit(:name, :content)
   end
 
   def resource

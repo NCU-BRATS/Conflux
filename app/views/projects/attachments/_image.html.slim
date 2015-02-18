@@ -5,7 +5,7 @@
     .content
       a.author = attachment.user.name
       .metadata = time_format_absolute_tag attachment.updated_at, :format => 'MMM Do a h:mm', class: 'date'
-      .text #{Attachment::Image.model_name.human}
+      .text #{Image.model_name.human}
 .ui.top.attached.segment
   h2.ui.center.aligned.header = attachment.name
 .ui.attached.segment

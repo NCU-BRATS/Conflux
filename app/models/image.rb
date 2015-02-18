@@ -1,4 +1,4 @@
-class Attachment::Image < Attachment
+class Image < Attachment
   include SyncableConcern
 
   validates :path, :original_filename, :size, presence: true
