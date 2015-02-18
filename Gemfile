@@ -54,6 +54,7 @@ gem 'thin', require: false
 gem 'sync'
 gem 'enumerize'
 gem 'carrierwave'
+gem 'carrierwave-dropbox'
 gem 'mimetype-fu'
 gem 'mini_magick'
 gem 'remotipart', '~> 1.2'

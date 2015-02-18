@@ -8,15 +8,27 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
   # Choose what kind of storage to use for this uploader:
+  # :file if you wanna save file to your local storage
+  # :dropbox if you wanna save file to your dropbox storage
   storage :file
   # storage :fog
 
+  process :save_size_in_model
+
   version :thumbnail, :if => :is_image? do
-    process :resize_to_fit => [600, 600] # resize image to make sure image size is lower than 600 * 600
+    process :resize_to_limit => [600, 600] # resize image to make sure image size is lower than 600 * 600
+  end
+
+  def save_size_in_model
+    model.size = file.size
   end
 
   def is_image?(attachment)
-    attachment.content_type.start_with?('image')
+    if attachment.respond_to?(:content_type)
+      attachment.content_type.start_with?('image')
+    elsif attachment.is_a?(Hash) && attachment.has_key?('mime_type')
+      attachment["mime_type"].start_with?('image')
+    end
   end
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:

@@ -112,6 +112,9 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    carrierwave-dropbox (1.2.1)
+      carrierwave (~> 0.9)
+      dropbox-sdk (~> 1.6)
     charlock_holmes (0.7.3)
     coderay (1.1.0)
     coffee-rails (4.1.0)
@@ -136,6 +139,8 @@ GEM
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
+    dropbox-sdk (1.6.4)
+      json
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -378,6 +383,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.1)
   bootstrap3-datetimepicker-rails!
   carrierwave
+  carrierwave-dropbox
   clndr-rails!
   coffee-rails (~> 4.1.0)
   data-confirm-modal!
