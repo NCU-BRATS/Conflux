@@ -24,9 +24,9 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   end
 
   def is_image?(attachment)
-    if attachment.instance_of?CarrierWave::SanitizedFile
+    if attachment.respond_to?(:content_type)
       attachment.content_type.start_with?('image')
-    elsif _storage == CarrierWave::Storage::Dropbox
+    elsif attachment.is_a?(Hash) && attachment.has_key?('mime_type')
       attachment["mime_type"].start_with?('image')
     end
   end
