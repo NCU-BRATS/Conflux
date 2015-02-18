@@ -262,10 +262,10 @@ zh-TW:
     issues: 任務
     sprints: 衝刺
     attachments: 檔案
-    attachment/images: 圖片(檔案)
-    attachment/others: 其他(檔案)
-    attachment/posts: 短文(檔案)
-    attachment/snippets: 程式碼(檔案)
+    images: 圖片(檔案)
+    others: 其他(檔案)
+    posts: 短文(檔案)
+    snippets: 程式碼(檔案)
     channels: 頻道
     labels: '標籤'
     events: 事件
