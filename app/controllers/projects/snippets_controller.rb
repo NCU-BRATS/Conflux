@@ -29,14 +29,6 @@ class Projects::SnippetsController < Projects::ApplicationController
     respond_with @project, @snippet
   end
 
-  def model
-    @model ||= Snippet
-  end
-
-  def model_sym
-    :Snippet
-  end
-
   protected
 
   def snippet_params

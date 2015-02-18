@@ -29,14 +29,6 @@ class Projects::PostsController < Projects::ApplicationController
     respond_with @project, @post
   end
 
-  def model
-    @model ||= Post
-  end
-
-  def model_sym
-    :Post
-  end
-
   protected
 
   def post_params
