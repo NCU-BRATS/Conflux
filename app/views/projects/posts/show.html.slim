@@ -5,7 +5,7 @@
     .content
       a.author = @post.user.name
       .metadata = time_format_absolute_tag @post.updated_at, :format => 'MMM Do a h:mm', class: 'date'
-      .text #{Attachment::Post.model_name.human}
+      .text #{Post.model_name.human}
 .ui.top.attached.segment
   h2.ui.center.aligned.header = @post.name
 .ui.attached.segment
@@ -15,7 +15,7 @@
     = link_to download_project_attachment_path(@project, @post), class: 'ui icon basic button left floated' do
       i.cloud.download.icon
   - if policy(@post).update?
-    = link_to edit_project_attachment_post_path(@project, @post), class: 'ui icon basic button left floated' do
+    = link_to edit_project_post_path(@project, @post), class: 'ui icon basic button left floated' do
       i.icon.write
   - if policy(@post).destroy?
     = link_to project_attachment_path(@project, @post), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do

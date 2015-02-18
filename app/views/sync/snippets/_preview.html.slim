@@ -4,10 +4,10 @@
       h4.ui.header
         = link_to [@project || snippet.project, snippet] do
           i.file.blue.code.outline.large.icon
-          = "#{Attachment::Snippet.model_name.human} - #{snippet.name}"
+          = "#{Snippet.model_name.human} - #{snippet.name}"
     .two.wide.column
       = render partial: 'sync/attachment/delete_button', locals: {path: project_attachment_path(@project || snippet.project, snippet)}
-      = render partial: 'sync/attachment/edit_button', locals: {path: edit_project_attachment_snippet_path(@project || snippet.project, snippet)}
+      = render partial: 'sync/attachment/edit_button', locals: {path: edit_project_snippet_path(@project || snippet.project, snippet)}
   .content
     .meta
       = render partial: 'sync/attachment/meta', locals: {attachment: snippet}

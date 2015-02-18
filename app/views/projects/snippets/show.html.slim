@@ -5,7 +5,7 @@
     .content
       a.author = @snippet.user.name
       .metadata = time_format_absolute_tag @snippet.updated_at, :format => 'MMM Do a h:mm', class: 'date'
-      .text #{Attachment::Snippet.model_name.human}
+      .text #{Snippet.model_name.human}
 .ui.top.attached.segment
   h2.ui.center.aligned.header = @snippet.name
 .ui.attached.segment
@@ -15,7 +15,7 @@
     = link_to download_project_attachment_path(@project, @snippet), class: 'ui icon basic button left floated' do
       i.cloud.download.icon
   - if policy(@snippet).update?
-    = link_to edit_project_attachment_snippet_path(@project, @snippet), class: 'ui icon basic button left floated' do
+    = link_to edit_project_snippet_path(@project, @snippet), class: 'ui icon basic button left floated' do
       i.icon.write
   - if policy(@snippet).destroy?
     = link_to project_attachment_path(@project, @snippet), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do

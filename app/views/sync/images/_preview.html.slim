@@ -7,7 +7,7 @@
         h4.ui.header
           = link_to project_attachment_path(@project || image.project, image) do
             i.file.image.outline.large.icon
-            = "#{Attachment::Image.model_name.human} - #{image.name}"
+            = "#{Image.model_name.human} - #{image.name}"
         .meta
           = render partial: 'sync/attachment/meta', locals: {attachment: image}
       .two.wide.column

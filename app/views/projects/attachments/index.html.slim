@@ -7,8 +7,8 @@
     .ui.right.floated.buttons
       .ui.inverted.buttons
         #upload-btn.ui.basic.green.button = t('action.target.upload', target: Attachment.model_name.human)
-        #create-post-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Post.model_name.human)
-        #create-snippet-btn.ui.basic.green.button = t('action.target.create', target: Attachment::Snippet.model_name.human)
+        #create-post-btn.ui.basic.green.button = t('action.target.create', target: Post.model_name.human)
+        #create-snippet-btn.ui.basic.green.button = t('action.target.create', target: Snippet.model_name.human)
   .search-field.divided
     = search_form_for [@project, @q] do |f|
       .ui.left.icon.fluid.input
@@ -18,7 +18,7 @@
 .ui.divider
 
 - attachment_type = params[:q][:type_eq]
-- attachment_class = "Attachment::#{attachment_type}".constantize
+- attachment_class = "#{attachment_type}".constantize
 
 .4.fluid.ui.basic.buttons
   - Attachment.subclasses.each do |x|
@@ -28,16 +28,16 @@
 
 .ui.relaxed.divided.items
   - @attachments.each do |attachment|
-    = sync partial: attachment.type.downcase + '_preview', resource: attachment
-  = sync_new partial: attachment_type.downcase + '_preview',
+    = sync partial: 'preview', resource: attachment
+  = sync_new partial: 'preview',
              resource: attachment_class.new,
              scope: attachment_class.by_project(@project.id) if attachment_type.presence
   = paginate @attachments
 
 - if policy(:attachment).create?
   = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, attachment: Attachment.new}
-  = render partial: 'projects/attachments/modals/post', locals: {project: @project, attachment: Attachment::Post.new}
-  = render partial: 'projects/attachments/modals/snippet', locals: {project: @project, attachment: Attachment::Snippet.new}
+  = render partial: 'projects/attachments/modals/post', locals: {project: @project, attachment: Post.new}
+  = render partial: 'projects/attachments/modals/snippet', locals: {project: @project, attachment: Snippet.new}
 
 - content_for :javascripts
   coffee:

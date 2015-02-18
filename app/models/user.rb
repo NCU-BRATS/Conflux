@@ -18,9 +18,10 @@ class User < ActiveRecord::Base
   has_many :sprints
   has_many :comments
   has_many :attachments
-  has_many :posts,    class_name: 'Attachment::Post'
-  has_many :images,   class_name: 'Attachment::Image'
-  has_many :snippets, class_name: 'Attachment::Snippet'
+  has_many :posts
+  has_many :images
+  has_many :snippets
+  has_many :other_attachments
 
   has_many :events,        dependent: :destroy, foreign_key: :author_id,   class_name: "Event"
   has_many :recent_events, -> { order "id DESC" }, foreign_key: :author_id,   class_name: "Event"

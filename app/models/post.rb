@@ -1,4 +1,4 @@
-class Attachment::Post < Attachment
+class Post < Attachment
   include ParserConcern
   include SyncableConcern
 

@@ -29,18 +29,10 @@ class Projects::SnippetsController < Projects::ApplicationController
     respond_with @project, @snippet
   end
 
-  def model
-    @model ||= Attachment::Snippet
-  end
-
-  def model_sym
-    :"Attachment::Snippet"
-  end
-
   protected
 
   def snippet_params
-    params.require(:attachment_snippet).permit(:name, :language, :content)
+    params.require(:snippet).permit(:name, :language, :content)
   end
 
   def resource

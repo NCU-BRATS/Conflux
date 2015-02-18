@@ -263,10 +263,10 @@ en:
     issues: Issues
     sprints: Sprints
     attachments: Files
-    attachment/images: image(Files)
-    attachment/others: other(Files)
-    attachment/posts: post(Files)
-    attachment/snippets: snippet(Files)
+    images: image(Files)
+    others: other(Files)
+    posts: post(Files)
+    snippets: snippet(Files)
     channels: Channels
     labels: Labels
     events: Events

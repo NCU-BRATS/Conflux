@@ -23,8 +23,8 @@ Rails.application.routes.draw do
       resources :attachments, concerns: [:commentable] do
         get 'download', on: :member
       end
-      resources :posts, as: 'attachment_posts'
-      resources :snippets, as: 'attachment_snippets'
+      resources :posts
+      resources :snippets
       resources :labels, constraints: {id: /\d+/}
     end
 

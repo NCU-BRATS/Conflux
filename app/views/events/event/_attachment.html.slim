@@ -7,7 +7,7 @@
     = event_action_name(event)
     strong
       - case event.target
-      - when Attachment::Post, Attachment::Snippet
+      - when Post, Snippet
         = link_to event.target.name, [event.project, event.target]
       - else
         = link_to event.target.name, project_attachment_path(event.project, event.target)

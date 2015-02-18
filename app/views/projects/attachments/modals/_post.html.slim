@@ -1,7 +1,7 @@
 #post-modal.ui.modal
   i.close.icon
   .header
-    = title t('action.target.create', target: Attachment::Post.model_name.human)
+    = title t('action.target.create', target: Post.model_name.human)
   .content
     = simple_form_for([project, attachment], remote: true, authenticity_token: true) do |f|
       = f.input :name
