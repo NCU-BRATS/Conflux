@@ -7,7 +7,7 @@ class Attachment < ActiveRecord::Base
 
   mount_uploader :path, AttachmentUploader
 
-  validates :type, :project_id, :user_id, :project, :user, :size, presence: true
+  validates :type, :project_id, :user_id, :project, :user, presence: true
 
   scope :latest, -> { order(created_at: :desc) }
 
