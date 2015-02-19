@@ -8,6 +8,8 @@ class Snippet < Attachment
                :'Scheme'=>'scm', :'Shell'=>'sh', :'SQL'=>'sql'}
   enumerize :language, in: LANGUAGES.keys
 
+  counter_culture :project
+
   validates :content, :language, :name, presence: true
 
   def html

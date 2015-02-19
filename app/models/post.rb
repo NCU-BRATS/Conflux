@@ -2,6 +2,8 @@ class Post < Attachment
   include ParserConcern
   include SyncableConcern
 
+  counter_culture :project
+
   validates :content, :name, presence: true
 
   def html
