@@ -26,11 +26,12 @@
       = x.model_name.human
       .floating.ui.teal.label = @project.send(x.name.pluralize.underscore.to_sym).size
 .ui.relaxed.divided.items
-  - @attachments.each do |attachment|
-    = sync partial: 'preview', resource: attachment
   = sync_new partial: 'preview',
              resource: attachment_class.new,
+             direction: :prepend,
              scope: attachment_class.by_project(@project.id) if attachment_type.presence
+  - @attachments.each do |attachment|
+    = sync partial: 'preview', resource: attachment
   = paginate @attachments
 
 - if policy(:attachment).create?
