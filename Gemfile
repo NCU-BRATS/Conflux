@@ -76,6 +76,9 @@ gem 'handlebars_assets'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
+# better counter cache
+gem 'counter_culture', '~> 0.1.23'
+
 # better select widget
 gem 'selectize-rails', '~> 0.11.2'
 # bootstrap data-confirm-modal
