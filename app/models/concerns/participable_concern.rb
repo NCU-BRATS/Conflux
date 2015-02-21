@@ -12,10 +12,8 @@ module ParticipableConcern
         columns.each do |column|
           next unless instance.changes.has_key?("#{column.to_s}_id") &&
                       !participable.participations.exists?(user_id: instance.send(column))
-          participation = Participation.new
-          participation.user = instance.send(column)
-          participation.participable = participable
-          participation.save
+
+          participable.participations.create(user: instance.send(column))
         end
       end
     end
