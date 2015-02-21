@@ -1,6 +1,7 @@
 class Issue < ActiveRecord::Base
   include CloseableConcern
   include ParserConcern
+  include ParticipableConcern
   include CommentableConcern
   include LabelableConcern
 
@@ -14,6 +15,8 @@ class Issue < ActiveRecord::Base
   acts_as_sequenced scope: :project_id
 
   accepts_nested_attributes_for :comments
+
+  participate_by [:user, :assignee]
 
   validates :title, :status, :project, :user, presence: true
 

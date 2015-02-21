@@ -1,10 +1,15 @@
 class Comment < ActiveRecord::Base
   include ParserConcern
+  include ParticipableConcern
 
   sync :all
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true
+
+  participate_by [:user] do |instance|
+    instance.commentable
+  end
 
   validates :content, :user, presence: true
 

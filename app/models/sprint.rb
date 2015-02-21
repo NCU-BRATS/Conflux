@@ -1,6 +1,7 @@
 class Sprint < ActiveRecord::Base
   include CloseableConcern
   include ParserConcern
+  include ParticipableConcern
   include CommentableConcern
 
   sync :all
@@ -13,6 +14,8 @@ class Sprint < ActiveRecord::Base
   acts_as_sequenced scope: :project_id
 
   accepts_nested_attributes_for :comments
+
+  participate_by [:user]
 
   validates :title, :status, :project, :user, presence: true
 

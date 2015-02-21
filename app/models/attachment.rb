@@ -1,11 +1,14 @@
 class Attachment < ActiveRecord::Base
   include CommentableConcern
+  include ParticipableConcern
   extend Enumerize
 
   belongs_to :project
   belongs_to :user
 
   mount_uploader :path, AttachmentUploader
+
+  participate_by [:user]
 
   validates :type, :project_id, :user_id, :project, :user, presence: true
 
