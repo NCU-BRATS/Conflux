@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
-  participate_at [:user], [:after_save] do |instance|
+  participate_by [:user] do |instance|
     instance.commentable
   end
 

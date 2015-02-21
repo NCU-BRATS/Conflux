@@ -8,7 +8,7 @@ class Attachment < ActiveRecord::Base
 
   mount_uploader :path, AttachmentUploader
 
-  participate_at [:user], [:after_save]
+  participate_by [:user]
 
   validates :type, :project_id, :user_id, :project, :user, presence: true
 

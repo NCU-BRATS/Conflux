@@ -15,7 +15,7 @@ class Sprint < ActiveRecord::Base
 
   accepts_nested_attributes_for :comments
 
-  participate_at [:user], [:after_save]
+  participate_by [:user]
 
   validates :title, :status, :project, :user, presence: true
 

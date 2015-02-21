@@ -16,7 +16,7 @@ class Issue < ActiveRecord::Base
 
   accepts_nested_attributes_for :comments
 
-  participate_at [:user, :assignee], [:after_save]
+  participate_by [:user, :assignee]
 
   validates :title, :status, :project, :user, presence: true
 

@@ -6,18 +6,17 @@ module ParticipableConcern
   end
 
   class_methods do
-    def participate_at(columns, callbacks, &block)
-      callbacks.each do |callback|
-        send(callback) do |instance|
-          columns.each do |column|
-            participation = Participation.new
-            participation.user = instance.send(column)
-
-            participable = block ? yield(instance) : instance
-            participation.participable = participable
-            participation.save unless participable.participations.exists?(user_id: participation.user)
-          end
-        end if respond_to?(callback)
+    def participate_by(columns, &block)
+      after_save do |instance|
+        participable = block ? yield(instance) : instance
+        columns.each do |column|
+          next unless instance.changes.has_key?("#{column.to_s}_id") &&
+                      !participable.participations.exists?(user_id: instance.send(column))
+          participation = Participation.new
+          participation.user = instance.send(column)
+          participation.participable = participable
+          participation.save
+        end
       end
     end
   end
