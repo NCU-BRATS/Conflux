@@ -27,7 +27,7 @@ module UsersHelper
   end
 
   def user_link( user )
-    profile_path( user.slug )
+    user_path( user.slug )
   end
 
 end
