@@ -3,7 +3,7 @@
     .ui.dimmer
       .content
         .center
-          a.ui.inverted.button href=profile_path(project_participant.user)
+          a.ui.inverted.button href=user_path(project_participant.user)
             = t('attribute.word.info')
     = avatar_tag project_participant.user, :size => '130'
   .content

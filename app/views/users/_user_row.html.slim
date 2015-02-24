@@ -3,7 +3,7 @@ tr
   td = user_row.name
   td = user_row.title
   td = user_row.email
-  td 
+  td
     .btn-toolbar.pull-right
-      = link_to 'see profile', profile_path(user_row.slug), class: 'ui mini blue button'
+      = link_to 'see profile', user_path(user_row.slug), class: 'ui mini blue button'
 

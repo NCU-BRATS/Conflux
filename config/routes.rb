@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   resources :projects, except: [:show] do
     concern :commentable do
       resources :comments , only: [:create]
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
     put :preview
   end
 
-  resources :profiles
+  resources :users
 
   resource :dashboard, controller: "dashboard", only: [:show] do
     member do
@@ -47,7 +49,6 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

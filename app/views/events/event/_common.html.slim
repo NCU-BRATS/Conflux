@@ -2,7 +2,7 @@
   .date
     => time_format_relative_tag event.created_at
   .summary
-    = link_to event.author.name, profile_path(event.author)
+    = link_to event.author.name, user_path(event.author)
     | &nbsp;
     = event_action_name(event)
     strong
