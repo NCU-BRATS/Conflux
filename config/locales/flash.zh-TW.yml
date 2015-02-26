@@ -3,8 +3,10 @@ zh-TW:
     actions:
       create:
         notice: "已成功新增%{resource_name}"
+        alert: "%{resource_name}新增失敗"
       update:
         notice: "已成功更新%{resource_name}"
+        alert: "%{resource_name}更新失敗"
       destroy:
         notice: "已成功刪除%{resource_name}"
         alert: "%{resource_name}不能被刪除"
