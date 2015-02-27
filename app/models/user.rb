@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :name, format: { with: /[A-Za-z0-9_]/, message: I18n.t('validation.user.format') }
+  validates :mention_email_enabled, presence: true
+  validates :participating_email_enabled, presence: true
+  validates :watch_email_enabled, presence: true
   validates :notification_level, inclusion: { in: Notification.notification_levels }, presence: true
 
   default_value_for :notification_level, Notification::N_PARTICIPATING
