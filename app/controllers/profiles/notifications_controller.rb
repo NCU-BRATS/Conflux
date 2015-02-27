@@ -22,9 +22,9 @@ class Profiles::NotificationsController < ProfilesController
               current_user.save
             end
     if saved
-      flash[:notice] = "成功儲存通知設定"
+      flash[:notice] = t('flash.actions.update.notice', resource_name: t('profile.notification.notification_settings'))
     else
-      flash[:notice] = "儲存通知失敗"
+      flash[:notice] = t('flash.actions.update.alert', resource_name: t('profile.notification.notification_settings'))
     end
   end
 
