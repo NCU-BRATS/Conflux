@@ -1,9 +1,9 @@
 class Profiles::NotificationsController < ProfilesController
 
   def show
-    @email_options = {mention: current_user.mention_email,
-              participating: current_user.participating_email,
-              watch: current_user.watch_email}
+    @email_options = {mention: current_user.mention_email_enabled,
+              participating: current_user.participating_email_enabled,
+              watch: current_user.watch_email_enabled}
     @notification = current_user.notification
     @project_participations = current_user.project_participations
   end
