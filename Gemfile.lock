@@ -133,6 +133,8 @@ GEM
     crass (1.0.1)
     daemons (1.1.9)
     debug_inspector (0.0.2)
+    default_value_for (3.0.1)
+      activerecord (>= 3.2.0, < 5.0)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -393,6 +395,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   counter_culture (~> 0.1.23)
   data-confirm-modal!
+  default_value_for (~> 3.0.0)
   devise
   dotenv-rails
   email_reply_parser

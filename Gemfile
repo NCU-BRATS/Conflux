@@ -58,6 +58,7 @@ gem 'carrierwave-dropbox'
 gem 'mimetype-fu'
 gem 'mini_magick'
 gem 'remotipart', '~> 1.2'
+gem "default_value_for", "~> 3.0.0"
 
 # Gravatar Integration
 gem 'gravtastic'
