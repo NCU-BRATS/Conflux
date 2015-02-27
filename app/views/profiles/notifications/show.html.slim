@@ -1,0 +1,86 @@
+.page-header
+  h1.ui.header
+    = t('profile.notification.notification_settings')
+    .sub.header = t('profile.notification.notifications_description')
+
+.ui.divider
+
+.h3.ui.header
+  = t('profile.notification.default_notification')
+  .sub.header = t('profile.notification.default_notification_description')
+= form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
+  = hidden_field_tag :notification_type, 'default'
+  .grouped.fields
+    .field
+      .ui.radio.checkbox
+        = radio_button_tag :notification_level, Notification::N_DISABLED, @notification.disabled?, class: 'trigger-submit'
+        label
+          h4.ui.header
+            | Disabled
+            .sub.header = t('profile.notification.disabled_description')
+    .field
+      .ui.radio.checkbox
+        = radio_button_tag :notification_level, Notification::N_MENTION, @notification.mention?, class: 'trigger-submit'
+        label
+          h4.ui.header
+            | Mention
+            .sub.header = t('profile.notification.mention_description')
+    .field
+      .ui.radio.checkbox
+        = radio_button_tag :notification_level, Notification::N_PARTICIPATING, @notification.participating?, class: 'trigger-submit'
+        label
+          h4.ui.header
+            | Participating
+            .sub.header  = t('profile.notification.participating_description')
+    .field
+      .ui.radio.checkbox
+        = radio_button_tag :notification_level, Notification::N_WATCH, @notification.watch?, class: 'trigger-submit'
+        label
+          h4.ui.header
+            | Watch
+            .sub.header  = t('profile.notification.watch_description')
+
+.h3.ui.header
+  = t('profile.notification.email_notification')
+  .sub.header = t('profile.notification.email_notification_description')
+.grouped.fields
+  = form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
+    = hidden_field_tag :notification_type, 'email'
+    .field
+      .ui.toggle.checkbox.trigger-submit
+        input name='option[mention_email]' type='hidden' value='0'
+        = check_box_tag :'option[mention_email]', 1, @email_options[:mention]
+        label Mention
+    .field
+      .ui.toggle.checkbox.trigger-submit
+        input name='option[participating_email]' type='hidden' value='0'
+        = check_box_tag :'option[participating_email]', 1, @email_options[:participating]
+        label Participating
+    .field
+      .ui.toggle.checkbox.trigger-submit
+        input name='option[watch_email]' type='hidden' value='0'
+        = check_box_tag :'option[watch_email]', 1, @email_options[:watch]
+        label Watch
+
+h3.ui.header
+  = t('profile.notification.project_notification')
+  .sub.header = t('profile.notification.project_notification_description')
+table.ui.very.basic.collapsing.table
+  - @project_participations.each do |project_participation|
+    - notification = Notification.new(project_participation)
+    tr
+      = form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
+        = hidden_field_tag :notification_type, 'project', id: dom_id(project_participation, 'notification_type')
+        = hidden_field_tag :notification_id, project_participation.id, id: dom_id(project_participation, 'notification_id')
+        td
+          = link_to project_participation.project.name, project_participation.project
+        td
+          = select_tag :notification_level, options_for_select(Notification.options_with_labels, notification.level), class: 'dropdown trigger-submit'
+
+- content_for :javascripts
+  coffee:
+     $('.ui.dropdown').dropdown()
+     $('select.dropdown').dropdown()
+     $('.ui.checkbox').checkbox()
+     $('.trigger-submit').on 'change', ->
+       $(@).parents('form').submit()

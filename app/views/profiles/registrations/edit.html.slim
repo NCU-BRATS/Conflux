@@ -1,0 +1,26 @@
+h1 = t('profile.profile')
+
+.ui.divider
+
+= simple_form_for(resource, as: resource_name, url: profile_path, html: { method: :put }) do |f|
+  = f.error_notification
+
+  = f.input :name, required: true, autofocus: true
+  = f.input :email, disabled: true
+  = f.input :title
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    p
+      | Currently waiting confirmation for:
+      = resource.unconfirmed_email
+  = f.input :password, autocomplete: 'off', hint: '留空將不會更新此欄位', required: false
+  = f.input :password_confirmation, required: false
+  = f.input :current_password, hint: '輸入您目前的密碼確認身份', required: true
+
+  = f.button :submit, '更新'
+
+.ui.section.divider
+.ui.tertiary.segment
+  h3 帳號停用
+  p 不高興嗎?
+  = link_to '點此停用我的帳號', registration_path(resource_name), data: { confirm: '你確定要停用嗎?' }, method: :delete, class: 'negative ui button'
+  = link_to '返回', :back, class: 'ui button pull-right'
