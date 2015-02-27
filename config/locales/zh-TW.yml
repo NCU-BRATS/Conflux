@@ -278,3 +278,18 @@ zh-TW:
   event:
     at: 在
     in: 進
+  profile:
+    profile: 個人設定
+    notification:
+      notification_settings: 通知設定
+      notifications_description: Conflux 會寄送通知訊息到您個人設定的 email 位址
+      default_notification: 預設通知等級
+      default_notification_description: 當專案通知等級設定為 default 時，會將此處的設定作為該專案的通知等級
+      email_notification: 啟用 email 通知
+      email_notification_description: 為個別等級設定使否寄送 email 通知
+      project_notification: 專案通知設定
+      project_notification_description: 可以根據需求將各個專案設定成不同的通知等級
+      disabled_description: 將不會收到任何的通知訊息
+      mention_description: 將會收到任何有提及到您的通知
+      participating_description: 將會收到任何您有參與的任務、戰役、檔案以及回覆留言的通知
+      watch_description: 將會收到設定為watch等級之專案的所有通知
