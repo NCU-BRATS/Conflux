@@ -9,6 +9,8 @@ nav.ui.fixed.menu
       i.plus.icon
     a.icon.item href=users_path data-content=t('structure.list', element: User.model_name.human)
       i.users.icon
+    a.icon.item href=profile_path data-content=t('profile.profile')
+      i.user.icon
     - if user_signed_in?
       a.item.navbar-avatar href=user_path(current_user.slug)
         = avatar_tag current_user, :size => '20'
