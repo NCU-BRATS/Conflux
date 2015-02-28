@@ -4,9 +4,6 @@ module LabelableConcern
   included do
     has_many :label_links, as: :target, dependent: :destroy
     has_many :labels, through: :label_links
-  end
-
-  class_methods do
 
     def label_names
       labels.order('title ASC').pluck(:title)
