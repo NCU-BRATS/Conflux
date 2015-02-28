@@ -47,6 +47,8 @@ gem 'aasm'
 gem 'active_link_to'
 # High-level Elasticsearch Ruby framework
 gem 'chewy', github: 'toptal/chewy', branch: 'master'
+# makes it easy to create plain old ruby models like ActiveRecord.
+gem 'active_attr'
 
 # responders
 gem 'responders', '~> 2.0'
