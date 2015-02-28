@@ -45,6 +45,8 @@ gem 'sequenced'
 gem 'aasm'
 # advance link_to helper for adding 'active' css class
 gem 'active_link_to'
+# High-level Elasticsearch Ruby framework
+gem 'chewy', github: 'toptal/chewy', branch: 'master'
 
 # responders
 gem 'responders', '~> 2.0'

@@ -44,6 +44,15 @@ GIT
     semantic-ui-sass (1.8.1.0)
       sass (~> 3.2)
 
+GIT
+  remote: git://github.com/toptal/chewy.git
+  revision: ca1b5d5479c6052d04ec607000a7237f62fef5d7
+  branch: master
+  specs:
+    chewy (0.6.2)
+      activesupport (>= 3.2)
+      elasticsearch (>= 1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -148,6 +157,14 @@ GEM
       dotenv (= 1.0.2)
     dropbox-sdk (1.6.4)
       json
+    elasticsearch (1.0.6)
+      elasticsearch-api (= 1.0.6)
+      elasticsearch-transport (= 1.0.6)
+    elasticsearch-api (1.0.6)
+      multi_json
+    elasticsearch-transport (1.0.6)
+      faraday
+      multi_json
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -170,6 +187,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     faye (1.1.0)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
@@ -228,6 +247,7 @@ GEM
     momentjs-rails (2.9.0)
       railties (>= 3.1)
     multi_json (1.10.1)
+    multipart-post (2.0.0)
     nested_form (0.3.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -391,6 +411,7 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails!
   carrierwave
   carrierwave-dropbox
+  chewy!
   clndr-rails!
   coffee-rails (~> 4.1.0)
   counter_culture (~> 0.1.23)
