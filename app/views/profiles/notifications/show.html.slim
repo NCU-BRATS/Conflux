@@ -48,18 +48,18 @@
     = hidden_field_tag :notification_type, 'email'
     .field
       .ui.toggle.checkbox.trigger-submit
-        input name='option[mention_email]' type='hidden' value='0'
-        = check_box_tag :'option[mention_email]', 1, @email_options[:mention]
+        input name='option[mention_email_enabled]' type='hidden' value='0'
+        = check_box_tag :'option[mention_email_enabled]', 1, @email_options[:mention]
         label Mention
     .field
       .ui.toggle.checkbox.trigger-submit
-        input name='option[participating_email]' type='hidden' value='0'
-        = check_box_tag :'option[participating_email]', 1, @email_options[:participating]
+        input name='option[participating_email_enabled]' type='hidden' value='0'
+        = check_box_tag :'option[participating_email_enabled]', 1, @email_options[:participating]
         label Participating
     .field
       .ui.toggle.checkbox.trigger-submit
-        input name='option[watch_email]' type='hidden' value='0'
-        = check_box_tag :'option[watch_email]', 1, @email_options[:watch]
+        input name='option[watch_email_enabled]' type='hidden' value='0'
+        = check_box_tag :'option[watch_email_enabled]', 1, @email_options[:watch]
         label Watch
 
 h3.ui.header
