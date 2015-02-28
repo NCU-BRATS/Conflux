@@ -30,6 +30,12 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :name, format: { with: /[A-Za-z0-9_]/, message: I18n.t('validation.user.format') }
+  validates :mention_email_enabled, inclusion: { in: [true, false] }
+  validates :participating_email_enabled, inclusion: { in: [true, false] }
+  validates :watch_email_enabled, inclusion: { in: [true, false] }
+  validates :notification_level, inclusion: { in: Notification.notification_levels }, presence: true
+
+  default_value_for :notification_level, Notification::N_PARTICIPATING
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
@@ -38,6 +44,10 @@ class User < ActiveRecord::Base
   def is_member?(project)
     @is_member = project.has_member?(self) if @is_member.nil?
     @is_member
+  end
+
+  def notification
+    @notification ||= Notification.new(self)
   end
 
 end

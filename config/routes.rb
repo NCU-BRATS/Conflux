@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
+  devise_scope :user do
+    get 'profile', to: 'profiles/registrations#edit'
+    put 'profile', to: 'profiles/registrations#update'
+  end
 
   resources :projects, except: [:show] do
     concern :commentable do
@@ -40,6 +44,12 @@ Rails.application.routes.draw do
   end
 
   resources :users
+
+  scope 'profile', as: 'profile' do
+    scope module: :profiles do
+      resource :notifications, only: [:show, :update]
+    end
+  end
 
   resource :dashboard, controller: "dashboard", only: [:show] do
     member do
