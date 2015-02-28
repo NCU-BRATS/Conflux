@@ -11,18 +11,16 @@ class Profiles::NotificationsController < ProfilesController
   def update
     notification_type = params[:notification_type]
     saved = case notification_type
-              when 'default'
-                current_user.notification_level = params[:notification_level]
-                current_user.save
-              when 'project'
-                notification = current_user.project_participations.find(params[:notification_id])
-                notification.notification_level = params[:notification_level]
-                notification.save
-              when 'email'
-                current_user.update(notification_email_params)
-                current_user.save
-              else
-                false
+            when 'default'
+              current_user.notification_level = params[:notification_level]
+              current_user.save
+            when 'project'
+              notification = current_user.project_participations.find(params[:notification_id])
+              notification.notification_level = params[:notification_level]
+              notification.save
+            when 'email'
+              current_user.update(notification_email_params)
+              current_user.save
             end
     if saved
       flash[:notice] = t('flash.actions.update.notice', resource_name: t('profile.notification.notification_settings'))
