@@ -40,6 +40,8 @@
             | Watch
             .sub.header  = t('profile.notification.watch_description')
 
+.ui.divider
+
 .h3.ui.header
   = t('profile.notification.email_notification')
   .sub.header = t('profile.notification.email_notification_description')
@@ -61,6 +63,8 @@
         input name='option[watch_email_enabled]' type='hidden' value='0'
         = check_box_tag :'option[watch_email_enabled]', 1, @email_options[:watch]
         label Watch
+
+.ui.divider
 
 h3.ui.header
   = t('profile.notification.project_notification')

@@ -280,6 +280,7 @@ zh-TW:
     in: 進
   profile:
     profile: 個人設定
+    password: 更新密碼
     notification:
       notification_settings: 通知設定
       notifications_description: Conflux 會寄送通知訊息到您個人設定的 email 位址
