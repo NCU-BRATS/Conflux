@@ -25,14 +25,14 @@ class Profiles::NotificationsController < ProfilesController
     if saved
       flash[:notice] = t('flash.actions.update.notice', resource_name: t('profile.notification.notification_settings'))
     else
-      flash[:notice] = t('flash.actions.update.alert', resource_name: t('profile.notification.notification_settings'))
+      flash[:alert] = t('flash.actions.update.alert', resource_name: t('profile.notification.notification_settings'))
     end
   end
 
   private
 
   def notification_email_params
-    params.require(:option).permit(:mention_email, :participating_email, :watch_email)
+    params.require(:option).permit(:mention_email_enabled, :participating_email_enabled, :watch_email_enabled)
   end
 
 end
