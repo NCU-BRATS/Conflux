@@ -18,6 +18,8 @@ class Sprint < ActiveRecord::Base
 
   participate_by [:user]
 
+  update_index('projects#sprint') { self }
+
   validates :title, :status, :project, :user, presence: true
 
   def to_param

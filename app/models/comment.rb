@@ -12,6 +12,10 @@ class Comment < ActiveRecord::Base
     instance.commentable
   end
 
+  update_index('projects#issue') { commentable if for_issue? }
+  update_index('projects#sprint') { commentable if for_sprint? }
+  update_index('projects#attachment') { commentable if for_attachment? }
+
   validates :content, :user, presence: true
 
   before_save :parse_content, if: :content_changed?
@@ -28,6 +32,18 @@ class Comment < ActiveRecord::Base
 
   def to_target_json
     self.to_json(:include => :commentable)
+  end
+
+  def for_issue?
+    commentable_type == 'Issue'
+  end
+
+  def for_sprint?
+    commentable_type == 'Sprint'
+  end
+
+  def for_attachment?
+    commentable_type == 'Attachment'
   end
 
 end

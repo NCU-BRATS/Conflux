@@ -13,6 +13,9 @@ class Issue < ActiveRecord::Base
   belongs_to :sprint
   belongs_to :assignee, class_name: 'User'
 
+  update_index('projects#issue') { self }
+  update_index('projects#sprint') { sprint if sprint.present? }
+
   acts_as_sequenced scope: :project_id
 
   accepts_nested_attributes_for :comments

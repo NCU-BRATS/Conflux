@@ -11,6 +11,8 @@ class Attachment < ActiveRecord::Base
 
   participate_by [:user]
 
+  update_index('projects#attachment') { self }
+
   validates :type, :project_id, :user_id, :project, :user, presence: true
 
   scope :latest, -> { order(created_at: :desc) }

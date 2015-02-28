@@ -10,6 +10,8 @@ class Message < ActiveRecord::Base
 
   before_save :parse_content, if: :content_changed?
 
+  update_index('projects#message') { self }
+
   delegate :project, to: :channel
 
   default_scope { order(:created_at) }

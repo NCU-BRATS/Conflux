@@ -21,4 +21,6 @@ class Label < ActiveRecord::Base
 
   alias_attribute :name, :title
 
+  update_index('projects#issue') { issues }
+
 end
