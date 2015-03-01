@@ -1,7 +1,10 @@
 = simple_form_for [@project, @search], method: 'get' do |f|
-  = f.input :query, label: false, placeholder: 'Search in project...'
-
-.ui.hidden.divider
+  .ui.grid
+    .two.columns.row
+      .twelve.wide.column
+        = f.input :query, label: false, placeholder: t('project.search')
+      .four.wide.column
+        = f.button :submit, value: t('action.word.search'), id: 'search_btn', class: 'fluid'
 
 .ui.grid
   .doubling.two.columns.row
@@ -16,7 +19,14 @@
 
     .twelve.wide.column
       #search_results.ui.divided.items
-        = render partial: @search.type, collection: @results
+        - if @results.size > 0
+          p.related = t('search.related', count: @results.size)
+          = render partial: @search.type, collection: @results
+        - else
+          #no_result.ui.secondary.segment
+            .ui.center.aligned.icon.header
+              i.frown.icon
+              .content
+                = t('search.no_result', query: @search.query, resource: t("project.#{@search.type.pluralize}"))
 
-= console
 = paginate @results

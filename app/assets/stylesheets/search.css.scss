@@ -1,4 +1,7 @@
 #search_results {
+  .related {
+    font-weight: bold;
+  }
   .item > .content {
     padding-left: 3.5em;
     .header {
@@ -37,4 +40,18 @@
     border-radius: 3px;
     font-style: normal;
   }
+}
+
+#no_result {
+  .icon.header {
+    i {
+      font-size: 5em;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+#search_btn {
+
 }

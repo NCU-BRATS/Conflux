@@ -259,6 +259,7 @@ zh-TW:
   structure:
     list: '%{element}列表'
   project:
+    search: 搜尋整個專案
     dashboard: 主頁
     members: 成員
     issues: 任務
@@ -310,3 +311,6 @@ zh-TW:
     assigned_to_me: 我被指派的任務
     opened_by_me: 我開啟的任務
     opened: 最近的任務
+  search:
+    related: "%{count} 個相關的結果"
+    no_result: "我們找不到與 \"%{query}\" 相關的%{resource}"

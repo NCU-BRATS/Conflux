@@ -3,6 +3,13 @@ nav.ui.fixed.menu
   = yield :sub_brand
 
   .right.menu
+    - if @project
+      .item
+        = form_for [@project, ProjectSearch.new], method: 'get' do |f|
+          .ui.transparent.icon.input
+            = f.text_field :query, placeholder: t('project.search')
+            i.search.link.icon
+
     a.icon.item href=projects_path data-content=t('structure.list', element: Project.model_name.human)
       i.world.icon
     a.icon.item href=new_project_path data-content=t('action.target.create', target: Project.model_name.human)
