@@ -1,6 +1,6 @@
 .ui.attached.segment
   .ui.grid
-    .thirteen.wide.column
+    .twelve.wide.column
       .ui.header
         - if issue.open?
           i.green.icon.unlock
@@ -32,7 +32,7 @@
               - issue.labels.each do |label|
                 = render_colored_label label
 
-    .three.wide.column
+    .four.wide.column
       - if issue.assignee.present?
         a.ui.image.label.right.floated href=user_link(issue.assignee)
           = avatar_tag issue.assignee, :size => 25

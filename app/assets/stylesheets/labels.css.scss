@@ -13,13 +13,10 @@
   height: 30px;
 }
 
-.ui.tag.labels .label.colored:before, .ui.tag.label.colored:before {
-  background: inherit;
-}
-
 #issues_index_label {
+  line-height:2em;
   .label{
-    margin-top: 0.5em;
-    margin-left: 1.5em;
+    margin-top: -5px;
+    margin-left: 0.5em;
   }
 }

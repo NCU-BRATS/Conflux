@@ -8,9 +8,12 @@ module LabelsHelper
     options = options.symbolize_keys
 
     label_color = label.color || Label::DEFAULT_COLOR
-    text_color = text_color_for_bg(label_color)
+    text_color  = text_color_for_bg(label_color)
 
-    content_tag :span, class: 'ui tag label colored ' + (options[:class] || ''), style: "background:#{label_color};color:#{text_color}" do
+    classes = ( options[:class] || '' )
+    styles  = ( options[:style] || '' )
+
+    content_tag :span, class: 'ui label colored ' + classes, style: "background:#{label_color};color:#{text_color};" + styles do
       label.name
     end
   end
