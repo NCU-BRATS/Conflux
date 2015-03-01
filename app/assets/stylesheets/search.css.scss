@@ -1,0 +1,40 @@
+#search_results {
+  .item > .content {
+    padding-left: 3.5em;
+    .header {
+      margin-bottom: 5px;
+      a {
+        font-size: 1.2em;
+      }
+      i {
+        position: absolute;
+        left: 0.5em;
+        font-size: 2em;
+      }
+    }
+    .sequential-id {
+      margin-top: 5px;
+      float: right;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 1em;
+    }
+    .meta {
+      font-size: 0.5em;
+      margin-bottom: 10px;
+    }
+    .extra {
+      margin-top: 10px;
+      .label {
+        font-size: 0.5em;
+      }
+    }
+
+  }
+  em {
+    font-weight: bold;
+    background-color: rgba(255,255,140,0.5);
+    padding: 3px;
+    border-radius: 3px;
+    font-style: normal;
+  }
+}

@@ -1,0 +1,3 @@
+class ProjectSearchPolicy < ProjectResourcePolicy
+
+end
