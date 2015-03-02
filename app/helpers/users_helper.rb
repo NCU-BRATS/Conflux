@@ -26,6 +26,13 @@ module UsersHelper
     content_tag( 'a', user.name, options )
   end
 
+  def user_luxury_tag( user, options={} )
+    options.merge!( { :class => 'ui image label', :href => user_link( user ) } )
+    content_tag( 'a', options ) do
+      avatar_tag( user, :size => 25 ) + user.name
+    end
+  end
+
   def user_link( user )
     user_path( user.slug )
   end
