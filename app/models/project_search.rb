@@ -4,6 +4,9 @@ class ProjectSearch
   attribute :type, default: 'issue'
   attribute :project
 
+  HIGHLIGHT_TAG = 'a__conflux_em__'
+  HIGHLIGHT_CLOSE_TAG = 'a__e_conflux_em__'
+
   def index
     ProjectsIndex
   end
@@ -28,7 +31,10 @@ class ProjectSearch
     index.highlight(fields: {
       title: {},
       name: {},
-      content: {},
+      content: {
+        pre_tags: [HIGHLIGHT_TAG], post_tags: [HIGHLIGHT_CLOSE_TAG],
+        fragment_size: 150, number_of_fragments: 3, no_match_size: 150
+      },
       comments: {
         fragment_size: 300, number_of_fragments: 3, no_match_size: 300
       }
