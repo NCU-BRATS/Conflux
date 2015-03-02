@@ -3,7 +3,8 @@ class Projects::SearchController < Projects::ApplicationController
   def index
     @search = ProjectSearch.new(search_param)
     @results = @search.search.per(10).page(params[:page]).preload(
-      issue: { scope: Issue.includes(:user) }
+      issue: { scope: Issue.includes(:user) },
+      sprint: { scope: Sprint.includes(:user) }
     )
   end
 

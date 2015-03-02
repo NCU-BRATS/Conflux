@@ -16,13 +16,11 @@
       = issue._data['_source']['comments'].size
 
     .description
-      - issue.comments.each_with_index do |comment, index|
-        = comment.html_safe
-        - unless index == issue.comments.size - 1
-          .ui.fitted.divider
+      .ui.divided.very.relaxed.list
+        - attachment.comments.each do |comment|
+          .item = comment.html_safe
 
     .extra
       - issue.labels.each do |label|
         .ui.horizontal.label style="background:#{label['color']};color:#{text_color_for_bg(label['color'])}"
           = label['title']
-

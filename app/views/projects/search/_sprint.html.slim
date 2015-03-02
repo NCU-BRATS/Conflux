@@ -1,0 +1,21 @@
+.item
+  .content
+    .header
+      i.icon class="#{sprint.status == 'open' ? 'green unlock' : 'red lock'}"
+      = link_to sprint.title.html_safe, [@project, sprint._object]
+
+    .sequential-id
+      = "###{sprint.sequential_id}"
+
+    .meta
+      i.clock.icon
+      => user_tag sprint._object.user, class: 'gray link'
+      => t('action.target.created_at', target: '')
+      span> = time_format_relative_tag( sprint._object.created_at )
+      i.comments.icon>
+      = sprint._data['_source']['comments'].size
+
+    .description
+      .ui.divided.very.relaxed.list
+        - attachment.comments.each do |comment|
+          .item = comment.html_safe
