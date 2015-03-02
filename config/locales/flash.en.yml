@@ -1,0 +1,12 @@
+en:
+  flash:
+    actions:
+      create:
+        notice: "create %{resource_name} successfully"
+        alert: "create %{resource_name} unsuccessfully"
+      update:
+        notice: "update %{resource_name} successfully"
+        alert: "update %{resource_name} unsuccessfully"
+      destroy:
+        notice: "delete %{resource_name} successfully"
+        alert: "delete %{resource_name} unsuccessfully"

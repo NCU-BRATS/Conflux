@@ -279,3 +279,19 @@ en:
   event:
     at: at
     in: in
+  profile:
+    profile: personal settings
+    password: update password
+    notification:
+      notification_settings: notification settings
+      notifications_description: Conflux will send notification message to your personal email
+      default_notification: default notification level
+      default_notification_description: use this setting as default notification level for project
+      email_notification: enable email notification
+      email_notification_description: configure each notification level if send email
+      project_notification: project notification settings
+      project_notification_description: configure each notification level according to situation
+      disabled_description: disable notifications
+      mention_description: receive notification when mentioned
+      participating_description: receive notification from any issue, mission, file and comment if you are participant
+      watch_description: receive notification from project which is configured as watch level
