@@ -25,6 +25,7 @@ module TimeHelper
       options[:data] ||= {}
       options[:data][:moment] = time.to_formatted_s(:iso8601)
       options[:data][:type] = 'relative'
+      options[:title] = time.strftime('%Y-%m-%d %H:%M')
 
       content_tag( 'span', '', options )
     end
