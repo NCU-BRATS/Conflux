@@ -35,6 +35,10 @@ class EventCreateService
     create_event(attachment, current_user, :uploaded)
   end
 
+  def delete_attachment(attachment, current_user)
+    create_event(attachment, current_user, :deleted)
+  end
+
   def join_project(participation, current_user)
     create_member_event(participation, current_user, :joined)
   end
