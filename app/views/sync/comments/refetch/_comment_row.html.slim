@@ -1,9 +1,7 @@
 .ui.grid
   .sixteen.wide.column
     .ui.segment.top.attached.tertiary
-      a.ui.image.label href=user_link(comment.user)
-        = avatar_tag comment.user, :size => 26
-        = comment.user.name
+      = user_luxury_tag comment.user
       => t('action.target.post_at', target: '')
       = time_format_relative_tag( comment.created_at )
       - if policy(comment).update?

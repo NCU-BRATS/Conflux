@@ -68,7 +68,7 @@
           i.file.icon
         = link_to project_dashboard_path(@project, :type => 'User'), class: 'item' do
           i.users.icon
-      = render "events/events", events: @events
+      = render 'events/events', events: @events
       = paginate @events
 
 
