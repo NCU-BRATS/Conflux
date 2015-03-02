@@ -1,3 +1,4 @@
+- target = parse_json_to_object(event.target_json, event.target_type)
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -8,7 +9,7 @@
     - else
       = t('action.word.left')
     = t('project.members')
-    = link_to event.target.name, user_path(event.target)
+    = link_to target.name, user_path(target)
     | &nbsp;
     == t("event.at")+'&nbsp;'
     = link_to event.project.name, event.project

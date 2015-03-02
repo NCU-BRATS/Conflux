@@ -1,3 +1,4 @@
+- target = parse_json_to_object(event.target_json, event.target_type)
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -8,9 +9,9 @@
     strong
       - case event.target
       - when Post, Snippet
-        = link_to event.target.name, [event.project, event.target]
+        = link_to target.name, [event.project, target]
       - else
-        = link_to event.target.name, project_attachment_path(event.project, event.target)
+        = link_to target.name, project_attachment_path(event.project, target)
 
     == '&nbsp;'+t('event.at')+'&nbsp;'
     = link_to event.project.name, event.project
