@@ -1,0 +1,20 @@
+.item.other
+  .content
+    .header
+      .preview
+        .back
+          img src = attachment._object.path.thumbnail
+      = link_to attachment.name.html_safe, project_attachment_path(@project, attachment._object)
+
+    .meta
+      i.clock.icon
+      => user_tag attachment._object.user, class: 'gray link'
+      => t('action.target.created_at', target: '')
+      span> = time_format_relative_tag( attachment._object.created_at )
+      i.comments.icon>
+      = attachment._data['_source']['comments'].size
+
+    .description
+      .ui.divided.very.relaxed.list
+        - attachment.comments.each do |comment|
+          .item = comment.html_safe

@@ -1,0 +1,19 @@
+.item.message
+  .content
+    .header
+      .ui.avatar.image
+        = avatar_tag message._object.user, :size => 60
+      a.bold.black.link href=user_link(message._object.user)
+        => message._object.user.name
+    .meta
+      span style="font-size:0.7em;color:rgba(0, 0, 0, 0.3)"
+        = time_format_relative_tag(message._object.created_at)
+        i.slack.icon
+        = message._object.channel.name
+    .description
+      .ui.relaxed.list
+        - if message.content.is_a? String
+          .item = els_markdown(message.content).html_safe
+        - else
+          - message.content.each_with_index do |content, index|
+            .item = els_markdown(content).html_safe

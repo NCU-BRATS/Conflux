@@ -31,7 +31,50 @@
         font-size: 0.5em;
       }
     }
-
+  }
+  .item.other > .content {
+    padding-left: 160px;
+    min-height: 150px;
+    .header {
+      .preview {
+        position: absolute;
+        left: 15px;
+        img {
+          width: 150px;
+        }
+        .back {
+          position: relative;
+          overflow: hidden;
+          width: 150px;
+          height: 150px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 0.3125em;
+          text-align: center;
+        }
+        i {
+          width: 150px;
+          font-size: 5em;
+          position: relative;
+          top: 30px;
+          left: 0;
+        }
+      }
+    }
+  }
+  .item.message > .content {
+    padding-left: 80px;
+    min-height: 70px;
+    .header {
+      .ui.avatar.image {
+        position: absolute;
+        left: 15px;
+        img {
+          width: 60px;
+          height: 60px;
+          max-width: 60px;
+        }
+      }
+    }
   }
   em {
     font-weight: bold;

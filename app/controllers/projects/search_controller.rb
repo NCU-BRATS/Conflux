@@ -4,7 +4,9 @@ class Projects::SearchController < Projects::ApplicationController
     @search = ProjectSearch.new(search_param)
     @results = @search.search.per(10).page(params[:page]).preload(
       issue: { scope: Issue.includes(:user) },
-      sprint: { scope: Sprint.includes(:user) }
+      sprint: { scope: Sprint.includes(:user) },
+      attachment: { scope: Attachment.includes(:user) },
+      message: { scope: Message.includes(:user, :channel) }
     )
   end
 
