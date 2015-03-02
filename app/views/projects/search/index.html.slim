@@ -20,7 +20,7 @@
     .twelve.wide.column
       #search_results.ui.divided.items
         - if @results.size > 0
-          p.related = t('search.related', count: @results.size)
+          p.related = t('search.related', count: @results.total)
           = render partial: @search.type, collection: @results
         - else
           #no_result.ui.secondary.segment
@@ -28,5 +28,7 @@
               i.frown.icon
               .content
                 = t('search.no_result', query: @search.query, resource: t("project.#{@search.type.pluralize}"))
+
+.ui.hidden.divider
 
 = paginate @results
