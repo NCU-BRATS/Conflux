@@ -17,26 +17,45 @@ div
 
     .ui.attached.segment
       .ui.grid
-        .ten.wide.column
+        .twelve.wide.column
           .ui.header
-            - if issue.status.upcase == 'OPEN'
+            - if issue.open?
               i.green.icon.unlock
-            - elsif issue.status.upcase == 'CLOSED'
+            - elsif issue.closed?
               i.red.icon.lock
             .content
               = link_to issue.title, project_issue_path(issue.project, issue)
-              == " (#{link_to issue.project.name, project_path(issue.project)})"
+
+              == " ( #{link_to issue.project.name, project_path(issue.project), {class:'black bold link'} } )"
               .sub.header#issues_index_label
                 = "##{issue.sequential_id} "
                 => user_tag issue.user, class: 'gray link'
                 => t('action.target.created_at', target: '')
-                span = time_format_relative_tag( issue.created_at )
-                - issue.labels.each do |label|
-                  = render_colored_label(label)
-        .six.wide.column
+                span = time_format_relative_tag(issue.created_at)
+
+                - if issue.planed?
+                  = '。'
+                  - if issue.working?
+                    => time_format_relative_tag issue.due_at
+                    = t('state.end')
+                  - elsif issue.expired?
+                    => time_format_relative_tag issue.due_at
+                    = t('state.expired')
+                  - elsif issue.finished?
+                    => time_format_relative_tag issue.due_at
+                    = t('state.finish')
+                  - else
+                    => time_format_relative_tag issue.begin_at
+                    = t('state.start')
+                span#issues_index_label
+                  - issue.labels.each do |label|
+                    = render_colored_label label
+        .four.wide.column
           - if issue.assignee.present?
-            a.ui.image.label.right.floated href=user_link(issue.assignee)
-              = avatar_tag issue.assignee, :size => 25
-              = issue.assignee.name
+            .ui.right.floated.image
+              = user_luxury_tag issue.assignee
+          - if issue.sprint.present?
+            .ui.right.floated.image
+              = sprint_luxury_tag issue.sprint
 
 = paginate @issues
