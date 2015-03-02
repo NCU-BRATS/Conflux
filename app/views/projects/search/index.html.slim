@@ -1,4 +1,6 @@
-= simple_form_for [@project, @search], method: 'get' do |f|
+= simple_form_for [@project, @search], method: 'get', html: { 'data-turboform' => 'true' } do |f|
+  = f.input :type, as: :hidden
+
   .ui.grid
     .two.columns.row
       .twelve.wide.column
@@ -12,7 +14,7 @@
       .ui.fluid.vertical.menu
         - menu_order = ['issue', 'sprint', 'attachment', 'message']
         - @results.aggregations['types']['buckets'].sort_by {|t| menu_order.index(t['key'])}.each do |type|
-          .item class="#{@search.type == type['key'] ? 'active teal' : ''}"
+          a.item.type-filter class="#{@search.type == type['key'] ? 'active teal' : ''}" data-value=type['key']
             = t("project.#{type['key'].pluralize}")
             .ui.label class="#{@search.type == type['key'] ? 'teal' : ''}"
               = type['doc_count']
@@ -32,3 +34,10 @@
 .ui.hidden.divider
 
 = paginate @results
+
+- content_for :javascripts
+  coffee:
+    $('.type-filter').on 'click', () ->
+      $('#project_search_type').val($(@).data('value'))
+      $('#search_btn').click()
+
