@@ -17,7 +17,9 @@ module EventsHelper
     elsif event.left?
       I18n.t('action.target.left', :target => target)
     elsif event.uploaded?
-      I18n.t('action.target.upload', :target => target)
+      I18n.t('action.target.upload' , :target => target)
+    elsif event.deleted?
+      I18n.t('action.target.delete' , :target => target)
     elsif event.comment?
       I18n.t('action.target.write', :target => target)
     else
