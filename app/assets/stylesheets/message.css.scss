@@ -9,13 +9,19 @@
   display: none;
 }
 
-.message:hover .control {
-  display: block;
+.message:hover {
+  .control {
+    display: block;
+  }
+  .description {
+    background-color: rgba(115, 121, 136, 0.05);
+  }
 }
 
 .message > .content > .description {
   max-width: none !important;
   margin-right: 80px;
+  min-height: 2em;
 }
 
 .message .edit-field {
