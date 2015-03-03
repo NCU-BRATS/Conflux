@@ -33,7 +33,7 @@ class Event < ActiveRecord::Base
   end
 
   def parse_to_json
-    self.target_json = self.target.to_json
+    self.target_json = self.target.to_target_json
   end
 
 end

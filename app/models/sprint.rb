@@ -3,6 +3,7 @@ class Sprint < ActiveRecord::Base
   include ParserConcern
   include ParticipableConcern
   include CommentableConcern
+  include EventableConcern
 
   sync :all
 
