@@ -206,6 +206,7 @@ zh-TW:
       post_at: 發表於%{target}
       created_at: 創建於%{target}
       create: 創建%{target}
+      update: 更新%{target}
       add: 新增%{target}
       edit: 編輯%{target}
       back: 返回%{target}
@@ -223,6 +224,7 @@ zh-TW:
       left: 離開%{target}
     word:
       create: 創建
+      update: 更新
       add: 新增
       edit: 編輯
       back: 返回
@@ -279,8 +281,14 @@ zh-TW:
     at: 在
     in: 進
   profile:
-    profile: 個人設定
-    password: 更新密碼
+    profile_settings: 個人設定
+    critical:
+      critical_settings: 重要設定
+      password: 密碼
+      new_password: 新密碼
+      new_password_confirm: 確認新密碼
+      current_password: 目前的密碼
+      current_password_description: 輸入您目前的密碼確認身份
     notification:
       notification_settings: 通知設定
       notifications_description: Conflux 會寄送通知訊息到您個人設定的 email 位址

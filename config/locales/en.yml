@@ -280,8 +280,14 @@ en:
     at: at
     in: in
   profile:
-    profile: personal settings
-    password: update password
+    profile_settings: personal settings
+    critical:
+      critical_settings: critical settings
+      password: password
+      new_password: new password
+      new_password_confirm: confirm new password
+      current_password: current password
+      current_password_description: enter your current password to authorize the change
     notification:
       notification_settings: notification settings
       notifications_description: Conflux will send notification message to your personal email
