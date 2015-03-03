@@ -1,4 +1,4 @@
-module ElasticsearchParseHelper
+module ElasticsearchHelper
 
   def els_highlight(text, language)
     temp = "```#{language.downcase}\n"
