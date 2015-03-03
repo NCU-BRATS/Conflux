@@ -294,3 +294,7 @@ zh-TW:
       mention_description: 將會收到任何有提及到您的通知
       participating_description: 將會收到任何您有參與的任務、戰役、檔案以及回覆留言的通知
       watch_description: 將會收到設定為watch等級之專案的所有通知
+  issue:
+    assigned_to_me: 我被指派的任務
+    opened_by_me: 我開啟的任務
+    opened: 最近的任務

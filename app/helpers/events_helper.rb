@@ -27,4 +27,22 @@ module EventsHelper
     end
   end
 
+  def event_icon_tag(type)
+    options = {}
+    options[:class] = case type
+                      when 'all'
+                        'announcement icon'
+                      when 'Comment'
+                        'comments icon'
+                      when 'Issue'
+                        'tasks icon'
+                      when 'Attachment'
+                        'file icon'
+                      when 'User'
+                        'users icon'
+                      end
+
+    content_tag('i', '', options)
+  end
+
 end

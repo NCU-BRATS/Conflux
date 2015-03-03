@@ -20,25 +20,24 @@
         .content
           = link_to t('structure.list', element: Issue.model_name.human ), project_issues_path
       .ui.top.attached.tabular.menu
-        a.item data-tab="assigned_to_me" 我被指派的任務
-        a.item data-tab="opened_by_me" 我開啟的任務
-        a.item data-tab="opened" 最近的任務
-      - @issues.each do |key, issues|
-        .ui.bottom.attached.tab.segment data-tab=key
-          .ui.selection.divided.list
-            - issues.each do |issue|
-              .item
-                - if issue.status.upcase == 'OPEN'
-                  i.green.icon.unlock
-                - elsif issue.status.upcase == 'CLOSED'
-                  i.red.icon.lock
-                .content
-                  .header
-                    = link_to issue.title, project_issue_path(@project, issue)
-                  = "##{issue.sequential_id} "
-                  => user_tag issue.user, class: 'gray link'
-                  => t('action.target.created_at', target: '')
-                  span = time_format_relative_tag( issue.created_at )
+        - ['assigned_to_me', 'opened_by_me', 'opened'].each do |type|
+          a.item href=project_dashboard_path(@project, params.permit(:event, :issue).merge({issue: type})) class="#{params[:issue] == type ? 'active' : ''}"
+            = t("issue.#{type}")
+      .ui.bottom.attached.segment
+        .ui.selection.divided.list
+          - @issues.each do |issue|
+            .item
+              - if issue.status.upcase == 'OPEN'
+                i.green.icon.unlock
+              - elsif issue.status.upcase == 'CLOSED'
+                i.red.icon.lock
+              .content
+                .header
+                  = link_to issue.title, project_issue_path(@project, issue)
+                = "##{issue.sequential_id} "
+                => user_tag issue.user, class: 'gray link'
+                => t('action.target.created_at', target: '')
+                span = time_format_relative_tag( issue.created_at )
 
       h3.ui.dividing.header
         i.icon.tasks
@@ -58,21 +57,9 @@
                 .ui.basic.segment == post.preview_html
     .column
       .ui.filter-btns.icon.menu
-        = link_to project_dashboard_path(@project), class: 'item' do
-          i.announcement.icon
-        = link_to project_dashboard_path(@project, :type => 'Comment'), class: 'item' do
-          i.comments.icon
-        = link_to project_dashboard_path(@project, :type => 'Issue'), class: 'item' do
-          i.tasks.icon
-        = link_to project_dashboard_path(@project, :type => 'Attachment'), class: 'item' do
-          i.file.icon
-        = link_to project_dashboard_path(@project, :type => 'User'), class: 'item' do
-          i.users.icon
+        - ['all', 'Comment', 'Issue', 'Attachment', 'User'].each do |type|
+          = link_to project_dashboard_path(@project, params.permit(:event, :issue).merge({event: type})), class: "item #{params[:event] == type ? 'active' : ''}" do
+            = event_icon_tag(type)
+
       = render 'events/events', events: @events
       = paginate @events
-
-
-- content_for :javascripts
-  coffee:
-    $('.item[data-tab]').tab()
-    $('.item[data-tab]')[0].click()
