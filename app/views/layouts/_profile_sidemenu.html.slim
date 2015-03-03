@@ -1,7 +1,10 @@
 .ui.vertical.pointing.main.menu
   = active_link_to profile_path, class: 'item', active: :exclusive do
     i.user.icon
-    span = t('profile.profile')
+    span = t('profile.profile_settings')
   = active_link_to profile_notifications_path, class: 'item' do
     i.inbox.icon
     span = t('profile.notification.notification_settings')
+  = active_link_to profile_critical_settings_path, class: 'item' do
+    i.warning.sign.icon
+    span = t('profile.critical.critical_settings')
