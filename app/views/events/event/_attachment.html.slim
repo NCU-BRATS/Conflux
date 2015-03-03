@@ -9,7 +9,7 @@
     strong
       - case event.target
       - when Post, Snippet
-        = link_to target.name, [event.project, target]
+        = link_to target.name, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
       - else
         = link_to target.name, project_attachment_path(event.project, target)
 

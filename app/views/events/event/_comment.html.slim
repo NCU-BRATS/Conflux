@@ -1,4 +1,4 @@
-- target = parse_json_to_object(event.target_json, event.target_type)
+- target = event.target_json
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -7,6 +7,6 @@
     | &nbsp;
     = event_action_name(event)
     strong
-      = link_to " #" + target.commentable.id.to_s, [event.project, target.commentable]
+      = link_to " #" + target['commentable']['sequential_id'].to_s, send("project_#{target['commentable_type'].underscore}_path", event.project, target['commentable']['sequential_id'])
     == '&nbsp;'+t("event.at")+'&nbsp;'
     = link_to event.project.name, event.project
