@@ -1,72 +1,89 @@
-# 第一次使用
+# 系統需求
 
-第一次使用須先設定資料庫連線的設定檔，我們開發統一使用 postgresql，請先確定你有安裝 postgresql
+* postgresql 9.4 for jsonb support
+* elasticsearch 1.4
+* elasticsearch plugin - Smart Chinese Analysis
 
-首先先將 config/database.yml.example 複製成 config/database.yml，再設定 host, username 與 password，例如：
-```yml
-# config/database.yml
-default: &default
-  adapter: postgresql
-  encoding: utf8
-  host: localhost
-  username: rueian
-  password: ''
+# 啟動
+
+為了啟動，我們需要設定 postgresql, elasticsearch, sync 這三個服務。
+
+## 設定 Postgresql
+
+首先先將 .env.example 複製成 .env，再設定 DATABASE_USERNAME 與 DATABASE_PASSWORD，例如：
+```bash
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=postgres
 ```
 
 如果你設定都正確的話，你應該可以使用這個 rake task 來創建資料庫：
-
 ```bash
 $ rake db:create
 ```
+*如果這個指令失敗的話，那你也可以手動創建資料庫。*
 
-如果這個指令失敗的話，那你也可以手動創建資料庫。
-
-# 起始環境
-
-第一次使用請先跑過 migration，讓它創建 User 資料表
+再來用請先跑過 migration，讓它創建資料表
 ```bash
 $ rake db:migrate
 ```
 
-目前環境已經整合 Devise 登入系統，也已經大幅修改過 scaffold generator，讓 scaffold generator 生出來的東西整合了 ransack searching interface 還有 kaminari paginating interface。
+## 設定 elasticsearch
 
-我們可以直接使用 scaffold generator 加快開發速度，例如：
+首先先到 elasticsearch 官網下載 zip 並解壓縮出 elasticsearch 資料夾。並安裝 smartcn plugin。
 ```bash
-$ rails g scaffold post title content:text
-$ rake db:migrate
+$ cd elasticsearch-1.4.4
+$ ./bin/plugin install elasticsearch/elasticsearch-analysis-smartcn/2.4.3
 ```
 
-用 scaffold 創建完一個新的 resource 後，有幾件事情記得要手動去做：
+為了 Debug 與監控 elasticsearch 狀態，可以再安裝 Marvel plugin。
+```bash
+$ ./bin/plugin -i elasticsearch/marvel/latest
+```
 
-1. 到 config/locales/model.zh-TW.yml 補上 resource 還有其欄位的中文翻譯
-2. 到 db/seeds.rb 裡面加入測試用的 seed data
+接下來使用以下指令即可運行 elasticsearch：
+```bash
+$ ./bin/elasticsearch
+```
 
-例如：
+若有安裝 Marvel Plugin，我們可以造訪 http://localhost:9200/_plugin/marvel/ 來觀看狀態。另外 http://localhost:9200/_plugin/marvel/sense/ 提供了一個 developer console 可以方便的對 elasticsearch 發送 request。
+
+我們使用 chewy gem 作為 elasticsearch wrapper，設定檔在於 config/chewy.yml。
 ```yml
-# config/locales/model.zh-TW.yml
-zh-TW:
-  activerecord:
-    models:
-      post: '文章'
-    attributes:
-      post:
-        title: '標題'
-        content: '內文'
+development:
+  host: 'localhost:9200'
 ```
 
-```rb
-# db/seeds.rb
-if Rails.env.development?
-
-  # 在這個 block 裡面加入 seed 指令, 隨機資料參見 https://github.com/stympy/faker
-  Post.create title: Faker::Lorem.sentences, content: Faker::Lorem.paragraph
-
-end
-```
-
-# Dev Rake Task
-由 Rails 101.pdf 裡面提供了好用的 rebuild rake tasks
+確定設定無誤後，使用 chewy rake task 來建立 Conflux 使用的 elasticsearch index。
 ```bash
-$ rake dev:rebuild
+$ cd conflux
+$ rake chewy:reset:all
 ```
-使用即可將資料庫砍掉重建並跑 migration 與 seed
+
+日後若有需要 reindex，也使用 chewy 提供的 rake task，這樣才有 zero downtime。
+其他 rake task 請見 https://github.com/toptal/chewy/blob/master/lib/tasks/chewy.rake
+
+## 設定 Sync
+
+我們使用了 Sync gem 提供 realtime partial 功能。其設定檔在於 config/sync.yml。
+```yml
+development:
+  server: "http://localhost:9292/faye"
+  adapter_javascript_url: "http://localhost:9292/faye/faye.js"
+  auth_token: "0d298317ed60334561d44d2fe27a1db5839708ff9ed16b78617961e756f17afc"
+  adapter: "Faye"
+  async: true
+```
+
+Sync 可以設定使用 Faye 或 Pusher 作為 Pub/Sub 服務。若使用 Faye 的話，需要開啟 Faye server。
+```
+$ rackup sync.ru -E production
+```
+
+## 啟動 rails server
+
+postgresql, elasticsearch, sync 都設定好了之後就可以使用以下指令開啟 rails server：
+```bash
+$ rails s
+```
+
+然後訪問 http://localhost:3000 即可。
