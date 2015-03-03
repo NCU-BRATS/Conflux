@@ -96,9 +96,20 @@
 }
 
 .aggs-filter.list {
-  .label {
-    .detail {
-      float: right;
+  .item {
+    .label.filter {
+      background-color: inherit;
+      border-color: inherit;
+      .detail, .delete {
+        float: right;
+      }
+    }
+  }
+  .item.active, .item:hover {
+    .label.filter {
+      color: inherit !important;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
     }
   }
 }

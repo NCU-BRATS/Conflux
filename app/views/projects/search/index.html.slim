@@ -1,10 +1,14 @@
 = simple_form_for [@project, @search], method: 'get', html: { 'data-turboform' => 'true' } do |f|
   = f.input :type, as: :hidden
+  = f.input :status, as: :hidden
+  = f.input :label, as: :hidden
+  = f.input :attachment_type, as: :hidden
+  = f.input :channel, as: :hidden
 
   .ui.grid
     .two.columns.row
       .twelve.wide.column
-        = f.input :query, label: false, placeholder: t('project.search')
+        = f.input :query, label: false, placeholder: t('project.search'), autofocus: true
       .four.wide.column
         = f.button :submit, value: t('action.word.search'), id: 'search_btn', class: 'fluid'
 
@@ -28,9 +32,3 @@
 .ui.hidden.divider
 
 = paginate @results
-
-- content_for :javascripts
-  coffee:
-    $('.type-filter').on 'click', () ->
-      $('#project_search_type').val($(@).data('value'))
-      $('#search_btn').click()

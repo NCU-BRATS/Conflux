@@ -7,66 +7,55 @@ class ProjectSearch
   HIGHLIGHT_TAG = 'a__conflux_em__'
   HIGHLIGHT_CLOSE_TAG = 'a__e_conflux_em__'
 
+  FILTER_MAP = {
+    'status'          => 'status',
+    'label'           => 'labels.title',
+    'channel'         => 'channel_id',
+    'attachment_type' => 'type'
+  }
+
   def index
     ProjectsIndex
   end
 
   def search
     # We can merge multiple scopes
-    [query_string, project_id_filter, type_agg, label_agg,
-     status_agg, attachment_type_agg, channel_agg, post_filter, highlight].compact.reduce(:merge)
+    scopes = [query_string, project_id_filter, type_agg, post_filter, highlight]
+    scopes << label_agg           if issue?
+    scopes << status_agg          if issue? || sprint?
+    scopes << channel_agg         if message?
+    scopes << attachment_type_agg if attachment?
+    scopes.compact.reduce(:merge)
   end
 
   # Using query_string advanced query for the main query input
   def query_string
-    index.query(query_string: {fields: [:title, :name, :content, :comments, :'labels.title'],
-                                query: query, default_operator: 'AND'}) if query?
+    index.query(
+      multi_match: {
+        query: query,
+        fields: [:title, :name, :content, :comments, :'labels.title']
+      }
+    ) if query?
   end
 
   def type_agg
     index.aggregations(types: {terms: {field: '_type', min_doc_count: 0}})
   end
 
-  def label_agg
-    index.aggregations(label: {
-      filter: {term: {_type: type}},
-      aggs: {label: {terms: {field: 'labels.title'}}}
-    }) if issue?
-  end
-
-  def status_agg
-    index.aggregations(status: {
-      filter: {term: {_type: type}},
-      aggs: {status: {terms: {field: 'status'}}}
-    }) if issue? || sprint?
-  end
-
-  def attachment_type_agg
-    index.aggregations(attachment_type: {
-      filter: {term: {_type: type}},
-      aggs: {attachment_type: {terms: {field: 'type', min_doc_count: 0}}}
-    }) if attachment?
-  end
-
-  def channel_agg
-    index.aggregations(channel: {
-      filter: {term: {_type: type}},
-      aggs: {channel: {terms: {field: 'channel_id'}}}
-    }) if message?
-  end
-
   def highlight
-    index.highlight(fields: {
-      title: {},
-      name: {},
-      content: {
-        pre_tags: [HIGHLIGHT_TAG], post_tags: [HIGHLIGHT_CLOSE_TAG],
-        fragment_size: 150, number_of_fragments: 3, no_match_size: 150
-      },
-      comments: {
-        fragment_size: 300, number_of_fragments: 3, no_match_size: 300
+    index.highlight(
+      fields: {
+        title: {number_of_fragments: 0},
+        name:  {number_of_fragments: 0},
+        content: {
+          pre_tags: [HIGHLIGHT_TAG], post_tags: [HIGHLIGHT_CLOSE_TAG],
+          fragment_size: 150, number_of_fragments: 3, no_match_size: 150
+        },
+        comments: {
+          fragment_size: 300, number_of_fragments: 3, no_match_size: 300
+        }
       }
-    })
+    )
   end
 
   # Simple term filter for project id.
@@ -75,26 +64,39 @@ class ProjectSearch
   end
 
   def post_filter
-    index.post_filter(bool: {
-      must: {term: {_type: type}},
-      should: {}
-    })
+    must = [{term: {_type: type}}]
+
+    FILTER_MAP.each do |filter, field|
+      must << {
+        bool: { should: @attributes[filter].map {|term| {term: {field => term}}} }
+      } if @attributes[filter]
+    end
+
+    index.post_filter(bool: { must: must })
   end
 
-  def issue?
-    type == 'issue'
+  FILTER_MAP.each do |filter_name, field|
+    define_method("#{filter_name}_agg") do
+      index.aggregations(filter_name => {
+        filter: {term: {_type: type}},
+        aggs: {filter_name => {terms: {field: field}}}
+      })
+    end
   end
 
-  def sprint?
-    type == 'sprint'
+  ['issue', 'sprint', 'attachment', 'message'].each do |type|
+    define_method("#{type}?") do
+      self.type == type
+    end
   end
 
-  def attachment?
-    type == 'attachment'
-  end
-
-  def message?
-    type == 'message'
+  ['status', 'label', 'attachment_type', 'channel'].each do |filter|
+    define_method(filter) do
+      (@attributes[filter] || []).join(',')
+    end
+    define_method("#{filter}=") do |arg|
+      @attributes[filter] = arg.split(',').uniq
+    end
   end
 
 end

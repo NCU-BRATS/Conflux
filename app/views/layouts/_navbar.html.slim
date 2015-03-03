@@ -5,7 +5,7 @@ nav.ui.fixed.menu
   .right.menu
     - if @project
       .item
-        = form_for [@project, ProjectSearch.new], method: 'get' do |f|
+        = form_for [@project, ProjectSearch.new], method: 'get', html: { id: 'navbar_project_search', 'data-turboform' => 'true' } do |f|
           .ui.transparent.icon.input
             = f.text_field :query, placeholder: t('project.search')
             i.search.link.icon
