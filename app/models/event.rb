@@ -36,4 +36,9 @@ class Event < ActiveRecord::Base
     self.target_json = self.target.to_target_json
   end
 
+
+  def target_obj
+    target_type.constantize.new(target_json)
+  end
+
 end

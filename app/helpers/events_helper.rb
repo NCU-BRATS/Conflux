@@ -27,8 +27,4 @@ module EventsHelper
     end
   end
 
-  def parse_json_to_object (json, class_name)
-    class_name.constantize.new (json)
-  end
-
 end
