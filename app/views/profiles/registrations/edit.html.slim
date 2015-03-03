@@ -7,6 +7,12 @@ h1 = t('profile.profile')
 
   = f.input :name, required: true, autofocus: true
   = f.input :email, disabled: true
+  = f.input :phone
+  = f.input :url
+  = f.input :github
+  = f.input :linkedin
+  = f.input :facebook
+  = f.input :twitter
   = f.input :title
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     p
