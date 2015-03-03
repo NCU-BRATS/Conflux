@@ -1,3 +1,4 @@
+- target = event.target_obj
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -6,6 +7,6 @@
     | &nbsp;
     = event_action_name(event)
     strong
-      = link_to " #" + event.target_id.to_s, [event.project, event.target]
+      = link_to " #" + event.target_id.to_s, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
     == '&nbsp;'+t("event.at")+'&nbsp;'
     = link_to event.project.name, event.project

@@ -1,6 +1,7 @@
 class Attachment < ActiveRecord::Base
   include CommentableConcern
   include ParticipableConcern
+  include EventableConcern
   extend Enumerize
 
   belongs_to :project

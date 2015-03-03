@@ -1,3 +1,4 @@
+- target = event.target_obj
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -6,11 +7,11 @@
     | &nbsp;
     = event_action_name(event)
     strong
-      - case event.target
+      - case target
       - when Post, Snippet
-        = link_to event.target.name, [event.project, event.target]
+        = link_to target.name, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
       - else
-        = link_to event.target.name, project_attachment_path(event.project, event.target)
+        = link_to target.name, project_attachment_path(event.project, target)
 
     == '&nbsp;'+t('event.at')+'&nbsp;'
     = link_to event.project.name, event.project

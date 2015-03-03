@@ -4,6 +4,7 @@ class Issue < ActiveRecord::Base
   include ParticipableConcern
   include CommentableConcern
   include LabelableConcern
+  include EventableConcern
 
   sync :all
 

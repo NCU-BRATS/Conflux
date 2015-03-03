@@ -17,6 +17,7 @@ class Projects::CommentsController < Projects::ApplicationController
   end
 
   def destroy
+    event_service.delete_comment(@comment, current_user)
     @comment.destroy
     respond_with @project, @comment
   end

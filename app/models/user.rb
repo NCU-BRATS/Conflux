@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   include FriendlyId
+  include EventableConcern
   friendly_id :name, use: :slugged
 
   devise :database_authenticatable, :registerable,

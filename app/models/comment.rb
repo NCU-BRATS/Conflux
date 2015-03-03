@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   include ParserConcern
   include ParticipableConcern
+  include EventableConcern
 
   sync :all
 
@@ -23,6 +24,10 @@ class Comment < ActiveRecord::Base
 
   def parse_content
     self.html = self.class.parse content
+  end
+
+  def to_target_json
+    self.to_json(:include => :commentable)
   end
 
 end

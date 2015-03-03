@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   default_scope { where.not(author_id: nil) }
 
-  enum action: [ :created, :updated, :closed, :reopened, :commented, :joined, :left, :uploaded ]
+  enum action: [ :created, :updated, :closed, :reopened, :commented, :joined, :left, :uploaded, :deleted ]
 
   delegate :name, :email, to: :author, prefix: true, allow_nil: true
   delegate :title, to: :issue, prefix: true, allow_nil: true
@@ -10,6 +10,8 @@ class Event < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   belongs_to :project
   belongs_to :target, polymorphic: true
+
+  before_save :parse_to_json
 
   scope :recent, -> { order("created_at DESC") }
   scope :in_projects, ->(project_ids) { where(project_id: project_ids).recent }
@@ -28,6 +30,15 @@ class Event < ActiveRecord::Base
 
   def attachment?
     Attachment.subclasses.map(&:name).include?(target_type)
+  end
+
+  def parse_to_json
+    self.target_json = self.target.to_target_json
+  end
+
+
+  def target_obj
+    target_type.constantize.new(target_json)
   end
 
 end

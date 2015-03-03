@@ -27,8 +27,16 @@ class EventCreateService
     create_event(comment, current_user, :commented)
   end
 
+  def delete_comment(comment, current_user)
+    create_event(comment, current_user, :deleted)
+  end
+
   def upload_attachment(attachment, current_user)
     create_event(attachment, current_user, :uploaded)
+  end
+
+  def delete_attachment(attachment, current_user)
+    create_event(attachment, current_user, :deleted)
   end
 
   def join_project(participation, current_user)

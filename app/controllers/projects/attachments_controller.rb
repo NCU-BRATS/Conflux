@@ -27,6 +27,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   def destroy
+    event_service.delete_attachment(@attachment, current_user)
     @attachment.destroy
     respond_with @attachment, location: project_attachments_path
   end
