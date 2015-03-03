@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'profile', to: 'profiles/registrations#edit'
     put 'profile', to: 'profiles/registrations#update'
+    get 'profile/critical_settings', to: 'profiles/critical_settings#edit'
+    put 'profile/critical_settings', to: 'profiles/critical_settings#update'
   end
 
   resources :projects, except: [:show] do
