@@ -14,7 +14,7 @@
 - content_for :javascripts
   coffee:
     # calculate the height of #message_container
-    $(window).bind 'load resize', ->
+    $(window).bind 'load resize page:load', ->
       $mainContainer    = $('#main_container')
       $contentContainer = $('.content-container')
       $channelHeader    = $('#channel_header')
