@@ -7,7 +7,7 @@
     | &nbsp;
     = event_action_name(event)
     strong
-      - case event.target
+      - case target
       - when Post, Snippet
         = link_to target.name, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
       - else
