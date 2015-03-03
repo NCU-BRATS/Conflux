@@ -1,6 +1,3 @@
-.message .control {
-  display: none;
-}
 
 .message {
   .ui.icon.buttons .button, .ui.icon.button {
@@ -8,8 +5,22 @@
   }
 }
 
+.message .control {
+  display: none;
+}
+
 .message:hover .control {
   display: block;
+}
+
+.message > .content > .description {
+  max-width: none !important;
+  margin-right: 80px;
+}
+
+.message .edit-field {
+  margin-top: 8px;
+  margin-left: 15px;
 }
 
 .inline-message {
