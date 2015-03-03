@@ -15,9 +15,15 @@ module CarrierWave
     end
 
     def cache_with_file_type_magic!( new_file = sanitized_file )
-      real_content_type = get_file_type(new_file)
-      new_file = CarrierWave::SanitizedFile.new(new_file)
-      new_file.content_type = real_content_type
+      case new_file
+      when ActionDispatch::Http::UploadedFile
+        real_content_type = get_file_type(new_file)
+        new_file = CarrierWave::SanitizedFile.new(new_file)
+        new_file.content_type = real_content_type
+      when CarrierWave::Uploader::Download::RemoteFile then nil
+      else nil
+      end
+
       cache_without_file_type_magic!(new_file)
     end
 
