@@ -20,7 +20,7 @@ class ProjectsIndex < Chewy::Index
     field :begin_at,      type: 'date'
     field :due_at,        type: 'date'
     field :created_at,    type: 'date'
-    field :comments,       value: -> { comments.map(&:content) }
+    field :comments,      value: -> { comments.map(&:content) }
     field :labels do
       field :title, index: 'not_analyzed'
       field :color, index: 'not_analyzed'

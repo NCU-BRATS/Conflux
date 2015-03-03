@@ -21,6 +21,10 @@ class Label < ActiveRecord::Base
 
   alias_attribute :name, :title
 
-  update_index('projects#issue') { issues }
+  update_index('projects#issue') { issues if should_reindex? }
+
+  def should_reindex?
+    destroyed? || (changes.keys & ['title', 'color']).present?
+  end
 
 end

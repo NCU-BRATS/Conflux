@@ -12,9 +12,9 @@ class Comment < ActiveRecord::Base
     instance.commentable
   end
 
-  update_index('projects#issue') { commentable if for_issue? }
-  update_index('projects#sprint') { commentable if for_sprint? }
-  update_index('projects#attachment') { commentable if for_attachment? }
+  update_index('projects#issue')      { commentable if for_issue?      && should_reindex? }
+  update_index('projects#sprint')     { commentable if for_sprint?     && should_reindex? }
+  update_index('projects#attachment') { commentable if for_attachment? && should_reindex? }
 
   validates :content, :user, presence: true
 
@@ -44,6 +44,10 @@ class Comment < ActiveRecord::Base
 
   def for_attachment?
     commentable_type == 'Attachment'
+  end
+
+  def should_reindex?
+    destroyed? || (changes.keys & ['content']).present?
   end
 
 end

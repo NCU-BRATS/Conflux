@@ -18,7 +18,7 @@ class Sprint < ActiveRecord::Base
 
   participate_by [:user]
 
-  update_index('projects#sprint') { self }
+  update_index('projects#sprint') { self if should_reindex? }
 
   validates :title, :status, :project, :user, presence: true
 
@@ -29,5 +29,10 @@ class Sprint < ActiveRecord::Base
   def self.commentable_find_key
     :sequential_id
   end
+
+  def should_reindex?
+    destroyed? || (changes.keys & ['title', 'status', 'begin_at', 'due_at']).present?
+  end
+
 
 end
