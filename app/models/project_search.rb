@@ -13,8 +13,8 @@ class ProjectSearch
 
   def search
     # We can merge multiple scopes
-    [query_string, project_id_filter, aggregations,
-     post_filter, highlight].compact.reduce(:merge)
+    [query_string, project_id_filter, type_agg, label_agg,
+     status_agg, attachment_type_agg, channel_agg, post_filter, highlight].compact.reduce(:merge)
   end
 
   # Using query_string advanced query for the main query input
@@ -23,8 +23,36 @@ class ProjectSearch
                                 query: query, default_operator: 'AND'}) if query?
   end
 
-  def aggregations
+  def type_agg
     index.aggregations(types: {terms: {field: '_type', min_doc_count: 0}})
+  end
+
+  def label_agg
+    index.aggregations(label: {
+      filter: {term: {_type: type}},
+      aggs: {label: {terms: {field: 'labels.title'}}}
+    }) if issue?
+  end
+
+  def status_agg
+    index.aggregations(status: {
+      filter: {term: {_type: type}},
+      aggs: {status: {terms: {field: 'status'}}}
+    }) if issue? || sprint?
+  end
+
+  def attachment_type_agg
+    index.aggregations(attachment_type: {
+      filter: {term: {_type: type}},
+      aggs: {attachment_type: {terms: {field: 'type', min_doc_count: 0}}}
+    }) if attachment?
+  end
+
+  def channel_agg
+    index.aggregations(channel: {
+      filter: {term: {_type: type}},
+      aggs: {channel: {terms: {field: 'channel_id'}}}
+    }) if message?
   end
 
   def highlight
@@ -47,7 +75,26 @@ class ProjectSearch
   end
 
   def post_filter
-    index.post_filter(term: {_type: type})
+    index.post_filter(bool: {
+      must: {term: {_type: type}},
+      should: {}
+    })
+  end
+
+  def issue?
+    type == 'issue'
+  end
+
+  def sprint?
+    type == 'sprint'
+  end
+
+  def attachment?
+    type == 'attachment'
+  end
+
+  def message?
+    type == 'message'
   end
 
 end

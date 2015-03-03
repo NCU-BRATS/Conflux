@@ -24,4 +24,19 @@ module ElasticsearchParseHelper
     '<div class="markdown-body">' + markdown_pipeline.call( text )[:output].to_s + '</div>'
   end
 
+  def filter_name(agg, bucket, results)
+    case agg
+    when 'status'
+      t("search.#{agg}.#{bucket['key']}")
+    when 'label'
+      bucket['key']
+    when 'attachment_type'
+      bucket['key'].constantize.model_name.human
+    when 'channel'
+      messages = results.map(&:_object)
+      channel = messages.map(&:channel).find { |c| c.id == bucket['key']}
+      channel.name
+    end
+  end
+
 end

@@ -314,3 +314,11 @@ zh-TW:
   search:
     related: "%{count} 個相關的結果"
     no_result: "我們找不到與 \"%{query}\" 相關的%{resource}"
+    filters:
+      label: 標籤
+      status: 狀態
+      attachment_type: 類型
+      channel: 頻道
+    status:
+      open: 開啟
+      closed: 關閉

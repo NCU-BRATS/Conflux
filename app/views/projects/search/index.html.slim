@@ -11,13 +11,7 @@
 .ui.grid
   .doubling.two.columns.row
     .four.wide.column.right.floated
-      .ui.fluid.vertical.menu
-        - menu_order = ['issue', 'sprint', 'attachment', 'message']
-        - @results.aggregations['types']['buckets'].sort_by {|t| menu_order.index(t['key'])}.each do |type|
-          a.item.type-filter class="#{@search.type == type['key'] ? 'active teal' : ''}" data-value=type['key']
-            = t("project.#{type['key'].pluralize}")
-            .ui.label class="#{@search.type == type['key'] ? 'teal' : ''}"
-              = type['doc_count']
+      = render 'aggs_menu'
 
     .twelve.wide.column
       #search_results.ui.divided.items
@@ -40,4 +34,3 @@
     $('.type-filter').on 'click', () ->
       $('#project_search_type').val($(@).data('value'))
       $('#search_btn').click()
-
