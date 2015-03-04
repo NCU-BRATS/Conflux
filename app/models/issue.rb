@@ -13,7 +13,7 @@ class Issue < ActiveRecord::Base
   belongs_to :sprint
   belongs_to :assignee, class_name: 'User'
 
-  update_index('projects#issue')  { self   if should_reindex? }
+  update_index('projects#issue')  { self }
   update_index('projects#sprint') { sprint if sprint.present? && should_reindex? }
 
   acts_as_sequenced scope: :project_id
@@ -30,10 +30,6 @@ class Issue < ActiveRecord::Base
 
   def self.commentable_find_key
     :sequential_id
-  end
-
-  def should_reindex?
-    destroyed? || (changes.keys & ['title', 'sprint_id', 'status', 'begin_at', 'due_at']).present?
   end
 
 end
