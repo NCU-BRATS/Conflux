@@ -1,6 +1,7 @@
 class Channel < ActiveRecord::Base
   include FriendlyId
   include ParserConcern
+  include EventableConcern
 
   sync :all
 
