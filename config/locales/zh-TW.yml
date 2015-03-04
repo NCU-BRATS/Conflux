@@ -281,7 +281,9 @@ zh-TW:
     at: 在
     in: 進
   profile:
-    profile_settings: 個人設定
+    profile:
+      profile_settings: 個人設定
+      social: 社群設定
     critical:
       critical_settings: 重要設定
       password: 密碼
