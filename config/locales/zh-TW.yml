@@ -259,6 +259,7 @@ zh-TW:
   structure:
     list: '%{element}列表'
   project:
+    search: 搜尋整個專案
     dashboard: 主頁
     members: 成員
     issues: 任務
@@ -272,6 +273,7 @@ zh-TW:
     labels: 標籤
     events: 事件
     comments: 回覆
+    messages: 訊息
   hint:
     label:
       color: 請填入以 # 為開頭的六字元 hex 色碼值。 或是從下方選擇建議的顏色。
@@ -309,3 +311,14 @@ zh-TW:
     assigned_to_me: 我被指派的任務
     opened_by_me: 我開啟的任務
     opened: 最近的任務
+  search:
+    related: "%{count} 個相關的結果"
+    no_result: "我們找不到與 \"%{query}\" 相關的%{resource}"
+    filters:
+      label: 標籤
+      status: 狀態
+      attachment_type: 類型
+      channel: 頻道
+    status:
+      open: 開啟
+      closed: 關閉

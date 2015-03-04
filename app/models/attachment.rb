@@ -11,6 +11,8 @@ class Attachment < ActiveRecord::Base
 
   participate_by [:user]
 
+  update_index('projects#attachment') { self if should_reindex? }
+
   validates :type, :project_id, :user_id, :project, :user, presence: true
 
   scope :latest, -> { order(created_at: :desc) }
@@ -55,6 +57,10 @@ class Attachment < ActiveRecord::Base
 
   def download_data
     path.url || content
+  end
+
+  def should_reindex?
+    destroyed? || (changes.keys & ['name', 'content', 'type', 'language']).present?
   end
 
 end

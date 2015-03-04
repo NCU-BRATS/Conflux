@@ -1,0 +1,34 @@
+= simple_form_for [@project, @search], method: 'get', html: { 'data-turboform' => 'true' } do |f|
+  = f.input :type, as: :hidden
+  = f.input :status, as: :hidden
+  = f.input :label, as: :hidden
+  = f.input :attachment_type, as: :hidden
+  = f.input :channel, as: :hidden
+
+  .ui.grid
+    .two.columns.row
+      .twelve.wide.column
+        = f.input :query, label: false, placeholder: t('project.search'), autofocus: true
+      .four.wide.column
+        = f.button :submit, value: t('action.word.search'), id: 'search_btn', class: 'fluid'
+
+.ui.grid
+  .doubling.two.columns.row
+    .four.wide.column.right.floated
+      = render 'aggs_menu'
+
+    .twelve.wide.column
+      #search_results.ui.divided.items
+        - if @results.size > 0
+          p.related = t('search.related', count: @results.total)
+          = render partial: @search.type, collection: @results
+        - else
+          #no_result.ui.secondary.segment
+            .ui.center.aligned.icon.header
+              i.frown.icon
+              .content
+                = t('search.no_result', query: @search.query, resource: t("project.#{@search.type.pluralize}"))
+
+.ui.hidden.divider
+
+= paginate @results

@@ -45,6 +45,10 @@ gem 'sequenced'
 gem 'aasm'
 # advance link_to helper for adding 'active' css class
 gem 'active_link_to'
+# High-level Elasticsearch Ruby framework
+gem 'chewy', github: 'toptal/chewy', branch: 'master'
+# makes it easy to create plain old ruby models like ActiveRecord.
+gem 'active_attr'
 
 # responders
 gem 'responders', '~> 2.0'
@@ -81,7 +85,7 @@ gem 'handlebars_assets'
 gem 'counter_culture', '~> 0.1.23'
 
 # better select widget
-gem 'selectize-rails', '~> 0.11.2'
+gem 'selectize-rails', '~> 0.12.0'
 # bootstrap data-confirm-modal
 gem 'data-confirm-modal', github: 'NCU-BRATS/data-confirm-modal', branch: 'semantic-ui'
 # Parse, validate, manipulate, and display dates in JavaScript.

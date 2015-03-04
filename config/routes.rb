@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     end
 
     scope module: 'projects' do
+      resources :search, only: [:index], controller: 'search', as: 'project_searches'
       resource :dashboard
       resources :members
       resources :channels, except: :index do

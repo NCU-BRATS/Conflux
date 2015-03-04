@@ -1,0 +1,51 @@
+.ui.fluid.vertical.menu
+  - menu_order = ['issue', 'sprint', 'attachment', 'message']
+  - @results.aggregations['types']['buckets'].sort_by {|t| menu_order.index(t['key'])}.each do |type|
+    a.item.type-filter class="#{@search.type == type['key'] ? 'active teal' : ''}" data-value=type['key'] data-count=type['doc_count']
+      = t("project.#{type['key'].pluralize}")
+      .ui.label class="#{@search.type == type['key'] ? 'teal' : ''}"
+        = type['doc_count']
+
+- aggs = @results.aggregations.keys - ['types']
+- aggs.each do |agg|
+  - if @results.aggregations[agg][agg]['buckets'].present?
+    h3.ui.header = t("search.filters.#{agg}")
+    .ui.aggs-filter.list
+      - @results.aggregations[agg][agg]['buckets'].each do |bucket|
+        - active = @search.send(agg.to_sym).include?(bucket['key'].to_s)
+        .item class="#{active ? 'active' : ''}" data-value=bucket['key'] data-filter=agg data-count=bucket['doc_count']
+          span.bar
+          a.ui.fluid.label.filter
+            = filter_name(agg, bucket, @results)
+            - if active
+              i.delete.icon
+            - else
+              .detail = bucket['doc_count']
+    .ui.divider
+
+- content_for :javascripts
+  coffee:
+    $('.type-filter').on 'click', () ->
+      $form = $('#new_project_search')
+      $form.find('input[type=hidden]').val('')
+      $('#project_search_type').val($(@).data('value'))
+      $form.submit()
+
+    $('.aggs-filter .item').on 'click', () ->
+      $item = $(@)
+      $item.toggleClass('active')
+      filter = $item.data('filter')
+      $selected = $item.parent().children('.active')
+      values = $selected.map(() -> $(@).data('value')).get().join(',')
+      $("#project_search_#{filter}").val(values)
+      $('#new_project_search').submit()
+
+    $('.aggs-filter').each () ->
+      total = $('.item.type-filter.active').data('count')
+      $(@).find('.item').each () ->
+        $filter = $(@)
+        width = $filter.data('count') * 100 / total
+        $filter.find('span.bar').css('width', "#{width}%")
+        console.log width, $filter.data('count')
+
+

@@ -1,0 +1,137 @@
+#search_results {
+  .related {
+    font-weight: bold;
+  }
+  .item > .content {
+    padding-left: 3.5em;
+    .header {
+      margin-bottom: 5px;
+      a {
+        font-size: 1.2em;
+      }
+      i {
+        position: absolute;
+        left: 0.5em;
+        font-size: 2em;
+      }
+    }
+    .sequential-id {
+      margin-top: 5px;
+      float: right;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 1em;
+    }
+    .meta {
+      font-size: 0.5em;
+      margin-bottom: 10px;
+    }
+    .extra {
+      margin-top: 10px;
+      .label {
+        font-size: 0.5em;
+      }
+    }
+  }
+  .item.other > .content {
+    padding-left: 160px;
+    min-height: 150px;
+    .header {
+      .preview {
+        position: absolute;
+        left: 15px;
+        img {
+          width: 150px;
+        }
+        .back {
+          position: relative;
+          overflow: hidden;
+          width: 150px;
+          height: 150px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 0.3125em;
+          text-align: center;
+        }
+        i {
+          width: 150px;
+          font-size: 5em;
+          position: relative;
+          top: 30px;
+          left: 0;
+        }
+      }
+    }
+  }
+  .item.message > .content {
+    padding-left: 80px;
+    min-height: 70px;
+    .header {
+      .ui.avatar.image {
+        position: absolute;
+        left: 15px;
+        img {
+          width: 60px;
+          height: 60px;
+          max-width: 60px;
+        }
+      }
+    }
+  }
+  em {
+    font-weight: bold;
+    background-color: rgba(255,255,140,0.5);
+    padding: 3px;
+    border-radius: 3px;
+    font-style: normal;
+  }
+}
+
+#no_result {
+  .icon.header {
+    i {
+      font-size: 5em;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.aggs-filter.list {
+  .item {
+    position: relative;
+    .label.filter {
+      background-color: inherit;
+      border-color: inherit;
+      .detail, .delete {
+        float: right;
+      }
+    }
+    span.bar {
+      background: #f1f1f1;
+      display: inline-block;
+      position: absolute;
+      z-index: -1;
+      top: 5px;
+      bottom: 5px;
+      right: 0;
+    }
+  }
+  .item:first-child {
+    span.bar {
+      top: 2px;
+      bottom: 6px;
+    }
+  }
+  .item:last-child {
+    span.bar {
+      bottom: 2px;
+      top: 6px;
+    }
+  }
+  .item.active, .item:hover {
+    .label.filter {
+      color: inherit !important;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
+    }
+  }
+}

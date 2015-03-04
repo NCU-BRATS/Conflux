@@ -1,0 +1,26 @@
+.item
+  .content
+    .header
+      i.icon class="#{issue.status == 'open' ? 'green unlock' : 'red lock'}"
+      = link_to issue.title.html_safe, [@project, issue._object]
+
+    .sequential-id
+      = "##{issue.sequential_id}"
+
+    .meta
+      i.clock.icon
+      => user_tag issue._object.user, class: 'gray link'
+      => t('action.target.created_at', target: '')
+      span> = time_format_relative_tag( issue._object.created_at )
+      i.comments.icon>
+      = issue._data['_source']['comments'].size
+
+    .description
+      .ui.divided.very.relaxed.list
+        - issue.comments.each do |comment|
+          .item = comment.html_safe
+
+    .extra
+      - issue.labels.each do |label|
+        .ui.horizontal.label style="background:#{label['color']};color:#{text_color_for_bg(label['color'])}"
+          = label['title']

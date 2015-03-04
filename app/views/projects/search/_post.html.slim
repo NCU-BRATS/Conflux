@@ -1,0 +1,25 @@
+.item
+  .content
+    .header
+      i.file.blue.text.outline.large.icon
+      = link_to attachment.name.html_safe, [@project, attachment._object]
+
+    .meta
+      i.clock.icon
+      => user_tag attachment._object.user, class: 'gray link'
+      => t('action.target.created_at', target: '')
+      span> = time_format_relative_tag( attachment._object.created_at )
+      i.comments.icon>
+      = attachment._data['_source']['comments'].size
+
+    .description
+      .ui.piled.segment
+        - if attachment.content.is_a? String
+          = els_markdown(attachment.content).html_safe
+        - else
+          - attachment.content.each_with_index do |content, index|
+              = els_markdown(content).html_safe
+
+      .ui.divided.very.relaxed.list
+        - attachment.comments.each do |comment|
+          .item = comment.html_safe
