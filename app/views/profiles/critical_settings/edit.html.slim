@@ -1,0 +1,11 @@
+h1 = t('profile.critical.password_settings')
+.ui.divider
+
+= simple_form_for(resource, as: resource_name, url: profile_critical_settings_path, html: { method: :put }) do |f|
+  = f.error_notification
+
+  = f.input :password, label: t('profile.critical.new_password'), required: true, autofocus: true
+  = f.input :password_confirmation, label: t('profile.critical.new_password_confirm'), required: true
+  = f.input :current_password, hint: t('profile.critical.current_password_description'), required: true
+
+  = f.button :submit, t('action.target.update', target: t('profile.critical.password'))
