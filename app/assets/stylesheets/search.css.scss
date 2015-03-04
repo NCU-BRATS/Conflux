@@ -97,12 +97,34 @@
 
 .aggs-filter.list {
   .item {
+    position: relative;
     .label.filter {
       background-color: inherit;
       border-color: inherit;
       .detail, .delete {
         float: right;
       }
+    }
+    span.bar {
+      background: #f1f1f1;
+      display: inline-block;
+      position: absolute;
+      z-index: -1;
+      top: 5px;
+      bottom: 5px;
+      right: 0;
+    }
+  }
+  .item:first-child {
+    span.bar {
+      top: 2px;
+      bottom: 6px;
+    }
+  }
+  .item:last-child {
+    span.bar {
+      bottom: 2px;
+      top: 6px;
     }
   }
   .item.active, .item:hover {
