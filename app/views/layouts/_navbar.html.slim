@@ -9,17 +9,15 @@ nav.ui.fixed.menu
       i.plus.icon
     a.icon.item href=users_path data-content=t('structure.list', element: User.model_name.human)
       i.users.icon
+    a.icon.item href=profile_path data-content=t('profile.profile_settings')
+      i.setting.icon
+    a.icon.item href=destroy_user_session_path data-method="delete" data-content=t('action.word.logout')
+      i.sign.out.icon
     - if user_signed_in?
       .ui.dropdown.item
         a.navbar-avatar href=user_path(current_user.slug)
           = avatar_tag current_user, :size => '20'
           span = current_user.name
-        .menu
-          a.item href=profile_path
-            i.setting.icon
-            = t('profile.profile')
-      a.item href=destroy_user_session_path data-method="delete" = t('action.word.logout')
-
     - else
       a.item href=new_user_session_path = t('action.word.login')
 
