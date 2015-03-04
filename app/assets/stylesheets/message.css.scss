@@ -12,6 +12,9 @@
 .message:hover {
   .control {
     display: block;
+    .ui.icon.button {
+      margin-top: 26px;
+    }
   }
   .description {
     background-color: rgba(115, 121, 136, 0.05);
@@ -37,6 +40,11 @@
   }
   .content > .header {
     display: none !important;
+  }
+  .message .control {
+    .ui.icon.button {
+      margin-top: 7px;
+    }
   }
 }
 
