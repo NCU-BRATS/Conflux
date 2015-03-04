@@ -8,17 +8,19 @@
 
 - aggs = @results.aggregations.keys - ['types']
 - aggs.each do |agg|
-  h3.ui.header = t("search.filters.#{agg}")
-  .ui.aggs-filter.list
-    - @results.aggregations[agg][agg]['buckets'].each do |bucket|
-      - active = @search.send(agg.to_sym).include?(bucket['key'].to_s)
-      .item class="#{active ? 'active' : ''}" data-value=bucket['key'] data-filter=agg
-        a.ui.fluid.label.filter
-          = filter_name(agg, bucket, @results)
-          - if active
-            i.delete.icon
-          - else
-            .detail = bucket['doc_count']
+  - if @results.aggregations[agg][agg]['buckets'].present?
+    h3.ui.header = t("search.filters.#{agg}")
+    .ui.aggs-filter.list
+      - @results.aggregations[agg][agg]['buckets'].each do |bucket|
+        - active = @search.send(agg.to_sym).include?(bucket['key'].to_s)
+        .item class="#{active ? 'active' : ''}" data-value=bucket['key'] data-filter=agg
+          a.ui.fluid.label.filter
+            = filter_name(agg, bucket, @results)
+            - if active
+              i.delete.icon
+            - else
+              .detail = bucket['doc_count']
+    .ui.divider
 
 - content_for :javascripts
   coffee:
