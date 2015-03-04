@@ -54,6 +54,7 @@ class EventCreateService
         project: record.project,
         target_id: record.user.id,
         target_type: record.user.class.name,
+        target_json: record.user.to_target_json,
         action: status,
         author_id: current_user.id
     )
@@ -64,6 +65,7 @@ class EventCreateService
         project: record.project,
         target_id: record.id,
         target_type: record.class.name,
+        target_json: record.to_target_json,
         action: status,
         author_id: current_user.id
     )

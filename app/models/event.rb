@@ -11,8 +11,6 @@ class Event < ActiveRecord::Base
   belongs_to :project
   belongs_to :target, polymorphic: true
 
-  before_save :parse_to_json
-
   scope :recent, -> { order("created_at DESC") }
   scope :in_projects, ->(project_ids) { where(project_id: project_ids).recent }
 
@@ -31,11 +29,6 @@ class Event < ActiveRecord::Base
   def attachment?
     Attachment.subclasses.map(&:name).include?(target_type)
   end
-
-  def parse_to_json
-    self.target_json = self.target.to_target_json
-  end
-
 
   def target_obj
     target_type.constantize.new(target_json)
