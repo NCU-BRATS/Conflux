@@ -47,6 +47,14 @@ class EventCreateService
     create_member_event(participation, current_user, :left)
   end
 
+  def create_channel(channel, current_user)
+    create_event(channel, current_user, :created)
+  end
+
+  def delete_channel(channel, current_user)
+    create_event(channel, current_user, :deleted)
+  end
+
   private
 
   def create_member_event(record, current_user, status)
@@ -54,6 +62,7 @@ class EventCreateService
         project: record.project,
         target_id: record.user.id,
         target_type: record.user.class.name,
+        target_json: record.user.to_target_json,
         action: status,
         author_id: current_user.id
     )
@@ -64,6 +73,7 @@ class EventCreateService
         project: record.project,
         target_id: record.id,
         target_type: record.class.name,
+        target_json: record.to_target_json,
         action: status,
         author_id: current_user.id
     )

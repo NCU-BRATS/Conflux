@@ -1,6 +1,3 @@
-.message .control {
-  display: none;
-}
 
 .message {
   .ui.icon.buttons .button, .ui.icon.button {
@@ -8,18 +5,46 @@
   }
 }
 
-.message:hover .control {
-  display: block;
+.message .control {
+  display: none;
+}
+
+.message:hover {
+  .control {
+    display: block;
+    .ui.icon.button {
+      margin-top: 26px;
+    }
+  }
+  .description {
+    background-color: rgba(115, 121, 136, 0.05);
+  }
+}
+
+.message > .content > .description {
+  max-width: none !important;
+  margin-right: 80px;
+  min-height: 2em;
+}
+
+.message .edit-field {
+  margin-top: 8px;
+  margin-left: 15px;
 }
 
 .inline-message {
-  margin-top: -20px;
+  margin-top: -5px;
   .avatar {
     visibility: hidden;
     height: 0 !important;
   }
   .content > .header {
     display: none !important;
+  }
+  .message .control {
+    .ui.icon.button {
+      margin-top: 7px;
+    }
   }
 }
 

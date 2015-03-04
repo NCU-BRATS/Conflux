@@ -14,7 +14,9 @@ class Projects::ChannelsController < Projects::ApplicationController
   def create
     @channel = @project.channels.build( channel_params )
     @channel.members << current_user
-    @channel.save
+    if @channel.save
+      event_service.create_channel(@channel, current_user)
+    end
     respond_with @project, @channel
   end
 
@@ -28,7 +30,9 @@ class Projects::ChannelsController < Projects::ApplicationController
   end
 
   def destroy
-    @channel.destroy
+    if @channel.destroy
+      event_service.delete_channel(@channel, current_user)
+    end
     respond_with @project, @channel
   end
 

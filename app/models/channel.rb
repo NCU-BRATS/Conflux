@@ -1,6 +1,7 @@
 class Channel < ActiveRecord::Base
   include FriendlyId
   include ParserConcern
+  include EventableConcern
 
   sync :all
 
@@ -18,6 +19,10 @@ class Channel < ActiveRecord::Base
 
   def parse_announcement
     self.html = self.class.parse announcement
+  end
+
+  def should_generate_new_friendly_id?
+    name_changed? || super
   end
 
 end

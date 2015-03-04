@@ -13,8 +13,13 @@
 
 - content_for :javascripts
   coffee:
+    # initialize perfect-scrollbar
+    $('#message_container').perfectScrollbar
+      wheelSpeed: 3
+      minScrollbarLength: 20
+
     # calculate the height of #message_container
-    $(window).bind 'load resize', ->
+    $(window).bind 'load resize page:load', ->
       $mainContainer    = $('#main_container')
       $contentContainer = $('.content-container')
       $channelHeader    = $('#channel_header')
@@ -31,9 +36,6 @@
       $messageContainer.css('height', height)
       $messageContainer.scrollTop($messageContainer[0].scrollHeight - height) # navigate to bottom
       $messageContainer.perfectScrollbar('update')
-
-    # initialize perfect-scrollbar
-    $('#message_container').perfectScrollbar()
 
     $('#message_content_post_field').keydown (event)->
       if event.keyCode == 13 and $(@).val().trim() != ""
