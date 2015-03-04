@@ -287,6 +287,7 @@ zh-TW:
       password: 密碼
       new_password: 新密碼
       new_password_confirm: 確認新密碼
+      password_settings: 密碼設定
       current_password: 目前的密碼
       current_password_description: 輸入您目前的密碼確認身份
     notification:
