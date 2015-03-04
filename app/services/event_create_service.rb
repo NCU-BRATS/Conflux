@@ -47,6 +47,14 @@ class EventCreateService
     create_member_event(participation, current_user, :left)
   end
 
+  def create_channel(channel, current_user)
+    create_event(channel, current_user, :created)
+  end
+
+  def delete_channel(channel, current_user)
+    create_event(channel, current_user, :deleted)
+  end
+
   private
 
   def create_member_event(record, current_user, status)
