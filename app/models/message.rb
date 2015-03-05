@@ -1,7 +1,7 @@
 class Message < ActiveRecord::Base
   include ParserConcern
 
-  sync :all
+  sync :create
 
   belongs_to :user
   belongs_to :channel
