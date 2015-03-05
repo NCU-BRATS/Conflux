@@ -31,7 +31,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def should_reindex?
-    destroyed? || (changes.keys & ['title', 'status', 'begin_at', 'due_at']).present?
+    destroyed? || (previous_changes.keys & ['title', 'status', 'begin_at', 'due_at']).present?
   end
 
 
