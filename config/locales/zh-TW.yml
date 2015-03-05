@@ -248,6 +248,8 @@ zh-TW:
     expired: 過期
     finish: 完成
     start: 開始
+    finished: 已完成
+    unfinished: 未完成
   attribute:
     target:
       info: '%{target}詳情'
@@ -267,6 +269,10 @@ zh-TW:
     members: 成員
     issues: 任務
     sprints: 戰役
+    sprint:
+      working_rate: 完成率
+      remaining_days: 剩餘天數
+      expired_days: 過期天數
     attachments: 檔案
     images: 圖片(檔案)
     others: 其他(檔案)

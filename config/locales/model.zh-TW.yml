@@ -45,6 +45,7 @@ zh-TW:
         created_at: '創建時間'
         begin_at: '開始時間'
         due_at: '結束時間'
+        issues: '專屬任務'
       comment:
         content: '內容'
       attachment:
