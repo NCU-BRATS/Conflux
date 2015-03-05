@@ -47,7 +47,7 @@ class Comment < ActiveRecord::Base
   end
 
   def should_reindex?
-    destroyed? || (changes.keys & ['content']).present?
+    destroyed? || (previous_changes.keys & ['content']).present?
   end
 
 end

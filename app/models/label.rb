@@ -24,7 +24,7 @@ class Label < ActiveRecord::Base
   update_index('projects#issue') { issues if should_reindex? }
 
   def should_reindex?
-    destroyed? || (changes.keys & ['title', 'color']).present?
+    destroyed? || (previous_changes.keys & ['title', 'color']).present?
   end
 
 end

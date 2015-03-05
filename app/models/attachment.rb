@@ -60,7 +60,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def should_reindex?
-    destroyed? || (changes.keys & ['name', 'content', 'type', 'language']).present?
+    destroyed? || (previous_changes.keys & ['name', 'content', 'type', 'language']).present?
   end
 
 end
