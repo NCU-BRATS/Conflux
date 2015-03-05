@@ -41,7 +41,7 @@ div
         = "。#{Issue.human_attribute_name(:assignee)}-"
         = user_tag issue.assignee, class: 'bold black link'
 
-      - if issue.planed?
+      - if issue.planned?
         = '。'
         - if issue.working?
           => time_format_relative_tag issue.due_at

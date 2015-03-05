@@ -42,7 +42,7 @@ module CloseableConcern
     Time.now > closeable_due_time and closed?
   end
 
-  def planed?
+  def planned?
     closeable_begin_time.present? and closeable_due_time.present?
   end
 

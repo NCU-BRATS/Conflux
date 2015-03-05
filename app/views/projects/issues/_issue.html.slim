@@ -14,7 +14,7 @@
             => t('action.target.created_at', target: '')
             span = time_format_relative_tag( issue.created_at )
 
-            - if issue.planed?
+            - if issue.planned?
               = '。'
               - if issue.working?
                 => time_format_relative_tag issue.due_at
