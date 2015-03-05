@@ -69,21 +69,22 @@
 h3.ui.header
   = t('profile.notification.project_notification')
   .sub.header = t('profile.notification.project_notification_description')
-table.ui.very.basic.collapsing.table
+  .ui.divided.items
   - @project_participations.each do |project_participation|
     - notification = Notification.new(project_participation)
-    tr
+    .item
       = form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
         = hidden_field_tag :notification_type, 'project', id: dom_id(project_participation, 'notification_type')
         = hidden_field_tag :notification_id, project_participation.id, id: dom_id(project_participation, 'notification_id')
-        td
-          = link_to project_participation.project.name, project_participation.project
-        td
-          = select_tag :notification_level, options_for_select(Notification.options_with_labels, notification.level), class: 'dropdown trigger-submit'
+        .ui.grid
+          .four.wide.column style='line-height: 2.4rem;'
+            = link_to project_participation.project.name, project_participation.project
+          .four.wide.column
+            = select_tag :notification_level, options_for_select(Notification.options_with_labels, notification.level), class: 'dropdown trigger-submit'
 
 - content_for :javascripts
   coffee:
      $('select.dropdown').dropdown()
      $('.ui.checkbox').checkbox()
      $('.trigger-submit').on 'change', ->
-       $(@).parents('form').submit()
+       $(@).closest('form').submit()
