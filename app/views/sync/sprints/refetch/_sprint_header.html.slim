@@ -3,7 +3,7 @@ div
 
     h1
       = title "##{sprint.sequential_id} #{sprint.title}"
-      - if sprint.expired?
+      - if sprint.planned? and sprint.expired?
         i.red.icon.warning.sign
       .ui.buttons.basic.right.floated
         - if sprint.open? && policy(sprint).close?
