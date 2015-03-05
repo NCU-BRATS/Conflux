@@ -14,7 +14,7 @@ class Issue < ActiveRecord::Base
   belongs_to :assignee, class_name: 'User'
 
   update_index('projects#issue')  { self }
-  update_index('projects#sprint') { sprint if sprint.present? && should_reindex? }
+  update_index('projects#sprint') { sprint if sprint.present? }
 
   acts_as_sequenced scope: :project_id
 
