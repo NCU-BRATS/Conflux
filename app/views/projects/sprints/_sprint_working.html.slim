@@ -1,6 +1,13 @@
-.ui.attached.segment
+.ui.segment
+  .ui.green.ribbon.label
+    = t('state.in_progress')
+  - issue_close_count = sprint_working.issues.closed.count
+  - issue_open_count = sprint_working.issues.open.count
+  - issues_count = issue_close_count + issue_open_count
+  - if issues_count != 0
+    - issues_finished_rate = ( issue_close_count / issues_count.to_f  * 100 ).round(0)
   .ui.grid
-    .eight.wide.column
+    .ten.wide.column
       .ui.header
         - if sprint_working.expired?
           i.red.icon.warning.sign
@@ -17,7 +24,7 @@
             => t('action.target.created_at', target: '')
             span = time_format_relative_tag(sprint_working.created_at)
 
-            - if sprint_working.planed?
+            - if sprint_working.planned?
               = '。'
               - if sprint_working.working?
                 => time_format_relative_tag sprint_working.due_at
@@ -32,16 +39,26 @@
                 => time_format_relative_tag sprint_working.begin_at
                 = t('state.start')
 
-    .eight.wide.column
-      .ui.teal.tiny.statistic
-        .value = '80'
-        .label = '完成度'
-      .ui.green.tiny.statistic
-        .value = '8'
-        .label = '已完成'
-      .ui.red.tiny.statistic
-        .value = '2'
-        .label = '未完成'
-      .ui.orange.tiny.statistic
-        .value = '20'
-        .label = '剩餘天數'
+    .six.wide.column
+
+      .ui.right.floated.image
+        - if issues_count != 0
+          .ui.green.tiny.statistic
+            .value = issue_close_count
+            .label = t('state.finished')
+          .ui.red.tiny.statistic
+            .value = issue_open_count
+            .label = t('state.unfinished')
+
+          - if sprint_working.expired?
+            .ui.red.tiny.statistic
+              .value = sprint_working.due_time_duration
+              .label = t('project.sprint.expired_days')
+          - else
+            .ui.orange.tiny.statistic
+              .value = sprint_working.due_time_duration
+              .label = t('project.sprint.remaining_days')
+          .ui.tiny.statistic
+
+    .ui.bottom.attached.indicating.progress data-percent=issues_finished_rate
+      .bar
