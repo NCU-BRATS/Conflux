@@ -3,7 +3,7 @@ nav.ui.fixed.menu
   = yield :sub_brand
 
   .right.menu
-    - if @project
+    - if @project && @project.persisted?
       .item
         = form_for [@project, ProjectSearch.new], method: 'get', html: { id: 'navbar_project_search', 'data-turboform' => 'true' } do |f|
           .ui.transparent.icon.input
