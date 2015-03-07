@@ -53,10 +53,13 @@ a#project_channel_path href=project_channel_path( @project, @channel )
         return if id == $messages.size() - 1
         $this = $($messages[id])
         $next = $($messages[id + 1])
+        nextTime = moment($next.find('.time').data('moment'))
+        time = moment($this.find('.time').data('moment'))
         if $next.data('user') == $this.data('user')
-          nextTime = moment($next.find('.time').data('moment'))
-          time = moment($this.find('.time').data('moment'))
           $next.addClass('inline-message') if nextTime - time < 300000
+        if nextTime.format('YYYY-MM-DD') != time.format('YYYY-MM-DD')
+          console.log 'add-date-divider'
+          # insert date divider
 
     # scoll to bottom initially
     updateMessagesStyle()
