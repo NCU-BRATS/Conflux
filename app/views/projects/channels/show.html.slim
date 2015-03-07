@@ -19,13 +19,14 @@ a#project_channel_path href=project_channel_path( @project, @channel )
 
     project_channel_path = $('#project_channel_path').attr('href')
     not_updating = true
+    should_auto_scroll = true
 
     $messageContainer = $('#message_container')
     $messageContainer.perfectScrollbar
       wheelSpeed: 3
       minScrollbarLength: 20
 
-    scollToBottom = ()->
+    calculateMessageContainerValue = ()->
       $mainContainer = $('#main_container')
       $contentContainer = $('.content-container')
       $channelHeader = $('#channel_header')
@@ -38,8 +39,12 @@ a#project_channel_path href=project_channel_path( @project, @channel )
       footerHeight = $channelFooter.outerHeight()
 
       height = windowHeight - paddingTop - paddingBottom - headerHeight - footerHeight
+      return [height, $messageContainer[0].scrollHeight - height]
+
+    scollToBottom = ()->
+      [ height, scrollPosition ] = calculateMessageContainerValue()
       $messageContainer.css('height', height)
-      $messageContainer.scrollTop($messageContainer[0].scrollHeight - height) # navigate to bottom
+      $messageContainer.scrollTop(scrollPosition) # navigate to bottom
       $messageContainer.perfectScrollbar('update')
 
     updateMessagesStyle = ()->
@@ -59,7 +64,8 @@ a#project_channel_path href=project_channel_path( @project, @channel )
 
     $(window).bind 'load resize page:load', ()->
       updateMessagesStyle()
-      scollToBottom()
+      scollToBottom() if should_auto_scroll
+      $messageContainer.perfectScrollbar('update')
 
     # submit message when press enter and message is not empty
     $('#message_content_post_field').keydown (event)->
@@ -82,3 +88,7 @@ a#project_channel_path href=project_channel_path( @project, @channel )
         ).always( ()->
           not_updating = true
         )
+      if $messageContainer.scrollTop() == calculateMessageContainerValue()[1]
+        should_auto_scroll = true
+      else
+        should_auto_scroll = false
