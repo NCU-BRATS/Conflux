@@ -45,9 +45,11 @@ nav {
   border-radius: 0 !important;
 }
 #sidebar-avatar {
+  background-color: #F9F9F9;
   position: absolute;
+  right: 0;
+  left: 0;
   bottom: 0;
-  margin: 0 0 20px 20px;
   img {
     border: 2px solid rgba(60, 60, 60, 0.7);
     &:hover {
