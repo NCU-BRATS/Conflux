@@ -276,6 +276,12 @@ zh-TW:
     comments: 回覆
     messages: 訊息
     settings: 設定
+    visibility_level: 專案權限
+    visibility_levels:
+      private: 私有
+      private_description: 只有專案的成員能夠看見或者瀏覽此專案
+      public: 公開
+      public_description: 任何人都能看見並且瀏覽此專案
   hint:
     label:
       color: 請填入以 # 為開頭的六字元 hex 色碼值。 或是從下方選擇建議的顏色。
