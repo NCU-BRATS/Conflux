@@ -1,0 +1,17 @@
+.card
+  .dimmable.image
+    .ui.dimmer
+      .content
+        .center
+          a.ui.inverted.button href=user_path(user)
+            = t('attribute.word.info')
+    = avatar_tag user, :size => '130'
+  .content
+    .header.overflow.ellipsis
+      = user.name
+      - if user.title.present?
+        = '-'
+        = user.title
+    .meta.overflow.ellipsis
+      a.group href="mailto:#{user.email}"
+        = user.email
