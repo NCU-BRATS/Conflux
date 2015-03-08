@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
   include FriendlyId
+  extend Enumerize
 
   sync :all
 
   friendly_id :name, use: :slugged
+  enumerize :visibility_level, in: {private: 0, public: 1}, default: :private, scope: true
 
   has_many :project_participations, dependent: :destroy
   has_many :members, through: :project_participations, source: :user
