@@ -1,4 +1,50 @@
-h1
-  = t('project.events')
-= render @events
-= paginate @events
+- title t('project.dashboard')
+
+h2
+  = 'Welcome to Conflux! '
+.ui.divider
+.ui.four.doubling.cards
+  .card
+    .image style='text-align:center'
+      i.massive.world.icon style='margin-top:40px;margin-bottom:40px'
+    .content
+      .header style='text-align:center'
+        = 'Project'
+      .description style='text-align:center'
+        = 'to achieve the goal'
+    .ui.bottom.attached.button
+      i.add.icon
+      = 'start to create'
+  .card
+    .image style='text-align:center'
+      i.massive.university.icon style='margin-top:40px;margin-bottom:40px'
+    .content
+      .header style='text-align:center'
+        = 'Group'
+      .description style='text-align:center'
+        = 'manage a group of people'
+    .ui.bottom.attached.button
+      i.add.icon
+      = 'start to create'
+  .card
+    .image style='text-align:center'
+      i.massive.database.icon style='margin-top:40px;margin-bottom:40px'
+    .content
+      .header style='text-align:center'
+        = 'System'
+      .description style='text-align:center'
+        = 'environment information'
+    .ui.bottom.attached.button
+      i.asterisk.icon
+      = 'start to read'
+  .card
+    .image style='text-align:center'
+      i.massive.file.text.icon style='margin-top:40px;margin-bottom:40px'
+    .content
+      .header style='text-align:center'
+        = 'Tutorial'
+      .description style='text-align:center'
+        = 'some tips to use conflux'
+    .ui.bottom.attached.button
+      i.asterisk.icon
+      = 'start to read'

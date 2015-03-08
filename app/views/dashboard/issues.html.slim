@@ -1,21 +1,17 @@
-.page-header
-  h1.ui.header
-    i.icon.tasks
-    .content
-      = title t('structure.list', element: Issue.model_name.human )
-  .search-field
-    = search_form_for @q,url: issues_dashboard_path do |f|
-      .ui.left.icon.fluid.input
-        = f.search_field :title_or_comments_content_cont, type: :text, placeholder: t('action.word.search')
-        i.icon.search
+- title t('structure.my', element: Issue.model_name.human )
 
+.search-field
+  = search_form_for @q,url: issues_dashboard_path do |f|
+    .ui.left.icon.fluid.input
+      = f.search_field :title_or_comments_content_cont, type: :text, placeholder: t('action.word.search')
+      i.icon.search
 
-.ui.divider
+.ui.hidden.divider
 
 div
   - @issues.each do |issue|
 
-    .ui.attached.segment
+    .ui.segment
       .ui.grid
         .twelve.wide.column
           .ui.header

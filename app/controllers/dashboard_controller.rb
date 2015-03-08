@@ -8,6 +8,10 @@ class DashboardController < ApplicationController
     @events = current_user.recent_events.page( params[:page] ).per( params[:per] )
   end
 
+  def events
+    @events = current_user.recent_events.page( params[:page] ).per( params[:per] )
+  end
+
   def projects
     @q = current_user.projects.page.search( params[:q] )
     @projects = @q.result.uniq.page( params[:page] ).per( params[:per] )
