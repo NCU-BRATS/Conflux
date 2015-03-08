@@ -1,7 +1,3 @@
 h1 = title t('action.target.edit', target: Project.model_name.human)
 
 == render 'form'
-
-.btn-toolbar.pull-right
-  = link_to t('attribute.word.info'), @project, class: 'ui blue button'
-  = link_to t('action.word.back'), projects_path, class: 'ui button'

@@ -5,11 +5,6 @@
       = title @project.name
       .sub.header
         = @project.description
-  - if policy(:dashboard).update?
-    .ui.right.floated.buttons
-      = link_to edit_project_path(@project), class: 'ui yellow button' do
-        i.ui.icon.write
-        = t('action.word.edit')
 
 .ui.divider
 .ui.grid
@@ -20,16 +15,16 @@
         .content
           = link_to t('structure.list', element: Issue.model_name.human ), project_issues_path
       .ui.top.attached.tabular.menu
-        - ['assigned_to_me', 'opened_by_me', 'opened'].each do |type|
+        - %w(assigned_to_me opened_by_me opened).each do |type|
           a.item href=project_dashboard_path(@project, params.permit(:event, :issue).merge({issue: type})) class="#{params[:issue] == type ? 'active' : ''}"
             = t("issue.#{type}")
       .ui.bottom.attached.segment
         .ui.selection.divided.list
           - @issues.each do |issue|
             .item
-              - if issue.status.upcase == 'OPEN'
+              - if issue.open?
                 i.green.icon.unlock
-              - elsif issue.status.upcase == 'CLOSED'
+              - elsif issue.closed?
                 i.red.icon.lock
               .content
                 .header
@@ -56,8 +51,8 @@
               .description
                 .ui.basic.segment == post.preview_html
     .column
-      .ui.filter-btns.icon.menu
-        - ['all', 'Comment', 'Issue', 'Attachment', 'User'].each do |type|
+      .ui.fluid.five.item.icon.menu
+        - %w(all Comment Issue Attachment User).each do |type|
           = link_to project_dashboard_path(@project, params.permit(:event, :issue).merge({event: type})), class: "item #{params[:event] == type ? 'active' : ''}" do
             = event_icon_tag(type)
 

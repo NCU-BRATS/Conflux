@@ -31,6 +31,7 @@
 @import "perfect-scrollbar";
 @import "social";
 @import "search";
+@import "flexbox";
 
 .bs {
   @import "bootstrap-sprockets";
@@ -43,7 +44,22 @@ nav {
   border-width: 0 0 1px;
   border-radius: 0 !important;
 }
-
+#sidebar-avatar {
+  background-color: #F9F9F9;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  img {
+    border: 2px solid rgba(60, 60, 60, 0.7);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  #sidebar-user-name {
+    font-size: 14px !important;
+  }
+}
 .navbar-avatar {
   img {
     margin-top: -7px;
@@ -64,7 +80,7 @@ body.pushable > .pusher {
 }
 
 #main_container {
-  padding-top: 60px;
+  padding-top: 30px;
 }
 
 @media all and (min-width: 768px) {
@@ -93,7 +109,7 @@ body.pushable > .pusher {
 }
 
 .content-with-sidemenu {
-  padding: 0 0 0 210px;
+  padding: 0 0 0 90px;
   .content-sidemenu {
     position: fixed;
     top: 0;
@@ -101,34 +117,21 @@ body.pushable > .pusher {
     height: 100%;
     .main.menu {
       height: 100%;
-      padding-top: 60px;
+      width: 100px;
+      padding-top: 0;
       border-radius: 0;
       background: rgba(0, 0, 0, 0.02);
+    }
+    .active.item {
+      background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+    .active.item:after {
+      background-color: rgba(198, 198, 198, 1) !important;
     }
   }
 
   .content-container {
-    padding: 0 30px 30px 30px;
-  }
-}
-
-@media only screen and (max-width: 991px) {
-  .content-with-sidemenu {
-    padding: 0 0 0 52px;
-    .content-sidemenu {
-      .main.menu {
-        width: 52px;
-        .item {
-          padding-bottom: 24px;
-          i.icon { padding-right: 19px; }
-          span { display: none; }
-        }
-      }
-    }
-
-    .content-container {
-      padding: 0 15px 15px 15px;
-    }
+    padding: 0 30px 10px 30px;
   }
 }
 
@@ -153,14 +156,9 @@ body.pushable > .pusher {
 }
 
 .page-header {
-  h1.header, h2.header, h3.header {
-    margin-bottom: 0;
-    display: inline-block;
-  }
+  @include flexbox;
   .search-field {
-    width: 250px;
-    display: inline-block;
-    float: right;
+    @include flex(1);
   }
   .search-field.divided {
     border-right: 1px solid #eee;
@@ -186,4 +184,3 @@ body.pushable > .pusher {
 .ui.list .list > .item .header, .ui.list > .item .sub.header {
   color: rgba(0, 0, 0, 0.5);
 }
-

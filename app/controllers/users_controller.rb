@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
 
+  layout 'dashboard'
+
   before_action :authenticate_user!
-  before_action :set_profile, :set_project, only: [:show]
+  before_action :set_user, :set_project, only: [:show]
 
   def index
     @q = User.search(params[:q])
@@ -16,7 +18,7 @@ class UsersController < ApplicationController
 
   protected
 
-  def set_profile
+  def set_user
     @user = User.friendly.find(params[:id])
   end
 

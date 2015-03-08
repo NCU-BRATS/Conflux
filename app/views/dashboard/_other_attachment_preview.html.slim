@@ -1,15 +1,13 @@
-.ui.small.image
-  i.file.massive.icon
+.ui.grid
+  .sixteen.wide.column
+    h4.ui.header
+      = link_to project_attachment_path(attachment.project, attachment) do
+        i.file.outline.large.icon
+        = "#{OtherAttachment.model_name.human} - #{attachment.name}"
+      == " ( #{link_to attachment.project.name, project_path(attachment.project), {class:'black bold link'}} )"
+      .meta.right.floated
+        = render partial: 'delete_button', locals: { path: project_attachment_path(attachment.project, attachment) }
+        span
 .content
-  .ui.grid
-    .fourteen.wide.column
-      h4.ui.header
-        = link_to project_attachment_path(attachment.project, attachment) do
-          i.file.outline.large.icon
-          = "#{OtherAttachment.model_name.human} - #{attachment.name}"
-        == " (#{link_to attachment.project.name, project_path(attachment.project)})"
-      .meta
-        = render partial: 'meta', locals: {attachment: attachment}
-    .two.wide.column
-      .extra
-        = render partial: 'delete_button', locals: {path: project_attachment_path(attachment.project, attachment)}
+  .meta
+    = render partial: 'meta', locals: {attachment: attachment}

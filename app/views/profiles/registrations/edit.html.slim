@@ -1,8 +1,11 @@
-h1.ui.header = t('profile.profile.profile_settings')
-.ui.divider
-
 = simple_form_for(resource, as: resource_name, url: profile_path, html: { method: :put }, class: 'ui form') do |f|
   = f.error_notification
+
+  .ui.stacked.tertiary.segment
+    .h3.ui.header
+      = t('profile.profile.profile_settings')
+      .sub.header = t('profile.profile.profile_settings_description')
+
   .three.fields
     = f.input :name, required: true, autofocus: true
     = f.input :phone
@@ -11,8 +14,11 @@ h1.ui.header = t('profile.profile.profile_settings')
     = f.input :email, disabled: true
     = f.input :url
 
-  h1.ui.header = t('profile.profile.social')
-  .ui.divider
+  .ui.stacked.tertiary.segment
+    .h3.ui.header
+      = t('profile.profile.social')
+      .sub.header = t('profile.profile.social_description')
+
   .two.fields
     = f.input :twitter, wrapper: :semantic_ui_icon_input, icon: 'twitter icon'
     = f.input :github, wrapper: :semantic_ui_icon_input, icon: 'github icon'
@@ -20,13 +26,15 @@ h1.ui.header = t('profile.profile.profile_settings')
     = f.input :linkedin, wrapper: :semantic_ui_icon_input, icon: 'linkedin icon'
     = f.input :facebook, wrapper: :semantic_ui_icon_input, icon: 'facebook icon'
 
-  .ui.divider
+  .ui.hidden.divider
+
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     p
       | Currently waiting confirmation for:
       = resource.unconfirmed_email
-  .two.fields
-    = f.input :current_password, hint: t('profile.critical.current_password_description'), required: true
-
-  = f.button :submit, t('action.target.update', target: t('profile.profile.profile_settings'))
+  .ui.message
+    .two.fields
+      = f.input :current_password, placeholder: t('profile.critical.current_password_description'), required: true, label: false
+      .field
+        = f.button :submit, t('action.target.update', target: t('profile.profile.profile_settings'))
 

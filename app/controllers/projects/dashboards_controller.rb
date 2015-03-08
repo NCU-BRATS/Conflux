@@ -33,7 +33,7 @@ class Projects::DashboardsController < Projects::ApplicationController
       @project.events.includes(:author).order('id DESC').where(target_type: Attachment.subclasses)
     else
       @project.events.includes(:author).order('id DESC').where(target_type: params[:event])
-    end.page( params[:page] ).per( params[:per] )
+    end.page( params[:page] ).per( params[:per] || 15 )
   end
 
 end

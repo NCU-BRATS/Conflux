@@ -1,9 +1,0 @@
-tr
-  td = avatar_tag user_row, :size => '40'
-  td = user_row.name
-  td = user_row.title
-  td = user_row.email
-  td
-    .btn-toolbar.pull-right
-      = link_to 'see profile', user_path(user_row.slug), class: 'ui mini blue button'
-

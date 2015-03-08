@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
   has_many :other_attachments
   has_many :participations
 
-  has_many :events,        dependent: :destroy, foreign_key: :author_id,   class_name: "Event"
-  has_many :recent_events, -> { order "id DESC" }, foreign_key: :author_id,   class_name: "Event"
+  has_many :events,        dependent: :destroy, foreign_key: :author_id,   class_name: 'Event'
+  has_many :recent_events, -> { order 'id DESC' }, foreign_key: :author_id,   class_name: 'Event'
 
   validates :name, presence: true
   validates :name, uniqueness: true

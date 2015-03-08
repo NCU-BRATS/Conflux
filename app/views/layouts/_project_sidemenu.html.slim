@@ -1,22 +1,48 @@
-.ui.vertical.pointing.main.menu
-  = active_link_to project_dashboard_path, class: 'item' do
+.ui.vertical.labeled.icon.pointing.main.menu
+  a.item href=root_path
+    = 'Conflux'
+  = active_link_to project_dashboard_path(@project), class: 'item' do
     i.dashboard.icon
     span = t('project.dashboard')
-  = active_link_to project_members_path, class: 'item' do
+  a.item.search-toggle
+    i.search.icon
+    span = t('action.word.search')
+  = active_link_to project_members_path(@project), class: 'item' do
     i.users.icon
     span = t('project.members')
-  = active_link_to project_issues_path, class: 'item' do
+  = active_link_to project_issues_path(@project), class: 'item' do
     i.tasks.icon
     span = t('project.issues')
-  = active_link_to project_sprints_path, class: 'item' do
+  = active_link_to project_sprints_path(@project), class: 'item' do
     i.flag.icon
     span = t('project.sprints')
-  = active_link_to project_labels_path, class: 'item' do
+  = active_link_to project_labels_path(@project), class: 'item' do
     i.bookmark.icon
     span = t('project.labels')
-  = active_link_to project_attachments_path, class: 'item' do
+  = active_link_to project_attachments_path(@project), class: 'item' do
     i.file.icon
     span = t('project.attachments')
   a.item.channels-toggle
     i.comments.icon
     span = t('project.channels')
+  - if policy(:dashboard).update?
+    a.item href=edit_project_path(@project)
+      i.setting.icon
+      span = t('project.settings')
+
+  #sidebar-avatar
+    = avatar_tag current_user, :size => '45'
+    #sidebar-user-name = current_user.name
+
+  .ui.popup style='width:150px !important;'
+    a.item href=user_path(current_user.slug)
+      = t('profile.profile.profile')
+    a.item href=profile_path
+      = t('profile.profile.profile_settings')
+    a.item href=destroy_user_session_path data-method="delete"
+      = t('action.word.logout')
+
+- content_for :javascripts
+  coffee:
+    $('#sidebar-avatar').popup
+      on: 'click'
