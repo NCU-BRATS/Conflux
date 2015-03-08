@@ -1,14 +1,11 @@
-.page-header
-  h1.ui.header
-    = t('profile.notification.notification_settings')
-    .sub.header = t('profile.notification.notifications_description')
 
-.ui.divider
 
-.h3.ui.header
-  = t('profile.notification.default_notification')
-  .sub.header = t('profile.notification.default_notification_description')
 = form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
+  .ui.stacked.tertiary.segment
+    .h3.ui.header
+      = t('profile.notification.default_notification')
+      .sub.header = t('profile.notification.default_notification_description')
+
   = hidden_field_tag :notification_type, 'default'
   .grouped.fields
     .field
@@ -40,11 +37,11 @@
             | Watch
             .sub.header  = t('profile.notification.watch_description')
 
-.ui.divider
+.ui.stacked.tertiary.segment
+  .h3.ui.header
+    = t('profile.notification.email_notification')
+    .sub.header = t('profile.notification.email_notification_description')
 
-.h3.ui.header
-  = t('profile.notification.email_notification')
-  .sub.header = t('profile.notification.email_notification_description')
 .grouped.fields
   = form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
     = hidden_field_tag :notification_type, 'email'
@@ -64,12 +61,12 @@
         = check_box_tag :'option[watch_email_enabled]', 1, @email_options[:watch]
         label Watch
 
-.ui.divider
+.ui.stacked.tertiary.segment
+  h3.ui.header
+    = t('profile.notification.project_notification')
+    .sub.header = t('profile.notification.project_notification_description')
 
-h3.ui.header
-  = t('profile.notification.project_notification')
-  .sub.header = t('profile.notification.project_notification_description')
-  .ui.divided.items
+.ui.divided.items
   - @project_participations.each do |project_participation|
     - notification = Notification.new(project_participation)
     .item
