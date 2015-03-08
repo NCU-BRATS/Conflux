@@ -1,8 +1,9 @@
 - content_for :sub_brand
-  = link_to @project.name, project_dashboard_path, class: 'brand item'
+  = link_to @project.name, project_dashboard_path(@project), class: 'brand item'
 
 - content_for :sidebars
   = render 'layouts/project_sidebar'
+  = render 'layouts/project_searchbar'
 
 .content-with-sidemenu
   .content-sidemenu
@@ -13,8 +14,12 @@
 
 - content_for :javascripts
   coffee:
-    $('.sidebar').sidebar({dimPage: false})
+    $('.channels.sidebar').sidebar('setting', {dimPage: false,transition: 'slide along'})
     $('.channels-toggle').click ->
-      $('.sidebar').sidebar('toggle')
+      $('.channels.sidebar').sidebar('toggle')
+
+    $('.search-bar').sidebar('setting', {dimPage: false, transition: 'overlay', duration:100})
+    $('.search-toggle').click ->
+      $('.search-bar').sidebar('toggle')
 
 - parent_layout 'application'

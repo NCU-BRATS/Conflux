@@ -1,0 +1,8 @@
+
+.ui.top.sidebar.segment.search-bar
+  - if @project && @project.persisted?
+    .item
+      = form_for [@project, ProjectSearch.new], method: 'get', html: { id: 'navbar_project_search', 'data-turboform' => 'true' } do |f|
+        .ui.transparent.icon.fluid.input
+          = f.text_field :query, placeholder: t('project.search')
+          i.search.link.icon

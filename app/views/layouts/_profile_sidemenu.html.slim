@@ -1,4 +1,6 @@
-.ui.vertical.pointing.main.menu
+.ui.vertical.labeled.icon.pointing.main.menu
+  a.item href=root_path
+    = 'Conflux'
   = active_link_to profile_path, class: 'item', active: :exclusive do
     i.user.icon
     span = t('profile.profile.profile_settings')
@@ -8,3 +10,19 @@
   = active_link_to profile_critical_settings_path, class: 'item' do
     i.warning.sign.icon
     span = t('profile.critical.critical_settings')
+  #sidebar-avatar
+    = avatar_tag current_user, :size => '45'
+    #sidebar-user-name = current_user.name
+
+  .ui.popup style='width:150px !important'
+    a.item href=user_path(current_user.slug)
+      = t('profile.profile.profile')
+    a.item href=profile_path
+      = t('profile.profile.profile_settings')
+    a.item href=destroy_user_session_path data-method="delete"
+      = t('action.word.logout')
+
+- content_for :javascripts
+  coffee:
+    $('#sidebar-avatar').popup
+      on: 'click'
