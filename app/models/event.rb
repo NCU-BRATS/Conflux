@@ -7,23 +7,23 @@ class Event < ActiveRecord::Base
   delegate :title, to: :issue, prefix: true, allow_nil: true
   delegate :title, to: :comment, prefix: true, allow_nil: true
 
-  belongs_to :author, class_name: "User"
+  belongs_to :author, class_name: 'User'
   belongs_to :project
   belongs_to :target, polymorphic: true
 
-  scope :recent, -> { order("created_at DESC") }
+  scope :recent, -> { order('created_at DESC') }
   scope :in_projects, ->(project_ids) { where(project_id: project_ids).recent }
 
   def sprint?
-    target_type == "Sprint"
+    target_type == 'Sprint'
   end
 
   def issue?
-    target_type == "Issue"
+    target_type == 'Issue'
   end
 
   def comment?
-    target_type == "Comment"
+    target_type == 'Comment'
   end
 
   def attachment?
