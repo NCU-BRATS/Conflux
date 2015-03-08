@@ -123,6 +123,9 @@ body.pushable > .pusher {
     .active.item {
       background-color: rgba(0, 0, 0, 0.2) !important;
     }
+    .active.item:after {
+      background-color: rgba(198, 198, 198, 1) !important;
+    }
   }
 
   .content-container {
