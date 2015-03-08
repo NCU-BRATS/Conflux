@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def project_params
-    params.require(:project).permit(:name, :description)
+    params.require(:project).permit(:name, :description, :visibility_level)
   end
 
   def interpolation_options
