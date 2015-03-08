@@ -1,6 +1,6 @@
 = render partial: 'projects/page_header', locals: { query_key: :user_name_cont}
 
-.ui.six.cards
+.ui.six.doubling.cards
   = render partial: 'projects/members/project_participant', collection: @participations
 
 = paginate @participations
