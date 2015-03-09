@@ -115,6 +115,7 @@ body.pushable > .pusher {
     top: 0;
     left: 0;
     height: 100%;
+    z-index: 100;
     .main.menu {
       height: 100%;
       width: 100px;
