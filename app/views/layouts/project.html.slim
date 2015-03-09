@@ -18,7 +18,9 @@
     $('.channels-toggle').click ->
       $('.channels.sidebar').sidebar('toggle')
 
-    $('.search-bar').sidebar('setting', {dimPage: false, transition: 'overlay', duration:100})
+    $('.search-bar').sidebar('setting', {dimPage: false, transition: 'overlay', duration:100, onShow: ()->
+      $('#project_search_query').focus()
+    })
     $('.search-toggle').click ->
       $('.search-bar').sidebar('toggle')
 
