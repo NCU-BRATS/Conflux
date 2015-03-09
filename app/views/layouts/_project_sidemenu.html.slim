@@ -30,19 +30,4 @@
       i.setting.icon
       span = t('project.settings')
 
-  #sidebar-avatar
-    = avatar_tag current_user, :size => '45'
-    #sidebar-user-name = current_user.name
-
-  .ui.popup style='width:150px !important;'
-    a.item href=user_path(current_user.slug)
-      = t('profile.profile.profile')
-    a.item href=profile_path
-      = t('profile.profile.profile_settings')
-    a.item href=destroy_user_session_path data-method="delete"
-      = t('action.word.logout')
-
-- content_for :javascripts
-  coffee:
-    $('#sidebar-avatar').popup
-      on: 'click'
+  = render 'layouts/sidemenu_avatar'
