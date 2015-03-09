@@ -41,10 +41,11 @@ a#project_channel_path href=project_channel_path( @project, @channel )
       height = windowHeight - paddingTop - paddingBottom - headerHeight - footerHeight
       return [height, $messageContainer[0].scrollHeight - height]
 
+    resetContainerSize= ()->
+      $messageContainer.css('height', calculateMessageContainerValue()[0])
+
     scollToBottom = ()->
-      [ height, scrollPosition ] = calculateMessageContainerValue()
-      $messageContainer.css('height', height)
-      $messageContainer.scrollTop(scrollPosition) # navigate to bottom
+      $messageContainer.scrollTop(calculateMessageContainerValue()[1]) # navigate to bottom
       $messageContainer.perfectScrollbar('update')
 
     updateMessagesStyle = ()->
@@ -63,10 +64,12 @@ a#project_channel_path href=project_channel_path( @project, @channel )
 
     # scoll to bottom initially
     updateMessagesStyle()
+    resetContainerSize()
     scollToBottom()
 
     $(window).bind 'load resize page:load', ()->
       updateMessagesStyle()
+      resetContainerSize()
       scollToBottom() if should_auto_scroll
       $messageContainer.perfectScrollbar('update')
 
