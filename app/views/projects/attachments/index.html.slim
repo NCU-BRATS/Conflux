@@ -22,7 +22,7 @@
 
 .ui.fluid.four.item.red.menu
   - Attachment.subclasses.each do |x|
-    = link_to [@project, model, {q: { type_eq: x.name} }], class: "item #{attachment_type == x.name ? 'active' : ''}" do
+    = link_to [@project, model, {q: { type_eq: x.name} }], id: "menu_#{x.name.underscore}", class: "item #{attachment_type == x.name ? 'active' : ''}" do
       = x.model_name.human
       .floating.ui.teal.label = @project.send(x.name.pluralize.underscore.to_sym).size
 .ui.relaxed.divided.items

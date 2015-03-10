@@ -8,3 +8,6 @@
   | var form = '#{j render partial, project: project, attachment: attachment.class.new}}';
   | $('#{target_modal}').modal('hide');
   | $('#{target_modal}').replaceWith(form);
+  - resource_type = attachment.type.underscore.downcase
+  - resource_count = project.reload.send("#{resource_type.pluralize}_count".to_sym)
+  | $("#menu_#{resource_type} .label").html("#{resource_count}");
