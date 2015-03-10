@@ -1,7 +1,7 @@
 class Message < ActiveRecord::Base
   include ParserConcern
 
-  sync :all
+  sync :create
 
   belongs_to :user
   belongs_to :channel
@@ -13,8 +13,6 @@ class Message < ActiveRecord::Base
   update_index('projects#message') { self if should_reindex? }
 
   delegate :project, to: :channel
-
-  default_scope { order(:created_at) }
 
   sync_scope :by_channel, ->(channel){ where( channel_id: channel.id ) }
 

@@ -1,6 +1,6 @@
 class Projects::MessagesController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update, :destroy]
+  enable_sync only: [:create]
 
   def create
     @message = Channel.friendly.find( params[:channel_id] ).messages.build message_params

@@ -1,6 +1,6 @@
 div
   .page-header
-    h3.ui.header
+    h3.ui.header.search-field
       i.comments.icon
       .content
         = title channel.name
@@ -11,7 +11,7 @@ div
         i.icon.flag
         = Channel.human_attribute_name :announcement
       - if policy(channel).edit?
-        a.ui.button.basic.red href=edit_project_channel_path( channel.project, channel )
+        a.ui.button.basic.red href=edit_project_channel_path( @project || channel.project, channel )
           i.icon.edit
           = t('action.word.edit')
 

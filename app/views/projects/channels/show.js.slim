@@ -1,0 +1,4 @@
+| var message = '#{j render :partial => "sync/messages/refetch/message", :collection => @messages}';
+| $('#message_container').prepend( message );
+| $(document).trigger('page:load');
+

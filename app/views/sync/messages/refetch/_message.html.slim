@@ -16,7 +16,7 @@
             => message.user.name
           span style="font-size:0.7em;color:rgba(0, 0, 0, 0.3)"
             = time_format_relative_tag(message.created_at)
-        .description
+        .description data-id=message.id
           == message.html
 
       - if policy(message).update?

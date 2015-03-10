@@ -3,6 +3,7 @@ class Projects::ChannelsController < Projects::ApplicationController
   enable_sync only: [:create, :update, :destroy]
 
   def show
+    @messages = @channel.messages.includes(:user).order('id desc').limit(20).search(params[:q]).result.reverse
     respond_with @project, @channel
   end
 

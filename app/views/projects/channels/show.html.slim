@@ -2,8 +2,8 @@
   = sync partial: 'channel_header', resource: @channel, refetch: true
 
 #message_container
-  = sync partial: 'message_row', collection: @channel.messages.includes(:user), refetch: true
-  = sync_new partial: 'message_row', resource: Message.new, scope: Message.by_channel(@channel), refetch: true
+  = render partial: 'sync/messages/refetch/message', collection: @messages
+  = sync_new partial: 'message', resource: Message.new, scope: Message.by_channel(@channel), refetch: true
 
 #channel_footer
   - if policy(:message).create?
@@ -11,44 +11,90 @@
       = f.error_notification
       = f.input :content, label: false, placeholder: t('hint.message.input'), input_html: { id: 'message_content_post_field', style: 'min-height: 3em; height: 3em' }
 
+a#project_channel_path href=project_channel_path( @project, @channel )
+
 - content_for :javascripts
   coffee:
     # initialize perfect-scrollbar
-    $('#message_container').perfectScrollbar
+
+    project_channel_path = $('#project_channel_path').attr('href')
+    not_updating = true
+    should_auto_scroll = true
+
+    $messageContainer = $('#message_container')
+    $messageContainer.perfectScrollbar
       wheelSpeed: 3
       minScrollbarLength: 20
 
-    # calculate the height of #message_container
-    $(window).bind 'load resize page:load', ->
-      $mainContainer    = $('#main_container')
+    calculateMessageContainerValue = ()->
+      $mainContainer = $('#main_container')
       $contentContainer = $('.content-container')
-      $channelHeader    = $('#channel_header')
-      $channelFooter    = $('#channel_footer')
-      $messageContainer = $('#message_container')
+      $channelHeader = $('#channel_header')
+      $channelFooter = $('#channel_footer')
 
-      windowHeight      = if (@window.innerHeight > 0) then @window.innerHeight else @screen.height
-      paddingTop        = $mainContainer.outerHeight() - $mainContainer.height()
-      paddingBottom     = $contentContainer.outerHeight() - $contentContainer.height()
-      headerHeight      = $channelHeader.outerHeight()
-      footerHeight      = $channelFooter.outerHeight()
+      windowHeight = if (@window.innerHeight > 0) then @window.innerHeight else @screen.height
+      paddingTop = $mainContainer.outerHeight() - $mainContainer.height()
+      paddingBottom = $contentContainer.outerHeight() - $contentContainer.height()
+      headerHeight = $channelHeader.outerHeight()
+      footerHeight = $channelFooter.outerHeight()
 
       height = windowHeight - paddingTop - paddingBottom - headerHeight - footerHeight
-      $messageContainer.css('height', height)
-      $messageContainer.scrollTop($messageContainer[0].scrollHeight - height) # navigate to bottom
+      return [height, $messageContainer[0].scrollHeight - height]
+
+    resetContainerSize= ()->
+      $messageContainer.css('height', calculateMessageContainerValue()[0])
+
+    scollToBottom = ()->
+      $messageContainer.scrollTop(calculateMessageContainerValue()[1]) # navigate to bottom
       $messageContainer.perfectScrollbar('update')
 
+    updateMessagesStyle = ()->
+      $messages = $('.message-container')
+      $.each $messages, (id)->
+        return if id == $messages.size() - 1
+        $this = $($messages[id])
+        $next = $($messages[id + 1])
+        nextTime = moment($next.find('.time').data('moment'))
+        time = moment($this.find('.time').data('moment'))
+        if $next.data('user') == $this.data('user')
+          $next.addClass('inline-message') if nextTime - time < 300000
+        if nextTime.format('YYYY-MM-DD') != time.format('YYYY-MM-DD')
+          console.log 'add-date-divider'
+          # insert date divider
+
+    # scoll to bottom initially
+    updateMessagesStyle()
+    resetContainerSize()
+    scollToBottom()
+
+    $(window).bind 'load resize page:load', ()->
+      updateMessagesStyle()
+      resetContainerSize()
+      scollToBottom() if should_auto_scroll
+      $messageContainer.perfectScrollbar('update')
+
+    # submit message when press enter and message is not empty
     $('#message_content_post_field').keydown (event)->
       if event.keyCode == 13 and $(@).val().trim() != ""
         $('#new_message').submit()
         event.preventDefault()
 
+    # make input field bigger if press ctrl+v
     $('#message_content_post_field').bind 'paste', ()->
       $(@).css 'height', '12em'
       $(window).trigger('resize')
 
-    $('.message-container').each ()->
-      $next = $(@).next().next().next()
-      if $next.data('user') == $(@).data('user')
-        nextTime = moment($next.find('.time').data('moment'))
-        time = moment($(@).find('.time').data('moment'))
-        $next.addClass('inline-message') if nextTime - time < 300000
+    # load previous messages if scroll to top
+    $messageContainer.scroll (e)->
+      if $messageContainer.scrollTop() == 0 and not_updating
+        not_updating = false
+        first_message_id = $('.message-container .description:first').data('id')
+        $.get(
+              project_channel_path, { q: { id_lt : first_message_id } }, null, 'script'
+        ).always( ()->
+          not_updating = true
+        )
+      if $messageContainer.scrollTop() == calculateMessageContainerValue()[1]
+        should_auto_scroll = true
+      else
+        should_auto_scroll = false
