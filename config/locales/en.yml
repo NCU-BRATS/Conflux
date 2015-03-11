@@ -275,6 +275,12 @@ en:
     events: Events
     comments: comment
     settings: setting
+    visibility_level: visibility level
+    visibility_levels:
+      private: private
+      private_description: this project is only visible to project members
+      public: public
+      public_description: your project is visible to everyone in this system
   hint:
     label:
       color: '6 character hex values starting with a # sign. Or you can choose one of suggested colors below'
