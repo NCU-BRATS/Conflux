@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   before_action :authorize_resourse, only: [:edit, :update, :destroy]
 
   def index
-    @q = Project.search(params[:q])
+    @q = Project.with_visibility_level(:public).search(params[:q])
     @projects = @q.result.page(params[:page]).per(params[:per])
     respond_with @projects
   end
