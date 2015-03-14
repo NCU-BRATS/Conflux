@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     put 'profile/critical_settings', to: 'profiles/critical_settings#update'
   end
 
-  resources :projects, except: [:show] do
+  resources :projects, except: [:edit, :update, :show] do
     concern :commentable do
       resources :comments , only: [:create]
     end
@@ -21,7 +21,6 @@ Rails.application.routes.draw do
     scope module: 'projects' do
       resources :search, only: [:index], controller: 'search', as: 'project_searches'
       resource :dashboard
-      resources :members
       resources :channels, except: :index do
         resources :messages, only: [:create]
       end
@@ -34,11 +33,15 @@ Rails.application.routes.draw do
       end
       resources :posts
       resources :snippets
-      resources :labels, constraints: {id: /\d+/}
+      resource :settings, only: [:edit, :update]
+      namespace :settings do
+        resources :members
+        resources :labels, constraints: {id: /\d+/}
+        # rematch ProjectParticipation Model path to project_member_path
+        resources :project_participations, path: :members
+      end
     end
 
-    # rematch ProjectParticipation Model path to project_member_path
-    resources :project_participations, path: :members
   end
   get '/projects/:id', to: redirect('/projects/%{id}/dashboard')
 
