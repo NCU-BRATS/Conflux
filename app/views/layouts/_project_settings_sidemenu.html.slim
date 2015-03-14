@@ -4,6 +4,9 @@
   = active_link_to project_dashboard_path(@project), class: 'item' do
     i.reply.icon
     span = t('project.back')
+  = active_link_to edit_project_settings_path(@project), class: 'item', active: :exclusive do
+    i.edit.icon
+    span = t('project.project')
   = active_link_to project_settings_members_path(@project), class: 'item' do
     i.users.icon
     span = t('project.members')
