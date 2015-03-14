@@ -1,0 +1,10 @@
+= render partial: 'projects/settings/page_header', locals: { query_key: :user_name_cont}
+
+.ui.six.doubling.cards
+  = render partial: 'project_participant', collection: @participations
+
+= paginate @participations
+
+- content_for :javascripts
+  coffee:
+    $('.cards .image').dimmer({on: 'hover'})

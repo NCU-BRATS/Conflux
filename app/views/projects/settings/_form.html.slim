@@ -1,0 +1,23 @@
+- content_for :javascripts
+
+= simple_form_for(@project, url: project_settings_path) do |f|
+  = f.error_notification
+
+  = f.input :name
+  = f.input :description
+  .grouped.fields.radio.buttons
+    lebel.ui.header = t('project.visibility_level')
+    - Project.visibility_level.values.each do |visibility_level|
+      .radio.field
+        .ui.radio.checkbox
+          = radio_button_tag :'project[visibility_level]', visibility_level, @project.visibility_level.send("#{visibility_level}?")
+          label
+            h4.ui.header
+              = t("project.visibility_levels.#{visibility_level}")
+              .sub.header = t("project.visibility_levels.#{visibility_level}_description")
+
+
+
+  = f.button :submit
+  coffee:
+    $('.ui.radio.checkbox').checkbox()
