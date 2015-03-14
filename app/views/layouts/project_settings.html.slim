@@ -1,0 +1,8 @@
+.content-with-sidemenu
+  .content-sidemenu
+    = render 'layouts/project_settings_sidemenu'
+
+  .content-container
+    = yield
+
+- parent_layout 'application'
