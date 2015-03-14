@@ -1,4 +1,4 @@
-class Projects::MembersController < Projects::ApplicationController
+class Projects::Settings::MembersController < Projects::SettingsController
 
   def index
     @q = @project.project_participations.includes(:user).search(params[:q])
@@ -16,7 +16,7 @@ class Projects::MembersController < Projects::ApplicationController
     if @participation.save
       event_service.join_project(@participation, current_user)
     end
-    respond_with @participation, location: project_members_path
+    respond_with @participation, location: project_settings_members_path
   end
 
   def destroy
@@ -28,7 +28,7 @@ class Projects::MembersController < Projects::ApplicationController
       @participation.errors.add(:base, '')
     end
 
-    respond_with @participation, location: project_members_path
+    respond_with @participation, location: project_settings_members_path
   end
 
   protected

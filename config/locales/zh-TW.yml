@@ -260,8 +260,10 @@ zh-TW:
     list: '%{element}列表'
     my: '我的%{element}'
   project:
+    project: 專案
     search: 搜尋整個專案
     dashboard: 主頁
+    back: 返回
     members: 成員
     issues: 任務
     sprints: 戰役

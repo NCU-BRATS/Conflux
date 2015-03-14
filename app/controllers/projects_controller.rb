@@ -1,9 +1,9 @@
 class ProjectsController < ApplicationController
 
-  enable_sync only: [:create, :update, :destroy]
+  enable_sync only: [:create, :destroy]
 
   before_action :authenticate_user!
-  before_action :authorize_resourse, only: [:edit, :update, :destroy]
+  before_action :authorize_resourse, only: [:destroy]
 
   def index
     @q = Project.with_visibility_level(:public).search(params[:q])
@@ -16,19 +16,10 @@ class ProjectsController < ApplicationController
     respond_with @project
   end
 
-  def edit
-    respond_with @project
-  end
-
   def create
     @project = Project.new(project_params)
     @project.members << current_user
     @project.save
-    respond_with @project
-  end
-
-  def update
-    @project.update(project_params)
     respond_with @project
   end
 

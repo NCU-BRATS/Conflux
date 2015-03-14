@@ -7,18 +7,12 @@
   a.item.search-toggle
     i.search.icon
     span = t('action.word.search')
-  = active_link_to project_members_path(@project), class: 'item' do
-    i.users.icon
-    span = t('project.members')
   = active_link_to project_issues_path(@project), class: 'item' do
     i.tasks.icon
     span = t('project.issues')
   = active_link_to project_sprints_path(@project), class: 'item' do
     i.flag.icon
     span = t('project.sprints')
-  = active_link_to project_labels_path(@project), class: 'item' do
-    i.bookmark.icon
-    span = t('project.labels')
   = active_link_to project_attachments_path(@project), class: 'item' do
     i.file.icon
     span = t('project.attachments')
@@ -26,7 +20,7 @@
     i.comments.icon
     span = t('project.channels')
   - if policy(:dashboard).update?
-    a.item href=edit_project_path(@project)
+    a.item href=edit_project_settings_path(@project)
       i.setting.icon
       span = t('project.settings')
 

@@ -1,0 +1,6 @@
+= render partial: 'projects/settings/page_header', locals: { query_key: :title_cont}
+
+.ui.divided.very.relaxed.selection.list
+  = render @labels
+
+= paginate @labels

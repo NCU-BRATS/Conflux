@@ -14,7 +14,7 @@ h1
     = f.input :due_at
   .two.fields
     = f.association :assignee, collection: @project.members,
-                    input_html: { data: { :'resource-path' => project_members_path( @project ),
+                    input_html: { data: { :'resource-path' => project_settings_members_path( @project ),
                                           :'search-field' => '["name", "email"]',
                                           :'option-tpl' => 'option-user'} }
     = f.association :sprint, collection: {},
@@ -23,7 +23,7 @@ h1
                                           :'add-new'      => true } }
   .field
     = f.association :labels, collection: {},
-                    input_html: { data: { :'resource-path' => project_labels_path( @project ),
+                    input_html: { data: { :'resource-path' => project_settings_labels_path( @project ),
                                           :'search-field' => '["title"]',
                                           :'option-tpl' => 'option-label',
                                           :'item-tpl' => 'item-label',

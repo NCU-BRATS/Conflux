@@ -1,0 +1,2 @@
+class ProjectSettingPolicy < ProjectResourcePolicy
+end

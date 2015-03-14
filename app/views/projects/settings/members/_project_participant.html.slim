@@ -16,6 +16,6 @@
         => t('action.target.created_at', target: '')
         span = time_format_relative_tag( project_participant.created_at )
   - if policy(project_participant).destroy?
-    = link_to project_member_path(@project, project_participant), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'mini ui bottom attached button' do
+    = link_to project_settings_member_path(@project, project_participant), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'mini ui bottom attached button' do
       i.trash.icon
       = t('action.word.delete')
