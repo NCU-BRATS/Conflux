@@ -16,16 +16,13 @@
           .text = t('action.word.add')
           .menu style='z-index:999;'
             .item#upload-btn
-              .image
-                i.icon.file.outline
+              i.icon.file.outline
               = Attachment.model_name.human
             .item#create-post-btn
-              .image
-                i.icon.file.text.outline
+              i.icon.file.text.outline
               = Post.model_name.human
             .item#create-snippet-btn
-              .image
-                i.icon.file.code.outline
+              i.icon.file.code.outline
               = Snippet.model_name.human
 
 .ui.hidden.divider
