@@ -1,4 +1,4 @@
-= render partial: 'projects/page_header', locals: { query_key: :title_or_comments_content_cont}
+= render partial: 'projects/page_header'
 
 - @working, @not_working = @sprints.partition {|sprint| sprint.planed? && (sprint.working? || sprint.expired?)}
 

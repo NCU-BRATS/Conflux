@@ -1,10 +1,10 @@
 .page-header
   - title t('structure.list', element: model_human_name)
   .search-field.divided
-    = search_form_for [@project, @q] do |f|
+    = simple_form_for [@project, ProjectSearch.new(type: model_sym)], method: 'get', html: { 'data-turboform' => 'true' }  do |f|
       .ui.left.icon.fluid.input
-        i.icon.search
-        = f.search_field query_key, type: :text, placeholder: t('action.word.search')
+        = f.input :query, placeholder: t('action.word.search'), label: false
+      = f.input :type, as: :hidden
 
   - if policy(model).create?
     .ui.right.floated.buttons
