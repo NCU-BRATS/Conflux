@@ -3,15 +3,15 @@
     = 'Conflux'
   = active_link_to project_dashboard_path(@project), class: 'item' do
     i.reply.icon
-    span = t('project.back')
+    span = t('project.back') + t('project.dashboard')
   = active_link_to edit_project_settings_path(@project), class: 'item', active: :exclusive do
     i.edit.icon
-    span = t('project.project')
+    span = t('project.project') + t('project.settings')
   = active_link_to project_settings_members_path(@project), class: 'item' do
     i.users.icon
-    span = t('project.members')
+    span = t('project.members') + t('project.settings')
   = active_link_to project_settings_labels_path(@project), class: 'item' do
     i.bookmark.icon
-    span = t('project.labels')
+    span = t('project.labels') + t('project.settings')
 
   = render 'layouts/sidemenu_avatar'

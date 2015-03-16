@@ -1,7 +1,7 @@
 #snippet-modal.ui.modal
   i.close.icon
   .header
-    = title t('action.target.upload', target: Attachment.model_name.human)
+    = t('action.target.upload', target: Attachment.model_name.human)
   .content
     = simple_form_for([project, attachment], remote: true, authenticity_token: true) do |f|
       = f.input :name

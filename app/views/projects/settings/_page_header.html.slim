@@ -1,5 +1,5 @@
 .page-header
-  - title t('structure.list', element: model_human_name)
+  - title model_human_name + t('project.settings')
   .search-field.divided
     = search_form_for [@project, :settings, @q] do |f|
       .ui.left.icon.fluid.input

@@ -11,9 +11,22 @@
   - if policy(:attachment).create?
     .ui.right.floated.buttons
       .ui.inverted.buttons
-        #upload-btn.ui.basic.green.button = t('action.target.upload', target: Attachment.model_name.human)
-        #create-post-btn.ui.basic.green.button = t('action.target.create', target: Post.model_name.human)
-        #create-snippet-btn.ui.basic.green.button = t('action.target.create', target: Snippet.model_name.human)
+        .ui.pointing.dropdown.icon.button
+          i.icon.upload
+          .text = t('action.word.add')
+          .menu style='z-index:999;'
+            .item#upload-btn
+              .image
+                i.icon.file.outline
+              = Attachment.model_name.human
+            .item#create-post-btn
+              .image
+                i.icon.file.text.outline
+              = Post.model_name.human
+            .item#create-snippet-btn
+              .image
+                i.icon.file.code.outline
+              = Snippet.model_name.human
 
 .ui.hidden.divider
 
@@ -41,6 +54,8 @@
 
 - content_for :javascripts
   coffee:
+    $('.dropdown').dropdown
+      action: 'nothing'
     $('#upload-btn').on 'click', ->
       $('#upload-modal').modal('show')
     $('#create-post-btn').on 'click', ->

@@ -1,5 +1,5 @@
-#sidebar-avatar
-  = avatar_tag current_user, :size => '45'
+#sidebar-avatar title=current_user.name
+  = avatar_tag current_user, :size => '50'
   .ui.popup style='width:150px !important;'
     a.item href=user_path(current_user.slug)
       = t('profile.profile.profile')
@@ -7,7 +7,6 @@
       = t('profile.profile.profile_settings')
     a.item href=destroy_user_session_path data-method="delete"
       = t('action.word.logout')
-  #sidebar-user-name = current_user.name
 
 - content_for :javascripts
   coffee:

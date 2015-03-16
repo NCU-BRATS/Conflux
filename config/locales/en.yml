@@ -261,7 +261,10 @@ en:
     list: '%{element} list'
     my: 'my %{element}'
   project:
+    project: Project
+    search: search in project
     dashboard: Dashboard
+    back: Back
     members: Members
     issues: Issues
     sprints: Sprints
@@ -274,7 +277,8 @@ en:
     labels: Labels
     events: Events
     comments: comment
-    settings: setting
+    settings: Setting
+    info: project information
     visibility_level: visibility level
     visibility_levels:
       private: private

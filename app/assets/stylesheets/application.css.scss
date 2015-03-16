@@ -49,9 +49,10 @@ nav {
   position: absolute;
   right: 0;
   left: 0;
-  bottom: 0;
+  bottom: 15px;
   img {
-    border: 2px solid rgba(60, 60, 60, 0.7);
+    border-radius: 5px;
+    border: 1px solid rgba(198, 198, 198, 1);
     &:hover {
       cursor: pointer;
     }
