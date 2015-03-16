@@ -2,11 +2,16 @@
 
 = simple_form_for(@project, url: project_settings_path) do |f|
   = f.error_notification
+  .ui.stacked.tertiary.segment
+    .h3.ui.header = t('project.info')
 
   = f.input :name
   = f.input :description
+
+  .ui.stacked.tertiary.segment
+    .h3.ui.header = t('project.visibility_level')
+
   .grouped.fields.radio.buttons
-    lebel.ui.header = t('project.visibility_level')
     - Project.visibility_level.values.each do |visibility_level|
       .radio.field
         .ui.radio.checkbox
@@ -16,8 +21,9 @@
               = t("project.visibility_levels.#{visibility_level}")
               .sub.header = t("project.visibility_levels.#{visibility_level}_description")
 
+  .ui.hidden.divider
+  .ui.message
+    = f.button :submit
 
-
-  = f.button :submit
   coffee:
     $('.ui.radio.checkbox').checkbox()
