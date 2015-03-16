@@ -51,6 +51,7 @@ zh-TW:
         name: '名稱'
         content: '內容'
         type: '類型'
+        language: '語言'
       label:
         title: '標題'
         color: '顏色'
