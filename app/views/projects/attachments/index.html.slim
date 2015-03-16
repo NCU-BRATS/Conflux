@@ -3,10 +3,10 @@
   - title t('structure.list', element: Attachment.model_name.human )
 
   .search-field.divided
-    = search_form_for [@project, @q] do |f|
+    = simple_form_for [@project, ProjectSearch.new(type: model_sym)], method: 'get', html: { 'data-turboform' => 'true' }  do |f|
       .ui.left.icon.fluid.input
-        i.search.icon
-        = f.search_field :name_or_content_cont, type: :text, placeholder: t('action.word.search')
+        = f.input :query, placeholder: t('action.word.search'), label: false
+      = f.input :type, as: :hidden
 
   - if policy(:attachment).create?
     .ui.right.floated.buttons
@@ -16,16 +16,13 @@
           .text = t('action.word.add')
           .menu style='z-index:999;'
             .item#upload-btn
-              .image
-                i.icon.file.outline
+              i.icon.file.outline
               = Attachment.model_name.human
             .item#create-post-btn
-              .image
-                i.icon.file.text.outline
+              i.icon.file.text.outline
               = Post.model_name.human
             .item#create-snippet-btn
-              .image
-                i.icon.file.code.outline
+              i.icon.file.code.outline
               = Snippet.model_name.human
 
 .ui.hidden.divider
