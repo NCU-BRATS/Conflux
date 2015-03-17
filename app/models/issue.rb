@@ -16,6 +16,8 @@ class Issue < ActiveRecord::Base
   update_index('projects#issue')  { self }
   update_index('projects#sprint') { sprint if sprint.present? }
 
+  counter_culture :sprint
+
   acts_as_sequenced scope: :project_id
 
   accepts_nested_attributes_for :comments
