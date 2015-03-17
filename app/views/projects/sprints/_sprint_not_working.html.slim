@@ -1,4 +1,4 @@
-.ui.attached.segment
+.ui.segment
   .ui.grid
     .ten.wide.column
       .ui.header
@@ -14,7 +14,7 @@
             => t('action.target.created_at', target: '')
             span = time_format_relative_tag( sprint_not_working.created_at )
 
-            - if sprint_not_working.planed?
+            - if sprint_not_working.planned?
               = '。'
               - if sprint_not_working.working?
                 => time_format_relative_tag sprint_not_working.due_at

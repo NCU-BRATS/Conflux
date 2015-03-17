@@ -23,7 +23,7 @@
 
 .ui.tab data-tab='calendar'
   .center.aligned
-    - if @issue.planed?
+    - if @issue.planned?
       = clndr_tag  multiple_events:[ { start_date: @issue.begin_at, end_date: @issue.due_at } ]
     - else
       = clndr_tag

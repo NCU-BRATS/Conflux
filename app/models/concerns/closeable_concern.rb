@@ -42,8 +42,12 @@ module CloseableConcern
     Time.now > closeable_due_time and closed?
   end
 
-  def planed?
+  def planned?
     closeable_begin_time.present? and closeable_due_time.present?
+  end
+
+  def due_time_duration
+    planned? ? ( ( Time.now - closeable_due_time ) / 1.day ).to_i.abs : 0
   end
 
 end

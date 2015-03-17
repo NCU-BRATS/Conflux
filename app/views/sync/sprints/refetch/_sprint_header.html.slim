@@ -3,7 +3,7 @@ div
 
     h1
       = title "##{sprint.sequential_id} #{sprint.title}"
-      - if sprint.expired?
+      - if sprint.planned? and sprint.expired?
         i.red.icon.warning.sign
       .ui.buttons.basic.right.floated
         - if sprint.open? && policy(sprint).close?
@@ -50,3 +50,11 @@ div
           .two.fields
             = f.input :begin_at
             = f.input :due_at
+          .field
+            = f.association :issues, collection: sprint.issues,
+                            input_html: { data: { :'resource-path' => project_issues_path(sprint.project),
+                                                  :'search-field' => '["title"]',
+                                                  :'option-tpl'   => 'option-simple',
+                                                  :'item-tpl'     => 'item-simple',
+                                                  :'add-new'      => true,
+                                                  :'query-param'  => {sprint_id_null: 1}.to_json } }

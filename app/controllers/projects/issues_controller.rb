@@ -5,7 +5,7 @@ class Projects::IssuesController < Projects::ApplicationController
   def index
     @q = @project.issues.includes(:user, :assignee, :labels).order('id DESC').search( params[:q] )
     @issues = @q.result.uniq.page( params[:page] ).per( params[:per] )
-    respond_with @project, @issue
+    respond_with @project, @issues
   end
 
   def show
@@ -39,12 +39,14 @@ class Projects::IssuesController < Projects::ApplicationController
     if @issue.close!
       event_service.close_issue(@issue, current_user)
     end
+    respond_with @project, @issue
   end
 
   def reopen
     if @issue.reopen!
       event_service.reopen_issue(@issue, current_user)
     end
+    respond_with @project, @issue
   end
 
   protected
