@@ -1,0 +1,4 @@
+div
+  .ui.mini.label
+    | {{title}}
+
