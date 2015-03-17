@@ -19,10 +19,12 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def create
-    @sprint = @project.sprints.build( sprint_params )
+    @sprint = @project.sprints.build( sprint_params.except(:issue_ids) )
     @sprint.user = current_user
     @sprint.comments.each { |comment| comment.user = current_user }
     if @sprint.save
+      issue_params = sprint_params[:issue_ids]
+      @sprint.update_attributes(issue_ids: issue_params)
       event_service.open_sprint(@sprint, current_user)
     end
     respond_with @project, @sprint
@@ -52,7 +54,7 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def sprint_params
-    params.require(:sprint).permit( :title, :begin_at, :due_at, :status, comments_attributes: [ :content ] )
+    params.require(:sprint).permit( :title, :begin_at, :due_at, :status, issue_ids:[], comments_attributes: [ :content ] )
   end
 
 end

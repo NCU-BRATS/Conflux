@@ -12,6 +12,14 @@ h1
   .two.fields
     = f.input :begin_at
     = f.input :due_at
+  .field
+    = f.association :issues, collection: sprint.issues,
+                    input_html: { data: { :'resource-path' => project_issues_path(sprint.project),
+                                          :'search-field' => '["title"]',
+                                          :'option-tpl'   => 'option-simple',
+                                          :'item-tpl'     => 'item-simple',
+                                          :'add-new'      => true,
+                                          :'query-param'  => { sprint_id_null: 1 }.to_json } }
 
   = f.fields_for :comments do |cf|
     .ui.section.divider
