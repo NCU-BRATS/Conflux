@@ -13,8 +13,8 @@ h1
     = f.input :begin_at
     = f.input :due_at
   .field
-    = f.association :issues, collection: sprint.issues,
-                    input_html: { data: { :'resource-path' => project_issues_path(sprint.project),
+    = f.association :issues, collection: @sprint.issues,
+                    input_html: { data: { :'resource-path' => project_issues_path(@sprint.project),
                                           :'search-field' => '["title"]',
                                           :'option-tpl'   => 'option-simple',
                                           :'item-tpl'     => 'item-simple',
