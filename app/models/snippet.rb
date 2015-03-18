@@ -20,9 +20,13 @@ class Snippet < Attachment
     return @preview_html if @preview_html
     temp = "```#{language.downcase}\n"
     temp << content.lines.first(10).join
-    temp << '...' if content.lines.size > 10
     temp << "\n```"
     @preview_html = self.class.parse(temp)
+    if content.lines.size > 10
+      preview_html_decorate @preview_html, is_partial:true
+    else
+      preview_html_decorate @preview_html, is_partial:false
+    end
   end
 
   def download_filename

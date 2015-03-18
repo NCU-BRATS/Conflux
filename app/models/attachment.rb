@@ -60,7 +60,16 @@ class Attachment < ActiveRecord::Base
   end
 
   def should_reindex?
-    destroyed? || (previous_changes.keys & ['name', 'content', 'type', 'language']).present?
+    destroyed? || (previous_changes.keys & %w(name content type language)).present?
+  end
+
+  def preview_html_decorate( preview_html, options={} )
+    options = options.symbolize_keys
+    if options[:is_partial]
+      '<div class="preview-partial"><div class="preview-partial-overlay"></div>' + preview_html + '</div>'
+    else
+      '<div class="preview-all">' + preview_html + '</div>'
+    end
   end
 
 end
