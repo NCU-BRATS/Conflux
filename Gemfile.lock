@@ -226,6 +226,10 @@ GEM
     jbuilder (2.2.11)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-fileupload-rails (0.4.4)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      sass (>= 3.2)
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -308,7 +312,6 @@ GEM
       i18n
       polyamorous (~> 1.1)
     rdoc (4.2.0)
-    remotipart (1.2.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rinku (1.7.3)
@@ -438,6 +441,7 @@ DEPENDENCIES
   handlebars_assets
   html-pipeline
   jbuilder (~> 2.0)
+  jquery-fileupload-rails
   jquery-rails
   kaminari
   meta-tags
@@ -452,7 +456,6 @@ DEPENDENCIES
   rails (= 4.2.0)
   rails_12factor
   ransack
-  remotipart (~> 1.2)
   responders (~> 2.0)
   rinku
   rouge

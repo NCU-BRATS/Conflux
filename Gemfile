@@ -61,7 +61,6 @@ gem 'carrierwave'
 gem 'carrierwave-dropbox'
 gem 'mimetype-fu'
 gem 'mini_magick'
-gem 'remotipart', '~> 1.2'
 gem "default_value_for", "~> 3.0.0"
 
 # Gravatar Integration
@@ -99,6 +98,10 @@ gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails', branch: 'fix-toplevel-consta
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+
+# jQuery File Upload features multiple file selection, drag&drop support, progress bars and preview images for jQuery
+gem "jquery-fileupload-rails"
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
