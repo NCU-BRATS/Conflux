@@ -1,13 +1,13 @@
 .item
   .ui.grid
-    .fourteen.wide.column
+    .sixteen.wide.column
       h4.ui.header
         = link_to [@project || post.project, post] do
           i.file.blue.text.outline.large.icon
           = "#{Post.model_name.human} - #{post.name}"
-    .two.wide.column
-      = render partial: 'sync/attachment/delete_button', locals: {path: project_attachment_path(@project || post.project, post)}
-      = render partial: 'sync/attachment/edit_button', locals: {path: edit_project_post_path(@project || post.project, post)}
+        .meta.right.floated
+          = render partial: 'sync/attachment/delete_button', locals: {path: project_attachment_path(@project || post.project, post)}
+          = render partial: 'sync/attachment/edit_button', locals: {path: edit_project_post_path(@project || post.project, post)}
   .content
     .meta
       = render partial: 'sync/attachment/meta', locals: {attachment: post}
