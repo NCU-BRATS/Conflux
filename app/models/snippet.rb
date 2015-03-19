@@ -18,11 +18,15 @@ class Snippet < Attachment
 
   def preview_html
     return @preview_html if @preview_html
-    temp = "```#{language.downcase}\n"
-    temp << content.lines.first(10).join
-    temp << "\n```"
-    @preview_html = self.class.parse(temp)
-    if content.lines.size > 10
+
+    preview_content_lines = content[0..1000].lines
+    preview_content = "```#{language.downcase}\n"
+    preview_content << preview_content_lines.first(10).join
+    preview_content << "\n```"
+
+    @preview_html = self.class.parse(preview_content)
+
+    if preview_content_lines.size > 10 or preview_content.length > 1000
       preview_html_decorate @preview_html, is_partial:true
     else
       preview_html_decorate @preview_html, is_partial:false
