@@ -4,10 +4,28 @@
     = t('action.target.upload', target: Attachment.model_name.human)
   .content
     = render '/projects/attachments/modals/upload_file_form', project: project, attachment: attachment
+  #progress.ui.progress
+    .bar
+      .progress
 
 - content_for :javascripts
   coffee:
+    $('#progress').progress()
+
     $('#attachment_path').on 'change', ()->
       $('#attachment_name').val(
               /(?:.+[\/\\])*(.+)$/.exec( $(@).val() )[1]
       )
+
+    $('#upload-modal').on 'initializeModal', ->
+      $('#progress .bar').css('width','0%')
+      $('#new_attachment').fileupload
+        dataType: 'jsonp',
+        progressall: (e, data) ->
+          progress = parseInt(data.loaded / data.total * 100, 10)
+          $('#progress .bar').css(
+                'width',
+                progress + '%'
+          )
+
+    $('#upload-modal').trigger('initializeModal')

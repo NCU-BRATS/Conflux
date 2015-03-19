@@ -11,3 +11,5 @@
   - resource_type = attachment.type.underscore.downcase
   - resource_count = project.reload.send("#{resource_type.pluralize}_count".to_sym)
   | $("#menu_#{resource_type} .label").html("#{resource_count}");
+  | $('#{target_modal}').trigger('initializeModal');
+  | $(document).trigger('page:load');
