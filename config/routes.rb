@@ -18,6 +18,10 @@ Rails.application.routes.draw do
       end
     end
 
+    concern :favorable do
+      resource :likes, only: :update
+    end
+
     scope module: 'projects' do
       resources :search, only: [:index], controller: 'search', as: 'project_searches'
       resource :dashboard
@@ -27,7 +31,7 @@ Rails.application.routes.draw do
       resources :messages, only: [:update, :destroy]
       resources :issues  , concerns: [:commentable, :closeable]
       resources :sprints , concerns: [:commentable, :closeable]
-      resources :comments, only: [:update, :destroy]
+      resources :comments, only: [:update, :destroy], concerns: :favorable
       resources :attachments, concerns: [:commentable] do
         get 'download', on: :member
       end
@@ -40,6 +44,7 @@ Rails.application.routes.draw do
         # rematch ProjectParticipation Model path to project_member_path
         resources :project_participations, path: :members
       end
+
     end
 
   end
