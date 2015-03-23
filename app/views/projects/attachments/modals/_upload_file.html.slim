@@ -4,28 +4,43 @@
     = t('action.target.upload', target: Attachment.model_name.human)
   .content
     = render '/projects/attachments/modals/upload_file_form', project: project, attachment: attachment
-  #progress.ui.progress
-    .bar
-      .progress
+  #upload-progress
+    #progress.ui.progress
+      .bar
+        .progress
 
 - content_for :javascripts
   coffee:
+
     $('#progress').progress()
 
-    $('#attachment_path').on 'change', ()->
-      $('#attachment_name').val(
-              /(?:.+[\/\\])*(.+)$/.exec( $(@).val() )[1]
-      )
-
     $('#upload-modal').on 'initializeModal', ->
+
+      $('#attachment_path').on 'change', ()->
+        setFileName($(@).val())
+
       $('#progress .bar').css('width','0%')
+
       $('#new_attachment').fileupload
         dataType: 'jsonp',
+        add: (e, data) ->
+          $('#submit_file').click ()->
+            $(@).hide()
+            $('#upload-progress').show()
+            data.submit()
         progressall: (e, data) ->
           progress = parseInt(data.loaded / data.total * 100, 10)
-          $('#progress .bar').css(
-                'width',
-                progress + '%'
-          )
+          $('#progress .bar').css( 'width', progress + '%' )
+        always: (e, data) ->
+            $('#upload-progress').hide()
+        dropZone: $('.attachment-drag')
+        drop: (e, data) ->
+          $.each data.files, (index, file)->
+            setFileName(file.name)
+
+    setFileName = (name)->
+      $('#attachment_name').val( /(?:.+[\/\\])*(.+)$/.exec(name)[1] )
+
 
     $('#upload-modal').trigger('initializeModal')
+    $('#upload-progress').hide()

@@ -1,5 +1,17 @@
 = simple_form_for([project, attachment.becomes(Attachment)], authenticity_token: true) do |f|
-  = f.input :name
-  = f.input :path, label: :File, as: :file
+  .attachment-drag.ui.segment
+    .ui.hidden.divider
+    .card
+      .image style='text-align:center; margin-bottom:20px;'
+        i.massive.file.icon
+      .content
+        .header style='text-align:center;'
+          = 'DRAG FILE TO HERE'
+
+  .attachment-input
+    .attachment-name
+      = f.input :name, label: false
+    .attachment-path.ui.button
+      = f.input :path, label: :File, as: :file
   = f.hidden_field :path_cache, value: attachment.path_cache
-  = f.button :submit
+  a#submit_file.ui.button = t('action.word.upload')
