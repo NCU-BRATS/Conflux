@@ -17,3 +17,42 @@
   }
 
 }
+.attachment-drag {
+  height: 200px;
+}
+.attachment-input {
+  @include flexbox;
+  .attachment-name {
+    @include flex(1);
+  }
+  .attachment-path {
+    position: relative;
+    margin-left: 10px;
+    width: 75px;
+    height: 38px;
+    overflow: hidden;
+    label {
+      cursor: pointer;
+    }
+    input {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      width: 75px;
+      height: 38px;
+    }
+  }
+}
+
+#submit_file {
+  margin-top: 10px;
+  width: 100%;
+}
+
+#upload-progress {
+  padding: 0 2rem;
+}

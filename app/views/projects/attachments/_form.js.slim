@@ -5,9 +5,11 @@
   |   duration: 0
   | }).modal('show');
 - else
-  | var form = '#{j render partial, project: project, attachment: attachment.class.new}}';
+  | var form = '#{j render form_partial, project: project, attachment: attachment.class.new}';
   | $('#{target_modal}').modal('hide');
-  | $('#{target_modal}').replaceWith(form);
+  | $('#{target_modal} .content').html(form);
   - resource_type = attachment.type.underscore.downcase
   - resource_count = project.reload.send("#{resource_type.pluralize}_count".to_sym)
   | $("#menu_#{resource_type} .label").html("#{resource_count}");
+  | $('#{target_modal}').trigger('initializeModal');
+  | $(document).trigger('page:load');

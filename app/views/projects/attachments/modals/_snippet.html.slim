@@ -3,10 +3,4 @@
   .header
     = t('action.target.upload', target: Attachment.model_name.human)
   .content
-    = simple_form_for([project, attachment], remote: true, authenticity_token: true) do |f|
-      = f.input :name
-      = f.input :language, collection: Snippet.language.options
-      .ui.attached.active.tab.segment data-tab='origin'
-        = f.input :content, as: :text
-      .ui.bottom.attached.segment
-        = f.button :submit, class: 'right floated icon inverted'
+    = render '/projects/attachments/modals/snippet_form', project: project, attachment: attachment

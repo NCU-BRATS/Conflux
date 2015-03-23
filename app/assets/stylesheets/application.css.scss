@@ -13,6 +13,7 @@
  *= require_self
  */
 
+@import "flexbox";
 @import "selectize";
 @import "selectize.bootstrap3";
 @import "selectize-semantic-ui";
@@ -31,7 +32,6 @@
 @import "perfect-scrollbar";
 @import "social";
 @import "search";
-@import "flexbox";
 @import "attachments";
 
 .bs {
