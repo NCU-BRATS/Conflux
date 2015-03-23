@@ -6,7 +6,8 @@
     = link_to event.author.name, user_path(event.author)
     | &nbsp;
     = event_action_name(event)
-    strong
-      = link_to " #" + target['commentable']['sequential_id'].to_s, send("project_#{target['commentable_type'].underscore}_path", event.project, target['commentable']['sequential_id'])
+    strong<
+      - id = target['commentable']['name'] || ' #' + target['commentable']['sequential_id']
+      = link_to id.to_s, send("project_#{target['commentable_type'].underscore}_path", event.project, id)
     == '&nbsp;'+t("event.at")+'&nbsp;'
     = link_to event.project.name, event.project
