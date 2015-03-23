@@ -1,0 +1,3 @@
+class LikePolicy < ProjectResourcePolicy
+
+end
