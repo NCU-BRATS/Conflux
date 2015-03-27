@@ -38,17 +38,17 @@ GIT
 
 GIT
   remote: git://github.com/doabit/semantic-ui-sass.git
-  revision: a3dab88d100c09e355ff021747c3d84b77b86ca0
+  revision: 7bc470190e22adf874fd7458387697628ca6b87f
   specs:
-    semantic-ui-sass (1.11.4.1)
+    semantic-ui-sass (1.11.5.0)
       sass (~> 3.2)
 
 GIT
   remote: git://github.com/toptal/chewy.git
-  revision: ff5412d589d0bd8435768b60a868a4a152a331bb
+  revision: af2fe6152fd30098603eea8b1ecdb8d9b15dd75b
   branch: master
   specs:
-    chewy (0.6.2)
+    chewy (0.7.0)
       activesupport (>= 3.2)
       elasticsearch (>= 1.0.0)
 
@@ -106,7 +106,7 @@ GEM
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
     arel (6.0.0)
-    autoprefixer-rails (5.1.7.1)
+    autoprefixer-rails (5.1.8)
       execjs
       json
     babosa (1.0.2)
@@ -226,7 +226,7 @@ GEM
     jbuilder (2.2.12)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jquery-fileupload-rails (0.4.4)
+    jquery-fileupload-rails (0.4.5)
       actionpack (>= 3.1)
       railties (>= 3.1)
       sass (>= 3.2)
