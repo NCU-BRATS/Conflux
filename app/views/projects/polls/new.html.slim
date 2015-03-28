@@ -1,0 +1,41 @@
+h1
+  = title t('action.target.create', target: Poll.model_name.human)
+  .ui.right.floated.buttons
+    a.ui.button.basic.green href="#{project_polls_path(@project)}"
+      i.icon.chevron.left
+      = t('action.word.back')
+
+= simple_nested_form_for [ @project, @poll ] do |f|
+  = f.error_notification
+
+  = f.input :title
+
+  = f.input :allow_multiple_choice
+
+  = f.fields_for :options do |of|
+    = of.input :title
+    = of.link_to_remove t('action.word.delete')
+
+  = f.link_to_add t('action.word.add'), :options
+
+  .ui.divider
+
+  = f.fields_for :comments do |cf|
+    .ui.segment.tertiary
+
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='origin'
+          = t('action.word.write')
+        a.item data-tab='preview' data-preview='comment_content'
+          = t('action.word.preview')
+      .ui.attached.active.tab.segment data-tab='origin'
+        = cf.input :content, label: false, input_html: { id: 'comment_content_post_field' }
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+      .ui.bottom.attached.segment
+        = f.button :submit, class: 'right floated icon inverted'
+
+- content_for :javascripts
+  coffee:
+    $('.menu .item').tab()
+
+
