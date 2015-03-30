@@ -8,4 +8,5 @@
     = event_action_name(event)
     | &nbsp;
     strong
-      = link_to " #" + event.target_id.to_s + " " + event.target.title, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
+      - name = target['title'] || target['name']
+      = link_to " #" + event.target_id.to_s + " " + name, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
