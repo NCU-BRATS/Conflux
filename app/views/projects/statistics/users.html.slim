@@ -1,0 +1,20 @@
+- title '專案統計'
+.ui.attached.segment.tertiary
+  i.icon.file
+  = '檔案統計'
+.ui.attached.segment
+  = area_chart  @project.attachments.group(:type).group_by_day(:created_at).count
+.ui.hidden.divider
+.ui.two.column.grid
+  .column
+    .ui.attached.segment.tertiary
+      i.icon.tasks
+      = '任務統計'
+    .ui.attached.segment
+      = area_chart @project.issues.group(:status).group_by_week(:created_at).count, colors: %w(#f17f49 #87d2a0)
+  .column
+    .ui.attached.segment.tertiary
+      i.icon.flag
+      = '戰役統計'
+    .ui.attached.segment
+      = area_chart @project.sprints.group(:status).group_by_week(:created_at).count, colors: %w(#f17f49 #87d2a0)
