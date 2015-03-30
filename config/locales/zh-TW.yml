@@ -274,10 +274,11 @@ zh-TW:
       remaining_days: 剩餘天數
       expired_days: 過期天數
     attachments: 檔案
-    images: 圖片(檔案)
-    others: 其他(檔案)
-    posts: 短文(檔案)
-    snippets: 程式碼(檔案)
+    images: 圖片
+    others: 其他
+    posts: 短文
+    snippets: 程式碼
+    other attachments: 其他檔案
     channels: 頻道
     labels: 標籤
     events: 事件
