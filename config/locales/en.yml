@@ -279,6 +279,7 @@ en:
     others: other(Files)
     posts: post(Files)
     snippets: snippet(Files)
+    other attachments: other(Files)
     channels: Channels
     labels: Labels
     events: Events
