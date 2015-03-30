@@ -6,5 +6,6 @@
     = link_to event.author.name, user_path(event.author)
     | &nbsp;
     = event_action_name(event)
+    | &nbsp;
     strong
       = link_to " #" + event.target_id.to_s, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
