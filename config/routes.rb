@@ -38,6 +38,9 @@ Rails.application.routes.draw do
       resources :posts
       resources :snippets
       resource :settings, only: [:edit, :update]
+      resource :statistic, only: [] do
+        get 'users'
+      end
       namespace :settings do
         resources :members
         resources :labels, constraints: {id: /\d+/}

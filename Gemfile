@@ -95,6 +95,11 @@ gem 'bootstrap3-datetimepicker-rails', github: 'NCU-BRATS/bootstrap3-datetimepic
 # calendar
 gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails', branch: 'fix-toplevel-constant-referenced'
 
+# charts
+gem 'chartkick'
+# group data
+gem 'groupdate'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
