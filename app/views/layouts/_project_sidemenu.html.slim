@@ -16,6 +16,9 @@
   = active_link_to project_attachments_path(@project), class: 'item' do
     i.file.icon
     span = t('project.attachments')
+  = active_link_to users_project_statistic_path(@project), class: 'item' do
+    i.bar.chart.icon
+    span = '統計'
   a.item.channels-toggle
     i.comments.icon
     span = t('project.channels')
