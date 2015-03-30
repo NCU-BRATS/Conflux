@@ -275,11 +275,11 @@ en:
       remaining_days: remaining days
       expired_days: expired days
     attachments: Files
-    images: image(Files)
-    others: other(Files)
-    posts: post(Files)
-    snippets: snippet(Files)
-    other attachments: other(Files)
+    images: image
+    others: other
+    posts: post
+    snippets: snippet
+    other attachments: other files
     channels: Channels
     labels: Labels
     events: Events
