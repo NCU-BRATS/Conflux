@@ -1,0 +1,20 @@
+.login-container {
+  position: absolute;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  left: 0;
+  right: 0;
+  top: 50%;
+}
+.login-bar {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+.devise-control {
+  a {
+    padding: 0 10px;
+  }
+}
