@@ -46,6 +46,19 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'p', class: 'hint' }
   end
 
+  config.wrappers :semantic_ui_label_input, tag: 'div', class: 'field', error_class: 'error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :readonly
+    b.wrapper tag: 'div', class: 'ui labeled input' do |ba|
+      ba.use :action_label
+      ba.use :input
+    end
+    b.use :error, wrap_with: { tag: 'span', class: 'ui red pointing above label error' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'hint' }
+  end
+
   config.wrappers :semantic_ui_boolean, tag: 'div', class: 'inline field', error_class: 'error' do |b|
     b.use :html5
     b.optional :readonly
