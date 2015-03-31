@@ -1,9 +1,21 @@
-h2 登入
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+= render partial: 'devise/login_background'
 
-  = f.input :email, required: false, autofocus: true
-  = f.input :password, required: false
-  = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+.login-container style='height: 300px;margin-top: -150px;'
+  .ui.attached.segment.tertiary
+    h1 style='text-align:center;'
+      = 'CONFLUX'
 
-  = f.button :submit, '登入'
-= render 'devise/shared/links'
+  - title t('action.word.login')
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+
+    .ui.attached.segment
+      = f.input :email, required: false, autofocus: true, wrapper: :semantic_ui_label_input, action_label: User.human_attribute_name(:email)
+      = f.input :password, required: false, wrapper: :semantic_ui_label_input, action_label: User.human_attribute_name(:password)
+
+
+      = f.button :submit, t('action.word.login'), class: 'fluid'
+
+    .ui.attached.segment.tertiary
+      .ui.right.floated.buttons
+        = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+      = render 'devise/shared/links'

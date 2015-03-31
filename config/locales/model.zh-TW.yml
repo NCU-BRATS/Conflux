@@ -19,6 +19,7 @@ zh-TW:
       user:
         name: '名稱'
         title: '職稱'
+        email: '信箱'
         password: '密碼'
       project:
         name: '名稱'

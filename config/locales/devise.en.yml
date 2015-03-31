@@ -51,6 +51,22 @@ en:
     critical_settings:
       user:
         updated: Your password has been updated successfully.
+    questions:
+      forget_password: forget password?
+      authentication_mail_not_received: authentication mail not received?
+      unlock_mail_not_received: unlock mail not received?
+    hints:
+      register:
+        field:
+          email: used as your account
+          name: display in system
+          title: display in card
+          password: at least %{length} characters
+          password_confirmation: input your password again
+      input_registered_email: input your email
+    actions:
+      send_reset_password_email: send mail to reset password
+      login_by: login by %agent
   errors:
     messages:
       already_confirmed: "was already confirmed, please try signing in"

@@ -235,6 +235,7 @@ en:
       write: write
       preview: preview
       login: login
+      register: register
       logout: logout
       search: search
       upload: upload
