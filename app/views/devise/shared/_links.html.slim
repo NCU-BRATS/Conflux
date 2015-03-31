@@ -1,19 +1,24 @@
-- if controller_name != 'sessions'
-  = link_to '登入', new_session_path(resource_name)
-  br
-- if devise_mapping.registerable? && controller_name != 'registrations'
-  = link_to '註冊', new_registration_path(resource_name)
-  br
-- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-  = link_to '忘記密碼?', new_password_path(resource_name)
-  br
-- if devise_mapping.confirmable? && controller_name != 'confirmations'
-  = link_to '沒有收到驗證信嗎?', new_confirmation_path(resource_name)
-  br
-- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-  = link_to '沒有到解鎖信嗎?', new_unlock_path(resource_name)
-  br
-- if devise_mapping.omniauthable?
-  - resource_class.omniauth_providers.each do |provider|
-    = link_to "用 #{provider.to_s.titleize} 登入", omniauth_authorize_path(resource_name, provider)
-    br
+.devise-control
+  - if controller_name != 'sessions'
+    a.gray.link href=new_session_path(resource_name)
+      = t('action.word.login')
+
+  - if devise_mapping.registerable? && controller_name != 'registrations'
+    a.gray.link href=new_registration_path(resource_name)
+      = t('action.word.register')
+
+  - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+    a.gray.link href=new_password_path(resource_name)
+      = t('devise.questions.forget_password')
+
+  - if devise_mapping.confirmable? && controller_name != 'confirmations'
+    a.gray.link href=new_confirmation_path(resource_name)
+      = t('devise.questions.authentication_mail_not_received')
+
+  - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+    a.gray.link href=new_unlock_path(resource_name)
+      = t('devise.questions.unlock_mail_not_received')
+
+  - if devise_mapping.omniauthable?
+    - resource_class.omniauth_providers.each do |provider|
+      = link_to t('devise.actions.login_by', agent:provider.to_s.titleize), omniauth_authorize_path(resource_name, provider)

@@ -1,8 +1,17 @@
-h2 忘記密碼了?
-= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = f.error_notification
+= render partial: 'devise/login_background'
 
-  = f.input :email, required: true, autofocus: true
+.login-container style='height: 300px;margin-top: -150px;'
+  .ui.attached.segment.tertiary
+    h1 style='text-align:center;'
+      = t('devise.questions.forget_password')
 
-  = f.button :submit, '寄給我重設密碼的步驟信'
-= render 'devise/shared/links'
+  - title t('devise.questions.forget_password')
+
+  .ui.attached.segment
+    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      = f.error_notification
+      = f.input :email, required: true, autofocus: true, placeholder: t('devise.hints.input_registered_email')
+      = f.button :submit, t('devise.actions.send_reset_password_email'), class: 'fluid'
+
+  .ui.attached.segment.tertiary
+    = render 'devise/shared/links'
