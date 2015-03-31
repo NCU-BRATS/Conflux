@@ -50,6 +50,22 @@ zh-TW:
     critical_settings:
       user:
         updated: 已成功更新密碼
+    questions:
+      forget_password: 忘記密碼?
+      authentication_mail_not_received: 沒有收到驗證信嗎?
+      unlock_mail_not_received: 沒有收到解鎖信嗎?
+    hints:
+      register:
+        field:
+          email: 作為帳號使用
+          name: 顯示於系統
+          title: 顯示於名片
+          password: 最少 %{length} 個字元
+          password_confirmation: 請再度輸入您的密碼
+      input_registered_email: 請輸入您註冊時使用的信箱
+    actions:
+      send_reset_password_email: 寄出重設密碼的步驟信
+      login_by: 用 %agent 登入
   errors:
     messages:
       already_confirmed: "已經驗證，請直接登入。"
