@@ -267,6 +267,7 @@ zh-TW:
     search: 搜尋整個專案
     dashboard: 主頁
     back: 返回
+    roles: 角色
     members: 成員
     issues: 任務
     sprints: 戰役
@@ -298,6 +299,8 @@ zh-TW:
       color: 請填入以 # 為開頭的六字元 hex 色碼值。 或是從下方選擇建議的顏色。
     message:
       input: 請於此輸入訊息 並以ENTER發送
+    project_role:
+      none: 尚無職位
   event:
     at: 在
     in: 進

@@ -3,6 +3,7 @@ zh-TW:
     models:
       user: '使用者'
       project: '專案'
+      project_role: '角色'
       project_participation: '專案成員'
       issue: '任務'
       comment: '回覆'
@@ -26,6 +27,9 @@ zh-TW:
         description: '描述'
       project_participation:
         user: '使用者'
+        project_role: '角色'
+      project_role:
+        name: '名稱'
       issue:
         sequential_id: '序號'
         title: '標題'
