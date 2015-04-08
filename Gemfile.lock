@@ -231,6 +231,7 @@ GEM
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-atwho-rails (1.0.1)
     jquery-fileupload-rails (0.4.5)
       actionpack (>= 3.1)
       railties (>= 3.1)
@@ -447,6 +448,7 @@ DEPENDENCIES
   handlebars_assets
   html-pipeline
   jbuilder (~> 2.0)
+  jquery-atwho-rails
   jquery-fileupload-rails
   jquery-rails
   kaminari
