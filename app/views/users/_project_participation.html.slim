@@ -1,0 +1,11 @@
+tr
+  td
+    a.black.link href=project_path(project_participation.project)
+      = project_participation.project.name
+  td
+    - if project_participation.project_role.present?
+      = project_participation.project_role.name
+    - else
+      = t('hint.project_role.none')
+  td
+    = project_participation.project.description
