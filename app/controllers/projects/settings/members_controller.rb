@@ -19,6 +19,15 @@ class Projects::Settings::MembersController < Projects::SettingsController
     respond_with @participation, location: project_settings_members_path
   end
 
+  def edit
+    respond_with @project
+  end
+
+  def update
+    @participation.update_attributes(participation_params)
+    respond_with @project, location: project_settings_members_path
+  end
+
   def destroy
     if @project.project_participations.size > 1
       if @participation.destroy
@@ -34,7 +43,7 @@ class Projects::Settings::MembersController < Projects::SettingsController
   protected
 
   def participation_params
-    params.require(:project_participation).permit(:user_id)
+    params.require(:project_participation).permit(:user_id, :project_role_id)
   end
 
   def resource

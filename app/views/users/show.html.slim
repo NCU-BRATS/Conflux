@@ -7,22 +7,20 @@
         a.ui.blue.large.header href = "#"
           = @user.name
         .meta
-          = @user.title
+          a href="mailto:#{@user.email}"
+            = @user.email
   .ten.wide.column
     table.ui.table
       thead
         tr
           th
-            .ui.huge.header = t('structure.list', element: Project.model_name.human)
+            .ui.huge.header = '參與' + Project.model_name.human
           th
           th
         tr
-          th = sort_link(@q, :name)
-          th = sort_link(@q, :description)
-          th
+          th = 'name'
+          th = 'character'
+          th = 'description'
 
       tbody
-        = sync partial: 'user_project_row', collection: @projects
-
-    .ui.bottom.attach
-      = paginate @projects
+        = render partial: 'project_participation', collection: @user.project_participations.includes(:project)

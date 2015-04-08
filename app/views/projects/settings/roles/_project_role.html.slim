@@ -1,0 +1,13 @@
+.item
+  .ui.grid
+    .two.column.row
+      .ten.wide.column
+        .ui.header
+          = project_role.name
+      .six.wide.column.right.aligned
+        - if policy(project_role).update?
+          => link_to edit_project_settings_role_path(@project, project_role), class: 'ui circular icon basic button' do
+            i.write.icon
+        - if policy(project_role).destroy?
+          = link_to project_settings_role_path(@project, project_role), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui circular icon basic button' do
+            i.trash.icon
