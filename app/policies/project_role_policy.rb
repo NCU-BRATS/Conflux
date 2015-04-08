@@ -1,0 +1,3 @@
+class ProjectRolePolicy < ProjectResourcePolicy
+
+end
