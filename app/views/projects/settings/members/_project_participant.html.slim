@@ -3,14 +3,19 @@
     .ui.dimmer
       .content
         .center
-          a.ui.inverted.button href=user_path(project_participant.user)
-            = t('attribute.word.info')
+          a.ui.inverted.button href=edit_project_settings_member_path(@project, project_participant)
+            = t('action.word.edit')
     = avatar_tag project_participant.user, :size => '130'
   .content
-    .header.overflow.ellipsis
-      = project_participant.user.name
-    .meta
-      a.group = project_participant.user.title
+    .header.overflow.ellipsis style='text-align:center;'
+      a.black.link href=user_link( project_participant.user )
+        = project_participant.user.name
+    .meta style='text-align:center;'
+      a.group
+        - if project_participant.project_role.present?
+          = project_participant.project_role.name
+        - else
+          = t('hint.project_role.none')
       br
       a.group
         => t('action.target.created_at', target: '')

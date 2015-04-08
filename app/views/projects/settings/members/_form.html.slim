@@ -1,6 +1,14 @@
 = simple_form_for([@project, :settings, @participation]) do |f|
   = f.error_notification
 
-  = f.association :user, input_html: {data: {:'resource-path' => users_path, :'search-field' => '["name", "email"]', :'option-tpl' => 'option-user'}}
+  = f.association :user, input_html: {data: {:'resource-path' => users_path,
+                                             :'search-field' => '["name", "email"]',
+                                             :'option-tpl' => 'option-user'}}
+
+  = f.association :project_role, input_html: { data: { :'resource-path' => project_settings_roles_path( @project ),
+                                               :'search-field'  => '["name"]',
+                                               :'option-tpl' => 'option-default',
+                                               :'item-tpl'   => 'item-default',
+                                               :'add-new'    => true }}
 
   = f.button :submit
