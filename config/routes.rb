@@ -42,6 +42,8 @@ Rails.application.routes.draw do
         get 'users'
       end
       namespace :settings do
+        resources :roles
+        resources :project_roles, path: :roles
         resources :members
         resources :labels, constraints: {id: /\d+/}
         # rematch ProjectParticipation Model path to project_member_path
