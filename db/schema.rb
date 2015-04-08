@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317011830) do
+ActiveRecord::Schema.define(version: 20150408145758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,15 @@ ActiveRecord::Schema.define(version: 20150317011830) do
   add_index "participations", ["participable_type", "participable_id"], name: "index_participations_on_participable_type_and_participable_id", using: :btree
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
 
+  create_table "project_roles", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_roles", ["project_id"], name: "index_project_roles_on_project_id", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -259,7 +268,6 @@ ActiveRecord::Schema.define(version: 20150317011830) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "title"
     t.string   "email",                       default: "",   null: false
     t.string   "encrypted_password",          default: "",   null: false
     t.string   "reset_password_token"
@@ -327,9 +335,11 @@ ActiveRecord::Schema.define(version: 20150317011830) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "notification_level"
+    t.integer  "project_role_id"
   end
 
   add_index "users_projects", ["project_id"], name: "index_users_projects_on_project_id", using: :btree
+  add_index "users_projects", ["project_role_id"], name: "index_users_projects_on_project_role_id", using: :btree
   add_index "users_projects", ["user_id"], name: "index_users_projects_on_user_id", using: :btree
 
   create_table "votes", force: :cascade do |t|
