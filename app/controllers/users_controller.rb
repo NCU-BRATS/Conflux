@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   layout 'dashboard'
 
   before_action :authenticate_user!
-  before_action :set_user, :set_project, only: [:show]
+  before_action :set_user, only: [:show]
 
   def index
     @q = User.search(params[:q])
@@ -20,11 +20,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.friendly.find(params[:id])
-  end
-
-  def set_project
-    @q = @user.projects.search(params[:q])
-    @projects = @q.result.page(params[:page]).per(4)
   end
 
 end
