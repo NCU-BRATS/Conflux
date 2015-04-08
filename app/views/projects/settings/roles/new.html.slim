@@ -1,0 +1,8 @@
+h1
+  = title t('action.target.create', target: ProjectRole.model_name.human)
+  .ui.right.floated.buttons
+    a.ui.button.basic.green href="#{project_settings_roles_path(@project)}"
+      i.icon.chevron.left
+      = t('action.word.back')
+
+= render 'form'

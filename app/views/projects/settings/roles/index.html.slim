@@ -1,0 +1,6 @@
+= render partial: 'projects/settings/page_header', locals: { query_key: :name_cont}
+
+.ui.divided.very.relaxed.selection.list
+  = render partial: 'project_role', collection: @roles
+
+= paginate @roles

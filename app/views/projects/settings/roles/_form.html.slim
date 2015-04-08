@@ -1,0 +1,6 @@
+= simple_form_for [@project, :settings, @role] do |f|
+  = f.error_notification
+
+  = f.input :name
+
+  = f.button :submit

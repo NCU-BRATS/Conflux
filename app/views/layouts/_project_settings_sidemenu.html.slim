@@ -10,6 +10,9 @@
   = active_link_to project_settings_members_path(@project), class: 'item' do
     i.users.icon
     span = t('project.members') + t('project.settings')
+  = active_link_to project_settings_roles_path(@project), class: 'item' do
+    i.doctor.icon
+    span = t('project.roles') + t('project.settings')
   = active_link_to project_settings_labels_path(@project), class: 'item' do
     i.bookmark.icon
     span = t('project.labels') + t('project.settings')
