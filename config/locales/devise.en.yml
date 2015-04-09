@@ -60,7 +60,6 @@ en:
         field:
           email: used as your account
           name: display in system
-          title: display in card
           password: at least %{length} characters
           password_confirmation: input your password again
       input_registered_email: input your email

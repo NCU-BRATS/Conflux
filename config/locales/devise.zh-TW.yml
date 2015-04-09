@@ -59,7 +59,6 @@ zh-TW:
         field:
           email: 作為帳號使用
           name: 顯示於系統
-          title: 顯示於名片
           password: 最少 %{length} 個字元
           password_confirmation: 請再度輸入您的密碼
       input_registered_email: 請輸入您註冊時使用的信箱
