@@ -13,7 +13,6 @@
 
       = f.input :email, required: true, autofocus: true, placeholder: t('devise.hints.register.field.email')
       = f.input :name, required: true, placeholder: t('devise.hints.register.field.name')
-      = f.input :title, placeholder: t('devise.hints.register.field.title')
       = f.input :password, required: true, placeholder: t('devise.hints.register.field.password', length: @minimum_password_length) if @validatable
       = f.input :password_confirmation, required: true, placeholder: t('devise.hints.register.field.password_confirmation')
 
