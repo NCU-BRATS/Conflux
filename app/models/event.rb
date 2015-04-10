@@ -30,8 +30,4 @@ class Event < ActiveRecord::Base
     Attachment.subclasses.map(&:name).include?(target_type)
   end
 
-  def target_obj
-    target_type.constantize.new(target_json)
-  end
-
 end

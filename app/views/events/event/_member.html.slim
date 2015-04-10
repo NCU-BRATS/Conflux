@@ -1,4 +1,4 @@
-- target = event.target_obj
+- target = event.target_json
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -10,4 +10,4 @@
     - else
       = t('action.word.left')
     = t('project.members')
-    = link_to target.name, user_path(target)
+    = link_to target['name'], user_path(target['id'])
