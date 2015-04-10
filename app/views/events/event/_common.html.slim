@@ -1,4 +1,4 @@
-- target = event.target_obj
+- target = event.target_json
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -9,4 +9,5 @@
     | &nbsp;
     strong
       - name = target['title'] || target['name']
-      = link_to " #" + event.target_id.to_s + " " + name, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
+      - id = target['sequential_id'] || target['id']
+      = link_to " #" + event.target_id.to_s + " " + name, send("project_#{event.target_type.underscore}_path", event.project, id)

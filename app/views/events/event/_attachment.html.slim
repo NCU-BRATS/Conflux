@@ -1,4 +1,4 @@
-- target = event.target_obj
+- target = event.target_json
 .content
   .date
     => time_format_relative_tag event.created_at
@@ -10,6 +10,6 @@
     strong
       - case target
       - when Post, Snippet
-        = link_to target.name, send("project_#{event.target_type.underscore}_path", event.project, target.to_param)
+        = link_to target['name'], send("project_#{event.target_type.underscore}_path", event.project, target['id'])
       - else
-        = link_to target.name, project_attachment_path(event.project, target)
+        = link_to target['name'], project_attachment_path(event.project, target['id'])
