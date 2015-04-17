@@ -105,6 +105,9 @@ GEM
     after_commit_action (1.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
+    airbrake (3.1.14)
+      builder
+      json
     arel (6.0.0)
     autoprefixer-rails (5.1.8)
       execjs
@@ -416,6 +419,7 @@ DEPENDENCIES
   activerecord-reputation-system
   acts-as-taggable-on (~> 3.4)
   acts_as_votable (~> 0.10.0)
+  airbrake
   babosa
   better_errors
   binding_of_caller
