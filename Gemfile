@@ -137,6 +137,9 @@ gem 'dotenv-rails', groups: [:development, :test]
 # Use puma as the app server
 gem 'puma'
 
+# error catcher service
+gem 'airbrake'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
