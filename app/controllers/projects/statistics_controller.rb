@@ -4,6 +4,14 @@ class Projects::StatisticsController < Projects::ApplicationController
 
   end
 
+  def tasks
+
+  end
+
+  def attachments
+
+  end
+
   protected
 
   def model
