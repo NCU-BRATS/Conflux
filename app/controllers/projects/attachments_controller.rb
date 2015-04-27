@@ -18,6 +18,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
     @attachment = Attachment::intelligent_construct(attachment_params, @project, current_user)
     if @attachment.save
       event_service.upload_attachment(@attachment, current_user)
+      notice_service.upload_attachment(@attachment, current_user)
     end
     respond_with @attachment
   end

@@ -12,6 +12,7 @@ class Projects::PostsController < Projects::ApplicationController
     @post.user = current_user
     if @post.save
       event_service.upload_attachment(@post, current_user)
+      notice_service.upload_attachment(@post, current_user)
     end
     respond_with @project, @post
   end
