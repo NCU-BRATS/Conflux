@@ -24,4 +24,8 @@ class Projects::ApplicationController < ApplicationController
     EventCreateService.new
   end
 
+  def notice_service
+    NoticeCreateService.new
+  end
+
 end
