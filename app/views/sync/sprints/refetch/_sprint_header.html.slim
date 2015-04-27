@@ -25,11 +25,11 @@ div
       - if sprint.open?
         .ui.label.large
           i.icon.green.unlock
-          = sprint.status.upcase
+          = sprint.aasm.human_state
       - if sprint.closed?
         .ui.label.large
           i.icon.red.lock
-          = sprint.status.upcase
+          = sprint.aasm.human_state
       span
         => user_tag sprint.user, class: 'bold black link'
         = t('action.target.created_at', target: '')

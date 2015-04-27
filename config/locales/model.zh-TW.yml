@@ -53,6 +53,9 @@ zh-TW:
         begin_at: '開始時間'
         due_at: '結束時間'
         issues: '專屬任務'
+        status:
+          open: 開啟
+          closed: 關閉
       comment:
         content: '內容'
       attachment:
@@ -72,6 +75,9 @@ zh-TW:
       poll:
         title: 標題
         allow_multiple_choice: 可多選
+        status:
+          open: 開啟
+          closed: 關閉
       polling_option:
         title: 投票選項
 
