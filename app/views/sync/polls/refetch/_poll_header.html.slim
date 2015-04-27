@@ -57,8 +57,10 @@ div
 
           = f.fields_for :options do |of|
             = of.input :title
-            = of.link_to_remove t('action.word.delete')
+            .field
+              label &nbsp;
+              = of.link_to_remove t('action.word.delete'), class: 'ui red button'
 
-          = f.link_to_add t('action.word.add'), :options
+          = f.link_to_add t('action.target.add', target: PollingOption.model_name.human), :options, class: 'ui green button'
 
   .ui.divider
