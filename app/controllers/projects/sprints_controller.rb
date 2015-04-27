@@ -4,7 +4,7 @@ class Projects::SprintsController < Projects::ApplicationController
 
   def index
     @q = @project.sprints.includes(:user).search(params[:q])
-    @sprints = @q.result.uniq.page(params[:page]).per(params[:per])
+    @sprints = @q.result.uniq.page(params[:page]).per(params[:per]||10)
     respond_with @project, @sprints
   end
 
