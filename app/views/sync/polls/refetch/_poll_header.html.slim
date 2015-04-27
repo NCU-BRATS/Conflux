@@ -34,11 +34,24 @@ div
         = t('action.target.created_at', target: '')
         = time_format_relative_tag poll.created_at
 
-    .ui.aggs-filter.list
-      - poll.options.each do |option|
-        .item
-          a.ui.fluid.label.filter
-            = option.title
+    .ui.divider
+
+    - poll.options.order('id').each do |option|
+      .ui.two.column.grid.polling
+        .column
+          .ui.aggs-filter.options.list
+            .item data-count=option.cached_votes_total
+              span.bar
+              a.ui.fluid.label.filter data-remote="true" data-method="put" href=project_poll_polling_option_path(poll.project, poll, option)
+                = option.title
+                .detail = option.cached_votes_total
+        .column
+          .ui.aggs-filter.users.list
+            .item.user
+              .ui.horizontal.list
+                - option.votes_for.up.by_type(User).voters.each do |voter|
+                  .item
+                    = user_img_tag(voter)
 
   - if policy(poll).update?
     #editable_title_form
@@ -64,3 +77,13 @@ div
           = f.link_to_add t('action.target.add', target: PollingOption.model_name.human), :options, class: 'ui green button'
 
   .ui.divider
+
+  coffee:
+    total = 0
+    $('.options.list .item').each () ->
+      total += $(@).data('count')
+
+    $('.options.list .item').each () ->
+      $filter = $(@)
+      width = $filter.data('count') * 100 / total
+      $filter.find('span.bar').css('width', "#{width}%")
