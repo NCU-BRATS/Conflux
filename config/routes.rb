@@ -59,6 +59,14 @@ Rails.application.routes.draw do
     put :preview
   end
 
+  resources :notices do
+    get :link
+    put :read
+    put :seal
+    put :unseal
+    put :check, on: :collection
+  end
+
   resources :users
 
   scope 'profile', as: 'profile' do
