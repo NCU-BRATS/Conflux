@@ -31,7 +31,9 @@ Rails.application.routes.draw do
       resources :messages, only: [:update, :destroy]
       resources :issues  , concerns: [:commentable, :closeable]
       resources :sprints , concerns: [:commentable, :closeable]
-      resources :polls,    concerns: [:commentable, :closeable]
+      resources :polls,    concerns: [:commentable, :closeable] do
+        resources :polling_options, only: [:update]
+      end
       resources :comments, only: [:update, :destroy], concerns: :favorable
       resources :attachments, concerns: [:commentable] do
         get 'download', on: :member
