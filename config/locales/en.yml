@@ -356,3 +356,5 @@ en:
     seal: seal
     unseal: unseal
     seeall: check all notices
+  poll:
+    alert: This poll is closed

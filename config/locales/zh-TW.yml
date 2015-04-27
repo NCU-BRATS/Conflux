@@ -288,6 +288,7 @@ zh-TW:
     labels: 標籤
     events: 事件
     notices: 通知
+    polls: 投票
     comments: 回覆
     messages: 訊息
     settings: 設定
@@ -355,3 +356,5 @@ zh-TW:
     seal: 封存
     unseal: 未封存
     seeall: 查看全部通知
+  poll:
+    alert: 此投票已經關閉

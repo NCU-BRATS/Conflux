@@ -16,6 +16,8 @@ zh-TW:
       sprint: '戰役'
       channel: '頻道'
       message: '訊息'
+      poll: 投票
+      polling_option: 投票選項
     attributes:
       user:
         name: '名稱'
@@ -67,6 +69,11 @@ zh-TW:
         announcement: 公告
       message:
         content: '內容'
+      poll:
+        title: 標題
+        allow_multiple_choice: 可多選
+      polling_option:
+        title: 投票選項
 
   validation:
     user:
