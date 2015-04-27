@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   resource :dashboard, controller: "dashboard", only: [:show] do
     member do
       get :events
+      get :notices
       get :projects
       get :issues
       get :attachments
