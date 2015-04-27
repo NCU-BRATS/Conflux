@@ -2,7 +2,7 @@ class Projects::DashboardsController < Projects::ApplicationController
 
   def show
     @issues = issues
-    @posts  = @project.posts.includes(:user).first(5)
+    @posts  = @project.posts.includes(:user).latest.first(3)
     @events = events
     respond_with @project
   end

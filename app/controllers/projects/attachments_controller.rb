@@ -5,7 +5,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   def index
     params[:q] = {type_eq: 'Post'}.merge(params[:q] || {})
     @q = @project.attachments.includes(:user).search(params[:q])
-    @attachments = @q.result.uniq.latest.page(params[:page]).per(params[:per])
+    @attachments = @q.result.uniq.latest.page(params[:page]).per(params[:per]||5)
     respond_with @attachments
   end
 
