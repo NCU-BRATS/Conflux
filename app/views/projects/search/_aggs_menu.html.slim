@@ -1,5 +1,5 @@
 .ui.fluid.vertical.menu
-  - menu_order = ['issue', 'sprint', 'attachment', 'message']
+  - menu_order = ['issue', 'sprint', 'attachment', 'poll', 'message']
   - @results.aggregations['types']['buckets'].sort_by {|t| menu_order.index(t['key'])}.each do |type|
     a.item.type-filter class="#{@search.type == type['key'] ? 'active teal' : ''}" data-value=type['key'] data-count=type['doc_count']
       = t("project.#{type['key'].pluralize}")
