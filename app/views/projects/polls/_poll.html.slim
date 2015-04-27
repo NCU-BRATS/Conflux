@@ -13,3 +13,11 @@
             => user_tag poll.user, class: 'gray link'
             => t('action.target.created_at', target: '')
             span = time_format_relative_tag(poll.created_at)
+
+    .four.wide.column
+      - if poll.closed?
+        .ui.right.floated.image
+          - poll.results.each do |result|
+            .ui.label
+              = result['title']
+              .detail = result['cached_votes_total']

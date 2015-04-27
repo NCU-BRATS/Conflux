@@ -21,6 +21,15 @@ class Poll < ActiveRecord::Base
 
   update_index('projects#poll') { self }
 
+  def before_close
+    most_votes   = self.options.max_by {|op| op.cached_votes_total }
+    self.results = self.options.select {|op| op.cached_votes_total == most_votes.cached_votes_total}
+  end
+
+  def before_reopen
+    self.results = []
+  end
+
   def to_param
     self.sequential_id.to_s
   end
