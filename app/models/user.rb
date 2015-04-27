@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   include EventableConcern
   friendly_id :name, use: :slugged
 
+  acts_as_voter
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
