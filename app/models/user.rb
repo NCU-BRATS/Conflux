@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
 
   has_many :events,        dependent: :destroy, foreign_key: :author_id,   class_name: 'Event'
   has_many :recent_events, -> { order 'id DESC' }, foreign_key: :author_id,   class_name: 'Event'
+  has_many :notices,        dependent: :destroy, foreign_key: :owner_id,   class_name: 'Notice'
+  has_many :recent_notices, -> { order 'id DESC' }, foreign_key: :owner_id,   class_name: 'Notice'
 
   has_reputation :likes, source:{reputation: :likes, of: :comments}, aggregated_by: :sum
 

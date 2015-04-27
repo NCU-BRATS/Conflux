@@ -5,6 +5,9 @@ class Participation < ActiveRecord::Base
 
   validates :user, :participable, :subscribed, presence: true
 
+  scope :subscribed,   -> { where(subscribed: true) }
+  scope :unsubscribed, -> { where(subscribed: false) }
+
   def for_issue?
     participable_type == 'Issue'
   end
