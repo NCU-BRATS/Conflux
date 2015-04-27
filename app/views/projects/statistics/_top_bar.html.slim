@@ -1,0 +1,10 @@
+.ui.fluid.three.item.red.menu
+  = active_link_to users_project_statistic_path(@project), class:'item' do
+    i.users.icon
+    span = t('structure.statistic', element:t('project.members') )
+  = active_link_to tasks_project_statistic_path(@project), class: 'item' do
+    i.tasks.icon
+    span = t('structure.statistic', element:t('project.issues') )
+  = active_link_to attachments_project_statistic_path(@project), class: 'item' do
+    i.file.icon
+    span = t('structure.statistic', element:t('project.attachments') )

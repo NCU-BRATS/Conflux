@@ -1,0 +1,19 @@
+= render partial:'top_bar'
+
+- title t('structure.statistic', element:t('project.attachments') )
+
+.ui.attached.segment.tertiary
+  i.icon.file
+  = t('structure.statistic', element:t('project.attachments') )
+.ui.attached.segment
+  = line_chart  @project.attachments.group(:type).group_by_day(:created_at).count
+
+.ui.two.column.grid.doubling
+
+  - @project.members.each do |member|
+    .column
+      .ui.hidden.divider
+      .ui.attached.segment.tertiary
+        = user_luxury_tag member
+      .ui.attached.segment
+        = area_chart member.attachments.group(:type).group_by_day(:created_at).count
