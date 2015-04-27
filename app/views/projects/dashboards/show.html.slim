@@ -56,5 +56,6 @@
           = link_to project_dashboard_path(@project, params.permit(:event, :issue).merge({event: type})), class: "item #{params[:event] == type ? 'active' : ''}" do
             = event_icon_tag(type)
 
-      = render 'events/events', events: @events
-      = paginate @events
+      .dashboard
+        = render 'events/events', events: @events
+        = paginate @events
