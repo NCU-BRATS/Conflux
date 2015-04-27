@@ -19,6 +19,8 @@ class Poll < ActiveRecord::Base
 
   validates :title, :status, :project, :user, :options, presence: true
 
+  update_index('projects#poll') { self }
+
   def to_param
     self.sequential_id.to_s
   end

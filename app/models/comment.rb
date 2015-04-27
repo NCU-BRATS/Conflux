@@ -16,6 +16,7 @@ class Comment < ActiveRecord::Base
   update_index('projects#issue')      { commentable if for_issue?      && should_reindex? }
   update_index('projects#sprint')     { commentable if for_sprint?     && should_reindex? }
   update_index('projects#attachment') { commentable if for_attachment? && should_reindex? }
+  update_index('projects#poll')       { commentable if for_poll?       && should_reindex? }
 
   validates :content, :user, presence: true
 
@@ -47,6 +48,10 @@ class Comment < ActiveRecord::Base
 
   def for_attachment?
     commentable_type == 'Attachment'
+  end
+
+  def for_poll?
+    commentable_type == 'Poll'
   end
 
   def should_reindex?
