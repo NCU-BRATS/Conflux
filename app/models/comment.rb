@@ -9,6 +9,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
+  delegate :participations, to: :commentable
+
   participate_by [:user] do |instance|
     instance.commentable
   end
