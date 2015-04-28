@@ -23,7 +23,10 @@ class Projects::PollsController < Projects::ApplicationController
     @poll = @project.polls.build(poll_params)
     @poll.user = current_user
     @poll.comments.each { |comment| comment.user = current_user }
-    @poll.save
+    if @poll.save
+      event_service.open_poll(@poll, current_user)
+      notice_service.open_poll(@poll, current_user)
+    end
     respond_with @project, @poll
   end
 
@@ -33,18 +36,18 @@ class Projects::PollsController < Projects::ApplicationController
   end
 
   def close
-    @poll.close!
-    # if @poll.close!
-    #   event_service.close_poll(@poll, current_user)
-    # end
+    if @poll.close!
+      event_service.close_poll(@poll, current_user)
+      notice_service.close_poll(@poll, current_user)
+    end
     respond_with @project, @poll
   end
 
   def reopen
-    @poll.reopen!
-    # if @poll.reopen!
-    #   event_service.reopen_poll(@poll, current_user)
-    # end
+    if @poll.reopen!
+      event_service.reopen_poll(@poll, current_user)
+      notice_service.reopen_poll(@poll, current_user)
+    end
     respond_with @project, @poll
   end
 
