@@ -263,6 +263,7 @@ en:
   structure:
     list: '%{element} list'
     my: 'my %{element}'
+    statistic: '%{element} statistics'
   project:
     project: Project
     search: search in project

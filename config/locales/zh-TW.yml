@@ -262,6 +262,7 @@ zh-TW:
   structure:
     list: '%{element}列表'
     my: '我的%{element}'
+    statistic: '%{element}統計'
   project:
     project: 專案
     search: 搜尋整個專案

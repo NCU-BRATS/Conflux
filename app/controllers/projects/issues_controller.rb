@@ -4,7 +4,7 @@ class Projects::IssuesController < Projects::ApplicationController
 
   def index
     @q = @project.issues.includes(:user, :assignee, :labels).order('id DESC').search( params[:q] )
-    @issues = @q.result.uniq.page( params[:page] ).per( params[:per] )
+    @issues = @q.result.uniq.page( params[:page] ).per( params[:per] || 10 )
     respond_with @project, @issues
   end
 

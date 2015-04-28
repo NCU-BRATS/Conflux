@@ -14,14 +14,16 @@
 
 - content_for :javascripts
   coffee:
-    $('.channels.sidebar').sidebar('setting', {dimPage: false,transition: 'slide along'})
     $('.channels-toggle').click ->
+      $('.channels.sidebar').sidebar('setting', {dimPage: false,transition: 'slide along'})
       $('.channels.sidebar').sidebar('toggle')
 
-    $('.search-bar').sidebar('setting', {dimPage: false, transition: 'overlay', duration:100, onShow: ()->
-      $('#project_search_query').focus()
-    })
+
     $('.search-toggle').click ->
+      $('.search-bar').sidebar('setting', {
+        dimPage: false, transition: 'overlay', duration: 100, onShow: ()->
+          $('#project_search_query').focus()
+      })
       $('.search-bar').sidebar('toggle')
 
 - parent_layout 'application'

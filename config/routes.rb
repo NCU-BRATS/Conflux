@@ -40,6 +40,8 @@ Rails.application.routes.draw do
       resource :settings, only: [:edit, :update]
       resource :statistic, only: [] do
         get 'users'
+        get 'tasks'
+        get 'attachments'
       end
       namespace :settings do
         resources :roles
