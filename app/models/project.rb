@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
 
   has_many :issues,       dependent: :destroy
   has_many :sprints,      dependent: :destroy
+  has_many :polls,        dependent: :destroy
   has_many :repositories, dependent: :destroy
   has_many :labels,       dependent: :destroy
   has_many :events,       dependent: :destroy

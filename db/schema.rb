@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427135701) do
+ActiveRecord::Schema.define(version: 20150427172843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,44 @@ ActiveRecord::Schema.define(version: 20150427135701) do
 
   add_index "participations", ["participable_type", "participable_id"], name: "index_participations_on_participable_type_and_participable_id", using: :btree
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
+
+  create_table "polling_options", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "poll_id"
+    t.integer  "cached_votes_total",      default: 0
+    t.integer  "cached_votes_score",      default: 0
+    t.integer  "cached_votes_up",         default: 0
+    t.integer  "cached_votes_down",       default: 0
+    t.integer  "cached_weighted_score",   default: 0
+    t.integer  "cached_weighted_total",   default: 0
+    t.float    "cached_weighted_average", default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "polling_options", ["cached_votes_down"], name: "index_polling_options_on_cached_votes_down", using: :btree
+  add_index "polling_options", ["cached_votes_score"], name: "index_polling_options_on_cached_votes_score", using: :btree
+  add_index "polling_options", ["cached_votes_total"], name: "index_polling_options_on_cached_votes_total", using: :btree
+  add_index "polling_options", ["cached_votes_up"], name: "index_polling_options_on_cached_votes_up", using: :btree
+  add_index "polling_options", ["cached_weighted_average"], name: "index_polling_options_on_cached_weighted_average", using: :btree
+  add_index "polling_options", ["cached_weighted_score"], name: "index_polling_options_on_cached_weighted_score", using: :btree
+  add_index "polling_options", ["cached_weighted_total"], name: "index_polling_options_on_cached_weighted_total", using: :btree
+  add_index "polling_options", ["poll_id"], name: "index_polling_options_on_poll_id", using: :btree
+
+  create_table "polls", force: :cascade do |t|
+    t.integer  "sequential_id"
+    t.string   "title"
+    t.string   "status"
+    t.boolean  "allow_multiple_choice"
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.jsonb    "results",               default: []
+  end
+
+  add_index "polls", ["project_id"], name: "index_polls_on_project_id", using: :btree
+  add_index "polls", ["user_id"], name: "index_polls_on_user_id", using: :btree
 
   create_table "project_roles", force: :cascade do |t|
     t.string   "name"

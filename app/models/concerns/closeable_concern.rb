@@ -12,10 +12,16 @@ module CloseableConcern
 
       event :close do
         transitions :from => :open, :to => :closed
+        before do
+          before_close
+        end
       end
 
       event :reopen do
         transitions :from => :closed, :to => :open
+        before do
+          before_reopen
+        end
       end
 
     end
@@ -48,6 +54,12 @@ module CloseableConcern
 
   def due_time_duration
     planned? ? ( ( Time.now - closeable_due_time ) / 1.day ).to_i.abs : 0
+  end
+
+  def before_close
+  end
+
+  def before_reopen
   end
 
 end

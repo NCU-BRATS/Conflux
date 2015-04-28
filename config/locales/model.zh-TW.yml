@@ -16,6 +16,8 @@ zh-TW:
       sprint: '戰役'
       channel: '頻道'
       message: '訊息'
+      poll: 投票
+      polling_option: 投票選項
     attributes:
       user:
         name: '名稱'
@@ -51,6 +53,9 @@ zh-TW:
         begin_at: '開始時間'
         due_at: '結束時間'
         issues: '專屬任務'
+        status:
+          open: 開啟
+          closed: 關閉
       comment:
         content: '內容'
       attachment:
@@ -67,6 +72,14 @@ zh-TW:
         announcement: 公告
       message:
         content: '內容'
+      poll:
+        title: 標題
+        allow_multiple_choice: 可多選
+        status:
+          open: 開啟
+          closed: 關閉
+      polling_option:
+        title: 投票選項
 
   validation:
     user:

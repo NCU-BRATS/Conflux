@@ -1,0 +1,27 @@
+.item
+  .content
+    .header
+      i.icon class="#{poll.status == 'open' ? 'green unlock' : 'red lock'}"
+      = link_to poll.title.html_safe, [@project, poll._object]
+
+    .sequential-id
+      = "^#{poll.sequential_id}"
+
+    .meta
+      i.clock.icon
+      => user_tag poll._object.user, class: 'gray link'
+      => t('action.target.created_at', target: '')
+      span> = time_format_relative_tag( poll._object.created_at )
+      i.comments.icon>
+      = poll._data['_source']['comments'].size
+
+    .description
+      .ui.divided.very.relaxed.list
+        - poll.comments.each do |comment|
+          .item = comment.html_safe
+
+    .extra
+      - poll.options.each do |option|
+        .ui.horizontal.label
+          = option['title']
+          .detail = option['cached_votes_total']

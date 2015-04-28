@@ -1,0 +1,19 @@
+.polling {
+  .column {
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+  .options.list {
+    .item .label {
+      min-height: 35px;
+    }
+  }
+  a.label.filter {
+    font-size: 15px !important;
+  }
+  .users {
+    .item {
+      margin-left: 0 !important;
+    }
+  }
+}

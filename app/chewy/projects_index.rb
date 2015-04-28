@@ -58,4 +58,20 @@ class ProjectsIndex < Chewy::Index
     field :user_id,    type: 'integer'
     field :created_at, type: 'date'
   end
+
+  define_type Poll.includes(:comments, :options) do
+    field :title
+    field :sequential_id, type: 'integer'
+    field :project_id,    type: 'integer'
+    field :user_id,       type: 'integer'
+    field :status,        index: 'not_analyzed'
+    field :allow_multiple_choice, type: 'boolean'
+    field :created_at,    type: 'date'
+    field :comments,      value: -> { comments.map(&:content) }
+    field :options do
+      field :title
+      field :poll_id, type: 'integer'
+      field :cached_votes_total, type: 'integer'
+    end
+  end
 end

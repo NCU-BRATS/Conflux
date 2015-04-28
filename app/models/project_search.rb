@@ -22,7 +22,7 @@ class ProjectSearch
     # We can merge multiple scopes
     scopes = [query_string, project_id_filter, type_agg, post_filter, highlight]
     scopes << label_agg           if issue?
-    scopes << status_agg          if issue? || sprint?
+    scopes << status_agg          if issue? || sprint? || poll?
     scopes << channel_agg         if message?
     scopes << attachment_type_agg if attachment?
     scopes.compact.reduce(:merge)
@@ -33,7 +33,7 @@ class ProjectSearch
     index.query(
       multi_match: {
         query: query,
-        fields: [:title, :name, :content, :comments, :'labels.title']
+        fields: [:title, :name, :content, :comments, :'labels.title', :'options.title']
       }
     ) if query?
   end
@@ -84,7 +84,7 @@ class ProjectSearch
     end
   end
 
-  ['issue', 'sprint', 'attachment', 'message'].each do |type|
+  ['issue', 'sprint', 'attachment', 'message', 'poll'].each do |type|
     define_method("#{type}?") do
       self.type == type
     end

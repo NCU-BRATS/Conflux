@@ -1,0 +1,23 @@
+.ui.segment
+  .ui.grid
+    .twelve.wide.column
+      .ui.header
+        - if poll.open?
+          i.green.icon.unlock
+        - elsif poll.closed?
+          i.red.icon.lock
+        .content
+          = link_to poll.title, project_poll_path(@project, poll)
+          .sub.header#polls_index_label
+            = "^#{poll.sequential_id} "
+            => user_tag poll.user, class: 'gray link'
+            => t('action.target.created_at', target: '')
+            span = time_format_relative_tag(poll.created_at)
+
+    .four.wide.column
+      - if poll.closed?
+        .ui.right.floated.image
+          - poll.results.each do |result|
+            .ui.label
+              = result['title']
+              .detail = result['cached_votes_total']

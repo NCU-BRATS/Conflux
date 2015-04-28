@@ -23,6 +23,18 @@ class EventCreateService
     create_event(sprint, current_user, :reopened)
   end
 
+  def open_poll(poll, current_user)
+    create_event(poll, current_user, :created)
+  end
+
+  def close_poll(poll, current_user)
+    create_event(poll, current_user, :closed)
+  end
+
+  def reopen_poll(poll, current_user)
+    create_event(poll, current_user, :reopened)
+  end
+
   def leave_comment(comment, current_user)
     create_event(comment, current_user, :commented)
   end
