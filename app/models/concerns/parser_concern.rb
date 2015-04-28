@@ -16,7 +16,7 @@ module ParserConcern
                                                  # HTML::Pipeline::CamoFilter,
                                                  HTML::Pipeline::ImageMaxWidthFilter,
                                                  HTML::Pipeline::HttpsFilter,
-                                                 HTML::Pipeline::MentionFilter,
+                                                 # HTML::Pipeline::MentionFilter,
                                                  HTML::Pipeline::EmojiFilter,
                                                  RougeSyntaxHighlightFilter
                                              ], context.merge(:gfm => true) # enable github formatted markdown
