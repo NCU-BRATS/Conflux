@@ -26,6 +26,7 @@ class Projects::SprintsController < Projects::ApplicationController
       issue_params = sprint_params[:issue_ids]
       @sprint.update_attributes(issue_ids: issue_params)
       event_service.open_sprint(@sprint, current_user)
+      notice_service.open_sprint(@sprint, current_user)
     end
     respond_with @project, @sprint
   end
@@ -38,12 +39,14 @@ class Projects::SprintsController < Projects::ApplicationController
   def close
     if @sprint.close!
       event_service.close_sprint(@sprint, current_user)
+      notice_service.close_sprint(@sprint, current_user)
     end
   end
 
   def reopen
     if @sprint.reopen!
       event_service.reopen_sprint(@sprint, current_user)
+      notice_service.reopen_sprint(@sprint, current_user)
     end
   end
 

@@ -12,6 +12,13 @@ class DashboardController < ApplicationController
     @events = current_user.recent_events.page( params[:page] ).per( params[:per] )
   end
 
+  def notices
+    params[:type_eq] = params[:type_eq] || 'unseal'
+    @unseal_number = current_user.notices.where(state: Notice.states[:unseal]).size
+    @seal_number = current_user.notices.where(state: Notice.states[:seal]).size
+    @notices = current_user.notices.where(state: Notice.states[params[:type_eq]]).page( params[:page] ).per( params[:per] )
+  end
+
   def projects
     @q = current_user.projects.page.search( params[:q] )
     @projects = @q.result.uniq.page( params[:page] ).per( params[:per] )

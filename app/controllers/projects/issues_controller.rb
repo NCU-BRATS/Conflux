@@ -26,6 +26,7 @@ class Projects::IssuesController < Projects::ApplicationController
       label_params = issue_params[:label_ids]
       @issue.update_attributes(label_ids: label_params)
       event_service.open_issue(@issue, current_user)
+      notice_service.open_issue(@issue, current_user)
     end
     respond_with @project, @issue
   end
@@ -38,6 +39,7 @@ class Projects::IssuesController < Projects::ApplicationController
   def close
     if @issue.close!
       event_service.close_issue(@issue, current_user)
+      notice_service.close_issue(@issue, current_user)
     end
     respond_with @project, @issue
   end
@@ -45,6 +47,7 @@ class Projects::IssuesController < Projects::ApplicationController
   def reopen
     if @issue.reopen!
       event_service.reopen_issue(@issue, current_user)
+      notice_service.reopen_issue(@issue, current_user)
     end
     respond_with @project, @issue
   end

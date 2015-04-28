@@ -7,9 +7,9 @@
   a.item
     i.search.icon
     span = t('action.word.search')
-  = active_link_to events_dashboard_path, class: 'item' do
+  = active_link_to notices_dashboard_path, class: 'item' do
     i.dashboard.icon
-    span = t('structure.my', element: t('project.events'))
+    span = t('structure.my', element: t('project.notices'))
   = active_link_to projects_dashboard_path, class: 'item' do
     i.world.icon
     span = t('structure.my', element: Project.model_name.human)

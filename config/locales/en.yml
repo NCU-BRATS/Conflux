@@ -242,6 +242,8 @@ en:
       join: join
       left: left
       update: update
+      seal: seal
+      unseal: unseal
   state:
     none: none
     in_progress: in progress
@@ -286,6 +288,7 @@ en:
     channels: Channels
     labels: Labels
     events: Events
+    notices: Notices
     comments: comment
     settings: Setting
     info: project information
@@ -349,3 +352,7 @@ en:
     status:
       open: open
       closed: closed
+  notice:
+    seal: seal
+    unseal: unseal
+    seeall: check all notices

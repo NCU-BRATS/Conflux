@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408145758) do
+ActiveRecord::Schema.define(version: 20150427135701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,29 @@ ActiveRecord::Schema.define(version: 20150408145758) do
 
   add_index "messages", ["channel_id"], name: "index_messages_on_channel_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "notices", force: :cascade do |t|
+    t.string   "target_type"
+    t.integer  "target_id"
+    t.integer  "author_id"
+    t.integer  "owner_id"
+    t.integer  "project_id"
+    t.integer  "action"
+    t.integer  "state"
+    t.integer  "mode"
+    t.jsonb    "target_json", default: {}, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "notices", ["action"], name: "index_notices_on_action", using: :btree
+  add_index "notices", ["author_id"], name: "index_notices_on_author_id", using: :btree
+  add_index "notices", ["mode"], name: "index_notices_on_mode", using: :btree
+  add_index "notices", ["owner_id"], name: "index_notices_on_owner_id", using: :btree
+  add_index "notices", ["project_id"], name: "index_notices_on_project_id", using: :btree
+  add_index "notices", ["state"], name: "index_notices_on_state", using: :btree
+  add_index "notices", ["target_id"], name: "index_notices_on_target_id", using: :btree
+  add_index "notices", ["target_type"], name: "index_notices_on_target_type", using: :btree
 
   create_table "participations", force: :cascade do |t|
     t.integer  "user_id"

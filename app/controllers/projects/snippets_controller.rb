@@ -12,6 +12,7 @@ class Projects::SnippetsController < Projects::ApplicationController
     @snippet.user = current_user
     if @snippet.save
       event_service.upload_attachment(@snippet, current_user)
+      notice_service.upload_attachment(@snippet, current_user)
     end
     respond_with @project, @snippet
   end

@@ -241,6 +241,8 @@ zh-TW:
       upload: 上傳
       join: 加入
       left: 離開
+      seal: 封存
+      unseal: 解除封存
   state:
     none: 無
     in_progress: 進行中
@@ -285,6 +287,7 @@ zh-TW:
     channels: 頻道
     labels: 標籤
     events: 事件
+    notices: 通知
     comments: 回覆
     messages: 訊息
     settings: 設定
@@ -348,3 +351,7 @@ zh-TW:
     status:
       open: 開啟
       closed: 關閉
+  notice:
+    seal: 封存
+    unseal: 未封存
+    seeall: 查看全部通知

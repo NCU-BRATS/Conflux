@@ -7,6 +7,7 @@ class Projects::CommentsController < Projects::ApplicationController
     @comment.user = current_user
     if @comment.save
       event_service.leave_comment(@comment, current_user)
+      notice_service.leave_comment(@comment, current_user)
     end
     respond_with @project, @comment
   end
@@ -19,6 +20,7 @@ class Projects::CommentsController < Projects::ApplicationController
   def destroy
     if @comment.destroy
       event_service.delete_comment(@comment, current_user)
+      notice_service.delete_comment(@comment, current_user)
     end
     respond_with @project, @comment
   end
