@@ -8,6 +8,7 @@ class Projects::CommentsController < Projects::ApplicationController
     if @comment.save
       event_service.leave_comment(@comment, current_user)
       notice_service.leave_comment(@comment, current_user)
+      mention_service.mention_filter(:html, @comment)
     end
     respond_with @project, @comment
   end
