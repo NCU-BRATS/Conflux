@@ -215,6 +215,7 @@ zh-TW:
       delete: 刪除%{target}
       cancel: 取消%{target}
       write: 撰寫%{target}
+      mention: 提到你
       preview: 預覽%{target}
       login: 登入%{target}
       logout: 登出%{target}

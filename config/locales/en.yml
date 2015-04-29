@@ -215,6 +215,7 @@ en:
       delete: delete %{target}
       cancel: cancel %{target}
       write: write %{target}
+      mention: mention you
       preview: preview %{target}
       login: login to %{target}
       logout: logout from %{target}
