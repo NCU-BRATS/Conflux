@@ -15,8 +15,8 @@ class MemberMentionService
         mentionable.participations.create(user: member)
       end
 
-      # Prevent mention the same user multiple times
-      unless mentioned_member.include?(member)
+      # Prevent mention the same user multiple times and mention owner itself
+      unless mentioned_member.include?(member) || mentionable.owner == member
         notice_service.create_mention_notice(mentionable, mentionable.owner, member)
         mentioned_member << member
       end
