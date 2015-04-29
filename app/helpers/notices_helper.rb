@@ -12,6 +12,8 @@ module NoticesHelper
   def action_name (notice, target)
     if notice.closed?
       I18n.t('action.target.close', :target => target)
+    elsif notice.mention?
+      I18n.t('action.target.mention')
     elsif notice.uploaded?
       I18n.t('action.target.upload' , :target => target)
     elsif notice.deleted?
