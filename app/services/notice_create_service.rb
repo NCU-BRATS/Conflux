@@ -59,6 +59,20 @@ class NoticeCreateService
     create_notice(channel, current_user, :deleted)
   end
 
+  def create_mention_notice(record, current_user, mentioner)
+    Notice.create(
+        target_id: record.id,
+        target_type: record.class.name,
+        target_json: record.to_target_json,
+        project: record.project,
+        action: :mention,
+        state: :unseal,
+        mode: :unread,
+        author_id: current_user.id,
+        owner_id: mentioner.id
+    )
+  end
+
   private
 
   def create_notice(record, current_user, status)
