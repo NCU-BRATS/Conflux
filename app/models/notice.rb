@@ -1,7 +1,7 @@
 class Notice < ActiveRecord::Base
   default_scope { where.not(author_id: nil) }
 
-  enum action: [ :created, :updated, :closed, :reopened, :commented, :uploaded, :deleted ]
+  enum action: [ :created, :updated, :closed, :reopened, :commented, :uploaded, :deleted, :mention ]
   enum state: [ :unseal, :seal ]
   enum mode: [ :unread, :read]
 
