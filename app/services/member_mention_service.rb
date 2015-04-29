@@ -4,6 +4,8 @@ class MemberMentionService
   def mention_member(field, mentionable)
     member_mention_filter = MentionFilters::MemberMentionFilter.new
 
+    mentioned_member = []
+
     filtered_field = member_mention_filter.filter(mentionable.send(field)) do |match, target|
       member = User.find_by_name(target)
       link = link_to_mentioned_member(member)
@@ -11,12 +13,13 @@ class MemberMentionService
       # Add the user to participation if the user isn't in participation
       unless mentionable.participations.exists?(user_id: member.id)
         mentionable.participations.create(user: member)
-        # TODO: Create Notification
-        # NotificationService.create_participating_notification(mentioned_user)
       end
 
-      # TODO: Create Notification
-      # NotificationService.create_mention_notification(member, mentionable)
+      # Prevent mention the same user multiple times
+      unless mentioned_member.include?(member)
+        notice_service.create_mention_notice(mentionable, mentionable.owner, member)
+        mentioned_member << member
+      end
 
       link ? match.sub("@#{target}", link) : match
     end
@@ -27,6 +30,12 @@ class MemberMentionService
   def link_to_mentioned_member(member)
     url = user_path(member)
     "<a href='#{url}' class='user-mention'>@#{member.name}</a>"
+  end
+
+  protected
+
+  def notice_service
+    @notice_service ||= NoticeCreateService.new
   end
 
 end
