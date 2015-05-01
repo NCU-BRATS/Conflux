@@ -1,5 +1,5 @@
 .ui.feed
-  .event style=((notice.read? || notice.seal?) ? 'cursor: pointer;' : 'background: rgba(75%,90%,90%,0.3); cursor: pointer;' ) data-url=notice_link_path(notice)
+  .event.notice style=((notice.read? || notice.seal?) ? 'cursor: pointer;' : 'background: rgba(75%,90%,90%,0.3); cursor: pointer;' ) data-url=notice_link_path(notice)
     .label
       = avatar_tag notice.author, :size => '24'
     - if notice.comment?
@@ -9,7 +9,3 @@
     - else
       = render 'notices/notice/common', notice: notice, check_mark: check_mark
 
-- content_for :javascripts
-  coffee:
-    $('.event').on "click", ->
-      window.location.assign($(this).data('url'))
