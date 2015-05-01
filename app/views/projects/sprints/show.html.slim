@@ -35,7 +35,7 @@
 
   - if policy(:comment).create?
     .ui.segment.tertiary
-      = render partial: 'projects/comments/form', locals: { record: [@project, @sprint, @sprint.comments.build] }
+      = render partial: 'projects/comments/form', locals: { record: [@project, @sprint, @sprint.comments.build], suggestions_path: project_suggestions_path(@project) }
 
 - if @sprint.issues.present?
   .ui.tab data-tab='issue'

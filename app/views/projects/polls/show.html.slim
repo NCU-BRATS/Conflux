@@ -6,7 +6,7 @@
 
 - if policy(:comment).create?
   .ui.segment.tertiary
-    = render partial: 'projects/comments/form', locals: { record: [@project, @poll, @poll.comments.build] }
+    = render partial: 'projects/comments/form', locals: { record: [@project, @poll, @poll.comments.build], suggestions_path: project_suggestions_path(@project) }
 
 - content_for :javascripts
   coffee:
