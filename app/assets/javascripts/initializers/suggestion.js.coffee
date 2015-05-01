@@ -5,11 +5,13 @@ $(document).on "ready page:load", () ->
       at: '@'
       displayTpl: "<li>${name}</li>"
       insertTpl: "${atwho-at}${name}",
+      searchKey: "name"
 
     $element.atwho
       at: '#'
       displayTpl: "<li>${title}</li>"
       insertTpl: "${atwho-at}${id}",
+      searchKey: "title"
 
     $suggestionsPath = $element.attr('data-suggestions-path')
 
