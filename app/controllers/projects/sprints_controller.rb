@@ -27,6 +27,7 @@ class Projects::SprintsController < Projects::ApplicationController
       @sprint.update_attributes(issue_ids: issue_params)
       event_service.open_sprint(@sprint, current_user)
       notice_service.open_sprint(@sprint, current_user)
+      mention_service.mention_filter(:html, @sprint.comments.first) # The first comment is the description of the sprint
     end
     respond_with @project, @sprint
   end

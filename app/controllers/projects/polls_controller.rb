@@ -26,6 +26,7 @@ class Projects::PollsController < Projects::ApplicationController
     if @poll.save
       event_service.open_poll(@poll, current_user)
       notice_service.open_poll(@poll, current_user)
+      mention_service.mention_filter(:html, @poll.comments.first) # The first comment is the description of the poll
     end
     respond_with @project, @poll
   end
