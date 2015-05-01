@@ -2,8 +2,7 @@
 = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable(attachment), refetch: true
 
 - if policy(:comment).create?
-  .ui.segment.tertiary
-    = render partial: 'projects/comments/form', locals: { record: [@project, attachment, attachment.comments.build], path: project_attachment_comments_path(@project, attachment), suggestions_path: project_suggestions_path(@project) }
+  = render partial: 'projects/comments/form', locals: { record: [@project, attachment, attachment.comments.build], path: project_attachment_comments_path(@project, attachment), suggestions_path: project_suggestions_path(@project) }
 
 - content_for :javascripts
   coffee:
