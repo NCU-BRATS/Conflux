@@ -29,19 +29,7 @@ h1
                                           :'item-tpl' => 'item-label',
                                           :'add-new' => true} }
 
-  = f.fields_for :comments do |cf|
-    .ui.segment.tertiary
-
-      .ui.top.attached.tabular.menu
-        a.active.item data-tab='origin'
-          = t('action.word.write')
-        a.item data-tab='preview' data-preview='comment_content'
-          = t('action.word.preview')
-      .ui.attached.active.tab.segment data-tab='origin'
-        = cf.input :content, label: false, input_html: { id: 'comment_content_post_field' }
-      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
-      .ui.bottom.attached.segment
-        = f.button :submit, class: 'right floated icon inverted'
+  = render partial: 'projects/comments/form', locals: { nested_form: f, suggestions_path: project_suggestions_path(@project) }
 
 - content_for :javascripts
   coffee:
