@@ -1,12 +1,27 @@
-= simple_form_for(record, url: local_assigns[:path], remote: true) do |f|
-  = f.error_notification
-  .ui.top.attached.tabular.menu
-    a.active.item data-tab='origin'
-      = t('action.target.write', target: Comment.model_name.human)
-    a.item data-tab='preview' data-preview='comment_content'
-      = t('action.target.preview', target: Comment.model_name.human)
-  .ui.attached.active.tab.segment data-tab='origin'
-    = f.input :content, label: false, input_html: { id: 'comment_content_post_field' }
-  .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
-  .ui.bottom.attached.segment
-    = f.button :submit, class: 'right floated icon inverted'
+- if local_assigns[:nested_form].nil?
+  = simple_form_for(record, url: local_assigns[:path], remote: true) do |f|
+    = f.error_notification
+    .ui.segment.tertiary
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='origin'
+          = t('action.target.write', target: Comment.model_name.human)
+        a.item data-tab='preview' data-preview='comment_content'
+          = t('action.target.preview', target: Comment.model_name.human)
+      .ui.attached.active.tab.segment data-tab='origin'
+        = f.input :content, label: false, input_html: { id: 'comment_content_post_field', :'data-toggle' => 'suggestion', :'data-suggestions-path' => suggestions_path }
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+      .ui.bottom.attached.segment
+        = f.button :submit, class: 'right floated icon inverted'
+- else
+  = nested_form.fields_for :comments do |cf|
+    .ui.segment.tertiary
+      .ui.top.attached.tabular.menu
+        a.active.item data-tab='origin'
+          = t('action.word.write')
+        a.item data-tab='preview' data-preview='comment_content'
+          = t('action.word.preview')
+      .ui.attached.active.tab.segment data-tab='origin'
+        = cf.input :content, label: false, input_html: {id: 'comment_content_post_field', :'data-toggle' => 'suggestion', :'data-suggestions-path' => suggestions_path}
+      .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+      .ui.bottom.attached.segment
+        = nested_form.button :submit, class: 'right floated icon inverted'

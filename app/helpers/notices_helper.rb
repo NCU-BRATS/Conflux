@@ -6,12 +6,14 @@ module NoticesHelper
              else
                'project'
              end
-    action_name notice, I18n.t(['project', target].join('.')+'s')
+    notice_action_name_from_target notice, I18n.t(['project', target].join('.')+'s')
   end
 
-  def action_name (notice, target)
+  def notice_action_name_from_target (notice, target)
     if notice.closed?
       I18n.t('action.target.close', :target => target)
+    elsif notice.mention?
+      I18n.t('action.target.mention')
     elsif notice.uploaded?
       I18n.t('action.target.upload' , :target => target)
     elsif notice.deleted?

@@ -54,7 +54,7 @@ Rails.application.routes.draw do
         # rematch ProjectParticipation Model path to project_member_path
         resources :project_participations, path: :members
       end
-
+      get 'suggestions', to: 'suggestions#suggestions'
     end
 
   end

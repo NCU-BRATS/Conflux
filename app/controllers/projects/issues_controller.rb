@@ -27,6 +27,7 @@ class Projects::IssuesController < Projects::ApplicationController
       @issue.update_attributes(label_ids: label_params)
       event_service.open_issue(@issue, current_user)
       notice_service.open_issue(@issue, current_user)
+      mention_service.mention_filter(:html, @issue.comments.first) # The first comment is the description of the issue
     end
     respond_with @project, @issue
   end

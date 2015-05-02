@@ -18,8 +18,7 @@
   = sync_new partial: 'comment_row', resource: Comment.new, scope: Comment.by_commentable(@issue), refetch: true
 
   - if policy(:comment).create?
-    .ui.segment.tertiary
-      = render partial: 'projects/comments/form', locals: { record: [@project, @issue, @issue.comments.build] }
+    = render partial: 'projects/comments/form', locals: { record: [@project, @issue, @issue.comments.build], suggestions_path: project_suggestions_path(@project) }
 
 .ui.tab data-tab='calendar'
   .center.aligned

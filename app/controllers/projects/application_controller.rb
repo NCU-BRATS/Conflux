@@ -28,4 +28,8 @@ class Projects::ApplicationController < ApplicationController
     NoticeCreateService.new
   end
 
+  def mention_service
+    MentionService.new
+  end
+
 end

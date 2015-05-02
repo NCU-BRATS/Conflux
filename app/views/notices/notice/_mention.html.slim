@@ -1,0 +1,20 @@
+- target = notice.target_json
+.content
+  .date
+    => time_format_relative_tag notice.created_at
+  - if check_mark == true
+    - if notice.seal?
+      = link_to notice_unseal_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.unseal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
+        i.checkmark.box.icon
+    - else
+      = link_to notice_seal_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.seal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
+        i.checkmark.icon
+  .summary
+    = link_to notice.author.name, user_path(notice.author)
+    == '&nbsp;'+t("event.at")+'&nbsp;'
+    strong<
+      - name = target['commentable']['title'] || target['commentable']['name'] || ' #' + target['commentable']['sequential_id'].to_s
+      - id = target['commentable']['sequential_id'] || target['commentable']['id']
+      = link_to name.to_s, send("project_#{target['commentable_type'].underscore}_path", notice.project, id)
+    | &nbsp;
+    = notice_action_name(notice)
