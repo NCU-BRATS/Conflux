@@ -51,6 +51,11 @@ gem 'chewy', github: 'toptal/chewy', branch: 'master'
 # makes it easy to create plain old ruby models like ActiveRecord.
 gem 'active_attr'
 
+gem 'wisper'
+gem 'trailblazer'
+gem 'cells', '~> 4.0.0.beta2'
+gem 'cells-slim'
+
 # responders
 gem 'responders', '~> 2.0'
 # sync
