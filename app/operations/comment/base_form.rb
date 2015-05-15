@@ -1,8 +1,5 @@
 class Comment < ActiveRecord::Base
   class BaseForm < Reform::Form
-    include Reform::Form::ActiveModel
-    include Reform::Form::ActiveModel::FormBuilderMethods
-
     model :comment
 
     property :content, validates: {presence: true}

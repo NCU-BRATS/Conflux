@@ -1,7 +1,5 @@
 class Issue < ActiveRecord::Base
   class BaseForm < Reform::Form
-    include Reform::Form::ActiveModel
-    include Reform::Form::ActiveModel::FormBuilderMethods
     include Composition
 
     model :issue

@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   def create
     @form = Project::Create.new(current_user)
     @form.process(params)
-    respond_with @form, location: project_dashboard_path(@form)
+    respond_with @form, location: @form.valid? ? project_dashboard_path(@form) : nil
   end
 
   protected
