@@ -5,31 +5,41 @@ h1
       i.icon.chevron.left
       = t('action.word.back')
 
-= simple_nested_form_for [ @project, @issue ] do |f|
+= simple_form_for [ @project, @form ] do |f|
   = f.error_notification
 
   = f.input :title
   .two.fields
-    = f.input :begin_at
-    = f.input :due_at
+    = f.input :begin_at, as: :date
+    = f.input :due_at, as: :date
   .two.fields
-    = f.association :assignee, collection: @project.members,
-                    input_html: { data: { :'resource-path' => project_settings_members_path( @project ),
-                                          :'search-field' => '["name", "email"]',
-                                          :'option-tpl' => 'option-user'} }
-    = f.association :sprint, collection: {},
-                    input_html: { data: { :'resource-path' => project_sprints_path( @project ),
-                                          :'search-field' => '["title"]',
-                                          :'add-new'      => true } }
+    = f.input :assignee_id, collection: @project.members,
+              input_html: { data: { :'resource-path' => project_settings_members_path( @project ),
+                                    :'search-field' => '["name", "email"]',
+                                    :'option-tpl' => 'option-user'} }
+    = f.input :sprint_id, collection: {},
+              input_html: { data: { :'resource-path' => project_sprints_path( @project ),
+                                    :'search-field' => '["title"]',
+                                    :'add-new'      => true } }
   .field
-    = f.association :labels, collection: {},
-                    input_html: { data: { :'resource-path' => project_settings_labels_path( @project ),
-                                          :'search-field' => '["title"]',
-                                          :'option-tpl' => 'option-label',
-                                          :'item-tpl' => 'item-label',
-                                          :'add-new' => true} }
-
-  = render partial: 'projects/comments/form', locals: { nested_form: f, suggestions_path: project_suggestions_path(@project) }
+    = f.input :label_ids, collection: {},
+              input_html: { data: { :'resource-path' => project_settings_labels_path( @project ),
+                                    :'search-field' => '["title"]',
+                                    :'option-tpl' => 'option-label',
+                                    :'item-tpl' => 'item-label',
+                                    :'add-new' => true},
+                                    :'multiple' => 'multiple' }
+  .ui.segment.tertiary
+    .ui.top.attached.tabular.menu
+      a.active.item data-tab='origin'
+        = t('action.word.write')
+      a.item data-tab='preview' data-preview='comment_content'
+        = t('action.word.preview')
+    .ui.attached.active.tab.segment data-tab='origin'
+      = f.input :content, label: false, input_html: {id: 'comment_content_post_field', :'data-toggle' => 'suggestion', :'data-suggestions-path' => project_suggestions_path(@project)}, as: :text
+    .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+    .ui.bottom.attached.segment
+      = f.button :submit, class: 'right floated icon inverted'
 
 - content_for :javascripts
   coffee:

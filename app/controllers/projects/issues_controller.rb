@@ -13,23 +13,14 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def new
-    @issue = @project.issues.build
-    @issue.comments.build
-    respond_with @project, @issue
+    @form = Issue::Create.new(current_user, @project)
+    respond_with @project, @form
   end
 
   def create
-    @issue = @project.issues.build( issue_params.except(:label_ids) )
-    @issue.user = current_user
-    @issue.comments.each { |comment| comment.user = current_user }
-    if @issue.save
-      label_params = issue_params[:label_ids]
-      @issue.update_attributes(label_ids: label_params)
-      event_service.open_issue(@issue, current_user)
-      notice_service.open_issue(@issue, current_user)
-      mention_service.mention_filter(:html, @issue.comments.first) # The first comment is the description of the issue
-    end
-    respond_with @project, @issue
+    @form = Issue::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def update
