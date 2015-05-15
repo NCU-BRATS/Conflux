@@ -2,6 +2,6 @@
   .ui.header
     i.world.icon
     .content
-      = link_to project.name, project
+      = link_to project.name, project_dashboard_path(project)
       .sub.header.gray
         = project.description

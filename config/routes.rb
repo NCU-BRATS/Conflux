@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     put 'profile/critical_settings', to: 'profiles/critical_settings#update'
   end
 
-  resources :projects, except: [:edit, :update, :show] do
+  resources :projects, except: [:edit, :update, :show, :destroy] do
     concern :commentable do
       resources :comments , only: [:create]
     end
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       end
       resources :posts
       resources :snippets
-      resource :settings, only: [:edit, :update]
+      resource :settings, only: [:edit, :update, :destroy]
       resource :statistic, only: [] do
         get 'users'
         get 'tasks'

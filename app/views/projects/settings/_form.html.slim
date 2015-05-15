@@ -1,12 +1,10 @@
-- content_for :javascripts
-
-= simple_form_for(@project, url: project_settings_path) do |f|
+= simple_form_for(@form, url: project_settings_path) do |f|
   = f.error_notification
   .ui.stacked.tertiary.segment
     .h3.ui.header = t('project.info')
 
   = f.input :name
-  = f.input :description
+  = f.input :description, as: :text
 
   .ui.stacked.tertiary.segment
     .h3.ui.header = t('project.visibility_level')
@@ -15,7 +13,7 @@
     - Project.visibility_level.values.each do |visibility_level|
       .radio.field
         .ui.radio.checkbox
-          = radio_button_tag :'project[visibility_level]', visibility_level, @project.visibility_level.send("#{visibility_level}?")
+          = radio_button_tag :'project[visibility_level]', visibility_level, @form.visibility_level == visibility_level
           label
             h4.ui.header
               = t("project.visibility_levels.#{visibility_level}")
@@ -24,6 +22,9 @@
   .ui.hidden.divider
   .ui.message
     = f.button :submit
+
+  .ui.message
+    = link_to t('action.target.delete', target: @project.model_name.human), project_settings_path, method: :delete, data: { confirm: t('question.confirm.action', action: t('action.word.delete')) }, class: 'ui red submit button'
 
   coffee:
     $('.ui.radio.checkbox').checkbox()
