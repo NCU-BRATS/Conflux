@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-
+  include Trailblazer::Operation::Controller
+  include Trailblazer::Operation::Controller::ActiveRecord
   include AuthorizationConcern
 
   layout 'default'
