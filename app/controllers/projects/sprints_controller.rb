@@ -13,52 +13,38 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def new
-    @sprint = @project.sprints.build
-    @sprint.comments.build
-    respond_with @project, @sprint
+    @form = Sprint::Create.new(current_user, @project)
+    respond_with @project, @form
   end
 
   def create
-    @sprint = @project.sprints.build( sprint_params.except(:issue_ids) )
-    @sprint.user = current_user
-    @sprint.comments.each { |comment| comment.user = current_user }
-    if @sprint.save
-      issue_params = sprint_params[:issue_ids]
-      @sprint.update_attributes(issue_ids: issue_params)
-      event_service.open_sprint(@sprint, current_user)
-      notice_service.open_sprint(@sprint, current_user)
-      mention_service.mention_filter(:html, @sprint.comments.first) # The first comment is the description of the sprint
-    end
-    respond_with @project, @sprint
+    @form = Sprint::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def update
-    @sprint.update( sprint_params )
-    respond_with @project, @sprint
+    @form = Sprint::Update.new(current_user, @project, @sprint)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def close
-    if @sprint.close!
-      event_service.close_sprint(@sprint, current_user)
-      notice_service.close_sprint(@sprint, current_user)
-    end
+    @form = Sprint::Close.new(current_user, @project, @sprint)
+    @form.process
+    respond_with @project, @form
   end
 
   def reopen
-    if @sprint.reopen!
-      event_service.reopen_sprint(@sprint, current_user)
-      notice_service.reopen_sprint(@sprint, current_user)
-    end
+    @form = Sprint::Reopen.new(current_user, @project, @sprint)
+    @form.process
+    respond_with @project, @form
   end
 
   protected
 
   def resource
     @sprint ||= @project.sprints.where( :sequential_id => params[:id] ).first
-  end
-
-  def sprint_params
-    params.require(:sprint).permit( :title, :begin_at, :due_at, :status, issue_ids:[], comments_attributes: [ :content ] )
   end
 
 end

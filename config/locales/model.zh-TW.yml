@@ -56,6 +56,7 @@ zh-TW:
         begin_at: '開始時間'
         due_at: '結束時間'
         issues: '專屬任務'
+        issue_ids: '專屬任務'
         status:
           open: 開啟
           closed: 關閉
