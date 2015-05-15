@@ -5,12 +5,13 @@ class Projects::SettingsController < Projects::ApplicationController
   end
 
   def edit
-
+    form Project::Update, params.merge({model: @project})
   end
 
   def update
-    @project.update(project_params)
-    respond_with @project, location: edit_project_settings_path(@project)
+    respond Project::Update, params.merge({model: @project}) do |op, formats|
+      formats.html { render('edit') }
+    end
   end
 
   def model
@@ -25,6 +26,10 @@ class Projects::SettingsController < Projects::ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :description, :visibility_level)
+  end
+
+  def interpolation_options
+    { resource_name: @project.name }
   end
 
 end

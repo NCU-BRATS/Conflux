@@ -11,7 +11,6 @@ h1.ui.center.aligned.header
         = f.search_field :name_or_description_cont, placeholder: t('ransack.search'), type: 'text'
 
 .ui.very.massive.relaxed.divided.selection.list
-  = sync partial: 'project_row', collection: @projects
-  = sync_new partial: 'project_row', resource: Project.new
+  = render partial: 'project', collection: @projects
 
 = paginate @projects
