@@ -24,8 +24,9 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def update
-    @issue.update( issue_params )
-    respond_with @project, @issue
+    @form = Issue::Update.new(current_user, @project, @issue)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def close
