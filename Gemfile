@@ -52,6 +52,7 @@ gem 'chewy', github: 'toptal/chewy', branch: 'master'
 gem 'active_attr'
 
 gem 'wisper'
+gem 'virtus'
 gem 'trailblazer'
 gem 'cells', '~> 4.0.0.beta2'
 gem 'cells-slim'
