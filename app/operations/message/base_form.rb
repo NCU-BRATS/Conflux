@@ -1,6 +1,6 @@
 class Message < ActiveRecord::Base
   class BaseForm < Reform::Form
-    model :comment
+    model :message
 
     property :content, validates: {presence: true}
 
