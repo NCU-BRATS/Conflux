@@ -9,11 +9,14 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    form Project::Create
+    @form = Project::Create.new(current_user)
+    respond_with @form
   end
 
   def create
-    respond Project::Create, params.merge({current_user: current_user})
+    @form = Project::Create.new(current_user)
+    @form.process(params)
+    respond_with @form, location: project_dashboard_path(@form)
   end
 
   protected
@@ -24,7 +27,7 @@ class ProjectsController < ApplicationController
   end
 
   def interpolation_options
-    { resource_name: @project.name }
+    { resource_name: @form.name }
   end
 
 end

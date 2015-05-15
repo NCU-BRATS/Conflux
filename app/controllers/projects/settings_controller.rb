@@ -5,18 +5,21 @@ class Projects::SettingsController < Projects::ApplicationController
   end
 
   def edit
-    form Project::Update, params.merge({model: @project})
+    @form = Project::Update.new(current_user, @project)
   end
 
   def update
-    respond Project::Update, params.merge({model: @project}) do |op, formats|
+    @form = Project::Update.new(current_user, @project)
+    @form.process(params)
+    respond_with @form do |formats|
       formats.html { render('edit') }
     end
   end
 
   def destroy
-    @project.destroy
-    respond_with @project, location: dashboard_path
+    @form = Project::Destroy.new(current_user, @project)
+    @form.process
+    respond_with @form, location: dashboard_path
   end
 
   def model
@@ -29,12 +32,8 @@ class Projects::SettingsController < Projects::ApplicationController
 
   protected
 
-  def project_params
-    params.require(:project).permit(:name, :description, :visibility_level)
-  end
-
   def interpolation_options
-    { resource_name: @project.name }
+    { resource_name: @form.name }
   end
 
 end

@@ -1,13 +1,13 @@
 class Project < ActiveRecord::Base
-  class Update < BaseForm
+  class Destroy < BaseForm
 
     def initialize(current_user, project)
       @current_user = current_user
       super(project)
     end
 
-    def process(params)
-      validate(params[:project]) && save
+    def process
+      @model.destroy
     end
 
   end
