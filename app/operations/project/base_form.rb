@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
     property :description
 
     validates :name, :visibility_level, presence: true
+    validates_uniqueness_of :name
 
   end
 end
