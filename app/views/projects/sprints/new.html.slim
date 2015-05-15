@@ -5,23 +5,34 @@ h1
       i.icon.chevron.left
       = t('action.word.back')
 
-= simple_nested_form_for [ @project, @sprint ] do |f|
+= simple_form_for [ @project, @form ] do |f|
   = f.error_notification
 
   = f.input :title
   .two.fields
-    = f.input :begin_at
-    = f.input :due_at
+    = f.input :begin_at, as: :date
+    = f.input :due_at, as: :date
   .field
-    = f.association :issues, collection: @sprint.issues,
-                    input_html: { data: { :'resource-path' => project_issues_path(@sprint.project),
+    = f.input :issue_ids, collection: [],
+                    input_html: { data: { :'resource-path' => project_issues_path(@project),
                                           :'search-field' => '["title"]',
                                           :'option-tpl'   => 'option-simple',
                                           :'item-tpl'     => 'item-simple',
                                           :'add-new'      => true,
-                                          :'query-param'  => { sprint_id_null: 1 }.to_json } }
+                                          :'query-param'  => { sprint_id_null: 1 }.to_json },
+                                          :'multiple'     => 'multiple' }
 
-  = render partial: 'projects/comments/form', locals: { nested_form: f, suggestions_path: project_suggestions_path(@project) }
+  .ui.segment.tertiary
+    .ui.top.attached.tabular.menu
+      a.active.item data-tab='origin'
+        = t('action.word.write')
+      a.item data-tab='preview' data-preview='comment_content'
+        = t('action.word.preview')
+    .ui.attached.active.tab.segment data-tab='origin'
+      = f.input :content, label: false, input_html: {id: 'comment_content_post_field', :'data-toggle' => 'suggestion', :'data-suggestions-path' => project_suggestions_path(@project)}, as: :text
+    .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+    .ui.bottom.attached.segment
+      = f.button :submit, class: 'right floated icon inverted'
 
 - content_for :javascripts
   coffee:
