@@ -30,19 +30,15 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def close
-    if @issue.close!
-      event_service.close_issue(@issue, current_user)
-      notice_service.close_issue(@issue, current_user)
-    end
-    respond_with @project, @issue
+    @form = Issue::Close.new(current_user, @project, @issue)
+    @form.process
+    respond_with @project, @form
   end
 
   def reopen
-    if @issue.reopen!
-      event_service.reopen_issue(@issue, current_user)
-      notice_service.reopen_issue(@issue, current_user)
-    end
-    respond_with @project, @issue
+    @form = Issue::Reopen.new(current_user, @project, @issue)
+    @form.process
+    respond_with @project, @form
   end
 
   protected
