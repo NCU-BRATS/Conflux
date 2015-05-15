@@ -47,8 +47,4 @@ class Projects::IssuesController < Projects::ApplicationController
     @issue ||= @project.issues.where( :sequential_id => params[:id] ).first
   end
 
-  def issue_params
-    params.require(:issue).permit( :title, :begin_at, :due_at, :status, :assignee_id, :sprint_id, comments_attributes: [ :content ], label_ids: [] )
-  end
-
 end
