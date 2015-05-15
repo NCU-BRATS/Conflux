@@ -3,20 +3,21 @@ class Projects::MessagesController < Projects::ApplicationController
   enable_sync only: [:create]
 
   def create
-    @message = Channel.friendly.find( params[:channel_id] ).messages.build message_params
-    @message.user = current_user
-    @message.save
-    respond_with @project, @message
+    @form = Message::Create.new(current_user, Channel.friendly.find(params[:channel_id]))
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def update
-    @message.update_attributes(message_params)
-    respond_with @project, @message
+    @form = Message::Update.new(current_user, @message)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def destroy
-    @message.destroy
-    respond_with @project, @message
+    @form = Message::Destroy.new(current_user, @message)
+    @form.process
+    respond_with @project, @form
   end
 
   protected
