@@ -3,27 +3,21 @@ class Projects::CommentsController < Projects::ApplicationController
   enable_sync only: [:create, :update, :destroy]
 
   def create
-    @comment = commentable.comments.build comment_params
-    @comment.user = current_user
-    if @comment.save
-      event_service.leave_comment(@comment, current_user)
-      notice_service.leave_comment(@comment, current_user)
-      mention_service.mention_filter(:html, @comment)
-    end
-    respond_with @project, @comment
+    @form = Comment::Create.new(current_user, commentable)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def update
-    @comment.update_attributes(comment_params)
-    respond_with @project, @comment
+    @form = Comment::Update.new(current_user, @comment)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def destroy
-    if @comment.destroy
-      event_service.delete_comment(@comment, current_user)
-      notice_service.delete_comment(@comment, current_user)
-    end
-    respond_with @project, @comment
+    @form = Comment::Destroy.new(current_user, @comment)
+    @form.process
+    respond_with @project, @form
   end
 
   protected
@@ -39,10 +33,6 @@ class Projects::CommentsController < Projects::ApplicationController
 
   def resource
     @comment ||= Comment.find(params[:id])
-  end
-
-  def comment_params
-    params.require(:comment).permit( :content )
   end
 
 end
