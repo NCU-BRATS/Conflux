@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       end
       resources :posts
       resources :snippets
-      resource :settings, only: [:edit, :update]
+      resource :settings, only: [:edit, :update, :destroy]
       resource :statistic, only: [] do
         get 'users'
         get 'tasks'

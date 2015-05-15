@@ -23,5 +23,8 @@
   .ui.message
     = f.button :submit
 
+  .ui.message
+    = link_to t('action.target.delete', target: @project.model_name.human), project_settings_path, method: :delete, data: { confirm: t('question.confirm.action', action: t('action.word.delete')) }, class: 'ui red submit button'
+
   coffee:
     $('.ui.radio.checkbox').checkbox()

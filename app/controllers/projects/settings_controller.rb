@@ -14,6 +14,11 @@ class Projects::SettingsController < Projects::ApplicationController
     end
   end
 
+  def destroy
+    @project.destroy
+    respond_with @project, location: dashboard_path
+  end
+
   def model
     :project_setting
   end
