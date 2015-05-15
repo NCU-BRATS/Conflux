@@ -1,13 +1,13 @@
 h1
   = title t('action.target.edit', target: Channel.model_name.human)
 
-= simple_nested_form_for [ @project, @channel ] do |f|
+= simple_form_for [ @project, @form ] do |f|
   = f.error_notification
 
   = f.input :name
-  = f.input :description
-  = f.input :announcement
+  = f.input :description, as: :text
+  = f.input :announcement, as: :text
 
   = f.button :submit, class: 'right floated icon inverted'
 
-
+  = link_to t('action.target.delete', target: Channel.model_name.human), project_channel_path, method: :delete, data: { confirm: t('question.confirm.action', action: t('action.word.delete')) }, class: 'ui red submit button'

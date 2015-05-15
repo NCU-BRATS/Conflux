@@ -8,33 +8,31 @@ class Projects::ChannelsController < Projects::ApplicationController
   end
 
   def new
-    @channel = Channel.new
-    respond_with @project, @channel
+    @form = Channel::Create.new(current_user, @project)
+    respond_with @project, @form
   end
 
   def create
-    @channel = @project.channels.build( channel_params )
-    @channel.members << current_user
-    if @channel.save
-      event_service.create_channel(@channel, current_user)
-    end
-    respond_with @project, @channel
+    @form = Channel::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def edit
-    respond_with @project, @channel
+    @form = Channel::Update.new(current_user, @project, @channel)
+    respond_with @project, @form
   end
 
   def update
-    @channel.update_attributes( channel_params )
-    respond_with @project, @channel
+    @form = Channel::Update.new(current_user, @project, @channel)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def destroy
-    if @channel.destroy
-      event_service.delete_channel(@channel, current_user)
-    end
-    respond_with @project, @channel
+    @form = Channel::Destroy.new(current_user, @project, @channel)
+    @form.process
+    respond_with @project, @form, location: project_dashboard_path(@project)
   end
 
   protected
