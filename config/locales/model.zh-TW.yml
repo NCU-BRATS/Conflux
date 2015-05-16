@@ -30,6 +30,8 @@ zh-TW:
       project_participation:
         user: '使用者'
         project_role: '角色'
+        user_id: '使用者'
+        project_role_id: '角色'
       project_role:
         name: '名稱'
       issue:
