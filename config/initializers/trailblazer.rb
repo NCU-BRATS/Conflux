@@ -3,3 +3,5 @@
 require 'reform/form/coercion'
 require "trailblazer/autoloading"
 require "trailblazer/operation/controller/active_record"
+
+Reform::Form.reform_2_0!
