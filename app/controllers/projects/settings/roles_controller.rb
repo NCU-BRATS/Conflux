@@ -7,34 +7,34 @@ class Projects::Settings::RolesController < Projects::SettingsController
   end
 
   def new
-    @role = @project.project_roles.build
-    respond_with @role
+    @form = ProjectRole::Create.new(current_user, @project)
+    respond_with @project, @form
   end
 
   def create
-    @role = @project.project_roles.create(role_params)
-    respond_with @role, location: project_settings_roles_path
+    @form = ProjectRole::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form, location: project_settings_roles_path
   end
 
   def edit
-    respond_with @project
+    @form = ProjectRole::Update.new(current_user, @project, @role)
+    respond_with @project, @form
   end
 
   def update
-    @role.update_attributes(role_params)
-    respond_with @project, location: project_settings_roles_path
+    @form = ProjectRole::Update.new(current_user, @project, @role)
+    @form.process(params)
+    respond_with @project, @form, location: project_settings_roles_path
   end
 
   def destroy
-    @role.destroy
-    respond_with @role, location: project_settings_roles_path
+    @form = ProjectRole::Destroy.new(current_user, @project, @role)
+    @form.process
+    respond_with @project, @form, location: project_settings_roles_path
   end
 
   protected
-
-  def role_params
-    params.require(:project_role).permit(:name)
-  end
 
   def resource
     @role ||= @project.project_roles.find(params[:id])
