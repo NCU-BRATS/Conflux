@@ -7,44 +7,34 @@ class Projects::Settings::MembersController < Projects::SettingsController
   end
 
   def new
-    @participation = @project.project_participations.build
-    respond_with @participation
+    @form = ProjectParticipation::Create.new(current_user, @project)
+    respond_with @project, @form
   end
 
   def create
-    @participation = @project.project_participations.build(participation_params)
-    if @participation.save
-      event_service.join_project(@participation, current_user)
-    end
-    respond_with @participation, location: project_settings_members_path
+    @form = ProjectParticipation::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form, location: project_settings_members_path
   end
 
   def edit
-    respond_with @project
+    @form = ProjectParticipation::Update.new(current_user, @project, @participation)
+    respond_with @project, @form
   end
 
   def update
-    @participation.update_attributes(participation_params)
-    respond_with @project, location: project_settings_members_path
+    @form = ProjectParticipation::Update.new(current_user, @project, @participation)
+    @form.process(params)
+    respond_with @project, @form, location: project_settings_members_path
   end
 
   def destroy
-    if @project.project_participations.size > 1
-      if @participation.destroy
-        event_service.left_project(@participation, current_user)
-      end
-    else
-      @participation.errors.add(:base, '')
-    end
-
-    respond_with @participation, location: project_settings_members_path
+    @form = ProjectParticipation::Destroy.new(current_user, @project, @participation)
+    @form.process
+    respond_with @project, @form, location: project_settings_members_path
   end
 
   protected
-
-  def participation_params
-    params.require(:project_participation).permit(:user_id, :project_role_id)
-  end
 
   def resource
     @participation ||= @project.project_participations.find(params[:id])
