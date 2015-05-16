@@ -3,18 +3,14 @@ class Projects::SnippetsController < Projects::ApplicationController
   enable_sync only: [:create, :update]
 
   def new
-    @snippet = @project.snippets.build
-    respond_with @project, @snippet
+    @form = Snippet::Create.new(current_user, @project)
+    respond_with @form
   end
 
   def create
-    @snippet = @project.snippets.build(snippet_params)
-    @snippet.user = current_user
-    if @snippet.save
-      event_service.upload_attachment(@snippet, current_user)
-      notice_service.upload_attachment(@snippet, current_user)
-    end
-    respond_with @project, @snippet
+    @form = Snippet::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def show
@@ -22,19 +18,17 @@ class Projects::SnippetsController < Projects::ApplicationController
   end
 
   def edit
+    @form = Snippet::Update.new(current_user, @project, @snippet)
     respond_with @project, @snippet
   end
 
   def update
-    @snippet.update(snippet_params)
-    respond_with @project, @snippet
+    @form = Snippet::Update.new(current_user, @project, @snippet)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   protected
-
-  def snippet_params
-    params.require(:snippet).permit(:name, :language, :content)
-  end
 
   def resource
     @snippet ||= @project.snippets.find(params[:id])
