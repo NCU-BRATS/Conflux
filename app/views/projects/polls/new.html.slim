@@ -5,15 +5,15 @@ h1
       i.icon.chevron.left
       = t('action.word.back')
 
-= simple_nested_form_for [ @project, @poll ] do |f|
+= simple_nested_form_for [ @project, @form ] do |f|
   = f.error_notification
 
   = f.input :title
 
-  = f.input :allow_multiple_choice
+  = f.input :allow_multiple_choice, as: :boolean
 
   = f.fields_for :options do |of|
-    = of.input :title
+    = of.input :title, label: t('activerecord.models.polling_option')
     .field
       label &nbsp;
       = of.link_to_remove t('action.word.delete'), class: 'ui red button'
@@ -22,7 +22,17 @@ h1
 
   .ui.divider
 
-  = render partial: 'projects/comments/form', locals: { nested_form: f, suggestions_path: project_suggestions_path(@project) }
+  .ui.segment.tertiary
+    .ui.top.attached.tabular.menu
+      a.active.item data-tab='origin'
+        = t('action.word.write')
+      a.item data-tab='preview' data-preview='comment_content'
+        = t('action.word.preview')
+    .ui.attached.active.tab.segment data-tab='origin'
+      = f.input :content, label: false, input_html: {id: 'comment_content_post_field', :'data-toggle' => 'suggestion', :'data-suggestions-path' => project_suggestions_path(@project)}, as: :text
+    .ui.attached.tab.segment#comment_content_preview_field data-tab='preview'
+    .ui.bottom.attached.segment
+      = f.button :submit, class: 'right floated icon inverted'
 
 - content_for :javascripts
   coffee:
