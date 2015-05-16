@@ -1,5 +1,5 @@
 - if attachment.errors.any?
-  | var form = '#{j render partial, project: project, attachment: attachment}}';
+  | var form = '#{j render form_partial, project: project, attachment: attachment}';
   | $('#{target_modal}').replaceWith(form);
   | $('#{target_modal}').modal({
   |   duration: 0
