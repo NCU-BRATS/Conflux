@@ -30,10 +30,4 @@ class Projects::SettingsController < Projects::ApplicationController
     :project
   end
 
-  protected
-
-  def interpolation_options
-    { resource_name: @form.name }
-  end
-
 end
