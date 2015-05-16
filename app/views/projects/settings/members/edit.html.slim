@@ -1,14 +1,9 @@
-h1 = title t('action.target.add', target: ProjectParticipation.model_name.human)
+h1 = title t('action.target.edit', target: ' '+@form.model.user.name)
 
 = simple_form_for([@project, :settings, @form]) do |f|
   = f.error_notification
 
-  = f.input :user_id, collection: {},
-            input_html: { data:     { :'resource-path' => users_path,
-                                      :'search-field' => '["name", "email"]',
-                                      :'option-tpl'   => 'option-user' } }
-
-  = f.input :project_role_id, collection: {},
+  = f.input :project_role_id, collection: [ @form.model.project_role ],
             input_html: { data: { :'resource-path' => project_settings_roles_path(@project),
                                   :'search-field'  => '["name"]',
                                   :'option-tpl'    => 'option-default',
