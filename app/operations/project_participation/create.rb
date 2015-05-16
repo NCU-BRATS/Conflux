@@ -1,10 +1,7 @@
 class ProjectParticipation < ActiveRecord::Base
   class Create < BaseForm
 
-    property :user_id
-
-    validates :user_id, presence: true
-    validates :user_id, uniqueness: { scope: :project }
+    property :user_id, validates: {presence: true}
 
     def initialize(current_user, project, project_participation=ProjectParticipation.new)
       @current_user = current_user
