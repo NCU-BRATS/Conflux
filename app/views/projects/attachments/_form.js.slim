@@ -1,6 +1,6 @@
-- if attachment.errors.any?
-  | var form = '#{j render partial, project: project, attachment: attachment}}';
-  | $('#{target_modal}').replaceWith(form);
+- if attachment.errors.any? || form.errors.any?
+  | var form = '#{j render form_partial, project: project, attachment: form}';
+  | $('#{target_modal}').find('form').replaceWith(form);
   | $('#{target_modal}').modal({
   |   duration: 0
   | }).modal('show');
@@ -12,4 +12,4 @@
   - resource_count = project.reload.send("#{resource_type.pluralize}_count".to_sym)
   | $("#menu_#{resource_type} .label").html("#{resource_count}");
   | $('#{target_modal}').trigger('initializeModal');
-  | $(document).trigger('page:load');
+| $(document).trigger('page:load');

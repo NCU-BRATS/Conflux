@@ -3,18 +3,14 @@ class Projects::PostsController < Projects::ApplicationController
   enable_sync only: [:create, :update]
 
   def new
-    @post = @project.posts.build
-    respond_with @post
+    @form = Post::Create.new(current_user, @project)
+    respond_with @form
   end
 
   def create
-    @post = @project.posts.build(post_params)
-    @post.user = current_user
-    if @post.save
-      event_service.upload_attachment(@post, current_user)
-      notice_service.upload_attachment(@post, current_user)
-    end
-    respond_with @project, @post
+    @form = Post::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def show
@@ -22,19 +18,17 @@ class Projects::PostsController < Projects::ApplicationController
   end
 
   def edit
+    @form = Post::Update.new(current_user, @project, @post)
     respond_with @project, @post
   end
 
   def update
-    @post.update(post_params)
-    respond_with @project, @post
+    @form = Post::Update.new(current_user, @project, @post)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   protected
-
-  def post_params
-    params.require(:post).permit(:name, :content)
-  end
 
   def resource
     @post ||= @project.posts.find(params[:id])

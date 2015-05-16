@@ -44,10 +44,6 @@ class Projects::Settings::LabelsController < Projects::SettingsController
 
   protected
 
-  def label_params
-    params.require(:label).permit(:title, :color)
-  end
-
   def resource
     @label ||= @project.labels.find(params[:id])
   end

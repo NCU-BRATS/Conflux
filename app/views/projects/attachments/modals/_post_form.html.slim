@@ -8,7 +8,7 @@
       a.item data-tab='preview' data-preview='post_content'
         = t('action.word.preview')
     .ui.attached.active.tab.segment data-tab='origin'
-      = f.input :content, label: false, input_html: {id: 'post_content_post_field'}
+      = f.input :content, label: false, input_html: {id: 'post_content_post_field'}, as: :text
     .ui.attached.tab.segment#post_content_preview_field data-tab='preview'
     .ui.bottom.attached.segment
       = f.button :submit, class: 'right floated icon inverted'
