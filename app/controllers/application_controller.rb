@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :preload_sti_descendants, if: 'Rails.env.development?'
+  before_action :preload_sti_descendants
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def preload_sti_descendants
-    [Post, Snippet, Image, OtherAttachment]
+    [Post, Post::Create, Snippet, Snippet::Create, Image, OtherAttachment, Attachment::Create]
   end
 
 end
