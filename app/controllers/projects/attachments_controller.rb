@@ -6,32 +6,28 @@ class Projects::AttachmentsController < Projects::ApplicationController
     params[:q] = {type_eq: 'Post'}.merge(params[:q] || {})
     @q = @project.attachments.includes(:user).search(params[:q])
     @attachments = @q.result.uniq.latest.page(params[:page]).per(params[:per]||5)
-    respond_with @attachments
-  end
-
-  def new
-    @attachment = @project.attachments.build
-    respond_with @attachment
-  end
-
-  def create
-    @attachment = Attachment::intelligent_construct(attachment_params, @project, current_user)
-    if @attachment.save
-      event_service.upload_attachment(@attachment, current_user)
-      notice_service.upload_attachment(@attachment, current_user)
-    end
-    respond_with @attachment
+    respond_with @project, @attachments
   end
 
   def show
-    respond_with @attachment
+    respond_with @project, @attachment
+  end
+
+  def new
+    @form = Attachment::Create.new(current_user, @project)
+    respond_with @project, @form
+  end
+
+  def create
+    @form = Attachment::Create.new(current_user, @project)
+    @form.process(params)
+    respond_with @project, @form
   end
 
   def destroy
-    if @attachment.destroy
-      event_service.delete_attachment(@attachment, current_user)
-    end
-    respond_with @attachment, location: project_attachments_path
+    @form = Attachment::Destroy.new(current_user, @project, @attachment)
+    @form.process
+    respond_with @project, @form, location: project_attachments_path
   end
 
   def download
@@ -39,10 +35,6 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   protected
-
-  def attachment_params
-    params.require(:attachment).permit(:name, :path, :path_cache)
-  end
 
   def resource
     @attachment ||= @project.attachments.find(params[:id])
