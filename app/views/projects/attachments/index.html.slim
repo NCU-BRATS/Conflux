@@ -45,9 +45,9 @@
   = paginate @attachments
 
 - if policy(:attachment).create?
-  = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, attachment: Attachment.new}
-  = render partial: 'projects/attachments/modals/post', locals: {project: @project, attachment: Post.new}
-  = render partial: 'projects/attachments/modals/snippet', locals: {project: @project, attachment: Snippet.new}
+  = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, form: Attachment.new}
+  = render partial: 'projects/attachments/modals/post', locals: {project: @project, form: Post.new}
+  = render partial: 'projects/attachments/modals/snippet', locals: {project: @project, form: Snippet.new}
 
 - content_for :javascripts
   coffee:

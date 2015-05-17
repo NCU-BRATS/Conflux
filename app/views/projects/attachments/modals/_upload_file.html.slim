@@ -3,7 +3,7 @@
   .header
     = t('action.target.upload', target: Attachment.model_name.human)
   .content
-    = render '/projects/attachments/modals/upload_file_form', project: project, attachment: attachment
+    = render '/projects/attachments/modals/upload_file_form', project: project, form: form
   #upload-progress
     #progress.ui.progress
       .bar

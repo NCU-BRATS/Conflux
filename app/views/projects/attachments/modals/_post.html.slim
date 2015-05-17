@@ -3,7 +3,7 @@
   .header
     = t('action.target.create', target: Post.model_name.human)
   .content
-    = render '/projects/attachments/modals/post_form', project: project, attachment: attachment
+    = render '/projects/attachments/modals/post_form', project: project, form: form
 
 - content_for :javascripts
   coffee:
