@@ -9,7 +9,7 @@ class Attachment < ActiveRecord::Base
 
     def process
       if @model.destroy
-        event_service.delete_attachment(@model, current_user)
+        event_service.delete_attachment(@model, @current_user)
       end
     end
 
