@@ -13,7 +13,7 @@ class Attachment < ActiveRecord::Base
 
   update_index('projects#attachment') { self if should_reindex? }
 
-  validates :type, :project_id, :user_id, :project, :user, presence: true
+  validates :type, :project, :user, presence: true
 
   scope :latest, -> { order(created_at: :desc) }
 

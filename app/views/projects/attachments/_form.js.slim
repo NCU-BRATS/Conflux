@@ -1,11 +1,11 @@
 - if attachment.errors.any? || form.errors.any?
-  | var form = '#{j render form_partial, project: project, attachment: form}';
+  | var form = '#{j render form_partial, project: project, attachment: form.model, form: form}';
   | $('#{target_modal}').find('form').replaceWith(form);
   | $('#{target_modal}').modal({
   |   duration: 0
   | }).modal('show');
 - else
-  | var form = '#{j render form_partial, project: project, attachment: attachment.class.new}';
+  | var form = '#{j render form_partial, project: project}';
   | $('#{target_modal}').modal('hide');
   | $('#{target_modal} .content').html(form);
   - resource_type = attachment.type.underscore.downcase

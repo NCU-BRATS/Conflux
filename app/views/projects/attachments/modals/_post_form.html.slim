@@ -1,4 +1,4 @@
-= simple_form_for([project, attachment], remote: true, authenticity_token: true) do |f|
+= simple_form_for([project, local_assigns.fetch(:form, Post.new)], remote: true, authenticity_token: true) do |f|
   = f.input :name
   .ui.section.divider
   .ui.segment.tertiary
