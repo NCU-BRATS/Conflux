@@ -1,4 +1,4 @@
-- if @model.errors.blank?
-  - resource_type = @model.model.type.underscore.downcase
+- if @form.errors.blank?
+  - resource_type = @form.model.type.underscore.downcase
   - resource_count = @project.reload.send("#{resource_type.pluralize}_count".to_sym)
   | $("#menu_#{resource_type} .label").html("#{resource_count}");
