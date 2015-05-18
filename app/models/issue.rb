@@ -22,8 +22,6 @@ class Issue < ActiveRecord::Base
 
   accepts_nested_attributes_for :comments
 
-  participate_by [:user, :assignee]
-
   validates :title, :status, :project, :user, presence: true
 
   def to_param
