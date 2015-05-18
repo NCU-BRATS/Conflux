@@ -10,6 +10,7 @@ class Issue < ActiveRecord::Base
 
     def process(params)
       validate(params[:issue]) && save
+      Participation::Create.new(@model[:issue].assignee, @model[:issue]).process
     end
 
   end

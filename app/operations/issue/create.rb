@@ -18,6 +18,8 @@ class Issue < ActiveRecord::Base
         issue.comments << comment
         if issue.save
           issue.update_attributes(label_ids: params[:issue][:label_ids])
+          Participation::Create.new(@current_user, issue).process
+          Participation::Create.new(issue.assignee, issue).process
           event_service.open_issue(issue, @current_user)
           notice_service.open_issue(issue, @current_user)
           mention_service.mention_filter(:html, comment)

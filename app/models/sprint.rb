@@ -16,8 +16,6 @@ class Sprint < ActiveRecord::Base
 
   accepts_nested_attributes_for :comments
 
-  participate_by [:user]
-
   update_index('projects#sprint') { self if should_reindex? }
 
   validates :title, :status, :project, :user, presence: true

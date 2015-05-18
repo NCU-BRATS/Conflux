@@ -12,10 +12,6 @@ class Comment < ActiveRecord::Base
   delegate :participations, to: :commentable
   alias owner user
 
-  participate_by [:user] do |instance|
-    instance.commentable
-  end
-
   update_index('projects#issue')      { commentable if for_issue?      && should_reindex? }
   update_index('projects#sprint')     { commentable if for_sprint?     && should_reindex? }
   update_index('projects#attachment') { commentable if for_attachment? && should_reindex? }
