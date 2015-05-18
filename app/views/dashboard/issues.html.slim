@@ -22,7 +22,7 @@ div
             .content
               = link_to issue.title, project_issue_path(issue.project, issue)
 
-              == " ( #{link_to issue.project.name, project_path(issue.project), {class:'black bold link'} } )"
+              == " ( #{link_to issue.project.name, project_dashboard_path(issue.project), {class:'black bold link'} } )"
               .sub.header#issues_index_label
                 = "##{issue.sequential_id} "
                 => user_tag issue.user, class: 'gray link'
