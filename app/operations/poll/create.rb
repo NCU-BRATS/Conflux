@@ -20,6 +20,7 @@ class Poll < ActiveRecord::Base
         poll.comments << comment
         poll.options_attributes = hash[:poll][:options]
         if poll.save
+          Participation::Create.new(@current_user, poll).process
           event_service.open_poll(poll, @current_user)
           notice_service.open_poll(poll, @current_user)
           mention_service.mention_filter(:html, comment)

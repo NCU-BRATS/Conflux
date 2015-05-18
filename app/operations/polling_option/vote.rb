@@ -19,7 +19,7 @@ class PollingOption < ActiveRecord::Base
           @option.liked_by(@current_user)
         end
 
-        participate_poll
+        Participation::Create.new(@current_user, @poll).process
 
         @poll.save # trigger sync
         true
@@ -34,10 +34,5 @@ class PollingOption < ActiveRecord::Base
       @poll.options.each {|po| po.unliked_by(@current_user) if po != @option}
     end
 
-    def participate_poll
-      if !@poll.participations.exists?(user_id: @current_user.id)
-        @poll.participations.create(user: @current_user)
-      end
-    end
   end
 end

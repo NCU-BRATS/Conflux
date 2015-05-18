@@ -12,6 +12,7 @@ class Snippet < Attachment
         @model.project = @project
         @model.user    = @current_user
         if @model.save
+          Participation::Create.new(@current_user, @model).process
           event_service.upload_attachment(@model, @current_user)
           notice_service.upload_attachment(@model, @current_user)
         end

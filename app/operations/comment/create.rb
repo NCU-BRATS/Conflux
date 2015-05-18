@@ -12,6 +12,7 @@ class Comment < ActiveRecord::Base
         @model.user        = @current_user
         @model.commentable = @commentable
         if @model.save
+          Participation::Create.new(@current_user, @model.commentable).process
           event_service.leave_comment(@model, @current_user)
           notice_service.leave_comment(@model, @current_user)
           mention_service.mention_filter(:html, @model)
