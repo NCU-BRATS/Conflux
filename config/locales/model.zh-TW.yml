@@ -89,5 +89,5 @@ zh-TW:
 
   validation:
     user:
-      format: '不符格式 [A-Za-z0-9_]'
+      format: '不符格式 ^[a-zA-Z0-9_]+$'
 
