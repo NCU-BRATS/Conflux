@@ -10,7 +10,7 @@ module IssueOperation
 
     def process(params)
       validate(params[:issue]) && save
-      ParticipationOperation::Create.new(@model[:issue].assignee, @model[:issue]).process
+      ParticipationOperation::Create.new(@model[:issue].assignee, @model[:issue]).process if @model[:issue].assignee
     end
 
   end
