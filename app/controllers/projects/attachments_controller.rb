@@ -14,18 +14,18 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   def new
-    @form = Attachment::Create.new(current_user, @project)
+    @form = AttachmentOperation::Create.new(current_user, @project)
     respond_with @project, @form
   end
 
   def create
-    @form = Attachment::Create.new(current_user, @project)
+    @form = AttachmentOperation::Create.new(current_user, @project)
     @form.process(params)
     respond_with @project, @form
   end
 
   def destroy
-    @form = Attachment::Destroy.new(current_user, @project, @attachment)
+    @form = AttachmentOperation::Destroy.new(current_user, @project, @attachment)
     @form.process
     respond_with @project, @form, location: project_attachments_path
   end

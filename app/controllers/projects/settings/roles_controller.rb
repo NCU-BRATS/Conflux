@@ -7,29 +7,29 @@ class Projects::Settings::RolesController < Projects::SettingsController
   end
 
   def new
-    @form = ProjectRole::Create.new(current_user, @project)
+    @form = ProjectRoleOperation::Create.new(current_user, @project)
     respond_with @project, @form
   end
 
   def create
-    @form = ProjectRole::Create.new(current_user, @project)
+    @form = ProjectRoleOperation::Create.new(current_user, @project)
     @form.process(params)
     respond_with @project, @form, location: project_settings_roles_path
   end
 
   def edit
-    @form = ProjectRole::Update.new(current_user, @project, @role)
+    @form = ProjectRoleOperation::Update.new(current_user, @project, @role)
     respond_with @project, @form
   end
 
   def update
-    @form = ProjectRole::Update.new(current_user, @project, @role)
+    @form = ProjectRoleOperation::Update.new(current_user, @project, @role)
     @form.process(params)
     respond_with @project, @form, location: project_settings_roles_path
   end
 
   def destroy
-    @form = ProjectRole::Destroy.new(current_user, @project, @role)
+    @form = ProjectRoleOperation::Destroy.new(current_user, @project, @role)
     @form.process
     respond_with @project, @form, location: project_settings_roles_path
   end

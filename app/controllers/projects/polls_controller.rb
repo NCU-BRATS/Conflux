@@ -13,30 +13,30 @@ class Projects::PollsController < Projects::ApplicationController
   end
 
   def new
-    @form = Poll::Create.new(current_user, @project)
+    @form = PollOperation::Create.new(current_user, @project)
     respond_with @project, @form
   end
 
   def create
-    @form = Poll::Create.new(current_user, @project)
+    @form = PollOperation::Create.new(current_user, @project)
     @form.process(params)
     respond_with @project, @form
   end
 
   def update
-    @form = Poll::Update.new(current_user, @poll)
+    @form = PollOperation::Update.new(current_user, @poll)
     @form.process(params)
     respond_with @project, @form
   end
 
   def close
-    @form = Poll::Close.new(current_user, @poll)
+    @form = PollOperation::Close.new(current_user, @poll)
     @form.process
     respond_with @project, @form
   end
 
   def reopen
-    @form = Poll::Reopen.new(current_user, @poll)
+    @form = PollOperation::Reopen.new(current_user, @poll)
     @form.process
     respond_with @project, @form
   end

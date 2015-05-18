@@ -2,7 +2,7 @@ class Projects::LikesController < Projects::ApplicationController
   enable_sync only: :update
 
   def update
-    @form = Reputation::LikeOrUnlike.new(current_user, resource)
+    @form = ReputationOperation::LikeOrUnlike.new(current_user, resource)
     @form.process
     respond_with(resource)
   end

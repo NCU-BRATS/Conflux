@@ -13,30 +13,30 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def new
-    @form = Sprint::Create.new(current_user, @project)
+    @form = SprintOperation::Create.new(current_user, @project)
     respond_with @project, @form
   end
 
   def create
-    @form = Sprint::Create.new(current_user, @project)
+    @form = SprintOperation::Create.new(current_user, @project)
     @form.process(params)
     respond_with @project, @form
   end
 
   def update
-    @form = Sprint::Update.new(current_user, @project, @sprint)
+    @form = SprintOperation::Update.new(current_user, @project, @sprint)
     @form.process(params)
     respond_with @project, @form
   end
 
   def close
-    @form = Sprint::Close.new(current_user, @project, @sprint)
+    @form = SprintOperation::Close.new(current_user, @project, @sprint)
     @form.process
     respond_with @project, @form
   end
 
   def reopen
-    @form = Sprint::Reopen.new(current_user, @project, @sprint)
+    @form = SprintOperation::Reopen.new(current_user, @project, @sprint)
     @form.process
     respond_with @project, @form
   end

@@ -3,30 +3,30 @@ class NoticesController < ApplicationController
   before_action :set_notice, except: [:check]
 
   def read
-    Notice::Read.new(current_user, @notice).process
+    NoticeOperation::Read.new(current_user, @notice).process
     respond_with @notice
   end
 
   def seal
-    Notice::Seal.new(current_user, @notice).process
+    NoticeOperation::Seal.new(current_user, @notice).process
     redirect_to :back
   end
 
   def unseal
-    Notice::Unseal.new(current_user, @notice).process
+    NoticeOperation::Unseal.new(current_user, @notice).process
     redirect_to :back
   end
 
   def check
     @notices = current_user.notices.where(mode: Notice.modes[:unread])
     @notices.each do |notice|
-      Notice::Read.new(current_user, notice).process
+      NoticeOperation::Read.new(current_user, notice).process
     end
     render :nothing => true, :status => 200
   end
 
   def link
-    Notice::Seal.new(current_user, @notice).process
+    NoticeOperation::Seal.new(current_user, @notice).process
     target = @notice.target_json
     redirect_to redirect_url @notice, target
   end

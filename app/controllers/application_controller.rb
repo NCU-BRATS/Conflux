@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def preload_sti_descendants
-    [Post, Post::Create, Snippet, Snippet::Create, Image, OtherAttachment, Attachment::Create]
+    [Post, Snippet, Image, OtherAttachment]
   end
 
 end
