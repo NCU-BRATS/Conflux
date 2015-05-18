@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :name, format: { with: /[A-Za-z0-9_]/, message: I18n.t('validation.user.format') }
+  validates :name, format: { with: /^[a-zA-Z0-9_]+$/, message: I18n.t('validation.user.format') }
   validates :mention_email_enabled, inclusion: { in: [true, false] }
   validates :participating_email_enabled, inclusion: { in: [true, false] }
   validates :watch_email_enabled, inclusion: { in: [true, false] }
