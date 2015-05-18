@@ -5,11 +5,11 @@ class Projects::SettingsController < Projects::ApplicationController
   end
 
   def edit
-    @form = Project::Update.new(current_user, @project)
+    @form = ProjectOperation::Update.new(current_user, @project)
   end
 
   def update
-    @form = Project::Update.new(current_user, @project)
+    @form = ProjectOperation::Update.new(current_user, @project)
     @form.process(params)
     respond_with @form do |formats|
       formats.html { render('edit') }
@@ -17,7 +17,7 @@ class Projects::SettingsController < Projects::ApplicationController
   end
 
   def destroy
-    @form = Project::Destroy.new(current_user, @project)
+    @form = ProjectOperation::Destroy.new(current_user, @project)
     @form.process
     respond_with @form, location: dashboard_path
   end

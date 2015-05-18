@@ -9,12 +9,12 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @form = Project::Create.new(current_user)
+    @form = ProjectOperation::Create.new(current_user)
     respond_with @form
   end
 
   def create
-    @form = Project::Create.new(current_user)
+    @form = ProjectOperation::Create.new(current_user)
     @form.process(params)
     respond_with @form, location: @form.valid? ? project_dashboard_path(@form) : nil
   end

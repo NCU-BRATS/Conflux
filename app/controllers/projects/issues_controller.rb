@@ -13,30 +13,30 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def new
-    @form = Issue::Create.new(current_user, @project)
+    @form = IssueOperation::Create.new(current_user, @project)
     respond_with @project, @form
   end
 
   def create
-    @form = Issue::Create.new(current_user, @project)
+    @form = IssueOperation::Create.new(current_user, @project)
     @form.process(params)
     respond_with @project, @form
   end
 
   def update
-    @form = Issue::Update.new(current_user, @project, @issue)
+    @form = IssueOperation::Update.new(current_user, @project, @issue)
     @form.process(params)
     respond_with @project, @form
   end
 
   def close
-    @form = Issue::Close.new(current_user, @project, @issue)
+    @form = IssueOperation::Close.new(current_user, @project, @issue)
     @form.process
     respond_with @project, @form
   end
 
   def reopen
-    @form = Issue::Reopen.new(current_user, @project, @issue)
+    @form = IssueOperation::Reopen.new(current_user, @project, @issue)
     @form.process
     respond_with @project, @form
   end

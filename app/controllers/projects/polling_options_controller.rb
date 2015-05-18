@@ -3,7 +3,7 @@ class Projects::PollingOptionsController < Projects::ApplicationController
   enable_sync only: [:update]
 
   def update
-    @form = PollingOption::Vote.new(current_user, @poll, @option)
+    @form = PollingOptionOperation::Vote.new(current_user, @poll, @option)
     flash.now[:alert] = t('poll.alert') unless @form.process
     respond_with @project, @form
   end

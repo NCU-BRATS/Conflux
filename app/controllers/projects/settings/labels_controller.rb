@@ -7,29 +7,29 @@ class Projects::Settings::LabelsController < Projects::SettingsController
   end
 
   def new
-    @form = Label::Create.new(current_user, @project)
+    @form = LabelOperation::Create.new(current_user, @project)
     respond_with @project, :settings, @form
   end
 
   def create
-    @form = Label::Create.new(current_user, @project)
+    @form = LabelOperation::Create.new(current_user, @project)
     @form.process(params)
     respond_with @project, :settings, @form, location: project_settings_labels_path
   end
 
   def edit
-    @form = Label::Update.new(current_user, @project, @label)
+    @form = LabelOperation::Update.new(current_user, @project, @label)
     respond_with @project, :settings, @form
   end
 
   def update
-    @form = Label::Update.new(current_user, @project, @label)
+    @form = LabelOperation::Update.new(current_user, @project, @label)
     @form.process(params)
     respond_with @project, :settings, @form, location: project_settings_labels_path
   end
 
   def destroy
-    @form = Label::Destroy.new(current_user, @project, @label)
+    @form = LabelOperation::Destroy.new(current_user, @project, @label)
     @form.process
     respond_with @project, :settings, @form
   end

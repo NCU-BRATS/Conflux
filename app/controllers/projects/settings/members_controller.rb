@@ -7,29 +7,29 @@ class Projects::Settings::MembersController < Projects::SettingsController
   end
 
   def new
-    @form = ProjectParticipation::Create.new(current_user, @project)
+    @form = ProjectParticipationOperation::Create.new(current_user, @project)
     respond_with @project, @form
   end
 
   def create
-    @form = ProjectParticipation::Create.new(current_user, @project)
+    @form = ProjectParticipationOperation::Create.new(current_user, @project)
     @form.process(params)
     respond_with @project, @form, location: project_settings_members_path
   end
 
   def edit
-    @form = ProjectParticipation::Update.new(current_user, @project, @participation)
+    @form = ProjectParticipationOperation::Update.new(current_user, @project, @participation)
     respond_with @project, @form
   end
 
   def update
-    @form = ProjectParticipation::Update.new(current_user, @project, @participation)
+    @form = ProjectParticipationOperation::Update.new(current_user, @project, @participation)
     @form.process(params)
     respond_with @project, @form, location: project_settings_members_path
   end
 
   def destroy
-    @form = ProjectParticipation::Destroy.new(current_user, @project, @participation)
+    @form = ProjectParticipationOperation::Destroy.new(current_user, @project, @participation)
     @form.process
     respond_with @project, @form, location: project_settings_members_path
   end

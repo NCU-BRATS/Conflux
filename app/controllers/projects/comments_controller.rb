@@ -3,19 +3,19 @@ class Projects::CommentsController < Projects::ApplicationController
   enable_sync only: [:create, :update, :destroy]
 
   def create
-    @form = Comment::Create.new(current_user, commentable)
+    @form = CommentOperation::Create.new(current_user, commentable)
     @form.process(params)
     respond_with @project, @form
   end
 
   def update
-    @form = Comment::Update.new(current_user, @comment)
+    @form = CommentOperation::Update.new(current_user, @comment)
     @form.process(params)
     respond_with @project, @form
   end
 
   def destroy
-    @form = Comment::Destroy.new(current_user, @comment)
+    @form = CommentOperation::Destroy.new(current_user, @comment)
     @form.process
     respond_with @project, @form
   end
