@@ -19,7 +19,7 @@ module IssueOperation
         if issue.save
           issue.update_attributes(label_ids: params[:issue][:label_ids])
           ParticipationOperation::Create.new(@current_user, issue).process
-          ParticipationOperation::Create.new(issue.assignee, issue).process
+          ParticipationOperation::Create.new(issue.assignee, issue).process if issue.assignee
           event_service.open_issue(issue, @current_user)
           notice_service.open_issue(issue, @current_user)
           mention_service.mention_filter(:html, comment)
