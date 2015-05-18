@@ -11,7 +11,7 @@ RSpec.describe "projects/edit", :type => :view do
   it "renders the edit project form" do
     render
 
-    assert_select "form[action=?][method=?]", project_path(@project), "post" do
+    assert_select "form[action=?][method=?]", project_dashboard_path(@project), "post" do
 
       assert_select "input#project_name[name=?]", "project[name]"
 
