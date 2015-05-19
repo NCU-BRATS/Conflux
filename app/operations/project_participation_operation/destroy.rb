@@ -10,7 +10,7 @@ module ProjectParticipationOperation
     def process
       if @project.project_participations.size > 1
         if @model.destroy
-          BroadcastService.fire(:on_project_participation_deleted, @model, @current_user)
+          BroadcastService.fire(:on_project_participation_deleted, @model.to_json, @current_user)
         end
       else
         @model.errors.add(:base, '')

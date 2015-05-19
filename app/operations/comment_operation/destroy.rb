@@ -8,8 +8,7 @@ module CommentOperation
 
     def process
       if @model.destroy
-        BroadcastService.fire(:on_comment_deleted, @model, @current_user)
-        notice_service.delete_comment(@model, @current_user)
+        BroadcastService.fire(:on_comment_deleted, @model.to_target_json, @current_user)
       end
     end
 

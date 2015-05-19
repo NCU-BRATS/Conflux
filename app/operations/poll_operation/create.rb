@@ -22,7 +22,6 @@ module PollOperation
         if poll.save
           ParticipationOperation::Create.new(@current_user, poll).process
           BroadcastService.fire(:on_poll_created, poll, @current_user)
-          notice_service.open_poll(poll, @current_user)
           mention_service.mention_filter(:html, comment)
         end
       end if validate(params[:poll]) && sync
