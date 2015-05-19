@@ -14,7 +14,6 @@ module PostOperation
         if @model.save
           ParticipationOperation::Create.new(@current_user, @model).process
           BroadcastService.fire(:on_attachment_created, @model, @current_user)
-          notice_service.upload_attachment(@model, @current_user)
         end
       end
     end

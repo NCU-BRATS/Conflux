@@ -9,7 +9,7 @@ module AttachmentOperation
 
     def process
       if @model.destroy
-        BroadcastService.fire(:on_attachment_deleted, @model, @current_user)
+        BroadcastService.fire(:on_attachment_deleted, @model.to_target_json, @current_user)
       end
     end
 

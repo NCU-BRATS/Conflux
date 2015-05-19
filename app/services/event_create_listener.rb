@@ -41,7 +41,7 @@ class EventCreateListener
     end
 
     def on_comment_deleted(comment, current_user)
-      create_event(comment, current_user, :deleted)
+      # create_event(comment, current_user, :deleted)
     end
 
     def on_attachment_created(attachment, current_user)
@@ -49,7 +49,7 @@ class EventCreateListener
     end
 
     def on_attachment_deleted(attachment, current_user)
-      create_event(attachment, current_user, :deleted)
+      # create_event(attachment, current_user, :deleted)
     end
 
     def on_project_participation_created(participation, current_user)
@@ -65,7 +65,7 @@ class EventCreateListener
     end
 
     def on_channel_deleted(channel, current_user)
-      create_event(channel, current_user, :deleted)
+      # create_event(channel, current_user, :deleted)
     end
 
     private

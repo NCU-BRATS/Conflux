@@ -20,7 +20,6 @@ module SprintOperation
           sprint.update_attributes(issue_ids: params[:sprint][:issue_ids])
           ParticipationOperation::Create.new(@current_user, sprint).process
           BroadcastService.fire(:on_sprint_created, sprint, @current_user)
-          notice_service.open_sprint(sprint, @current_user)
           mention_service.mention_filter(:html, comment)
         end
       end

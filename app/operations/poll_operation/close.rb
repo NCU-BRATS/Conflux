@@ -9,7 +9,6 @@ module PollOperation
     def process
       if @poll.close!
         BroadcastService.fire(:on_poll_closed, @poll, @current_user)
-        notice_service.close_poll(@poll, @current_user)
       end
     end
 

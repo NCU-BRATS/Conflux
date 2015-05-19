@@ -9,7 +9,7 @@ module ChannelOperation
 
     def process
       if @model.destroy
-        BroadcastService.fire(:on_channel_deleted, @model, @current_user)
+        BroadcastService.fire(:on_channel_deleted, @model.to_target_json, @current_user)
       end
     end
 

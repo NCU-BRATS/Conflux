@@ -10,7 +10,6 @@ module IssueOperation
     def process
       if @issue.close!
         BroadcastService.fire(:on_issue_closed, @issue, @current_user)
-        notice_service.close_issue(@issue, @current_user)
       end
     end
 

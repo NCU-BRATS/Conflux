@@ -17,7 +17,7 @@ class MemberMentionService
 
       # Prevent mention the same user multiple times and mention owner itself
       unless mentioned_member.include?(member) || mentionable.owner == member
-        notice_service.create_mention_notice(mentionable, mentionable.owner, member)
+        NoticeCreateListener.create_mention_notice(mentionable, mentionable.owner, member)
         mentioned_member << member
       end
 
@@ -30,12 +30,6 @@ class MemberMentionService
   def link_to_mentioned_member(member)
     url = user_path(member)
     "<a href='#{url}' class='user-mention'>@#{member.name}</a>"
-  end
-
-  protected
-
-  def notice_service
-    @notice_service ||= NoticeCreateService.new
   end
 
 end
