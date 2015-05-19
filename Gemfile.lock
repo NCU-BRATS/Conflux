@@ -44,6 +44,15 @@ GIT
       sass (~> 3.2)
 
 GIT
+  remote: git://github.com/krisleech/wisper-activejob.git
+  revision: ab4e020561863dc4781e1432992c34199014525d
+  branch: master
+  specs:
+    wisper-activejob (0.0.1)
+      rails (~> 4.2)
+      wisper
+
+GIT
   remote: git://github.com/toptal/chewy.git
   revision: 6b02cef1493ea25bc545b80462c30b38f5ed5715
   branch: master
@@ -531,3 +540,4 @@ DEPENDENCIES
   virtus
   web-console
   wisper
+  wisper-activejob!

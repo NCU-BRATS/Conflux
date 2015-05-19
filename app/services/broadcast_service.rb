@@ -1,7 +1,7 @@
 class BroadcastService
   include Wisper::Publisher
 
-  subscribe(EventCreateListener.new)
+  subscribe(EventCreateListener, async: true)
 
   class << self
     def fire(event, *args)
