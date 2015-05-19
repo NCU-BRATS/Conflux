@@ -8,7 +8,7 @@ module PollOperation
 
     def process
       if @poll.reopen!
-        event_service.reopen_poll(@poll, @current_user)
+        BroadcastService.fire(:on_poll_reopened, @poll, @current_user)
         notice_service.reopen_poll(@poll, @current_user)
       end
     end

@@ -10,6 +10,7 @@ module IssueOperation
     def process
       if @issue.reopen!
         event_service.reopen_issue(@issue, @current_user)
+        BroadcastService.fire(:on_issue_reopened, @issue, @current_user)
         notice_service.reopen_issue(@issue, @current_user)
       end
     end

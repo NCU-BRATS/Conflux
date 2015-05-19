@@ -13,7 +13,7 @@ module ProjectParticipationOperation
       if validate(params[:project_participation]) && sync
         @model.project = @project
         if @model.save
-          event_service.join_project(@model, @current_user)
+          BroadcastService.fire(:on_project_participation_created, @model, @current_user)
         end
       end
     end

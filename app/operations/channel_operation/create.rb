@@ -12,7 +12,7 @@ module ChannelOperation
         @model.project = @project
         @model.members << @current_user
         if @model.save
-          event_service.create_channel(@model, @current_user)
+          BroadcastService.fire(:on_channel_created, @model, @current_user)
         end
       end
     end

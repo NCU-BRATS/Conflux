@@ -13,7 +13,7 @@ module CommentOperation
         @model.commentable = @commentable
         if @model.save
           ParticipationOperation::Create.new(@current_user, @model.commentable).process
-          event_service.leave_comment(@model, @current_user)
+          BroadcastService.fire(:on_comment_created, @model, @current_user)
           notice_service.leave_comment(@model, @current_user)
           mention_service.mention_filter(:html, @model)
         end

@@ -52,6 +52,7 @@ gem 'chewy', github: 'toptal/chewy', branch: 'master'
 gem 'active_attr'
 
 gem 'wisper'
+gem 'wisper-activejob', github: 'krisleech/wisper-activejob', branch: 'master'
 gem 'virtus'
 gem 'trailblazer'
 gem 'cells', '~> 4.0.0.beta2'

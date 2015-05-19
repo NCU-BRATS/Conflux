@@ -9,7 +9,7 @@ module SprintOperation
 
     def process
       if @sprint.close!
-        event_service.close_sprint(@sprint, @current_user)
+        BroadcastService.fire(:on_sprint_closed, @sprint, @current_user)
         notice_service.close_sprint(@sprint, @current_user)
       end
     end
