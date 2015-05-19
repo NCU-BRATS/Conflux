@@ -10,6 +10,7 @@ module SprintOperation
     def process
       if @sprint.reopen!
         event_service.reopen_sprint(@sprint, @current_user)
+        BroadcastService.fire(:on_sprint_reopened, @sprint, @current_user)
         notice_service.reopen_sprint(@sprint, @current_user)
       end
     end

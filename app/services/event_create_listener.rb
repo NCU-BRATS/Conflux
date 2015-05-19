@@ -1,69 +1,69 @@
-class EventCreateService
-  def open_issue(issue, current_user)
+class EventCreateListener
+  def on_issue_created(issue, current_user)
     create_event(issue, current_user, :created)
   end
 
-  def close_issue(issue, current_user)
+  def on_issue_closed(issue, current_user)
     create_event(issue, current_user, :closed)
   end
 
-  def reopen_issue(issue, current_user)
+  def on_issue_reopened(issue, current_user)
     create_event(issue, current_user, :reopened)
   end
 
-  def open_sprint(sprint, current_user)
+  def on_sprint_created(sprint, current_user)
     create_event(sprint, current_user, :created)
   end
 
-  def close_sprint(sprint, current_user)
+  def on_sprint_closed(sprint, current_user)
     create_event(sprint, current_user, :closed)
   end
 
-  def reopen_sprint(sprint, current_user)
+  def on_sprint_reopened(sprint, current_user)
     create_event(sprint, current_user, :reopened)
   end
 
-  def open_poll(poll, current_user)
+  def on_poll_created(poll, current_user)
     create_event(poll, current_user, :created)
   end
 
-  def close_poll(poll, current_user)
+  def on_poll_closed(poll, current_user)
     create_event(poll, current_user, :closed)
   end
 
-  def reopen_poll(poll, current_user)
+  def on_poll_reopened(poll, current_user)
     create_event(poll, current_user, :reopened)
   end
 
-  def leave_comment(comment, current_user)
+  def on_comment_created(comment, current_user)
     create_event(comment, current_user, :commented)
   end
 
-  def delete_comment(comment, current_user)
+  def on_comment_deleted(comment, current_user)
     create_event(comment, current_user, :deleted)
   end
 
-  def upload_attachment(attachment, current_user)
+  def on_attachment_created(attachment, current_user)
     create_event(attachment, current_user, :uploaded)
   end
 
-  def delete_attachment(attachment, current_user)
+  def on_attachment_deleted(attachment, current_user)
     create_event(attachment, current_user, :deleted)
   end
 
-  def join_project(participation, current_user)
+  def on_project_participation_created(participation, current_user)
     create_member_event(participation, current_user, :joined)
   end
 
-  def left_project(participation, current_user)
+  def on_project_participation_deleted(participation, current_user)
     create_member_event(participation, current_user, :left)
   end
 
-  def create_channel(channel, current_user)
+  def on_channel_created(channel, current_user)
     create_event(channel, current_user, :created)
   end
 
-  def delete_channel(channel, current_user)
+  def on_channel_deleted(channel, current_user)
     create_event(channel, current_user, :deleted)
   end
 
