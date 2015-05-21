@@ -1,8 +1,6 @@
 class Message < ActiveRecord::Base
   include ParserConcern
 
-  sync :create
-
   belongs_to :user
   belongs_to :channel
 
@@ -13,8 +11,6 @@ class Message < ActiveRecord::Base
   update_index('projects#message') { self if should_reindex? }
 
   delegate :project, to: :channel
-
-  sync_scope :by_channel, ->(channel){ where( channel_id: channel.id ) }
 
   def parse_content
     self.html = self.class.parse content
