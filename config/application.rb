@@ -29,5 +29,8 @@ module Conflux
     config.active_record.raise_in_transactional_callbacks = true
     # prevent STI add prefix module name in type field
     config.active_record.store_full_sti_class = false
+
+    config.react.addons = true
+    config.react.jsx_transform_options = {harmony: true}
   end
 end
