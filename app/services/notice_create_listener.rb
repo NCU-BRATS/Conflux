@@ -53,7 +53,7 @@ class NoticeCreateListener
     end
 
     def on_channel_created(channel, current_user)
-      create_notice(channel, current_user, :created)
+      # create_notice(channel, current_user, :created)
     end
 
     def on_channel_deleted(channel, current_user)
