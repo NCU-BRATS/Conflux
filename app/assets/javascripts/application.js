@@ -26,6 +26,7 @@
 //= require bootstrap-datetimepicker
 //= require sync
 //= require semantic_ui/semantic_ui
+//= require private_pub
 //= require handlebars.runtime
 //= require underscore
 //= require clndr-rails
