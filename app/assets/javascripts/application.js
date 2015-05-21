@@ -25,6 +25,7 @@
 //= require moment/zh-tw
 //= require bootstrap-datetimepicker
 //= require sync
+//= require private_pub
 //= require semantic-ui
 //= require handlebars.runtime
 //= require underscore

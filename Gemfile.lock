@@ -53,6 +53,14 @@ GIT
       wisper
 
 GIT
+  remote: git://github.com/ryanb/private_pub.git
+  revision: 7ad77617b1f48980d6f114bc96018f2964a07bdc
+  branch: master
+  specs:
+    private_pub (1.0.3)
+      faye
+
+GIT
   remote: git://github.com/toptal/chewy.git
   revision: 6b02cef1493ea25bc545b80462c30b38f5ed5715
   branch: master
@@ -521,12 +529,14 @@ DEPENDENCIES
   momentjs-rails
   nested_form (~> 0.3.2)
   pg (~> 0.18.0)
+  private_pub!
   puma
   pundit
   rails (= 4.2.1)
   rails_12factor
   ransack
   react-rails (~> 1.0)
+  react-source (~> 0.13.3)
   responders (~> 2.0)
   rinku
   rouge
