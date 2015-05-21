@@ -87,6 +87,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'handlebars_assets'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
+gem 'react-rails', '~> 1.0'
+gem 'react-source', '~> 0.13.3'
 
 
 # An autocompletion library to autocomplete mentions, smileys etc. just like on Github!
