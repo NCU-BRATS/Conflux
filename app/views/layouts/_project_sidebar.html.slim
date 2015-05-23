@@ -2,7 +2,6 @@
   a.item href=new_project_channel_path( @project )
     i.add.square.icon
     = t('action.target.add', target: Channel.model_name.human)
-  - @project.channels.each do |channel|
-    a.item.overflow.ellipsis href=project_channel_path( @project, channel )
-      i.slack.icon
-      = channel.name
+
+  = subscribe_to "/projects/#{@project.id}/channels"
+  = react_component('ChannelList', {project: @project})
