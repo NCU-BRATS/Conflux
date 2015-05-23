@@ -1,23 +1,39 @@
 class Projects::MessagesController < Projects::ApplicationController
 
-  enable_sync only: [:create]
+  def index
+    @channel = Channel.friendly.find( params[:channel_id] )
+    @messages = @channel.messages.includes(:user).order('id desc').limit(50).search(params[:q]).result.reverse
+  end
 
   def create
-    @form = MessageOperation::Create.new(current_user, Channel.friendly.find(params[:channel_id]))
+    @channel = Channel.friendly.find(params[:channel_id])
+    @form = MessageOperation::Create.new(current_user, @channel)
     @form.process(params)
-    respond_with @project, @form
+    PrivatePub.publish_to(private_pub_channel, {
+      action: 'create',
+      target: 'message',
+      data:   @form.model.as_json(include: :user)
+    })
   end
 
   def update
     @form = MessageOperation::Update.new(current_user, @message)
     @form.process(params)
-    respond_with @project, @form
+    PrivatePub.publish_to(private_pub_channel, {
+      action: 'update',
+      target: 'message',
+      data:   @form.model.as_json(include: :user)
+    })
   end
 
   def destroy
     @form = MessageOperation::Destroy.new(current_user, @message)
     @form.process
-    respond_with @project, @form
+    PrivatePub.publish_to(private_pub_channel, {
+      action: 'destroy',
+      target: 'message',
+      data:   @form.model
+    })
   end
 
   protected
@@ -26,8 +42,8 @@ class Projects::MessagesController < Projects::ApplicationController
     @message ||= Message.find(params[:id])
   end
 
-  def message_params
-    params.require(:message).permit( :content )
+  def private_pub_channel
+    @private_pub_channel ||= "/projects/#{@project.id}/channels/#{@form.model.channel.id}"
   end
 
 end
