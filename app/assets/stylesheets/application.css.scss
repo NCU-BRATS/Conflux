@@ -23,7 +23,6 @@
  *= require issues
  *= require labels
  *= require notice
- *= require message
  *= require overflow
  *= require social
  *= require search
@@ -37,6 +36,7 @@
 
  @import "flexbox";
  @import "attachments";
+ @import "message";
 
 .checkbox, .radio {
   margin-bottom: 4px;
