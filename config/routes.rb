@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       resources :search, only: [:index], controller: 'search', as: 'project_searches'
       resource :dashboard
       resources :channels, except: :index do
-        resources :messages, only: [:create]
+        resources :messages, only: [:index, :create]
       end
       resources :messages, only: [:update, :destroy]
       resources :issues  , concerns: [:commentable, :closeable]
