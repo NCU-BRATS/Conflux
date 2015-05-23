@@ -31,7 +31,6 @@
 //= require underscore
 //= require clndr-rails
 //= require jquery-fileupload/basic
-//= require perfect-scrollbar
 //= require jquery.atwho
 //= require_tree ./handlebars_helpers
 //= require_tree ./handlebars_templates
