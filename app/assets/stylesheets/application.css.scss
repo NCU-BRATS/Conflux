@@ -10,136 +10,34 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require semantic-ui
+ *= require selectize
+ *= require selectize.bootstrap3
+ *= require selectize-semantic-ui
+ *= require github-markdown
+ *= require highlight/github
+ *= require sync-highlight
+ *= require clndr-rails
+ *= require link-style
+ *= require projects
+ *= require issues
+ *= require labels
+ *= require notice
+ *= require message
+ *= require overflow
+ *= require perfect-scrollbar
+ *= require social
+ *= require search
+ *= require login
+ *= require poll
+ *= require jquery.atwho
+ *= require bootstrap-scoped
+ *= require layout
  *= require_self
  */
 
-@import "flexbox";
-@import "selectize";
-@import "selectize.bootstrap3";
-@import "selectize-semantic-ui";
-@import "github-markdown";
-@import "highlight/github";
-@import "semantic-ui";
-@import "sync-highlight";
-@import "clndr-rails";
-@import "link-style";
-@import "projects";
-@import "issues";
-@import "labels";
-@import "notice";
-@import "message";
-@import "overflow";
-@import "perfect-scrollbar";
-@import "social";
-@import "search";
-@import "attachments";
-@import "login";
-@import "poll";
-@import "jquery.atwho";
-
-.bs {
-  @import "bootstrap-sprockets";
-  @import "bootstrap";
-  @import "bootstrap-datetimepicker";
-}
-
-// disable border-radius of navbar
-nav {
-  border-width: 0 0 1px;
-  border-radius: 0 !important;
-}
-#sidebar-avatar {
-  background-color: #F9F9F9;
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 15px;
-  img {
-    border-radius: 5px;
-    border: 1px solid rgba(198, 198, 198, 1);
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  #sidebar-user-name {
-    font-size: 14px !important;
-  }
-}
-.navbar-avatar {
-  img {
-    margin-top: -7px;
-    margin-bottom: -5px;
-  }
-  span {
-    padding-left: 5px;
-  }
-}
-
-body {
-  height: 100%;
-  background-color: #FFFFFF;
-}
-
-body.pushable > .pusher {
-  background-color: #FFFFFF;
-}
-
-#main_container {
-  padding-top: 30px;
-}
-
-@media all and (min-width: 768px) {
-  .content-without-sidemenu {
-    width: 750px;
-  }
-}
-
-@media all and (min-width: 992px) {
-  .content-without-sidemenu {
-    width: 970px;
-  }
-}
-
-@media all and (min-width: 1200px) {
-  .content-without-sidemenu {
-    width: 1170px;
-  }
-}
-
-.content-without-sidemenu {
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.content-with-sidemenu {
-  padding: 0 0 0 90px;
-  .content-sidemenu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 100;
-    .main.menu {
-      height: 100%;
-      width: 100px;
-      padding-top: 0;
-      border-radius: 0;
-      background: rgba(0, 0, 0, 0.02);
-    }
-    .active.item {
-      background-color: rgba(0, 0, 0, 0.2) !important;
-    }
-    .active.item:after {
-      background-color: rgba(198, 198, 198, 1) !important;
-    }
-  }
-
-  .content-container {
-    padding: 0 30px 10px 30px;
-  }
-}
+ @import "flexbox";
+ @import "attachments";
 
 .checkbox, .radio {
   margin-bottom: 4px;
