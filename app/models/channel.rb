@@ -3,8 +3,6 @@ class Channel < ActiveRecord::Base
   include ParserConcern
   include EventableConcern
 
-  sync :all
-
   friendly_id :name, use: :slugged
 
   belongs_to :project
