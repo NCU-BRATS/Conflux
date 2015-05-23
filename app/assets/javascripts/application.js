@@ -31,7 +31,6 @@
 //= require underscore
 //= require clndr-rails
 //= require jquery-fileupload/basic
-//= require perfect-scrollbar
 //= require jquery.atwho
 //= require highcharts
 //= require highcharts/highcharts-more
