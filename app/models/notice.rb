@@ -1,5 +1,4 @@
 class Notice < ActiveRecord::Base
-  default_scope { where.not(author_id: nil) }
 
   enum action: [ :created, :updated, :closed, :reopened, :commented, :uploaded, :deleted, :mention ]
   enum state: [ :unseal, :seal ]
@@ -9,6 +8,8 @@ class Notice < ActiveRecord::Base
   belongs_to :author, class_name: 'User'
   belongs_to :target, polymorphic: true
   belongs_to :project
+
+  validates :author, :owner, :target, presence: true
 
   scope :recent, -> { order('created_at DESC') }
 
