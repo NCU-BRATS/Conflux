@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require react
+//= require react_ujs
 //= require jquery_nested_form
 //= require bootstrap-sprockets
 //= require data-confirm-modal
@@ -21,16 +23,16 @@
 //= require moment
 //= require moment/zh-tw
 //= require bootstrap-datetimepicker
-//= require sync
+//= require private_pub
 //= require semantic-ui
 //= require handlebars.runtime
 //= require underscore
 //= require clndr-rails
 //= require jquery-fileupload/basic
-//= require perfect-scrollbar
 //= require jquery.atwho
 //= require_tree ./handlebars_helpers
 //= require_tree ./handlebars_templates
 //= require_tree ./lib
 //= require_tree .
+//= require components
 
