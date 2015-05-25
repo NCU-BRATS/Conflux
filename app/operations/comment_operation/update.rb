@@ -7,7 +7,10 @@ module CommentOperation
     end
 
     def process(params)
-      validate(params[:comment]) && save
+      if validate(params[:comment]) && sync
+        mention_service.mention_filter(:html, @model)
+        @model.save
+      end
     end
 
   end
