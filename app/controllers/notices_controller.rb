@@ -53,8 +53,8 @@ class NoticesController < ApplicationController
   end
 
   def redirect_url_attachment (notice, target)
-    case target
-      when Post, Snippet
+    case notice.target_type.underscore
+    when 'post', 'snippet'
         return send("project_#{notice.target_type.underscore}_path", notice.project, target['id'])
       else
         return project_attachment_path(notice.project, target['id'])
