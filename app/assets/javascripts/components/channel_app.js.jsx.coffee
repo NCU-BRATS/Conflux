@@ -173,13 +173,13 @@
     if msg.divider
       dateDivider = `<MessageDateDivider msg={this.props.msg}/>`
     if @state.editMode
-      messageAvatar = `<MessageAvatar user={this.props.msg.user}/>`
+      messageAvatar = `<Avatar user={this.props.msg.user}/>`
       messageBody   = `<MessageEditForm msg={this.props.msg} toggleEdit={this.toggleEdit}/>`
     else
       messageBody   = `<div className="description" dangerouslySetInnerHTML={{__html:this.props.msg.html}}></div>`
       if !msg.appendMode
         messageHeader = `<MessageHeader msg={this.props.msg}/>`
-        messageAvatar = `<MessageAvatar user={this.props.msg.user}/>`
+        messageAvatar = `<Avatar user={this.props.msg.user}/>`
       else
         messageAvatar = `<MessageTime msg={this.props.msg}/>`
       if msg.user.id == @props.user_id
@@ -208,13 +208,6 @@
   render: ->
     time = moment(new Date(@props.msg.created_at)).format("YYYY Mo Do, dddd")
     `<h4 className="ui horizontal header divider">{time}</h4>`
-
-@MessageAvatar = React.createClass
-  componentDidMount: ->
-    avatarUrl = Gravtastic(@props.user.email, {size: 60, default: 'identicon'})
-    $(@refs.img.getDOMNode()).attr('src', avatarUrl)
-  render: ->
-    `<img ref="img"></img>`
 
 @MessageControl = React.createClass
   render: ->
