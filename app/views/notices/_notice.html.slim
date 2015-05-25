@@ -11,7 +11,3 @@
     - else
       = render 'notices/notice/common', notice: notice, check_mark: check_mark
 
-- content_for :javascripts
-  coffee:
-    $('.event').on "click", ->
-      window.location.assign($(this).data('url'))
