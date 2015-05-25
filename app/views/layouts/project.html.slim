@@ -5,10 +5,10 @@
   = render 'layouts/project_sidebar'
   = render 'layouts/project_searchbar'
 
-.content-with-sidemenu
-  .content-sidemenu
-    = render 'layouts/project_sidemenu'
+- content_for :sidemenu
+  = render 'layouts/project_sidemenu'
 
+.content-with-sidemenu
   .content-container
     = yield
 

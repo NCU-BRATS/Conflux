@@ -1,7 +1,7 @@
-.content-with-sidemenu
-  .content-sidemenu
-    = render 'layouts/project_settings_sidemenu'
+- content_for :sidemenu
+  = render 'layouts/project_settings_sidemenu'
 
+.content-with-sidemenu
   .content-container
     = yield
 
