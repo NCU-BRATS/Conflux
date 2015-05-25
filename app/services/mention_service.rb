@@ -3,7 +3,6 @@ class MentionService
   def mention_filter(field, mentionable)
     member_mention_service.mention_member(field, mentionable)
     issue_mention_service.mention_issue(field, mentionable)
-    mentionable.save
   end
 
   private
