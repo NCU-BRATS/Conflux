@@ -5,7 +5,7 @@
     channel: React.PropTypes.object.isRequired
 
   getInitialState: () ->
-    return {messages: [], channel: @props.channel, loading: true}
+    return {messages: [], channel: @props.channel, loading: true, noMessages: false}
 
   componentDidMount: () ->
     @$mainContainer    = $('#main_container')
@@ -41,16 +41,18 @@
     @$messageContainer.scrollTop(@calculateMessageContainerValue()[1]) # navigate to bottom
 
   processMessage: (messages, i) ->
-    return if i <= 0
-    prev = messages[i-1]
     curr = messages[i]
+    curr.appendMode = false
+    curr.divider    = true
+
+    return if i <= 0
+
+    prev = messages[i-1]
     prevTime = new Date(prev.created_at)
     currTime = new Date(curr.created_at)
     if prevTime.toDateString() == currTime.toDateString()
+      curr.divider = false
       curr.appendMode = (prev.user.id == curr.user.id && currTime - prevTime < 600000)
-    else
-      curr.divider = true
-      curr.appendMode = false
 
   messageRecieve: (res, channel) ->
     @appendMessage(res.data)  if res.target == 'message' && res.action == 'create'
@@ -94,16 +96,16 @@
     @getMessages(firstMsgId)
 
   getMessages: (firstMsgId) ->
+    return if @state.noMessages
+
     @setState({loading: true})
     $.get("#{@props.channel.slug}/messages.json", { q: { id_lt : firstMsgId } })
       .done (data)=>
-        return if data.length == 0
-
         newMessages = data.concat(@state.messages)
         for msg, i in newMessages
           @processMessage(newMessages, i) # reprocess all messages
 
-        @setState {messages: newMessages}, ()=>
+        @setState {messages: newMessages, noMessages: (data.length < 50)}, ()=>
           if firstMsgId
             @refs.list.refs[firstMsgId].getDOMNode().scrollIntoView()
           else
@@ -120,7 +122,7 @@
   render: ->
     `<div className='ChnnelApp'>
       <ChannelHeader ref="header" channel={this.state.channel}/>
-      <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
+      <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} noMessages={this.state.noMessages} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
       <MessageCreateForm ref="footer" channel={this.props.channel} />
     </div>`
 
@@ -156,20 +158,18 @@
 @MessagesList = React.createClass
   render: ->
     user_id = @props.user_id
-    loaderClass = "ui active text loader"
 
-    if @props.loading
-      loader = `<div className="ui active loader"></div>`
-    else
-      loader = `<p className="loading-hint"><a href="" onClick={this.props.handleLoadMore}>讀取更多</a></p>`
+    if !@props.noMessages
+      if @props.loading
+        loader = `<div className="ui center aligned segment"><div className="ui active loader"></div></div>`
+      else
+        loader = `<div className="ui center aligned segment"><p className="loading-hint"><a href="" onClick={this.props.handleLoadMore}>讀取更多</a></p></div>`
 
     messageNodes = @props.messages.map (msg) ->
       `<Message msg={msg} ref={msg.id} key={msg.id} user_id={user_id}/>`
 
     `<div id='message_container' ref='messagesList' onWheel={this.props.handleOnWheel}>
-      <div className="ui center aligned segment">
-        {loader}
-      </div>
+      {loader}
       {messageNodes}
     </div>`
 
