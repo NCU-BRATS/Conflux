@@ -5,25 +5,25 @@
   = render 'layouts/project_sidebar'
   = render 'layouts/project_searchbar'
 
-.content-with-sidemenu
-  .content-sidemenu
-    = render 'layouts/project_sidemenu'
+- content_for :sidemenu
+  = render 'layouts/project_sidemenu'
 
+.content-with-sidemenu
   .content-container
     = yield
 
 - content_for :javascripts
   coffee:
     $('.channels-toggle').click ->
-      $('.channels.sidebar').sidebar('setting', {dimPage: false,transition: 'slide along'})
-      $('.channels.sidebar').sidebar('toggle')
+      $('.channels.sidebar').sidebar('setting', {
+        dimPage: false, transition: 'slide along', duration: 100, exclusive: true
+      }).sidebar('toggle')
 
 
     $('.search-toggle').click ->
       $('.search-bar').sidebar('setting', {
-        dimPage: false, transition: 'overlay', duration: 100, onShow: ()->
+        dimPage: false, transition: 'overlay', duration: 100, exclusive: true, onShow: ()->
           $('#project_search_query').focus()
-      })
-      $('.search-bar').sidebar('toggle')
+      }).sidebar('toggle')
 
 - parent_layout 'application'

@@ -88,6 +88,11 @@
       firstMsgId = @state.messages[0].id if @state.messages[0]
       @getMessages(firstMsgId)
 
+  handleLoadMore: (e)->
+    e.preventDefault()
+    firstMsgId = @state.messages[0].id if @state.messages[0]
+    @getMessages(firstMsgId)
+
   getMessages: (firstMsgId) ->
     @setState({loading: true})
     $.get("#{@props.channel.slug}/messages.json", { q: { id_lt : firstMsgId } })
@@ -115,7 +120,7 @@
   render: ->
     `<div className='ChnnelApp'>
       <ChannelHeader ref="header" channel={this.state.channel}/>
-      <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} loading={this.state.loading} handleOnWheel={this.handleOnWheel}/>
+      <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
       <MessageCreateForm ref="footer" channel={this.props.channel} />
     </div>`
 
@@ -151,12 +156,20 @@
 @MessagesList = React.createClass
   render: ->
     user_id = @props.user_id
-    loader = `<div className="ui active loader"></div>` if @props.loading
+    loaderClass = "ui active text loader"
+
+    if @props.loading
+      loader = `<div className="ui active loader"></div>`
+    else
+      loader = `<p className="loading-hint"><a href="" onClick={this.props.handleLoadMore}>讀取更多</a></p>`
+
     messageNodes = @props.messages.map (msg) ->
       `<Message msg={msg} ref={msg.id} key={msg.id} user_id={user_id}/>`
 
     `<div id='message_container' ref='messagesList' onWheel={this.props.handleOnWheel}>
-      {loader}
+      <div className="ui center aligned segment">
+        {loader}
+      </div>
       {messageNodes}
     </div>`
 
@@ -173,13 +186,13 @@
     if msg.divider
       dateDivider = `<MessageDateDivider msg={this.props.msg}/>`
     if @state.editMode
-      messageAvatar = `<MessageAvatar user={this.props.msg.user}/>`
+      messageAvatar = `<Avatar user={this.props.msg.user}/>`
       messageBody   = `<MessageEditForm msg={this.props.msg} toggleEdit={this.toggleEdit}/>`
     else
       messageBody   = `<div className="description" dangerouslySetInnerHTML={{__html:this.props.msg.html}}></div>`
       if !msg.appendMode
         messageHeader = `<MessageHeader msg={this.props.msg}/>`
-        messageAvatar = `<MessageAvatar user={this.props.msg.user}/>`
+        messageAvatar = `<Avatar user={this.props.msg.user}/>`
       else
         messageAvatar = `<MessageTime msg={this.props.msg}/>`
       if msg.user.id == @props.user_id
@@ -208,13 +221,6 @@
   render: ->
     time = moment(new Date(@props.msg.created_at)).format("YYYY Mo Do, dddd")
     `<h4 className="ui horizontal header divider">{time}</h4>`
-
-@MessageAvatar = React.createClass
-  componentDidMount: ->
-    avatarUrl = Gravtastic(@props.user.email, {size: 60, default: 'identicon'})
-    $(@refs.img.getDOMNode()).attr('src', avatarUrl)
-  render: ->
-    `<img ref="img"></img>`
 
 @MessageControl = React.createClass
   render: ->
