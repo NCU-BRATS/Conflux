@@ -64,12 +64,14 @@ Rails.application.routes.draw do
     put :preview
   end
 
-  resources :notices do
-    get :link
-    put :read
-    put :seal
-    put :unseal
+  resources :notices, only: [:index] do
+    get :link, on: :member
+    put :read, on: :member
+    put :seal, on: :member
+    put :unseal, on: :member
+    get :count, on: :collection
     put :check, on: :collection
+    put :archive, on: :collection
   end
 
   resources :users
