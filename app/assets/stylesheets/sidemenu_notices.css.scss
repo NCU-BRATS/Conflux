@@ -1,0 +1,180 @@
+.notice.ui.popup {
+  width: 400px;
+}
+
+#unread_notice_counter {
+  top: -10px;
+  left: 72px;
+}
+
+#sidebar-avatar {
+  background-color: #F9F9F9;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 15px;
+  img {
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid rgba(198, 198, 198, 1);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .popup, .ui.top.left.popup:before {
+    background-color: #e5e5e5;
+  }
+
+  .tool-bar {
+    border-top: 1px rgba(39, 41, 43, 0.15) solid;
+  }
+
+  .tool-bar .column{
+    cursor: pointer;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .tool-bar .column:hover{
+    .icon {
+      color: rgba(0, 0, 0, 1);
+    }
+  }
+
+  .header {
+    a {
+      color: rgba(0,0,0,0.6);
+    }
+    a:hover {
+      color: rgba(0,0,0,1);
+      text-decoration: underline;
+    }
+    .column {
+      margin-bottom: 10px;
+    }
+    .toggle {
+      position: absolute;
+      cursor: pointer;
+      left: 15px;
+    }
+    .batch {
+      position: absolute;
+      cursor: pointer;
+      right: 10px;
+    }
+  }
+
+  .notice-list .column {
+    height: calc(100vh - 250px);
+    max-height: 500px;
+    overflow-y: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 10px;
+  }
+  .notice-list {
+    position: relative;
+    font-size: 1em;
+    .show-all {
+      padding: 10px 0;
+      margin-bottom: 10px;
+    }
+    .show-all.loader {
+      position: relative;
+      margin: 1rem 0em;
+    }
+    .all-read {
+      top: 50%;
+      position: relative;
+      margin: -25px;
+      .icon {
+        font-size: 2em;
+        margin: 0em auto 0.25em;
+        display: block;
+      }
+    }
+  }
+
+  .dimmer {
+    background: rgba(229, 229, 229, 0.85);
+  }
+
+  .notice-list .shadow {
+    -webkit-box-shadow: 0 4px 4px 0 rgba(0,0,0,.12);
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,.12);
+    height: 4px;
+    position: absolute;
+    top: -5px;
+    width: 398.5px;
+    z-index: 1;
+  }
+
+  .icon {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .icon:hover {
+    color: rgba(0, 0, 0, 1);
+  }
+
+  .notice.card.read {
+    background-color: #f1f1f1
+  }
+  .notice.card {
+    @include flexbox;
+    @include flex-flow(row wrap);
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    max-height: 80px;
+    height: 80px;
+    overflow: hidden;
+    background-color: #ffffff;
+    cursor: pointer;
+    .thumb {
+      @include order(1);
+      @include flexbox;
+      @include justify-content(center);
+      @include align-items(center);
+      width: 70px;
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 30px;
+      }
+    }
+    .content {
+      @include flex(1);
+      @include order(2);
+      text-align: left;
+      .header {
+        @include flex(1);
+        @include order(1);
+        .time {
+          padding-left: 5px;
+        }
+        .label.project {
+          float: right;
+          cursor: pointer;
+          padding: 4px;
+          margin-right: 10px;
+          margin-top: -2px;
+        }
+        .close {
+          float: right;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      }
+      .body {
+        padding-right: 10px;
+        max-height: 35px;
+        overflow: hidden;
+      }
+    }
+  }
+}
