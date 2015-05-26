@@ -88,6 +88,11 @@
       firstMsgId = @state.messages[0].id if @state.messages[0]
       @getMessages(firstMsgId)
 
+  handleLoadMore: (e)->
+    e.preventDefault()
+    firstMsgId = @state.messages[0].id if @state.messages[0]
+    @getMessages(firstMsgId)
+
   getMessages: (firstMsgId) ->
     @setState({loading: true})
     $.get("#{@props.channel.slug}/messages.json", { q: { id_lt : firstMsgId } })
@@ -115,7 +120,7 @@
   render: ->
     `<div className='ChnnelApp'>
       <ChannelHeader ref="header" channel={this.state.channel}/>
-      <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} loading={this.state.loading} handleOnWheel={this.handleOnWheel}/>
+      <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
       <MessageCreateForm ref="footer" channel={this.props.channel} />
     </div>`
 
@@ -151,12 +156,20 @@
 @MessagesList = React.createClass
   render: ->
     user_id = @props.user_id
-    loader = `<div className="ui active loader"></div>` if @props.loading
+    loaderClass = "ui active text loader"
+
+    if @props.loading
+      loader = `<div className="ui active loader"></div>`
+    else
+      loader = `<p className="loading-hint"><a href="" onClick={this.props.handleLoadMore}>讀取更多</a></p>`
+
     messageNodes = @props.messages.map (msg) ->
       `<Message msg={msg} ref={msg.id} key={msg.id} user_id={user_id}/>`
 
     `<div id='message_container' ref='messagesList' onWheel={this.props.handleOnWheel}>
-      {loader}
+      <div className="ui center aligned segment">
+        {loader}
+      </div>
       {messageNodes}
     </div>`
 
