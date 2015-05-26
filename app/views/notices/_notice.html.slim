@@ -1,6 +1,6 @@
 .ui.feed
   .event style=((notice.read? || notice.seal?) ? 'cursor: pointer;' : 'background: rgba(75%,90%,90%,0.3); cursor: pointer;' )
-    .label.notice data-url=notice_link_path(notice)
+    .label.notice data-url=link_notice_path(notice)
       = avatar_tag notice.author, :size => '24'
     - if notice.mention?
       = render 'notices/notice/mention', notice: notice, check_mark: check_mark
@@ -12,8 +12,8 @@
       = render 'notices/notice/common', notice: notice, check_mark: check_mark
     - if check_mark == true
       - if notice.seal?
-        = link_to notice_unseal_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.unseal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
+        = link_to unseal_notice_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.unseal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
           i.checkmark.box.icon
       - else
-        = link_to notice_seal_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.seal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
+        = link_to seal_notice_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.seal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
           i.checkmark.icon
