@@ -6,6 +6,13 @@
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  .segment {
+    box-shadow: none;
+    height: 100px;
+    .loading-hint {
+      padding: 25px 0;
+    }
+  }
 }
 
 #channel_footer, #edit_message {
