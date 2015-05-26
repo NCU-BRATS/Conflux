@@ -99,6 +99,10 @@ class NoticeCreateListener
             author_id: current_user.id,
             owner_id: recipient.id
         )
+        PrivatePub.publish_to("/users/#{recipient.id}", {
+          action: 'count',
+          target: 'notices'
+        })
       end
     end
 

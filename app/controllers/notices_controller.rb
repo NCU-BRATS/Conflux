@@ -1,6 +1,20 @@
 class NoticesController < ApplicationController
 
-  before_action :set_notice, except: [:check]
+  before_action :authenticate_user!
+  before_action :set_notice, except: [:index, :check, :count, :archive]
+
+  def index
+    params.reverse_merge!({q: {state_eq: Notice.states[:unseal]}})
+    params[:q][:state_eq] = Notice.states[:seal] if params[:q][:state_eq] == 'seal'
+
+    @notices = current_user.notices.includes(:author, :project).recent.limit(10).search(params[:q]).result
+    respond_with @notices
+  end
+
+  def count
+    @notices = current_user.notices.where(mode: Notice.modes[:unread]).count
+    render plain: @notices
+  end
 
   def read
     NoticeOperation::Read.new(current_user, @notice).process
@@ -9,7 +23,7 @@ class NoticesController < ApplicationController
 
   def seal
     NoticeOperation::Seal.new(current_user, @notice).process
-    redirect_to :back
+    head :ok
   end
 
   def unseal
@@ -22,7 +36,15 @@ class NoticesController < ApplicationController
     @notices.each do |notice|
       NoticeOperation::Read.new(current_user, notice).process
     end
-    render :nothing => true, :status => 200
+    head :ok
+  end
+
+  def archive
+    @notices = current_user.notices.where(state: Notice.states[:unseal])
+    @notices.each do |notice|
+      NoticeOperation::Seal.new(current_user, notice).process
+    end
+    head :ok
   end
 
   def link
@@ -32,7 +54,7 @@ class NoticesController < ApplicationController
   end
 
   def set_notice
-    @notice ||= Notice.find(params[:notice_id])
+    @notice ||= Notice.find(params[:id])
   end
 
   protected
