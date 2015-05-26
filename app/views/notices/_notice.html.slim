@@ -1,5 +1,5 @@
 .ui.feed
-  .event.notice style=((notice.read? || notice.seal?) ? 'cursor: pointer;' : 'background: rgba(75%,90%,90%,0.3); cursor: pointer;' ) data-url=notice_link_path(notice)
+  .event.notice style=((notice.read? || notice.seal?) ? 'cursor: pointer;' : 'background: rgba(75%,90%,90%,0.3); cursor: pointer;' ) data-url=link_notice_path(notice)
     .label
       = avatar_tag notice.author, :size => '24'
     - if notice.mention?
