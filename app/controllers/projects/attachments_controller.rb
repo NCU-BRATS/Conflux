@@ -10,7 +10,12 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   def show
-    respond_with @project, @attachment
+    if @attachment.type.underscore =~ /(post|snippet)/
+      instance_variable_set("@#{$1}", @attachment)
+      render "projects/#{$1.pluralize}/show"
+    else
+      respond_with @project, @attachment
+    end
   end
 
   def new
