@@ -6,14 +6,6 @@ module CommentOperation
 
     private
 
-    def event_service
-      EventCreateService.new
-    end
-
-    def notice_service
-      NoticeCreateService.new
-    end
-
     def mention_service
       MentionService.new
     end
