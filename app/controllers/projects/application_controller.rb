@@ -20,14 +20,6 @@ class Projects::ApplicationController < ApplicationController
     ProjectUserContext.new( current_user, set_project )
   end
 
-  def event_service
-    EventCreateService.new
-  end
-
-  def notice_service
-    NoticeCreateService.new
-  end
-
   def mention_service
     MentionService.new
   end
