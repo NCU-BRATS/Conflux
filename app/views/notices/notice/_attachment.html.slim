@@ -1,22 +1,15 @@
 - target = notice.target_json
-.content
+.content.notice data-url=notice_link_path(notice)
   .date
     => time_format_relative_tag notice.created_at
-  - if check_mark == true
-    - if notice.seal?
-      = link_to notice_unseal_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.unseal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
-        i.checkmark.box.icon
-    - else
-      = link_to notice_seal_path(notice), data: {:confirm => t('question.confirm.action', action: t('action.word.seal'))}, :method => :put, remote: false, class: 'ui circular right floated icon basic button' do
-        i.checkmark.icon
   .summary
     = link_to notice.author.name, user_path(notice.author)
     | &nbsp;
     = notice_action_name(notice)
     | &nbsp;
     strong
-      - case target
-      - when Post, Snippet
+      - case event.target_type.underscore
+      - when 'post', 'snippet'
         = link_to target['name'], send("project_#{notice.target_type.underscore}_path", notice.project, target['id'])
       - else
         = link_to target['name'], project_attachment_path(notice.project, target['id'])

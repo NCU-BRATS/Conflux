@@ -8,8 +8,8 @@
     = event_action_name(event)
     | &nbsp;
     strong
-      - case target
-      - when Post, Snippet
+      - case event.target_type.underscore
+      - when 'post', 'snippet'
         = link_to target['name'], send("project_#{event.target_type.underscore}_path", event.project, target['id'])
       - else
         = link_to target['name'], project_attachment_path(event.project, target['id'])
