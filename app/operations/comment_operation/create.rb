@@ -11,10 +11,10 @@ module CommentOperation
       if validate(params[:comment]) && sync
         @model.user        = @current_user
         @model.commentable = @commentable
+        mention_service.mention_filter(:html, @model)
         if @model.save
           ParticipationOperation::Create.new(@current_user, @model.commentable).process
           BroadcastService.fire(:on_comment_created, @model, @current_user)
-          mention_service.mention_filter(:html, @model)
         end
       end
     end

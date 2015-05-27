@@ -4,7 +4,7 @@ class MemberMentionService
   def mention_member(field, mentionable)
     member_mention_filter = MentionFilters::MemberMentionFilter.new
 
-    mentioned_member = []
+    mentioned_list = { 'members' => [] }.merge(mentionable.mentioned_list || {})
 
     filtered_field = member_mention_filter.filter(mentionable.send(field)) do |match, target|
       member = User.find_by_name(target)
@@ -16,14 +16,15 @@ class MemberMentionService
       end
 
       # Prevent mention the same user multiple times and mention owner itself
-      unless mentioned_member.include?(member) || mentionable.owner == member
+      if !mentioned_list['members'].include?(member.id) && mentionable.owner != member
         NoticeCreateListener.create_mention_notice(mentionable, mentionable.owner, member)
-        mentioned_member << member
+        mentioned_list['members'] << member.id
       end
 
       link ? match.sub("@#{target}", link) : match
     end
 
+    mentionable.mentioned_list.merge!(mentioned_list)
     mentionable.send("#{field.to_s}=".to_sym, filtered_field)
   end
 

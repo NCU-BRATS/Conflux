@@ -19,8 +19,6 @@ class Comment < ActiveRecord::Base
 
   validates :content, :user, presence: true
 
-  before_save :parse_content, if: :content_changed?
-
   delegate :project, to: :commentable
 
   scope :asc, -> { order(:created_at) }
@@ -55,6 +53,11 @@ class Comment < ActiveRecord::Base
 
   def should_reindex?
     destroyed? || (previous_changes.keys & ['content']).present?
+  end
+
+  def content= (value)
+    write_attribute(:content, value)
+    parse_content
   end
 
 end

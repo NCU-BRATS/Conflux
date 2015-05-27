@@ -58,7 +58,7 @@ zh-TW:
       register:
         field:
           email: 作為帳號使用
-          name: 顯示於系統
+          name: 使用者名稱，註冊後無法更改
           password: 最少 %{length} 個字元
           password_confirmation: 請再度輸入您的密碼
       input_registered_email: 請輸入您註冊時使用的信箱

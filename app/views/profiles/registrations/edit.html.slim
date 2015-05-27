@@ -7,10 +7,8 @@
       .sub.header = t('profile.profile.profile_settings_description')
 
   .three.fields
-    = f.input :name, required: true, autofocus: true
-    = f.input :phone
-  .three.fields
     = f.input :email, disabled: true
+    = f.input :phone
     = f.input :url
 
   .ui.stacked.tertiary.segment
