@@ -3,7 +3,7 @@ class MentionFilters::IssueMentionFilter < MentionFilters::MentionFilter
   def pattern
     /
       (?:^|\W)                   # beginning of string or non-word char
-      \#((?>[a-z0-9][a-z0-9-]*))  # @username
+      \#((?>[1-9][0-9]*))             # #issue_id
       (?!\/)                     # without a trailing slash
       (?=
         \.+[ \t\W]|              # dots followed by space or non-word character
