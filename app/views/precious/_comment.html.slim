@@ -1,0 +1,19 @@
+.ui.grid
+  .sixteen.wide.column
+    .ui.segment.top.attached.tertiary
+      = user_luxury_tag comment.user
+      => t('action.target.post_at', target: '')
+      = time_format_relative_tag( comment.created_at )
+      = render "precious/location", comment: comment
+      -if comment.commentable_type == "Attachment"
+        = render "precious/location_button",comment: comment, path: project_attachment_path(comment.project, comment.commentable)
+      -elsif comment.commentable_type == "Issue"
+        = render "precious/location_button",comment: comment,path: project_issue_path(comment.project, comment.commentable)
+      -elsif comment.commentable_type == "Sprint"
+        = render "precious/location_button",comment: comment,path: project_sprint_path(comment.project, comment.commentable)
+
+    .ui.segment.attached id="editable_comment#{comment.id}"
+      p
+        == comment.html
+
+    

@@ -1,0 +1,10 @@
+.ui.grid
+  .sixteen.wide.column
+    h4.ui.header
+      = link_to [@project || post.project, post] do
+        i.file.blue.text.outline.large.icon
+        = "#{Post.model_name.human} - #{post.name}"
+  
+    = render partial: 'sync/attachment/meta', locals: {attachment: post}
+    .preview
+      .ui.basic.segment == post.preview_html
