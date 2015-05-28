@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require semantic_ui/semantic_ui
  *= require_self
  */
 
@@ -19,7 +20,6 @@
 @import "selectize-semantic-ui";
 @import "github-markdown";
 @import "highlight/github";
-@import "semantic-ui";
 @import "sync-highlight";
 @import "clndr-rails";
 @import "link-style";
@@ -163,7 +163,7 @@ body.pushable > .pusher {
 
 .page-header {
   @include flexbox;
-  .search-field {
+  .search-field, .search-field .field {
     @include flex(1);
   }
   .search-field.divided {
