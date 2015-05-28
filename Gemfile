@@ -106,6 +106,7 @@ gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails', branch: 'fix-toplevel-consta
 
 # charts
 gem 'chartkick'
+gem 'highcharts-rails', '~> 4.1.5'
 # group data
 gem 'groupdate'
 
