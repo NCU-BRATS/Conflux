@@ -7,6 +7,8 @@
           = "#{OtherAttachment.model_name.human} - #{other_attachment.name}"
         .meta.right.floated
           = render partial: 'sync/attachment/delete_button', locals: {path: project_attachment_path(@project || other_attachment.project, other_attachment)}
+          = render partial: 'sync/attachment/like_button', locals: {path: project_attachment_likes_path(@project || other_attachment.project, other_attachment), liked: other_attachment.is_liked_by?(other_attachment.user)}
+
           span
   .content
     .meta
