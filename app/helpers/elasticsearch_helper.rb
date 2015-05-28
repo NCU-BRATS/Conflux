@@ -35,7 +35,7 @@ module ElasticsearchHelper
     when 'channel'
       messages = results.map(&:_object)
       channel = messages.map(&:channel).find { |c| c.id == bucket['key']}
-      channel.name
+      channel.name if channel
     end
   end
 
