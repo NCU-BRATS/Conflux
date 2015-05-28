@@ -14,9 +14,8 @@ class DashboardController < ApplicationController
 
   def notices
     params[:type_eq] = params[:type_eq] || 'unseal'
-    @unseal_number = current_user.notices.where(state: Notice.states[:unseal]).size
-    @seal_number = current_user.notices.where(state: Notice.states[:seal]).size
-    @notices = current_user.notices.recent.where(state: Notice.states[params[:type_eq]]).page( params[:page] ).per( params[:per] )
+    @unseal_count = current_user.notices.where(state: Notice.states[:unseal]).count
+    @seal_count = current_user.notices.where(state: Notice.states[:seal]).count
   end
 
   def projects
