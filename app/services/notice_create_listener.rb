@@ -83,6 +83,7 @@ class NoticeCreateListener
 
     def create_comment_notice(record, current_user, status)
       recipients = build_recipients(record.commentable, current_user, record.project)
+      recipients = recipients - User.where(id: record.mentioned_list['members'])
       send_notice(recipients, record, current_user, status)
     end
 
