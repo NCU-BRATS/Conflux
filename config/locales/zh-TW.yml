@@ -203,6 +203,7 @@ zh-TW:
     pm: 下午
   action:
     target:
+      go_to: 前往%{target}
       post_at: 發表於%{target}
       created_at: 創建於%{target}
       create: 創建%{target}
@@ -224,6 +225,7 @@ zh-TW:
       join: 加入%{target}
       left: 離開%{target}
     word:
+      go_to: 前往
       create: 創建
       update: 更新
       add: 新增
@@ -285,6 +287,7 @@ zh-TW:
     posts: 短文
     snippets: 程式碼
     other attachments: 其他檔案
+    precious: 收藏
     channels: 頻道
     labels: 標籤
     events: 事件
