@@ -30,7 +30,7 @@
     - if policy(comment).update?
       .ui.segment.attached id="editable_comment#{comment.id}_form"
         = simple_form_for [@project || comment.project, comment], remote: true do |f|
-          = f.input :content, label: false
+          = f.input :content, label: false, input_html: {:'data-toggle' => 'suggestion', :'data-suggestions-path' => project_suggestions_path(@project || comment.project)}
           .ui.buttons.right.floated
             button.ui.button.basic.green
               i.icon.checkmark
