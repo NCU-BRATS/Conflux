@@ -1,7 +1,0 @@
-- @notices.each do |notice|
-  = render 'notices/notice', notice: notice, check_mark: check_mark
-
-- content_for :javascripts
-  coffee:
-    $('.notice').on 'click', ->
-      window.location.assign($(this).data('url'))
