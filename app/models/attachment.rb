@@ -2,6 +2,7 @@ class Attachment < ActiveRecord::Base
   include CommentableConcern
   include ParticipableConcern
   include EventableConcern
+  include FavorableConcern
   extend Enumerize
 
   belongs_to :project
@@ -14,6 +15,8 @@ class Attachment < ActiveRecord::Base
   validates :type, :project, :user, presence: true
 
   scope :latest, -> { order(created_at: :desc) }
+
+  has_reputation :likes, source: :user
 
   def self.policy_class
     AttachmentPolicy
