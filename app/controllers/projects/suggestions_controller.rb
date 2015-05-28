@@ -6,7 +6,7 @@ class Projects::SuggestionsController < Projects::ApplicationController
   end
 
   def model
-    :suggestions
+    :suggestion
   end
-  
+
 end

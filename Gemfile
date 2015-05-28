@@ -11,7 +11,7 @@ gem 'ransack'
 # for backend pagination
 gem 'kaminari'
 # better form builders
-gem 'simple_form', '~> 3.1.0rc2'
+gem 'simple_form', '~> 3.1.0'
 gem 'nested_form', '~> 0.3.2'
 # Slim templating engine
 gem 'slim-rails', '~> 3.0.1'
@@ -54,9 +54,7 @@ gem 'active_attr'
 gem 'wisper'
 gem 'wisper-activejob', github: 'krisleech/wisper-activejob', branch: 'master'
 gem 'virtus'
-gem 'trailblazer'
-gem 'cells', '~> 4.0.0.beta2'
-gem 'cells-slim'
+gem 'reform'
 
 # responders
 gem 'responders', '~> 2.0'
@@ -108,6 +106,7 @@ gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails', branch: 'fix-toplevel-consta
 
 # charts
 gem 'chartkick'
+gem 'highcharts-rails', '~> 4.1.5'
 # group data
 gem 'groupdate'
 
@@ -142,9 +141,6 @@ gem 'dotenv-rails', groups: [:development, :test]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
 # Use puma as the app server
 gem 'puma'
 
@@ -156,8 +152,5 @@ gem 'airbrake'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 ruby '2.2.0'
