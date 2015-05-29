@@ -1,30 +1,3 @@
-@NoticeHelper =
-  translateTargetName: (type, target) ->
-    switch type
-      when "OtherAttachment", "Attachment" then result = "檔案"
-      when "Issue"   then result = "任務##{target.sequential_id}"
-      when "Sprint"  then result = "戰役###{target.sequential_id}"
-      when "Poll"    then result = "投票^#{target.sequential_id}"
-      when "Image"   then result = "圖片"
-      when "Post"    then result = "貼文"
-      when "Snippet" then result = "程式碼"
-      when "Comment"
-        return @translateTargetName(target.commentable_type, target.commentable)
-    return result += " #{target.title || target.name}"
-
-  translateNotice: (notice) ->
-    return @translateTargetName(notice.target_type, notice.target_json)
-
-  targetPath: (type, target) ->
-    if type == "Comment"
-      result = @targetPath(target.commentable_type, target.commentable)
-    else
-      result = _.pluralize(type.toLowerCase()) + '/' + (target.sequential_id || target.id)
-    return result
-
-  noticePath: (notice) ->
-    return "/projects/#{notice.project.slug}/#{@targetPath(notice.target_type, notice.target_json)}"
-
 @Notice = React.createClass
   propTypes:
     notice:        React.PropTypes.object.isRequired
@@ -36,7 +9,7 @@
     @props.openNotice(@props.notice)
 
   render: ->
-    contentTitle = `<strong>{NoticeHelper.translateNotice(this.props.notice)}</strong>`
+    contentTitle = `<strong>{TranslateHelper.translate(this.props.notice)}</strong>`
     switch @props.notice.action
       when "created", "uploaded"
         contentPre   = "新增了一個 "
