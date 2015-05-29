@@ -9,7 +9,7 @@ class Notice < ActiveRecord::Base
   belongs_to :target, polymorphic: true
   belongs_to :project
 
-  validates :author, :owner, :target, presence: true
+  validates :author, :owner, presence: true
 
   scope :recent, -> { order('created_at DESC') }
 
