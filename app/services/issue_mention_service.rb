@@ -1,29 +1,26 @@
 class IssueMentionService
   include Rails.application.routes.url_helpers
 
-  def mention_issue(field, mentionable)
+  def parse_mention(text, project)
     issue_mention_filter = MentionFilters::IssueMentionFilter.new
 
-    mentioned_list = { 'issues' => [] }.merge(mentionable.mentioned_list || {})
+    mentioned_issues = []
 
-    filtered_field = issue_mention_filter.filter(mentionable.send(field)) do |match, target|
+    filtered_field = issue_mention_filter.filter(text) do |match, target|
       issue_id = target.to_i
-
-      if !mentioned_list['issues'].include?(issue_id)
-        mentioned_list['issues'] << issue_id
-      end
-
-      link = link_to_mentioned_issue(mentionable.project, target)
+      issue = Issue.find(issue_id)
+      mentioned_issues << issue if issue
+      link = link_to_mentioned_issue(project, issue)
       link ? match.sub("##{target}", link) : match
     end
 
-    mentionable.mentioned_list.merge!(mentioned_list)
-    mentionable.send("#{field.to_s}=".to_sym, filtered_field)
+    { filterd_content: filtered_field, mentioned_issues: mentioned_issues }
   end
 
-  def link_to_mentioned_issue(project, issue_id)
-    url = project_issue_path(project, issue_id)
-    "<a href='#{url}' class='user-mention'>##{issue_id}</a>"
+  def link_to_mentioned_issue(project, issue)
+    return nil unless issue
+    url = project_issue_path(project, issue)
+    "<a href='#{url}' class='issue-mention'>##{issue.id}</a>"
   end
 
 end
