@@ -22,7 +22,7 @@
 //= require moment/zh-tw
 //= require bootstrap-datetimepicker
 //= require sync
-//= require semantic-ui
+//= require semantic_ui/semantic_ui
 //= require handlebars.runtime
 //= require underscore
 //= require clndr-rails

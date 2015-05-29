@@ -74,7 +74,8 @@ gem 'gravtastic'
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
 # Semantic-ui
-gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'less-rails-semantic_ui'
+gem 'autoprefixer-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -84,7 +85,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # javascript templating
 gem 'handlebars_assets'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer',  platforms: :ruby
 
 
 # An autocompletion library to autocomplete mentions, smileys etc. just like on Github!
