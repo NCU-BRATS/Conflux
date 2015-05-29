@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
     scope module: 'projects' do
       resources :search, only: [:index], controller: 'search', as: 'project_searches'
+      resources :events, only: [:index]
       resource :dashboard
       resources :channels do
         resources :messages, only: [:index, :create]
