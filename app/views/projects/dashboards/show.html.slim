@@ -51,11 +51,4 @@
               .description
                 .ui.basic.segment == post.preview_html
     .column
-      .ui.fluid.five.item.icon.menu
-        - %w(all Comment Issue Attachment User).each do |type|
-          = link_to project_dashboard_path(@project, params.permit(:event, :issue).merge({event: type})), class: "item #{params[:event] == type ? 'active' : ''}" do
-            = event_icon_tag(type)
-
-      .dashboard
-        = render 'events/events', events: @events
-        = paginate @events
+      = react_component('EventListApp')
