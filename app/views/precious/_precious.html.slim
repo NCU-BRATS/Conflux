@@ -1,0 +1,10 @@
+- if precious.class.name == "Comment"
+  = render "precious/comment" , comment: precious
+- elsif precious.class.name == "Post"
+  = render "precious/post" , post: precious
+- elsif precious.class.name == "Snippet"
+  = render "precious/snippet" , snippet: precious
+- elsif precious.class.name == "Image"
+  = render "precious/image" , image: precious
+- elsif precious.class.name == "OtherAttachment"
+  = render "precious/other_attachment" , other_attachment: precious

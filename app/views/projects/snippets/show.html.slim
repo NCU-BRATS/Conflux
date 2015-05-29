@@ -20,6 +20,13 @@
   - if policy(@snippet).destroy?
     = link_to project_attachment_path(@project, @snippet), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
       i.icon.trash
+  = link_to project_attachment_likes_path(@project, @snippet), :method => :put, remote: true, class: 'ui green icon basic button left floated' do
+    - if @snippet.is_liked_by?(@snippet.user) 
+        i.green.heart.icon
+    - else
+        i.icon.heart
+    = ' '
+    = @snippet.total_likes.to_i
   = link_to project_attachments_path, class: 'ui right floated basic green button' do
     i.icon.chevron.left
     = t('action.word.back')

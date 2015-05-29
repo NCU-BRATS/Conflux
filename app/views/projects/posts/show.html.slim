@@ -20,6 +20,13 @@
   - if policy(@post).destroy?
     = link_to project_attachment_path(@project, @post), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
       i.icon.trash
+  = link_to project_attachment_likes_path(@project, @post), :method => :put, remote: true, class: 'ui green icon basic button left floated' do
+    - if @post.is_liked_by?(@post.user) 
+        i.green.heart.icon
+    - else
+        i.icon.heart
+    = ' '
+    = @post.total_likes.to_i
   = link_to project_attachments_path, class: 'ui right floated basic green button' do
     i.icon.chevron.left
     = t('action.word.back')

@@ -1,0 +1,18 @@
+= t('event.at')
+= (t('project.project')+' ')
+= link_to  project_dashboard_path(comment.project) do
+  = comment.project.name
+= ' / '
+- if comment.commentable_type == "Attachment"
+  = (t('project.attachments')+' ')
+  = link_to project_attachment_path(comment.project,comment.commentable) do
+    = comment.commentable.name
+- elsif comment.commentable_type == "Issue"
+  = t('project.issues')
+  = link_to project_issue_path(comment.project,comment.commentable) do
+    = comment.commentable.title 
+- elsif comment.commentable_type == "Sprint"
+  = t('project.sprints')
+  = link_to project_sprint_path(comment.project,comment.commentable) do
+    = comment.commentable.title 
+

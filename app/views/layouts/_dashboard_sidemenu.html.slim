@@ -19,6 +19,9 @@
   = active_link_to attachments_dashboard_path, class: 'item' do
     i.file.icon
     span = t('structure.my', element: Attachment.model_name.human)
+  = active_link_to precious_dashboard_path, class: 'item' do
+    i.heart.icon
+    span = t('structure.my', element: t('project.precious'))
   = active_link_to users_path, class: 'item' do
     i.users.icon
     span = t('structure.list', element: User.model_name.human)

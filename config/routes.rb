@@ -35,7 +35,7 @@ Rails.application.routes.draw do
         resources :polling_options, only: [:update]
       end
       resources :comments, only: [:update, :destroy], concerns: :favorable
-      resources :attachments, concerns: [:commentable] do
+      resources :attachments, concerns: [:commentable, :favorable] do
         get 'download', on: :member
       end
       resources :posts
@@ -74,6 +74,8 @@ Rails.application.routes.draw do
 
   resources :users
 
+
+
   scope 'profile', as: 'profile' do
     scope module: :profiles do
       resource :notifications, only: [:show, :update]
@@ -87,6 +89,7 @@ Rails.application.routes.draw do
       get :projects
       get :issues
       get :attachments
+      get :precious
     end
   end
 

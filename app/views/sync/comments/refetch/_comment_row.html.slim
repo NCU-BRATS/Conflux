@@ -10,15 +10,10 @@
       - if policy(comment).destroy?
         a.ui.icon.button.basic.right.floated href="#{project_comment_path(@project || comment.project, comment)}" data-remote=true data-method='delete' data-confirm=t('question.confirm.action', action: t('action.word.delete') ) style="margin:-7px auto -7px 5px"
           i.icon.trash
-      a.ui.green.icon.button.basic.right.floated href="#{project_comment_likes_path(@project || comment.project, comment)}" data-remote= 'true' data-method='put' style="margin:-7px auto -7px 5px; color: green;"
-        - if comment.is_liked_by?(current_user) 
-          i.green.heart.icon
-          = ' +'
-          = comment.total_likes.to_i
-        - else
-          i.icon.heart
-          = ' +'
-          = comment.total_likes.to_i
+      a.ui.green.icon.button.basic.right.floated href="#{project_comment_likes_path(@project || comment.project, comment)}" data-remote= 'true' data-method='put' style="margin:-7px auto -7px 5px; color: green;" 
+        =  render partial: 'precious/liked_icon', locals: {favor: comment}
+        = ' ' 
+        = comment.total_likes.to_i
 
         
 

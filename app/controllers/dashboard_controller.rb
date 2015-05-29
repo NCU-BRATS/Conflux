@@ -38,4 +38,23 @@ class DashboardController < ApplicationController
     respond_with @attachments
   end
 
+  def precious
+    params[:precious] ||= "comments" 
+    case params[:precious]
+
+    when "comments"
+      @precious = Comment.evaluated_by(:likes, current_user)
+    when "posts"
+      @precious = Post.evaluated_by(:likes, current_user)
+    when "snippets"
+      @precious = Snippet.evaluated_by(:likes, current_user)
+    when "images"
+      @precious = Image.evaluated_by(:likes, current_user)
+    when "others"
+      @precious = OtherAttachment.evaluated_by(:likes, current_user)
+    end
+    @precious = @precious.page( params[:page] ).per( params[:per] )
+    respond_with @precious
+  end
+
 end

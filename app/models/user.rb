@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   has_many :recent_notices, -> { order 'id DESC' }, foreign_key: :owner_id,   class_name: 'Notice'
 
   has_reputation :likes, source:{reputation: :likes, of: :comments}, aggregated_by: :sum
+  has_reputation :likes, source:{reputation: :likes, of: :attachments}, aggregated_by: :sum
 
   validates :name, presence: true
   validates :name, uniqueness: true

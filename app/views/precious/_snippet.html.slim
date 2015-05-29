@@ -1,0 +1,10 @@
+.ui.grid
+  .sixteen.wide.column
+    h4.ui.header
+      = link_to [@project || snippet.project, snippet] do
+        i.file.blue.code.outline.large.icon
+        = "#{Snippet.model_name.human} - #{snippet.name}"
+
+    = render partial: 'sync/attachment/meta', locals: {attachment: snippet}
+  .preview
+    .ui.basic.segment == snippet.preview_html
