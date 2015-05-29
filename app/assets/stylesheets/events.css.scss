@@ -1,0 +1,70 @@
+.event-toggle {
+  @include flexbox;
+  .item {
+    @include flex(1);
+    text-align: center;
+  }
+}
+
+.event-list {
+  .show-all {
+    padding: 30px 0;
+    margin-bottom: 10px;
+  }
+  .show-all.loader {
+    position: relative;
+    margin: 1rem 0em;
+  }
+}
+
+.event.card {
+  @include flexbox;
+  @include flex-flow(row wrap);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-height: 100px;
+  min-height: 40px;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+  .thumb {
+    @include order(1);
+    @include flexbox;
+    @include justify-content(center);
+    width: 40px;
+    img {
+      height: 25px;
+      width: 25px;
+      border-radius: 15px;
+    }
+  }
+  .content {
+    @include flex(1);
+    @include order(2);
+    text-align: left;
+    .header {
+      padding-top: 4px;
+      @include flex(1);
+      @include order(1);
+      @include flexbox;
+      .title {
+        @include flex(1);
+        overflow : hidden;
+        text-overflow : ellipsis;
+        white-space : nowrap;
+        a, span {
+          padding-right: 2px;
+        }
+      }
+
+    }
+    .body {
+      margin-top: 5px;
+      padding-right: 10px;
+      max-height: 35px;
+      overflow: hidden;
+      span: {
+        word-wrap: break-word;
+      }
+    }
+  }
+}

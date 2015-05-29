@@ -86,7 +86,7 @@
 
   openNotice: (notice)->
     $.ajax("/notices/#{notice.id}/seal", {method: 'put'}) if notice.state == 'unseal'
-    Turbolinks.visit(NoticeHelper.noticePath(notice))
+    Turbolinks.visit(TranslateHelper.noticePath(notice))
 
   archiveNotice: (notice, i)->
     $.ajax("/notices/#{notice.id}/seal", {method: 'put'})
