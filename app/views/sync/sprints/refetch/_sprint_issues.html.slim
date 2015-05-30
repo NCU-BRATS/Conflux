@@ -23,7 +23,7 @@ div
           .ui.red.statistic
             .value = sprint.due_time_duration
             .label = t('project.sprint.expired_days')
-        - else
+        - elsif !sprint.finished?
           .ui.orange.statistic
             .value = sprint.due_time_duration
             .label = t('project.sprint.remaining_days')
