@@ -9,18 +9,8 @@
     @props.openNotice(@props.notice)
 
   render: ->
+    {contentPre, contentPost, contentBody} = TranslateHelper.translateAction(@props.notice)
     contentTitle = `<strong>{TranslateHelper.translate(this.props.notice)}</strong>`
-    switch @props.notice.action
-      when "created", "uploaded"
-        contentPre   = "新增了一個 "
-      when "closed"
-        contentPre   = "關閉了 "
-      when "reopened"
-        contentPre   = "重新開啟了 "
-      when "commented"
-        contentPre   = "在 "
-        contentPost  = " 留了言: "
-        contentBody  = @props.notice.target_json.content
 
     classStr = "notice card #{@props.notice.mode}"
 
