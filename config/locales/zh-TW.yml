@@ -345,6 +345,7 @@ zh-TW:
     assigned_to_me: 我被指派的任務
     opened_by_me: 我開啟的任務
     opened: 最近的任務
+    participated: 我參與的任務
   search:
     related: "%{count} 個相關的結果"
     no_result: "我們找不到與 \"%{query}\" 相關的%{resource}"
