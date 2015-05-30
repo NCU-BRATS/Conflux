@@ -68,20 +68,6 @@ class NoticeCreateListener
       # create_notice(channel, current_user, :deleted)
     end
 
-    def create_mention_notice(record, current_user, mentioner)
-      Notice.create(
-          target_id: record.id,
-          target_type: record.class.name,
-          target_json: record.to_target_json,
-          project: record.project,
-          action: :mention,
-          state: :unseal,
-          mode: :unread,
-          author_id: current_user.id,
-          owner_id: mentioner.id
-      )
-    end
-
     private
 
     def create_notice(record, current_user, status)
@@ -96,22 +82,13 @@ class NoticeCreateListener
     end
 
     def create_all_mentioned_notice(record, current_user)
-      User.find(record.mentioned_list['members']).each do |mentioned_member|
-        create_mention_notice(record, current_user, mentioned_member)
-      end
+      send_notice(User.find(record.mentioned_list['members']), record, current_user, :mention)
     end
 
     def create_new_mentioned_notice(record, mentioned_list, current_user)
-      old_mentioned_list = mentioned_list[0] # mentioned_list before model saved
-      new_mentioned_list = mentioned_list[1] # mentioned_list after model saved
-      new_mentioned_list.each do |key, value|
-        new_mentioned = value - old_mentioned_list[key]
-        if key == 'members'
-          User.find(new_mentioned).each do |mentioned_member|
-            create_mention_notice(record, current_user, mentioned_member)
-          end
-        end
-      end
+      old_list, new_list = mentioned_list
+      new_mentioned = new_list['members'] - old_list['members']
+      send_notice(User.find(new_mentioned), record, current_user, :mention)
     end
 
     def create_comment_notice(record, current_user, status)
@@ -123,15 +100,15 @@ class NoticeCreateListener
     def send_notice(recipients, record, current_user, status)
       recipients.each do |recipient|
         Notice.create(
-            target_id: record.id,
-            target_type: record.class.name,
-            target_json: record.to_target_json,
-            project: record.project,
-            action: status,
-            state: :unseal,
-            mode: :unread,
-            author_id: current_user.id,
-            owner_id: recipient.id
+          target_id: record.id,
+          target_type: record.class.name,
+          target_json: record.to_target_json,
+          project: record.project,
+          action: status,
+          state: :unseal,
+          mode: :unread,
+          author_id: current_user.id,
+          owner_id: recipient.id
         )
       end
     end
