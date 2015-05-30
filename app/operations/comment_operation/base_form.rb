@@ -6,9 +6,5 @@ module CommentOperation
 
     private
 
-    def mention_service
-      MentionService.new
-    end
-
   end
 end
