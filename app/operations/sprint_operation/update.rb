@@ -5,7 +5,7 @@ module SprintOperation
       @current_user = current_user
       @project      = project
 
-      super({sprint: sprint})
+      super(sprint)
     end
 
     def process(params)
