@@ -54,7 +54,7 @@
             .ui.red.tiny.statistic
               .value = sprint_working.due_time_duration
               .label = t('project.sprint.expired_days')
-          - else
+          - elsif !sprint_working.finished?
             .ui.orange.tiny.statistic
               .value = sprint_working.due_time_duration
               .label = t('project.sprint.remaining_days')
