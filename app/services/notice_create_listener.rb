@@ -1,7 +1,8 @@
 class NoticeCreateListener
   class << self
     def on_issue_created(issue, current_user)
-      create_notice(issue, current_user, :created)
+      mentioned_members = issue.comments.first.mentioned_list['members']
+      create_notice_without_mentioned(issue, current_user, :created, mentioned_members)
     end
 
     def on_issue_closed(issue, current_user)
@@ -13,7 +14,8 @@ class NoticeCreateListener
     end
 
     def on_sprint_created(sprint, current_user)
-      create_notice(sprint, current_user, :created)
+      mentioned_members = sprint.comments.first.mentioned_list['members']
+      create_notice_without_mentioned(sprint, current_user, :created, mentioned_members)
     end
 
     def on_sprint_closed(sprint, current_user)
@@ -25,7 +27,8 @@ class NoticeCreateListener
     end
 
     def on_poll_created(poll, current_user)
-      create_notice(poll, current_user, :created)
+      mentioned_members = poll.comments.first.mentioned_list['members']
+      create_notice_without_mentioned(poll, current_user, :created, mentioned_members)
     end
 
     def on_poll_closed(poll, current_user)
@@ -83,6 +86,12 @@ class NoticeCreateListener
 
     def create_notice(record, current_user, status)
       recipients = build_recipients(record, current_user, record.project)
+      send_notice(recipients, record, current_user, status)
+    end
+
+    def create_notice_without_mentioned(record, current_user, status, mentioned)
+      recipients = build_recipients(record, current_user, record.project)
+      recipients.select! { |recipient| mentioned.exclude?(recipient.id) }
       send_notice(recipients, record, current_user, status)
     end
 
