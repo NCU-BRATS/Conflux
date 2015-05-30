@@ -24,5 +24,32 @@
       result = _.pluralize(type.toLowerCase()) + '/' + (target.sequential_id || target.id)
     return result
 
+  translateAction: (t) ->
+    switch t.action
+      when "created", "uploaded"
+        contentPre   = "新增了一個"
+      when "closed"
+        contentPre   = "關閉了"
+      when "reopened"
+        contentPre   = "重新開啟了"
+      when "joined"
+        contentPre   = "將"
+        contentPost  = "加入了此專案"
+      when "left"
+        contentPre   = "將"
+        contentPost  = "從此專案移除"
+      when "deleted"
+        contentPre   = "將"
+        contentPost  = "刪除了"
+      when "mention"
+        contentPre   = "在"
+        contentPost  = "提到你"
+      when "commented"
+        contentPre   = "在"
+        contentPost  = "留了言:"
+        contentBody  = `<div><i className="comment outline icon"></i>{t.target_json.content}</div>`
+
+    return {contentPre, contentPost, contentBody}
+
   noticePath: (t) ->
     return "/projects/#{t.project.slug}/#{@targetPath(t.target_type, t.target_json)}"
