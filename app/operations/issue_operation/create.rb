@@ -20,7 +20,7 @@ module IssueOperation
           CommentOperation::Create.new(@current_user, @model).process(comment_param)
 
           ParticipationOperation::Create.new(@current_user, @model).process
-          ParticipationOperation::Create.new(issue.assignee, @model).process if @model.assignee
+          ParticipationOperation::Create.new(@model.assignee, @model).process if @model.assignee
           BroadcastService.fire(:on_issue_created, @model, @current_user)
         end
       end
