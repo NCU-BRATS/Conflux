@@ -19,15 +19,10 @@ module CommentOperation
     private
 
     def create_mentioned_participation
-      old_mentioned_list = @model.previous_changes[:mentioned_list][0] # mentioned_list before model saved
-      new_mentioned_list = @model.previous_changes[:mentioned_list][1] # mentioned_list after model saved
-      new_mentioned_list.each do |key, value|
-        new_mentioned = value - old_mentioned_list[key]
-        if key == 'members'
-          User.find(new_mentioned).each do |mentioned_member|
-            ParticipationOperation::Create.new(mentioned_member, @model.commentable).process
-          end
-        end
+      old_list, new_list = @model.previous_changes[:mentioned_list]
+      new_mentioned = new_list['members'] - old_list['members']
+      User.find(new_mentioned).each do |member|
+        ParticipationOperation::Create.new(member, @model.commentable).process
       end
     end
 
