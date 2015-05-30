@@ -37,12 +37,22 @@
       border-radius: 15px;
     }
   }
+  .member {
+    img {
+      height: 25px;
+      width: 25px;
+      border-radius: 15px;
+      vertical-align: middle;
+      margin-right: 4px;
+      margin-left: 4px;
+    }
+  }
   .content {
     @include flex(1);
     @include order(2);
     text-align: left;
     .header {
-      padding-top: 4px;
+      margin-top: 4px;
       @include flex(1);
       @include order(1);
       @include flexbox;
@@ -52,7 +62,7 @@
         text-overflow : ellipsis;
         white-space : nowrap;
         a, span {
-          padding-right: 2px;
+          margin-right: 2px;
         }
       }
 
