@@ -1,14 +1,13 @@
 module SprintOperation
   class BaseForm < Reform::Form
-    include Composition
 
     model :sprint
 
-    property :title,       on: :sprint
-    property :begin_at,    on: :sprint
-    property :due_at,      on: :sprint
-    property :status,      on: :sprint
-    property :issue_ids,   on: :sprint
+    property :title
+    property :begin_at
+    property :due_at
+    property :status
+    property :issue_ids
 
     validates :title, presence: true
 
