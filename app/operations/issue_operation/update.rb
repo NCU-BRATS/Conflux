@@ -5,12 +5,12 @@ module IssueOperation
       @current_user = current_user
       @project      = project
 
-      super({issue: issue})
+      super(issue)
     end
 
     def process(params)
       validate(params[:issue]) && save
-      ParticipationOperation::Create.new(@model[:issue].assignee, @model[:issue]).process if @model[:issue].assignee
+      ParticipationOperation::Create.new(@model.assignee, @model).process if @model.assignee
     end
 
   end
