@@ -10,6 +10,7 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, polymorphic: true
 
   delegate :participations, to: :commentable
+  delegate :project, to: :commentable
   alias owner user
 
   update_index('projects#issue')      { commentable if for_issue?      && should_reindex? }
@@ -18,6 +19,7 @@ class Comment < ActiveRecord::Base
   update_index('projects#poll')       { commentable if for_poll?       && should_reindex? }
 
   validates :content, :user, presence: true
+  before_save :parse_mentioned
 
   delegate :project, to: :commentable
 
@@ -55,9 +57,31 @@ class Comment < ActiveRecord::Base
     destroyed? || (previous_changes.keys & ['content']).present?
   end
 
-  def content= (value)
-    write_attribute(:content, value)
+
+  private
+
+  def parse_mentioned
     parse_content
+    parse_mentioned_member
+    parse_mentioned_issue
+  end
+
+  def parse_mentioned_member
+    parse_result = MemberMentionService.new.parse_mention(html)
+    self.html = parse_result[:filterd_content]
+    mentioned_members = parse_result[:mentioned_members]
+    self.mentioned_list.reverse_merge!({ 'members' => [] })
+    self.mentioned_list['members'] += mentioned_members.map(&:id).as_json
+    self.mentioned_list['members'] = self.mentioned_list['members'].sort.uniq
+  end
+
+  def parse_mentioned_issue
+    parse_result = IssueMentionService.new.parse_mention(html, project)
+    self.html = parse_result[:filterd_content]
+    mentioned_issues = parse_result[:mentioned_issues]
+    self.mentioned_list.reverse_merge!({ 'issues' => [] })
+    self.mentioned_list['issues'] += mentioned_issues.map(&:id).as_json
+    self.mentioned_list['issues'] = self.mentioned_list['issues'].sort.uniq
   end
 
 end

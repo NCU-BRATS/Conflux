@@ -7,9 +7,5 @@ module ProjectParticipationOperation
 
     private
 
-    def mention_service
-      MentionService.new
-    end
-
   end
 end

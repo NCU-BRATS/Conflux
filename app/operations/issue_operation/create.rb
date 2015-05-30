@@ -1,27 +1,27 @@
 module IssueOperation
   class Create < BaseForm
-    property :content,     on: :comment
+    property :content, virtual: true
     validates :content, presence: true
 
-    def initialize(current_user, project, issue = Issue.new, comment = Comment.new)
+    def initialize(current_user, project)
       @current_user = current_user
       @project      = project
-      super({issue: issue, comment: comment})
+      super(Issue.new)
     end
 
     def process(params)
-      issue, comment = @model[:issue], @model[:comment]
       if validate(params[:issue].except(:label_ids)) && sync
-        comment.user  = @current_user
-        issue.user    = @current_user
-        issue.project = @project
-        issue.comments << comment
-        if issue.save
-          issue.update_attributes(label_ids: params[:issue][:label_ids])
-          ParticipationOperation::Create.new(@current_user, issue).process
-          ParticipationOperation::Create.new(issue.assignee, issue).process if issue.assignee
-          BroadcastService.fire(:on_issue_created, issue, @current_user)
-          mention_service.mention_filter(:html, comment)
+        @model.user    = @current_user
+        @model.project = @project
+        if @model.save
+          @model.update_attributes(label_ids: params[:issue][:label_ids])
+
+          comment_param = ActionController::Parameters.new({comment: {content: params[:issue][:content]}})
+          CommentOperation::Create.new(@current_user, @model).process(comment_param)
+
+          ParticipationOperation::Create.new(@current_user, @model).process
+          ParticipationOperation::Create.new(issue.assignee, @model).process if @model.assignee
+          BroadcastService.fire(:on_issue_created, @model, @current_user)
         end
       end
     end

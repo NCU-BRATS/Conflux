@@ -1,26 +1,26 @@
 module SprintOperation
   class Create < BaseForm
-    property :content,     on: :comment
+    property :content, virtual: true
     validates :content, presence: true
 
-    def initialize(current_user, project, sprint = Sprint.new, comment = Comment.new)
+    def initialize(current_user, project)
       @current_user = current_user
       @project      = project
-      super({sprint: sprint, comment: comment})
+      super(Sprint.new)
     end
 
     def process(params)
-      sprint, comment = @model[:sprint], @model[:comment]
       if validate(params[:sprint].except(:issue_ids)) && sync
-        comment.user   = @current_user
-        sprint.user    = @current_user
-        sprint.project = @project
-        sprint.comments << comment
-        if sprint.save
-          sprint.update_attributes(issue_ids: params[:sprint][:issue_ids])
-          ParticipationOperation::Create.new(@current_user, sprint).process
-          BroadcastService.fire(:on_sprint_created, sprint, @current_user)
-          mention_service.mention_filter(:html, comment)
+        @model.user   = @current_user
+        @model.project = @project
+        if @model.save
+          @model.update_attributes(issue_ids: params[:sprint][:issue_ids])
+
+          comment_param = ActionController::Parameters.new({comment: {content: params[:sprint][:content]}})
+          CommentOperation::Create.new(@current_user, @model).process(comment_param)
+
+          ParticipationOperation::Create.new(@current_user, @model).process
+          BroadcastService.fire(:on_sprint_created, @model, @current_user)
         end
       end
     end
