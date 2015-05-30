@@ -16,6 +16,9 @@ module PollOperation
         @model.project = @project
         @model.options_attributes = hash[:options]
         if @model.save
+          comment_param = ActionController::Parameters.new({comment: {content: params[:poll][:content]}})
+          CommentOperation::Create.new(@current_user, @model).process(comment_param)
+
           ParticipationOperation::Create.new(@current_user, @model).process
           BroadcastService.fire(:on_poll_created, @model, @current_user)
         end
