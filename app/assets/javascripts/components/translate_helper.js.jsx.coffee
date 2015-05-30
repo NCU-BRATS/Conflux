@@ -8,7 +8,8 @@
       when "Image"   then result = "圖片"
       when "Post"    then result = "貼文"
       when "Snippet" then result = "程式碼"
-      when "User"    then result = target.name
+      when "User"
+        return `<span className="member"><Avatar user={target} />{target.name}</span>`
       when "Comment"
         return @translateTargetName(target.commentable_type, target.commentable)
     return result += " #{target.title || target.name}"
