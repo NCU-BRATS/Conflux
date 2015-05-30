@@ -343,6 +343,7 @@ en:
     assigned_to_me: missions assigned to me
     opened_by_me: missions opened by me
     opened: recent missions
+    participated: issues participated
   search:
     related: "%{count} related results"
     no_result: we cannot find any %{resource} related to %{query}
