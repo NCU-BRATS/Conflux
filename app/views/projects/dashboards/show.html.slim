@@ -10,45 +10,93 @@
 .ui.grid
   .doubling.two.column.row
     .column.right.floated
-      h3.ui.dividing.header
+      .ui.attached.segment.tertiary
         i.icon.tasks
-        .content
-          = link_to t('structure.list', element: Issue.model_name.human ), project_issues_path
-      .ui.top.attached.tabular.menu
-        - %w(assigned_to_me opened_by_me opened).each do |type|
-          a.item href=project_dashboard_path(@project, params.permit(:event, :issue).merge({issue: type})) class="#{params[:issue] == type ? 'active' : ''}"
-            = t("issue.#{type}")
-      .ui.bottom.attached.segment
-        .ui.selection.divided.list
-          - @issues.each do |issue|
-            .item
-              - if issue.open?
-                i.green.icon.unlock
-              - elsif issue.closed?
-                i.red.icon.lock
-              .content
-                .header
-                  = link_to issue.title, project_issue_path(@project, issue)
-                = "##{issue.sequential_id} "
-                => user_tag issue.user, class: 'gray link'
-                => t('action.target.created_at', target: '')
-                span = time_format_relative_tag( issue.created_at )
+        = '任務狀態統計'
+      .ui.attached.segment
+        = area_chart @project.issues.group(:status).group_by_day(:created_at).count, colors: %w(#87d2a0 #f17f49)
 
-      h3.ui.dividing.header
-        i.icon.tasks
-        .content
-          = link_to t('structure.list', element: Post.model_name.human ), project_attachments_path
-      .ui.segment
-        - @posts.each do |post|
-          .ui.vertical.segment
-            h4.ui.header
-              = link_to [@project, post] do
-                i.file.blue.text.outline.large.icon
-                = post.name
+      .ui.issue.list
+        .ui.attached.tertiary.segment
+          i.icon.flag
+          | 進行中的戰役
+        - @sprints.each do |sprint|
+          .ui.attached.segment.item
+            - issue_close_count = sprint.issues.select {|i| i.closed? }.size
+            - issue_open_count  = sprint.issues.select {|i| i.open? }.size
+            - issues_count      = issue_close_count + issue_open_count
+            - if issues_count != 0
+              - issues_finished_rate = ( issue_close_count / issues_count.to_f  * 100 ).round(0)
+            .ui.grid
+              .eight.wide.column
+                .ui.header
+                  - if sprint.expired?
+                    i.red.icon.warning.sign
+                  - else
+                    i.green.icon.wait
+                  .content
+                    - if sprint.expired?
+                      = link_to sprint.title, project_sprint_path(@project, sprint), class: 'red link'
+                    - else
+                      = link_to "###{sprint.sequential_id} #{sprint.title}", project_sprint_path(@project, sprint)
+
+              .eight.wide.column
+                .ui.right.floated.image
+                  - if issues_count != 0
+                    .ui.green.tiny.statistic style="margin-bottom: 0"
+                      .value = issue_close_count
+                      .label = t('state.finished')
+                    .ui.red.tiny.statistic
+                      .value = issue_open_count
+                      .label = t('state.unfinished')
+
+                    - if sprint.expired?
+                      .ui.red.tiny.statistic
+                        .value = sprint.due_time_duration
+                        .label = t('project.sprint.expired_days')
+                    - elsif !sprint.finished?
+                      .ui.orange.tiny.statistic
+                        .value = sprint.due_time_duration
+                        .label = t('project.sprint.remaining_days')
+
+              .ui.bottom.attached.indicating.progress data-percent=issues_finished_rate style="border-radius: 0;"
+                .bar
+
+      .ui.issue.list
+        .ui.attached.tertiary.segment
+          i.icon.signal
+          | 進行中的投票
+        - @polls.each do |poll|
+          .ui.attached.segment.item
             .content
-              .meta
-                = render partial: 'sync/attachment/meta', locals: {attachment: post}
-              .description
-                .ui.basic.segment == post.preview_html
+              .header
+                = link_to poll.title, project_poll_path(@project, poll)
+              = "##{poll.sequential_id} "
+              => user_tag poll.user, class: 'gray link'
+              => t('action.target.created_at', target: '')
+              span = time_format_relative_tag( poll.created_at )
+
+      .ui.issue.list
+        .ui.attached.tertiary.segment
+          i.icon.tasks
+          = t('issue.participated')
+        - @issues.each do |issue|
+          .ui.attached.segment.item
+            - if issue.open?
+              i.green.icon.unlock
+            - elsif issue.closed?
+              i.red.icon.lock
+            .content
+              .header
+                = link_to issue.title, project_issue_path(@project, issue)
+              = "##{issue.sequential_id} "
+              => user_tag issue.user, class: 'gray link'
+              => t('action.target.created_at', target: '')
+              span = time_format_relative_tag( issue.created_at )
+
     .column
       = react_component('EventListApp')
+
+- content_for :javascripts
+  coffee:
+    $('.progress').progress()
