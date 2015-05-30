@@ -20,8 +20,4 @@ class Projects::ApplicationController < ApplicationController
     ProjectUserContext.new( current_user, set_project )
   end
 
-  def mention_service
-    MentionService.new
-  end
-
 end

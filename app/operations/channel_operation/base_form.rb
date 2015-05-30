@@ -8,9 +8,5 @@ module ChannelOperation
 
     private
 
-    def mention_service
-      MentionService.new
-    end
-
   end
 end
