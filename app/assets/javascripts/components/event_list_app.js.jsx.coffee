@@ -1,5 +1,5 @@
 @EventListApp = React.createClass
-  LOAD_SIZE: 15
+  LOAD_SIZE: 30
 
   getInitialState: ->
     return {events: [], loading: false, noMoreEvent: false, f: {comment: null, issue: null, poll: null, user: null, attachment: null}}
