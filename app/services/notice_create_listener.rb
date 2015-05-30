@@ -38,6 +38,11 @@ class NoticeCreateListener
 
     def on_comment_created(comment, current_user)
       create_comment_notice(comment, current_user, :commented)
+      create_all_mentioned_notice(comment, current_user)
+    end
+
+    def on_comment_updated(comment, mentioned_list, current_user)
+      create_new_mentioned_notice(comment, mentioned_list, current_user) if mentioned_list
     end
 
     def on_comment_deleted(comment, current_user)
@@ -81,9 +86,28 @@ class NoticeCreateListener
       send_notice(recipients, record, current_user, status)
     end
 
+    def create_all_mentioned_notice(record, current_user)
+      User.find(record.mentioned_list['members']).each do |mentioned_member|
+        create_mention_notice(record, current_user, mentioned_member)
+      end
+    end
+
+    def create_new_mentioned_notice(record, mentioned_list, current_user)
+      old_mentioned_list = mentioned_list[0] # mentioned_list before model saved
+      new_mentioned_list = mentioned_list[1] # mentioned_list after model saved
+      new_mentioned_list.each do |key, value|
+        new_mentioned = value - old_mentioned_list[key]
+        if key == 'members'
+          User.find(new_mentioned).each do |mentioned_member|
+            create_mention_notice(record, current_user, mentioned_member)
+          end
+        end
+      end
+    end
+
     def create_comment_notice(record, current_user, status)
       recipients = build_recipients(record.commentable, current_user, record.project)
-      recipients = recipients - User.where(id: record.mentioned_list['members'])
+      recipients.select! { |recipient| record.mentioned_list['members'].exclude?(recipient.id) }
       send_notice(recipients, record, current_user, status)
     end
 

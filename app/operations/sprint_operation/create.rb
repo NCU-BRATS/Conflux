@@ -15,6 +15,10 @@ module SprintOperation
         @model.project = @project
         if @model.save
           @model.update_attributes(issue_ids: params[:sprint][:issue_ids])
+
+          comment_param = ActionController::Parameters.new({comment: {content: params[:sprint][:content]}})
+          CommentOperation::Create.new(@current_user, @model).process(comment_param)
+
           ParticipationOperation::Create.new(@current_user, @model).process
           BroadcastService.fire(:on_sprint_created, @model, @current_user)
         end
