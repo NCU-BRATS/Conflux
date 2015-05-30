@@ -10,7 +10,7 @@ class Projects::EventsController < Projects::ApplicationController
     types += ['User']              if params[:f][:user] == 'true'
     types += Attachment.subclasses if params[:f][:attachment] == 'true'
 
-    @events = @project.events.includes(:author).order('id DESC').limit(15)
+    @events = @project.events.includes(:author).order('id DESC').limit(30)
                              .search(params[:q].merge({target_type_in: types})).result
 
     respond_with @events
