@@ -20,7 +20,6 @@
  *= require clndr-rails
  *= require link-style
  *= require projects
- *= require issues
  *= require labels
  *= require notice
  *= require overflow
@@ -39,6 +38,8 @@
  @import "message";
  @import "sidemenu_notices";
  @import "events";
+ @import "comment";
+ @import "issues";
 
 .checkbox, .radio {
   margin-bottom: 4px;
