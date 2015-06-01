@@ -7,6 +7,10 @@ module PollOperation
     end
 
     def process(params)
+      params[:poll][:options_attributes].each do |k, v|
+        v['title'] = 1 if v['_destroy'] == '1' # hack to pass validation for options will be deleted.
+      end
+
       save do |hash|
         hash[:options_attributes] = hash.delete(:options)
         @model.update(hash)
