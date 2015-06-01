@@ -1,0 +1,96 @@
+.comment {
+  @include flexbox;
+  @include flex-flow(row wrap);
+  .divider {
+    @include flex(1 100%);
+    margin-bottom: 20px;
+  }
+  .thumb {
+    @include order(1);
+    @include flexbox;
+    width: 65px;
+    img {
+      height: 40px;
+      width: 40px;
+      border-radius: 20px;
+    }
+  }
+  .content {
+    @include flex(1);
+    @include order(2);
+
+    .header {
+      @include flex(1);
+      @include order(1);
+      .time {
+        padding-left: 5px;
+      }
+    }
+    .comment-content-header {
+      @include flexbox;
+      background-color: #f6f6f6;
+      padding: 0.4em 1em;
+      .control {
+        @include order(2);
+      }
+      i.icon {
+        margin-top: 2px;
+      }
+    }
+    .body {
+      @include flexbox;
+      .description, form {
+        @include flex(1);
+      }
+      form p.hint {
+        font-size: 0.8em;
+        color: gray;
+      }
+      .description p {
+        line-height: 2;
+      }
+    }
+    .control {
+      font-size: 15px;
+      i {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+.comment.header {
+  margin-top: 20px;
+}
+.comment.inline {
+  .time {
+    display: none;
+  }
+}
+.comment.edit {
+  .thumb, .content {
+    background: #FFF5CF !important;
+  }
+  .thumb {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+  }
+  .content {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+  }
+  form {
+    margin: 10px 10px 10px 0;
+  }
+}
+
+.time {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #babbbf;
+}
+
+form .comment-submit {
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
