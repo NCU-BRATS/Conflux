@@ -71,7 +71,7 @@ class ProjectsIndex < Chewy::Index
     field :options do
       field :title
       field :poll_id, type: 'integer'
-      field :cached_votes_total, type: 'integer'
+      field :votes_total, type: 'integer'
     end
   end
 end
