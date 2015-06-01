@@ -4,6 +4,12 @@
   }
 }
 
+.simple.link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .gray.link {
   color: rgba( 0, 0, 0, 0.5 );
   &:hover {
