@@ -20,4 +20,4 @@
           - poll.results.each do |result|
             .ui.label
               = result['title']
-              .detail = result['cached_votes_total']
+              .detail = result['voted_users'].size
