@@ -22,8 +22,8 @@ class Poll < ActiveRecord::Base
   update_index('projects#poll') { self }
 
   def before_close
-    most_votes   = self.options.max_by {|op| op.cached_votes_total }
-    self.results = self.options.select {|op| op.cached_votes_total == most_votes.cached_votes_total}
+    most_votes   = self.options.max_by {|op| op.votes_total }
+    self.results = self.options.select {|op| op.votes_total == most_votes.votes_total}
   end
 
   def before_reopen

@@ -40,18 +40,18 @@ div
       .ui.two.column.grid.polling
         .column
           .ui.aggs-filter.options.list
-            .item data-count=option.cached_votes_total
+            .item data-count=option.votes_total
               span.bar
               a.ui.fluid.label.filter data-remote="true" data-method="put" href=project_poll_polling_option_path(poll.project, poll, option)
                 = option.title
-                .detail = option.cached_votes_total
+                .detail = option.votes_total
         .column
           .ui.aggs-filter.users.list
             .item.user
               .ui.horizontal.list
-                - option.votes_for.up.by_type(User).voters.each do |voter|
+                - option.voted_users.each do |voter|
                   .item
-                    = user_img_tag(voter)
+                    = user_img_tag(OpenStruct.new(voter))
 
   - if policy(poll).update?
     #editable_title_form
