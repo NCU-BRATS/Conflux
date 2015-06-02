@@ -1,25 +1,2 @@
-#sidebar-avatar title=current_user.name
-  - @notices = current_user.notices.recent.where(state: Notice.states[:unseal]).first(10)
-  - unread_notices_size = current_user.notices.where(mode: Notice.modes[:unread]).size
-  - if unread_notices_size > 0
-    .circular.floating.ui.label.red style='top:-10px;left:80px;'
-      = unread_notices_size
-  = avatar_tag current_user, :size => '50'
-  .ui.popup style='width:200px !important;'
-    = render 'notices/notices', check_mark: false
-    a.item href=notices_dashboard_path
-      = t('notice.seeall')
-    a.item href=user_path(current_user.slug)
-      = t('profile.profile.profile')
-    a.item href=profile_path
-      = t('profile.profile.profile_settings')
-    a.item href=destroy_user_session_path data-method="delete"
-      = t('action.word.logout')
-
-- content_for :javascripts
-  coffee:
-    $('#sidebar-avatar .img-rounded').popup
-      on: 'click'
-    $('#sidebar-avatar .img-rounded').on "click", ->
-      $.ajax '/notices/check',
-        type: 'PUT'
+= subscribe_to_ujs "/users/#{current_user.id}"
+= react_component('SidemenuNotices', {user: current_user})

@@ -46,6 +46,14 @@ GIT
       wisper
 
 GIT
+  remote: git://github.com/ryanb/private_pub.git
+  revision: 7ad77617b1f48980d6f114bc96018f2964a07bdc
+  branch: master
+  specs:
+    private_pub (1.0.3)
+      faye
+
+GIT
   remote: git://github.com/toptal/chewy.git
   revision: 6381e44e12de7370ca63f5ca70df71b1e20a6c0c
   branch: master
@@ -102,7 +110,6 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
-    acts_as_votable (0.10.0)
     addressable (2.3.8)
     after_commit_action (1.0.0)
       activerecord (>= 3.0.0)
@@ -152,6 +159,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     commonjs (0.2.7)
+    connection_pool (2.2.0)
     cookiejar (0.3.2)
     counter_culture (0.1.33)
       activerecord (>= 3.0.0)
@@ -346,6 +354,13 @@ GEM
       i18n
       polyamorous (~> 1.2)
     rdoc (4.2.0)
+    react-rails (1.0.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.1)
+      react-source (~> 0.13)
+    react-source (0.13.3)
     ref (1.0.5)
     reform (1.2.6)
       activemodel
@@ -463,7 +478,6 @@ DEPENDENCIES
   active_link_to
   activerecord-reputation-system
   acts-as-taggable-on (~> 3.4)
-  acts_as_votable (~> 0.10.0)
   airbrake
   autoprefixer-rails
   babosa
@@ -510,11 +524,14 @@ DEPENDENCIES
   momentjs-rails
   nested_form (~> 0.3.2)
   pg (~> 0.18.0)
+  private_pub!
   puma
   pundit
   rails (= 4.2.1)
   rails_12factor
   ransack
+  react-rails (~> 1.0)
+  react-source (~> 0.13.3)
   reform
   responders (~> 2.0)
   rinku

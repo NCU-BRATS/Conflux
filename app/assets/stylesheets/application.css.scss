@@ -20,12 +20,9 @@
  *= require clndr-rails
  *= require link-style
  *= require projects
- *= require issues
  *= require labels
  *= require notice
- *= require message
  *= require overflow
- *= require perfect-scrollbar
  *= require social
  *= require search
  *= require login
@@ -38,6 +35,11 @@
 
  @import "flexbox";
  @import "attachments";
+ @import "message";
+ @import "sidemenu_notices";
+ @import "events";
+ @import "comment";
+ @import "issues";
 
 .checkbox, .radio {
   margin-bottom: 4px;

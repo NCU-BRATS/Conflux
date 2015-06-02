@@ -24,9 +24,10 @@ Rails.application.routes.draw do
 
     scope module: 'projects' do
       resources :search, only: [:index], controller: 'search', as: 'project_searches'
+      resources :events, only: [:index]
       resource :dashboard
-      resources :channels, except: :index do
-        resources :messages, only: [:create]
+      resources :channels do
+        resources :messages, only: [:index, :create]
       end
       resources :messages, only: [:update, :destroy]
       resources :issues  , concerns: [:commentable, :closeable]
@@ -64,12 +65,14 @@ Rails.application.routes.draw do
     put :preview
   end
 
-  resources :notices do
-    get :link
-    put :read
-    put :seal
-    put :unseal
+  resources :notices, only: [:index] do
+    get :link, on: :member
+    put :read, on: :member
+    put :seal, on: :member
+    put :unseal, on: :member
+    get :count, on: :collection
     put :check, on: :collection
+    put :archive, on: :collection
   end
 
   resources :users

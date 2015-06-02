@@ -12,16 +12,13 @@ module PollingOptionOperation
     def process
       if @poll.open?
         unvote_other_options unless @poll.allow_multiple_choice
-
-        if @current_user.voted_as_when_voted_for(@option)
-          @option.unliked_by(@current_user)
+        if @option.voted_by?(@current_user)
+          @option.unvoted_by(@current_user)
         else
-          @option.liked_by(@current_user)
+          @option.voted_by(@current_user)
+          ParticipationOperation::Create.new(@current_user, @poll).process
         end
-
-        ParticipationOperation::Create.new(@current_user, @poll).process
-
-        @poll.save # trigger sync
+        @option.save
         true
       else
         false
@@ -31,7 +28,9 @@ module PollingOptionOperation
     private
 
     def unvote_other_options
-      @poll.options.each {|po| po.unliked_by(@current_user) if po != @option}
+      @poll.options.each do |po|
+        po.unvoted_by(@current_user) && po.save if po != @option
+      end
     end
 
   end

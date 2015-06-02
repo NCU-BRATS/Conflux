@@ -1,0 +1,1 @@
+json.content @content.to_s.html_safe
