@@ -2,7 +2,7 @@
   .ui.grid
     .sixteen.wide.column
       h4.ui.header
-        = link_to [@project || post.project, post] do
+        = link_to [post.project, post] do
           i.file.blue.text.outline.large.icon
           = "#{Post.model_name.human} - #{post.name}"
         .meta.right.floated
