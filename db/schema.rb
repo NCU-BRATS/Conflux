@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601172305) do
+ActiveRecord::Schema.define(version: 20150602075426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150601172305) do
     t.datetime "updated_at"
     t.string   "original_filename"
     t.integer  "size"
+    t.json     "liked_users",       default: []
   end
 
   create_table "channels", force: :cascade do |t|
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150601172305) do
     t.datetime "updated_at"
     t.text     "html"
     t.json     "mentioned_list",   default: {}
+    t.json     "liked_users",      default: []
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
