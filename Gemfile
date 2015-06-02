@@ -19,8 +19,6 @@ gem 'slim-rails', '~> 3.0.1'
 gem 'meta-tags'
 # issue tagging
 gem 'acts-as-taggable-on', '~> 3.4'
-# favorite system
-gem 'acts_as_votable', '~> 0.10.0'
 gem 'activerecord-reputation-system', require: 'reputation_system'
 # perttify url
 gem 'friendly_id'
