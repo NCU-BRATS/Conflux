@@ -5,7 +5,7 @@
     .ui.grid
       .sixteen.wide.column
         h4.ui.header
-          = link_to project_attachment_path(@project || image.project, image) do
+          = link_to project_attachment_path(image.project, image) do
             i.file.image.outline.large.icon
             = "#{Image.model_name.human} - #{image.name}"
           .meta.right.floated

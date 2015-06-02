@@ -2,7 +2,7 @@
   .ui.grid
     .sixteen.wide.column
       h4.ui.header
-        = link_to [@project || snippet.project, snippet] do
+        = link_to [snippet.project, snippet] do
           i.file.blue.code.outline.large.icon
           = "#{Snippet.model_name.human} - #{snippet.name}"
         .meta.right.floated
