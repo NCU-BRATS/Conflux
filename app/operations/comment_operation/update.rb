@@ -20,7 +20,10 @@ module CommentOperation
 
     def create_mentioned_participation
       old_list, new_list = @model.previous_changes[:mentioned_list]
-      new_mentioned = new_list['members'] - old_list['members']
+
+      return if old_list.nil? || new_list.nil?
+
+      new_mentioned = new_list.fetch('members', []) - old_list.fetch('members', [])
       User.find(new_mentioned).each do |member|
         ParticipationOperation::Create.new(member, @model.commentable).process
       end
