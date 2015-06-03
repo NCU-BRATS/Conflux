@@ -4,7 +4,7 @@ class Projects::LikesController < Projects::ApplicationController
   def update
     @form = ReputationOperation::LikeOrUnlike.new(current_user, resource)
     @form.process
-    respond_with(resource)
+    head :ok
   end
 
   protected
