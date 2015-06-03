@@ -1,7 +1,5 @@
 class Projects::IssuesController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update, :close, :reopen]
-
   def index
     @q = @project.issues.includes(:user, :assignee, :labels).order('id DESC').search( params[:q] )
     @issues = @q.result.uniq.page( params[:page] ).per( params[:per] || 10 )

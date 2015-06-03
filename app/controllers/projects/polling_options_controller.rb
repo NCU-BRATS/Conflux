@@ -1,7 +1,5 @@
 class Projects::PollingOptionsController < Projects::ApplicationController
 
-  enable_sync only: [:update]
-
   def update
     @form = PollingOptionOperation::Vote.new(current_user, @poll, @option)
     @form.process

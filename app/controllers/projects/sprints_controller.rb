@@ -1,7 +1,5 @@
 class Projects::SprintsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update, :close, :reopen]
-
   def index
     @q = @project.sprints.includes(:user).search(params[:q])
     @sprints = @q.result.uniq.page(params[:page]).per(params[:per]||10)
