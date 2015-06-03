@@ -90,7 +90,6 @@
     is_user_in_project: React.PropTypes.bool.isRequired
 
   render: ->
-    console.log(@props.sprint)
 
     `<div className="container">
         <SprintCreaterBlock     {...this.props} />
@@ -119,7 +118,6 @@
       percent: @calculatePercent()
 
   componentDidUpdate: ->
-    console.log("gg")
     $(@refs.progress.getDOMNode()).progress
       percent: @calculatePercent()
 
