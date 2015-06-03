@@ -33,6 +33,7 @@
 //= require highcharts
 //= require highcharts/highcharts-more
 //= require chartkick
+//= require_tree ./helpers
 //= require_tree ./handlebars_helpers
 //= require_tree ./handlebars_templates
 //= require_tree ./lib
