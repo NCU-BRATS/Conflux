@@ -1,6 +1,13 @@
 .comment {
   @include flexbox;
   @include flex-flow(row wrap);
+  .segment, .button, .item {
+    border-radius: 0 !important;
+  }
+  .ui.tabular.menu .active.item {
+    margin-bottom: -2px;
+    border: none;
+  }
   .divider {
     @include flex(1 100%);
     margin-bottom: 20px;
