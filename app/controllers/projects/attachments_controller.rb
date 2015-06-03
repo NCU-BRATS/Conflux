@@ -10,6 +10,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   def show
+    @private_pub_channel2 = "/attachment/#{@attachment.id}/comments"
     if @attachment.type.underscore =~ /(post|snippet)/
       instance_variable_set("@#{$1}", @attachment)
       render "projects/#{$1.pluralize}/show"

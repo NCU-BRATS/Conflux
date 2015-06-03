@@ -180,7 +180,7 @@
 
   handleSubmit: ( data, done ) ->
     Ajaxer.patch
-      path: "../comments/#{@props.comment.id}.json"
+      path: "/projects/#{@props.project.id}/comments/#{@props.comment.id}.json"
       data: { comment: { content: data } }
       done: =>
         @props.toggleEdit()
@@ -196,12 +196,13 @@
 
 @CommentCreateForm = React.createClass
   propTypes:
-    commentable_resource_id: React.PropTypes.any.isRequired
+    commentable_type:        React.PropTypes.node.isRequired
+    commentable_resource_id: React.PropTypes.node.isRequired
     project:                 React.PropTypes.object.isRequired
 
   handleSubmit: ( data, done ) ->
     Ajaxer.post
-      path: "#{@props.commentable_resource_id}/comments.json"
+      path: "/projects/#{@props.project.id}/#{@props.commentable_type}s/#{@props.commentable_resource_id}/comments.json"
       data: { comment: { content: data } }
       done: =>
         done()
