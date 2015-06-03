@@ -24,7 +24,6 @@
   render: ->
     is_user_in_project = @props.is_user_in_project
     issue = @state.issue
-    comments = @state.comments
     `<div className='issue-app'>
         <div className='contents'>
           <IssueHeader ref='header' issue={issue}/>
