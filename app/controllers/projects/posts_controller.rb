@@ -14,6 +14,7 @@ class Projects::PostsController < Projects::ApplicationController
   end
 
   def show
+    @private_pub_channel2 = "/attachment/#{@post.id}/comments"
     respond_with @project, @post
   end
 
