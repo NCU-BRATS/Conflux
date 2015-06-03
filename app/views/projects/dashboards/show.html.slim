@@ -30,12 +30,12 @@
             .ui.grid
               .eight.wide.column
                 .ui.header
-                  - if sprint.expired?
+                  - if sprint.planned? && sprint.expired?
                     i.red.icon.warning.sign
                   - else
                     i.green.icon.wait
                   .content
-                    - if sprint.expired?
+                    - if sprint.planned? && sprint.expired?
                       = link_to sprint.title, project_sprint_path(@project, sprint), class: 'red link'
                     - else
                       = link_to "###{sprint.sequential_id} #{sprint.title}", project_sprint_path(@project, sprint)
@@ -50,7 +50,7 @@
                       .value = issue_open_count
                       .label = t('state.unfinished')
 
-                    - if sprint.expired?
+                    - if sprint.planned? && sprint.expired?
                       .ui.red.tiny.statistic
                         .value = sprint.due_time_duration
                         .label = t('project.sprint.expired_days')
