@@ -4,7 +4,7 @@
 = subscribe_to_ujs @private_pub_channel1
 = subscribe_to_ujs @private_pub_channel2
 
-= react_component( 'IssueApp', { issue: @issue.as_json(include: [ :user, :sprint, :assignee, :labels, :participations => { include: [ :user ] } ], methods: [:sequential_id] ),
+= react_component( 'IssueApp', { issue: @issue.as_json(include: [ :user, :sprint, :assignee, :labels, :participations => { include: [ :user ] } ] ),
                                  comments: @issue.comments.includes(:user).asc.as_json(include: :user),
                                  is_user_in_project: @project.has_member?(current_user),
                                  project: @project,

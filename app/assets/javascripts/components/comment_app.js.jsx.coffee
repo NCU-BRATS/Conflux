@@ -106,7 +106,7 @@
 
       commentContent =
         `<div className="content">
-            <div className="ui segment top attached comment-content-header">
+            <div className="ui segment top attached comment-content-header content-header">
                 <CommentHeader comment={this.props.comment}/>
                 <i className="icon star"></i>
                 {commentControl}
@@ -282,7 +282,7 @@
         </div>`
 
     `<form className="ui form" onSubmit={this.handleSubmit}>
-        <div className="ui top attached segment tertiary tabular menu" >
+        <div className="ui top attached segment tertiary tabular menu comment-content-header" >
             <a className="ui gray item active" ref="originModeButton" onClick={this.handleOriginMode}>撰寫</a>
             <a className="ui gray item" ref="previewModeButton" onClick={this.handlePreviewMode}>預覽</a>
             {this.props.controlPanel}

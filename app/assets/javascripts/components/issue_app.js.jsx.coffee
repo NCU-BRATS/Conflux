@@ -253,7 +253,7 @@
           />`
     else
       if sprint
-        content = `<div><SprintSmallLabel sprint={sprint}/></div>`
+        content = `<div><SprintSmallLabel sprint={sprint} project={this.props.project}/></div>`
       else
         content = `<div>NOT SPECIFIED</div>`
 
@@ -360,3 +360,22 @@
             {this.props.content}
         </div>
     </div>`
+
+
+@IssueSmallLabel = React.createClass
+  propTypes:
+    issue :  React.PropTypes.object.isRequired
+    project: React.PropTypes.object.isRequired
+
+  render: ->
+    issue = @props.issue
+    if issue.status == 'open'
+      color = 'green'
+    else
+      color = 'red'
+
+    href = "/projects/#{this.props.project.id}/issues/#{this.props.issue.sequential_id}"
+    `<a className={"ui label "+color} href={href}>
+        <i className="icon tasks" />
+        { issue.title }
+    </a>`
