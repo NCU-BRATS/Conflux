@@ -46,7 +46,7 @@
       commentCreateForm = `<CommentCreateForm {...this.props}/>`
 
     `<div className='commentApp'>
-        <CommentList {...this.props} />
+        <CommentList {...this.props} comments={this.state.comments} />
         <div className="ui divider hidden"></div>
 
       <div className="comment header">
