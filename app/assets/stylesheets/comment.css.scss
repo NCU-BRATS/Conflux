@@ -33,17 +33,19 @@
         padding-left: 5px;
       }
     }
-    .comment-content-header {
+    .content-header {
       @include flexbox;
-      position: relative;
-      background-color: #f6f6f6;
-      padding: 0.4em 1em;
       .control {
         @include order(2);
       }
       i.icon {
         margin-top: 2px;
       }
+    }
+    .comment-content-header {
+      position: relative;
+      background-color: #f6f6f6;
+      padding: 0.4em 1em;
     }
     .comment-content-header:after, .comment-content-header:before {
       right: 100%;
