@@ -43,7 +43,12 @@
       }
       .block {
         margin-top: 10px;
-
+        .segment {
+          border-radius: 0;
+        }
+        .top.segment {
+          padding: 0.5em 1em;
+        }
         .datetime-input {
           margin-top: 5px;
         }
