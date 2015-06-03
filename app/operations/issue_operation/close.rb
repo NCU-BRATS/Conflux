@@ -4,12 +4,12 @@ module IssueOperation
     def initialize(current_user, project, issue)
       @current_user = current_user
       @project      = project
-      @issue        = issue
+      super(issue)
     end
 
     def process
-      if @issue.close!
-        BroadcastService.fire(:on_issue_closed, @issue, @current_user)
+      if @model.close!
+        BroadcastService.fire(:on_issue_closed, @model, @current_user)
       end
     end
 
