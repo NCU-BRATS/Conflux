@@ -1,12 +1,12 @@
 @CommentApp = React.createClass
   propTypes:
-    is_user_in_project: React.PropTypes.bool.isRequired
-    user: React.PropTypes.object.isRequired
-    project: React.PropTypes.object.isRequired
-    comments: React.PropTypes.array.isRequired
-    commentable_type: React.PropTypes.string.isRequired
+    user:                    React.PropTypes.object.isRequired
+    project:                 React.PropTypes.object.isRequired
+    comments:                React.PropTypes.array.isRequired
+    commentable_type:        React.PropTypes.string.isRequired
     commentable_resource_id: React.PropTypes.any.isRequired
-    commentable_record_id: React.PropTypes.any.isRequired
+    commentable_record_id:   React.PropTypes.any.isRequired
+    is_user_in_project:      React.PropTypes.bool.isRequired
 
   getInitialState: () ->
     return {comments: @props.comments}
@@ -43,10 +43,10 @@
     is_user_in_project = @props.is_user_in_project
 
     if is_user_in_project
-      commentCreateForm = `<CommentCreateForm project={this.props.project} commentable_resource_id={this.props.commentable_resource_id}/>`
+      commentCreateForm = `<CommentCreateForm {...this.props}/>`
 
     `<div className='commentApp'>
-        <CommentList is_user_in_project={is_user_in_project} comments={this.state.comments} project={this.props.project}/>
+        <CommentList {...this.props} />
         <div className="ui divider hidden"></div>
 
       <div className="comment header">
@@ -61,14 +61,18 @@
 
 @CommentList = React.createClass
   propTypes:
+    user:               React.PropTypes.object.isRequired
+    comments:           React.PropTypes.array.isRequired
+    project:            React.PropTypes.object.isRequired
     is_user_in_project: React.PropTypes.bool.isRequired
-    comments: React.PropTypes.array.isRequired
-    project: React.PropTypes.object.isRequired
+
   render: ->
+    user = @props.user
     project = @props.project
     is_user_in_project = @props.is_user_in_project
     commentNodes = @props.comments.map (comment) =>
-      `<Comment comment={comment} is_user_in_project={is_user_in_project} project={project} ref={comment.id} key={comment.id}/>`
+      `<Comment ref={comment.id} key={comment.id} comment={comment}
+          user={user} project={project} is_user_in_project={is_user_in_project} />`
 
     `<div className='commentList' ref='commentList'>
       {commentNodes}
@@ -76,9 +80,10 @@
 
 @Comment = React.createClass
   propTypes:
+    user:               React.PropTypes.object.isRequired
+    comment:            React.PropTypes.object.isRequired
+    project:            React.PropTypes.object.isRequired
     is_user_in_project: React.PropTypes.bool.isRequired
-    comment: React.PropTypes.object.isRequired
-    project: React.PropTypes.object.isRequired
 
   getInitialState: ->
     return {editMode: false}
@@ -92,12 +97,12 @@
     if @state.editMode
       commentContent =
         `<div className="content">
-            <CommentEditForm comment={this.props.comment} project={this.props.project} toggleEdit={this.toggleEdit}/>
+            <CommentEditForm  toggleEdit={this.toggleEdit} {...this.props}/>
         </div>`
     else
 
       if @props.is_user_in_project
-        commentControl = `<CommentControl comment={this.props.comment} toggleEdit={this.toggleEdit}/>`
+        commentControl = `<CommentControl toggleEdit={this.toggleEdit} {...this.props} />`
 
       commentContent =
         `<div className="content">
@@ -139,33 +144,47 @@
 
 @CommentControl = React.createClass
   propTypes:
-    comment: React.PropTypes.object.isRequired
+    user:       React.PropTypes.object.isRequired
+    project:    React.PropTypes.object.isRequired
+    comment:    React.PropTypes.object.isRequired
     toggleEdit: React.PropTypes.func.isRequired
+
+  handleLike: (e) ->
+    e.preventDefault()
+    Ajaxer.put
+      path: "/projects/#{@props.project.id}/comments/#{@props.comment.id}/likes"
+
   render: ->
     deletePath = "../comments/#{@props.comment.id}.json"
+
+    liked_users = @props.comment.liked_users
+
+    if _.find( liked_users , (u)=> u.id == @props.user.id )
+      like_icon = `<i className="green heart icon" />`
+    else
+      like_icon = `<i className="heart icon" />`
+
     `<div className="ui control" >
         <a className="gray simple link" onClick={this.props.toggleEdit} href="">
             <i className="icon write"></i>
         </a>
-        <a className="gray simple link" data-confirm="你確定要刪除嗎?" data-method="delete" data-remote="" href={deletePath}>
-            <i className="icon trash"></i>
+        <a className="gray simple link" onClick={this.handleLike} href="" >
+            {like_icon} { liked_users.length }
         </a>
     </div>`
 
 @CommentEditForm = React.createClass
   propTypes:
-    comment: React.PropTypes.object.isRequired
+    comment:    React.PropTypes.object.isRequired
     toggleEdit: React.PropTypes.func.isRequired
-    project: React.PropTypes.object.isRequired
+    project:    React.PropTypes.object.isRequired
 
   handleSubmit: ( data, done ) ->
-    path = "../comments/#{@props.comment.id}.json"
-    $.ajax( path, {
-      method: 'PATCH'
+    Ajaxer.patch
+      path: "../comments/#{@props.comment.id}.json"
       data: { comment: { content: data } }
-    })
-    .done () =>
-      @props.toggleEdit()
+      done: =>
+        @props.toggleEdit()
 
   render: () ->
     cancelButton =
@@ -179,12 +198,15 @@
 @CommentCreateForm = React.createClass
   propTypes:
     commentable_resource_id: React.PropTypes.any.isRequired
-    project: React.PropTypes.object.isRequired
+    project:                 React.PropTypes.object.isRequired
 
   handleSubmit: ( data, done ) ->
-    postPath = "#{@props.commentable_resource_id}/comments.json"
-    $.post( postPath, { comment: { content: data } } ).done () ->
-      done()
+    Ajaxer.post
+      path: "#{@props.commentable_resource_id}/comments.json"
+      data: { comment: { content: data } }
+      done: =>
+        done()
+
 
   render: () ->
     `<CommentForm handleSubmit={this.handleSubmit} project={this.props.project} commentText=""/>`
@@ -278,14 +300,14 @@
     return {loading: true, previewText: ''}
 
   componentDidMount: ->
-    $.ajax( "/text/preview.json", {
-      method: 'PUT'
+    Ajaxer.put
+      path: "/text/preview.json"
       data: { content: @props.originText }
-    })
-    .done (data) =>
-      @setState({loading: false, previewText: data.content })
-    .fail () =>
-      @setState({loading: false, previewText: "error: cannot fetch preview text"})
+      done: ( data ) =>
+        @setState({loading: false, previewText: data.content })
+      fail: () =>
+        @setState({loading: false, previewText: "error: cannot fetch preview text"})
+
 
   render: ->
     if @state.loading
