@@ -276,7 +276,7 @@
     else
       project_suggestions_path = "/projects/#{@props.project.id}/suggestions"
       displayField =
-        `<div className="ui attached segment" id="comment_content_origin_field">
+        `<div className="ui attached segment">
             <textarea type="text" ref="textarea" placeholder="撰寫評論 支援 markdown" valueLink={this.linkState('commentText')}
                 data-toggle="suggestion" data-suggestions-path={project_suggestions_path}/>
         </div>`
