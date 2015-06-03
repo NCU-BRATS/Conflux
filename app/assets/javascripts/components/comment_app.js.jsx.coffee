@@ -225,28 +225,29 @@
     return {isPreviewMode: false, commentText: @props.commentText}
 
   componentDidMount: () ->
-    this.enableSuggestion()
+    @enableSuggestion() if @refs.textarea
+
+  componentDidUpdate: () ->
+    @enableSuggestion() if @refs.textarea
 
   enableSuggestion: () ->
-    unless @refs.textarea
-      $element = $(@refs.textarea.getDOMNode())
-      $element.atwho
-        at: '@'
-        displayTpl: "<li>${name}</li>"
-        insertTpl: "${atwho-at}${name}",
-        searchKey: "name"
+    $element = $(@refs.textarea.getDOMNode())
+    $element.atwho
+      at: '@'
+      displayTpl: "<li>${name}</li>"
+      insertTpl: "${atwho-at}${name}",
+      searchKey: "name"
 
-      $element.atwho
-        at: '#'
-        displayTpl: "<li>${title}</li>"
-        insertTpl: "${atwho-at}${id}",
-        searchKey: "title"
+    $element.atwho
+      at: '#'
+      displayTpl: "<li>${title}</li>"
+      insertTpl: "${atwho-at}${id}",
+      searchKey: "title"
 
-      $suggestionsPath = $element.attr('data-suggestions-path')
-
-      $.getJSON($suggestionsPath).done (data) ->
-        $element.atwho 'load', '@', data.members
-        $element.atwho 'load', '#', data.issues
+    $suggestionsPath = $element.attr('data-suggestions-path')
+    $.getJSON($suggestionsPath).done (data) =>
+      $element.atwho 'load', '@', data.members
+      $element.atwho 'load', '#', data.issues
 
   handleSubmit: (e) ->
     e.preventDefault()
