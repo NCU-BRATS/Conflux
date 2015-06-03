@@ -108,7 +108,6 @@
         `<div className="content">
             <div className="ui segment top attached comment-content-header content-header">
                 <CommentHeader comment={this.props.comment}/>
-                <i className="icon star"></i>
                 {commentControl}
             </div>
             <div className="ui segment bottom attached">
