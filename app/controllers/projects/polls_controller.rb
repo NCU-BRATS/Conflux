@@ -1,7 +1,5 @@
 class Projects::PollsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update, :close, :reopen]
-
   def index
     @q = @project.polls.includes(:user).order('id DESC').search(params[:q])
     @polls = @q.result.uniq.page(params[:page]).per(params[:per])

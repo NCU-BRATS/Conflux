@@ -1,7 +1,5 @@
 class Projects::CommentsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update, :destroy]
-
   def create
     @form = CommentOperation::Create.new(current_user, commentable)
     @form.process(params)
