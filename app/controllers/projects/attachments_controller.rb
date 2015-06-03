@@ -1,7 +1,5 @@
 class Projects::AttachmentsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update, :destroy]
-
   def index
     params[:q] = {type_eq: 'Post'}.merge(params[:q] || {})
     @q = @project.attachments.includes(:user).search(params[:q])

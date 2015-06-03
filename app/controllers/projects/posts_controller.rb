@@ -1,7 +1,5 @@
 class Projects::PostsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update]
-
   def new
     @form = PostOperation::Create.new(current_user, @project)
     respond_with @form
