@@ -35,6 +35,7 @@
     }
     .comment-content-header {
       @include flexbox;
+      position: relative;
       background-color: #f6f6f6;
       padding: 0.4em 1em;
       .control {
@@ -43,6 +44,29 @@
       i.icon {
         margin-top: 2px;
       }
+    }
+    .comment-content-header:after, .comment-content-header:before {
+      right: 100%;
+      top: 50%;
+      border: solid transparent;
+      content: ' ';
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+    .comment-content-header:after {
+      border-color: rgba(246, 246, 246, 0);
+      border-right-color: #F6F6F6;
+      border-width: 6px;
+      margin-top: -6px;
+      visibility: visible;
+    }
+    .comment-content-header:before {
+      border-color: rgba(212, 212, 213, 0);
+      border-right-color: #d4d4d5;
+      border-width: 7px;
+      margin-top: -7px;
     }
     .body {
       @include flexbox;
