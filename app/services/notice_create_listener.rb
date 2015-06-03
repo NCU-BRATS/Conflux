@@ -87,7 +87,10 @@ class NoticeCreateListener
 
     def create_new_mentioned_notice(record, mentioned_list, current_user)
       old_list, new_list = mentioned_list
-      new_mentioned = new_list['members'] - old_list['members']
+
+      return if old_list.nil? || new_list.nil?
+
+      new_mentioned = new_list.fetch('members', []) - old_list.fetch('members', [])
       send_notice(User.find(new_mentioned), record, current_user, :mention)
     end
 
