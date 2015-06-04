@@ -267,6 +267,7 @@ zh-TW:
   structure:
     list: '%{element}列表'
     my: '我的%{element}'
+    all: '所有%{element}'
     statistic: '%{element}統計'
   project:
     project: 專案

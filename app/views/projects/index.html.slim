@@ -1,14 +1,15 @@
-h1.ui.center.aligned.header
-  .content
-    = title t('structure.list', element: Project.model_name.human)
-
-= search_form_for @q, class: 'ui form' do |f|
-  .fields
-    .four.wide.field
-    .eight.wide.field
-      .ui.left.icon.input
+.page-header
+  - title t('structure.list', element: Project.model_name.human)
+  .search-field.divided
+    = search_form_for @q, class: 'ui form' do |f|
+      .ui.left.icon.fluid.input
         i.search.icon
         = f.search_field :name_or_description_cont, placeholder: t('ransack.search'), type: 'text'
+
+  .ui.right.floated.buttons
+    = link_to new_project_path, class: 'ui button' do
+      i.ui.icon.write
+      = t('action.target.add', target: t('project.project'))
 
 .ui.very.massive.relaxed.divided.selection.list
   = render partial: 'project', collection: @projects
