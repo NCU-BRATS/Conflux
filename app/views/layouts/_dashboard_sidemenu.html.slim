@@ -4,15 +4,15 @@
   = active_link_to dashboard_path, :active => :exclusive, class: 'item' do
     i.home.icon
     span = t('project.dashboard')
-  a.item
-    i.search.icon
-    span = t('action.word.search')
+  = active_link_to projects_path, class: 'item' do
+    i.cubes.icon
+    span = t('structure.all', element: Project.model_name.human)
+  = active_link_to projects_dashboard_path, class: 'item' do
+    i.cube.icon
+    span = t('structure.my', element: Project.model_name.human)
   = active_link_to notices_dashboard_path, class: 'item' do
     i.dashboard.icon
     span = t('structure.my', element: t('project.notices'))
-  = active_link_to projects_dashboard_path, class: 'item' do
-    i.world.icon
-    span = t('structure.my', element: Project.model_name.human)
   = active_link_to issues_dashboard_path, class: 'item' do
     i.tasks.icon
     span = t('structure.my', element: Issue.model_name.human)

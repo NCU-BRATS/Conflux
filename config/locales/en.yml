@@ -266,6 +266,7 @@ en:
   structure:
     list: '%{element} list'
     my: 'my %{element}'
+    all: 'all %{element}'
     statistic: '%{element} statistics'
   project:
     project: Project
