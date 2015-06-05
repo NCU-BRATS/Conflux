@@ -229,8 +229,8 @@
   componentDidMount: () ->
     @enableSuggestion() if @refs.textarea
 
-  componentDidUpdate: () ->
-    @enableSuggestion() if @refs.textarea
+  componentDidUpdate: (prevProps, prevState) ->
+    @enableSuggestion() if prevState.isPreviewMode && !@state.isPreviewMode
 
   enableSuggestion: () ->
     $element = $(@refs.textarea.getDOMNode())
@@ -245,6 +245,8 @@
       displayTpl: "<li>${title}</li>"
       insertTpl: "${atwho-at}${id}",
       searchKey: "title"
+
+    $element.on 'inserted.atwho', => @setState({commentText: $element.val()})
 
     if @suggestions
       $element.atwho 'load', '@', @suggestions.members
@@ -315,7 +317,6 @@
         @setState({loading: false, previewText: data.content })
       fail: () =>
         @setState({loading: false, previewText: "error: cannot fetch preview text"})
-
 
   render: ->
     if @state.loading
