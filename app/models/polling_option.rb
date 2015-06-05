@@ -1,5 +1,7 @@
 class PollingOption < ActiveRecord::Base
 
+  default_scope {order('id')}
+
   belongs_to :poll
 
   validates :title, presence: true
