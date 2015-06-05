@@ -54,9 +54,13 @@
                       .ui.red.tiny.statistic
                         .value = sprint.due_time_duration
                         .label = t('project.sprint.expired_days')
-                    - elsif !sprint.finished?
+                    - else
                       .ui.orange.tiny.statistic
-                        .value = sprint.due_time_duration
+                        .value
+                          - if sprint.planned? && !sprint.finished?
+                            = sprint.due_time_duration
+                          - else
+                            | N
                         .label = t('project.sprint.remaining_days')
 
               .ui.bottom.attached.indicating.progress data-percent=issues_finished_rate style="border-radius: 0;"
