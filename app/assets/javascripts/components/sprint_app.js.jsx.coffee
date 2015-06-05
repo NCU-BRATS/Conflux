@@ -105,7 +105,7 @@
     is_user_in_project: React.PropTypes.bool.isRequired
 
   render: ->
-    content = `<UserSmallLabel user={this.props.sprint.user} />`
+    content = `<LabelAvatar user={this.props.sprint.user} />`
 
     `<SprintAttributeBlock title="創建者" content={content}/>`
 
@@ -258,7 +258,7 @@
 
   render: ->
     content = @props.sprint.participations.map (participant) =>
-      `<UserImageSmallLabel user={participant.user} key={participant.id} />`
+      `<PopupLinkAvatar user={participant.user} key={participant.id} />`
 
     `<SprintAttributeBlock title="參與者" content={content}/>`
 
