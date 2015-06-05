@@ -5,8 +5,6 @@ class Poll < ActiveRecord::Base
   include CommentableConcern
   include EventableConcern
 
-  sync :all
-
   belongs_to :project
   belongs_to :user
 

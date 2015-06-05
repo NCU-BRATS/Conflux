@@ -6,8 +6,6 @@ class Issue < ActiveRecord::Base
   include LabelableConcern
   include EventableConcern
 
-  sync :all
-
   belongs_to :project
   belongs_to :user
   belongs_to :sprint

@@ -56,11 +56,10 @@ gem 'reform'
 
 # responders
 gem 'responders', '~> 2.0'
-# sync
+
 gem 'private_pub', github: 'ryanb/private_pub', branch: 'master'
 gem 'faye'
 gem 'thin', require: false
-gem 'sync'
 gem 'enumerize'
 gem 'carrierwave'
 gem 'carrierwave-dropbox'
