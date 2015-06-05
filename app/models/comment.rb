@@ -4,8 +4,6 @@ class Comment < ActiveRecord::Base
   include EventableConcern
   include FavorableConcern
 
-  sync :all
-
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
@@ -24,8 +22,6 @@ class Comment < ActiveRecord::Base
   delegate :project, to: :commentable
 
   scope :asc, -> { order(:created_at) }
-
-  sync_scope :by_commentable, ->(commentable){ where( commentable_type: commentable.class.base_class.name, commentable_id: commentable.id ) }
 
   has_reputation :likes, source: :user
 
