@@ -1,6 +1,6 @@
 .poll-app {
   @include flexbox;
-  .link, .plus {
+  a.toggle, .plus, .minus {
     cursor: pointer;
     float: right;
   }
