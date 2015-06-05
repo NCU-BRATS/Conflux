@@ -1,12 +1,5 @@
 .poll-app {
   @include flexbox;
-  .contents {
-    @include flex(1);
-    height: calc( 100vh - 40px );
-    padding-right: 40px;
-    overflow-y: auto;
-  }
-
   .link, .plus {
     cursor: pointer;
     float: right;
@@ -46,14 +39,24 @@
     }
   }
 
+  .contents, .attributes {
+    margin-top: -30px;
+    margin-bottom: -10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 20px;
+    height: calc( 100vh );
+    overflow-y: auto;
+  }
+  .contents, {
+    @include flex(1);
+  }
+
   .attributes {
     width: 400px;
-    margin-bottom: -30px;
+    padding-left: 15px;
+    padding-right: 30px;
     margin-right: -30px;
-    padding-right: 20px;
-    padding-left: 20px;
-    height: calc( 100vh - 0px );
-    overflow-y: auto;
 
     .container {
       &:last-child {
