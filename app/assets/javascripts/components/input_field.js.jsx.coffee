@@ -38,7 +38,7 @@
     selectizeControl[0].selectize.refreshItems()
 
     if @props.multiple
-      selectizeControl[0].selectize.on 'dropdown_close', @props.onChange
+      selectizeControl[0].selectize.on 'blur', @props.onChange
     else
       selectizeControl[0].selectize.on 'change', @props.onChange
 

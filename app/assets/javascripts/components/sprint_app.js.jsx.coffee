@@ -214,7 +214,7 @@
     issue_ids = @refs.input.refs.select.getDOMNode().selectize.getValue()
     Ajaxer.patch
       path: "../sprints/#{@props.sprint.sequential_id}.json"
-      data: {sprint: {issue_ids: issue_ids}}
+      data: {sprint: {issue_ids: if issue_ids.length then issue_ids else ''}}
       done: =>
         @setState({editMode: false})
 
