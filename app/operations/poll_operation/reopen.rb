@@ -3,12 +3,12 @@ module PollOperation
 
     def initialize(current_user, poll)
       @current_user = current_user
-      @poll         = poll
+      super(poll)
     end
 
     def process
-      if @poll.reopen!
-        BroadcastService.fire(:on_poll_reopened, @poll, @current_user)
+      if @model.reopen!
+        BroadcastService.fire(:on_poll_reopened, @model, @current_user)
       end
     end
 
