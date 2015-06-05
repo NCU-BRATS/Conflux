@@ -16,4 +16,4 @@
       .ui.attached.segment.tertiary
         = user_luxury_tag member
       .ui.attached.segment
-        = area_chart member.attachments.group(:type).group_by_day(:created_at).count
+        = area_chart member.attachments.where(project:@project).group(:type).group_by_day(:created_at).count
