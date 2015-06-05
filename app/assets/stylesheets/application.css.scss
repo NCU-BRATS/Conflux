@@ -27,7 +27,6 @@
  *= require social
  *= require search
  *= require login
- *= require poll
  *= require jquery.atwho
  *= require bootstrap-scoped
  *= require layout
@@ -42,6 +41,7 @@
  @import "comment";
  @import "issues";
  @import "sprints";
+ @import "poll";
 
 .checkbox, .radio {
   margin-bottom: 4px;
