@@ -221,6 +221,8 @@
 
   mixins: [React.addons.LinkedStateMixin]
 
+  suggestions: null
+
   getInitialState: () ->
     return {isPreviewMode: false, commentText: @props.commentText}
 
@@ -244,10 +246,15 @@
       insertTpl: "${atwho-at}${id}",
       searchKey: "title"
 
-    $suggestionsPath = $element.attr('data-suggestions-path')
-    $.getJSON($suggestionsPath).done (data) =>
-      $element.atwho 'load', '@', data.members
-      $element.atwho 'load', '#', data.issues
+    if @suggestions
+      $element.atwho 'load', '@', @suggestions.members
+      $element.atwho 'load', '#', @suggestions.issues
+    else
+      $suggestionsPath = $element.attr('data-suggestions-path')
+      $.getJSON($suggestionsPath).done (data) =>
+        @suggestions = data
+        $element.atwho 'load', '@', data.members
+        $element.atwho 'load', '#', data.issues
 
   handleSubmit: (e) ->
     e.preventDefault()
