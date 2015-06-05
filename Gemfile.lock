@@ -551,3 +551,6 @@ DEPENDENCIES
   web-console
   wisper
   wisper-activejob!
+
+BUNDLED WITH
+   1.10.3
