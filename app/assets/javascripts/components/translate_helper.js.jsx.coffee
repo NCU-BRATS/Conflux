@@ -8,6 +8,7 @@
       when "Image"   then result = "圖片"
       when "Post"    then result = "貼文"
       when "Snippet" then result = "程式碼"
+      when "Channel" then result = "頻道"
       when "User"
         return `<span className="member"><Avatar user={target} />{target.name}</span>`
       when "Comment"
