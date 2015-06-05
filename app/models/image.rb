@@ -1,5 +1,4 @@
 class Image < Attachment
-  include SyncableConcern
 
   counter_culture :project
 

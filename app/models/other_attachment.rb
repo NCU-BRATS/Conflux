@@ -1,5 +1,4 @@
 class OtherAttachment < Attachment
-  include SyncableConcern
 
   counter_culture :project
 
