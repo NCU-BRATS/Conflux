@@ -106,7 +106,7 @@
     is_user_in_project: React.PropTypes.bool.isRequired
 
   render: ->
-    content = `<UserSmallLabel user={this.props.issue.user} />`
+    content = `<LabelAvatar user={this.props.issue.user} />`
 
     `<IssueAttributeBlock title="創建者" content={content}/>`
 
@@ -206,7 +206,7 @@
           />`
     else
       if assignee
-        content = `<div><UserSmallLabel user={assignee} /></div>`
+        content = `<div><LabelAvatar user={assignee} /></div>`
       else
         content = `<div>NOT SPECIFIED</div>`
 
@@ -330,7 +330,7 @@
 
   render: ->
     content = @props.issue.participations.map (participant) =>
-      `<UserImageSmallLabel user={participant.user} key={participant.id} />`
+      `<PopupLinkAvatar user={participant.user} key={participant.id} />`
 
     `<IssueAttributeBlock title="參與者" content={content}/>`
 
