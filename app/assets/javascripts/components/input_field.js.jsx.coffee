@@ -79,8 +79,11 @@
       pick12HourFormat: false
       format: format
 
-    $input.on 'dp.change', () =>
-      @props.onChange( $input.data('DateTimePicker').date.format() )
+    $input.on 'dp.hide', () =>
+      @props.onChange( $input.val() )
+
+    $input.on 'keydown', (e) =>
+      $input.data('DateTimePicker').setDate(null)
 
   defaultOnChange: ->
 #    nothing to do
