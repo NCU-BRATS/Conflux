@@ -279,7 +279,7 @@
     label_ids = @refs.input.refs.select.getDOMNode().selectize.getValue()
     Ajaxer.patch
       path: "../issues/#{@props.issue.sequential_id}.json"
-      data: {issue: {label_ids: label_ids}}
+      data: {issue: {label_ids: if label_ids.length then label_ids else ''}}
       done: =>
         @setState({editMode: false})
 
