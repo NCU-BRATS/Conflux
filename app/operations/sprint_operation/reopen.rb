@@ -4,12 +4,12 @@ module SprintOperation
     def initialize(current_user, project, sprint)
       @current_user = current_user
       @project      = project
-      @sprint        = sprint
+      super(sprint)
     end
 
     def process
-      if @sprint.reopen!
-        BroadcastService.fire(:on_sprint_reopened, @sprint, @current_user)
+      if @model.reopen!
+        BroadcastService.fire(:on_sprint_reopened, @model, @current_user)
       end
     end
 
