@@ -375,7 +375,7 @@
       color = 'red'
 
     href = "/projects/#{this.props.project.id}/issues/#{this.props.issue.sequential_id}"
-    `<a className={"ui label "+color} href={href}>
+    `<a className={"issue ui label "+color} href={href}>
         <i className="icon tasks" />
         { issue.title }
     </a>`
