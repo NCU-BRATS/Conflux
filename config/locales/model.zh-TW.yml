@@ -88,6 +88,8 @@ zh-TW:
         title: 投票選項
 
   validation:
+    slug:
+      format: '不符格式 ^[a-zA-Z][a-zA-Z0-9_]+$'
     user:
-      format: '不符格式 ^[a-zA-Z0-9_]+$'
+      format: '不符格式 ^[a-zA-Z][a-zA-Z0-9_]+$'
 
