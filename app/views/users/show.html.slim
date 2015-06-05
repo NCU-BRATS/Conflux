@@ -23,4 +23,4 @@
           th = 'description'
 
       tbody
-        = render partial: 'project_participation', collection: @user.project_participations.includes(:project)
+        = render partial: 'project_participation', collection: @user.project_participations.includes(:project).select { |project_participation| project_participation.project.visibility_level.public? }
