@@ -4,12 +4,12 @@ module SprintOperation
     def initialize(current_user, project, sprint)
       @current_user = current_user
       @project      = project
-      @sprint        = sprint
+      super(sprint)
     end
 
     def process
-      if @sprint.close!
-        BroadcastService.fire(:on_sprint_closed, @sprint, @current_user)
+      if @model.close!
+        BroadcastService.fire(:on_sprint_closed, @model, @current_user)
       end
     end
 
