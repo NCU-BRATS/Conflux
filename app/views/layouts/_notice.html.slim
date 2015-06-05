@@ -1,8 +1,11 @@
 - if notice
   #global_notice
     .ui.positive.message
+      i.close.icon
       .header = notice
     coffee:
+      $('#global_notice .close').on 'click', () ->
+        $('#global_notice').remove()
       setTimeout( () ->
         $('#global_notice').fadeOut()
       , 3000)

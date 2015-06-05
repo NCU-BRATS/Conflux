@@ -11,10 +11,13 @@ module PollOperation
     end
 
     def process(params)
+      params[:poll][:options_attributes].each do |k, v|
+        v['title'] = 1 if v['_destroy'] == '1' # hack to pass validation for options will be deleted.
+      end
+
       save do |hash|
         @model.user    = @current_user
         @model.project = @project
-        @model.options_attributes = hash[:options]
         if @model.save
           comment_param = ActionController::Parameters.new({comment: {content: params[:poll][:content]}})
           CommentOperation::Create.new(@current_user, @model).process(comment_param)

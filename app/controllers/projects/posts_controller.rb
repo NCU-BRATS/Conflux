@@ -1,7 +1,5 @@
 class Projects::PostsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update]
-
   def new
     @form = PostOperation::Create.new(current_user, @project)
     respond_with @form
@@ -14,6 +12,7 @@ class Projects::PostsController < Projects::ApplicationController
   end
 
   def show
+    @private_pub_channel2 = "/attachment/#{@post.id}/comments"
     respond_with @project, @post
   end
 

@@ -1,7 +1,5 @@
 class Projects::SnippetsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update]
-
   def new
     @form = SnippetOperation::Create.new(current_user, @project)
     respond_with @form
@@ -14,6 +12,7 @@ class Projects::SnippetsController < Projects::ApplicationController
   end
 
   def show
+    @private_pub_channel2 = "/attachment/#{@snippet.id}/comments"
     respond_with @project, @snippet
   end
 

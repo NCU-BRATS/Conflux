@@ -1,7 +1,5 @@
 class Projects::AttachmentsController < Projects::ApplicationController
 
-  enable_sync only: [:create, :update, :destroy]
-
   def index
     params[:q] = {type_eq: 'Post'}.merge(params[:q] || {})
     @q = @project.attachments.includes(:user).search(params[:q])
@@ -10,6 +8,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   end
 
   def show
+    @private_pub_channel2 = "/attachment/#{@attachment.id}/comments"
     if @attachment.type.underscore =~ /(post|snippet)/
       instance_variable_set("@#{$1}", @attachment)
       render "projects/#{$1.pluralize}/show"

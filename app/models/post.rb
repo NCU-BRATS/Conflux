@@ -1,6 +1,5 @@
 class Post < Attachment
   include ParserConcern
-  include SyncableConcern
 
   counter_culture :project
 

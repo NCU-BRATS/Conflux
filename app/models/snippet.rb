@@ -1,6 +1,5 @@
 class Snippet < Attachment
   include ParserConcern
-  include SyncableConcern
 
   LANGUAGES = {:'Text'=>'txt', :'C'=>'c', :'C#'=>'cpp', :'C++'=>'cpp', :'Clojure'=>'clj', :'CoffeeScript'=>'coffee', :'Common Lisp'=>'lisp',
                :'CSS'=>'css', :'Diff'=>'diff', :'Emacs Lisp'=>'el', :'Erlang'=>'erl', :'Haskell'=>'hs', :'HTML'=>'html', :'Java'=>'java', :'JavaScript'=>'js',

@@ -16,20 +16,16 @@
  *= require selectize-semantic-ui
  *= require github-markdown
  *= require highlight/github
- *= require sync-highlight
  *= require clndr-rails
  *= require link-style
  *= require projects
- *= require issues
+ *= require users
  *= require labels
  *= require notice
- *= require message
  *= require overflow
- *= require perfect-scrollbar
  *= require social
  *= require search
  *= require login
- *= require poll
  *= require jquery.atwho
  *= require bootstrap-scoped
  *= require layout
@@ -38,6 +34,13 @@
 
  @import "flexbox";
  @import "attachments";
+ @import "message";
+ @import "sidemenu_notices";
+ @import "events";
+ @import "comment";
+ @import "issues";
+ @import "sprints";
+ @import "poll";
 
 .checkbox, .radio {
   margin-bottom: 4px;
