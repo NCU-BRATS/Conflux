@@ -57,7 +57,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def download_data
-    path.url || content
+    path.path || content
   end
 
   def should_reindex?
