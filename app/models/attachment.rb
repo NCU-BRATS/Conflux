@@ -56,10 +56,6 @@ class Attachment < ActiveRecord::Base
     original_filename || "#{name}.#{path.file.extension}"
   end
 
-  def download_data
-    path.path || content
-  end
-
   def should_reindex?
     destroyed? || (previous_changes.keys & %w(name content type language)).present?
   end
