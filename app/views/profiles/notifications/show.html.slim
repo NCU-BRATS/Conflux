@@ -75,7 +75,7 @@
         = hidden_field_tag :notification_id, project_participation.id, id: dom_id(project_participation, 'notification_id')
         .ui.grid
           .four.wide.column style='line-height: 2.4rem;'
-            = link_to project_participation.project.name, project_participation.project
+            = link_to project_participation.project.name, project_dashboard_path(project_participation.project)
           .four.wide.column
             = select_tag :notification_level, options_for_select(Notification.options_with_labels, notification.level), class: 'dropdown trigger-submit'
 
