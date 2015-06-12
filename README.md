@@ -1,12 +1,12 @@
 # 系統需求
 
-* postgresql 9.4 for jsonb support
-* elasticsearch 1.4
+* postgresql > 9.4 for jsonb support
+* elasticsearch 1.6
 * elasticsearch plugin - Smart Chinese Analysis
 
 # 啟動
 
-為了啟動，我們需要設定 postgresql, elasticsearch, sync 這三個服務。
+為了啟動，我們需要設定 postgresql, elasticsearch, private_pub 這三個服務。
 
 ## 設定 Postgresql
 
@@ -29,10 +29,13 @@ $ rake db:migrate
 
 ## 設定 elasticsearch
 
-首先先到 elasticsearch 官網下載 zip 並解壓縮出 elasticsearch 資料夾。並安裝 smartcn plugin。
+首先先到 elasticsearch 官網下載 zip 並解壓縮出 elasticsearch 資料夾。並安裝對應版本的 smartcn plugin。
+
+smartcn plugin 對應的版本請閱 https://github.com/elastic/elasticsearch-analysis-smartcn
+
 ```bash
-$ cd elasticsearch-1.4.4
-$ ./bin/plugin install elasticsearch/elasticsearch-analysis-smartcn/2.4.3
+$ cd elasticsearch-1.6.0
+$ ./bin/plugin install elasticsearch/elasticsearch-analysis-smartcn/2.6.0 # this version is only for elasticsearch 1.6 !
 ```
 
 為了 Debug 與監控 elasticsearch 狀態，可以再安裝 Marvel plugin。
@@ -62,21 +65,26 @@ $ rake chewy:reset:all
 日後若有需要 reindex，也使用 chewy 提供的 rake task，這樣才有 zero downtime。
 其他 rake task 請見 https://github.com/toptal/chewy/blob/master/lib/tasks/chewy.rake
 
-## 設定 Sync
+## 設定 Private_Pub
 
-我們使用了 Sync gem 提供 realtime partial 功能。其設定檔在於 config/sync.yml。
+我們使用了 private_pub gem 使用 Faye 提供 websocket 功能。其設定檔在於 config/private_pub.yml。
 ```yml
 development:
   server: "http://localhost:9292/faye"
-  adapter_javascript_url: "http://localhost:9292/faye/faye.js"
-  auth_token: "0d298317ed60334561d44d2fe27a1db5839708ff9ed16b78617961e756f17afc"
-  adapter: "Faye"
-  async: true
+  secret_token: "secret"
+test:
+  server: "http://localhost:9292/faye"
+  secret_token: "secret"
+production:
+  server: "http://example.com/faye"
+  secret_token: "6724b127a8454d9e3dd32645d921201c0a04940fd6e4fbf1889fb2c335429dbb"
+  signature_expiration: 3600 # one hour
+
 ```
 
-Sync 可以設定使用 Faye 或 Pusher 作為 Pub/Sub 服務。若使用 Faye 的話，需要開啟 Faye server。
+啟動 private_pub
 ```
-$ rackup sync.ru -E production
+$ rackup private_pub.ru -s thin -E production
 ```
 
 ## 啟動 rails server
