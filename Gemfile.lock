@@ -27,16 +27,6 @@ GIT
       railties (>= 3.0)
 
 GIT
-  remote: git://github.com/NCU-BRATS/linguist.git
-  revision: 8ad2650454006e3e524ba7050603b45b0106d635
-  branch: drop-rugged
-  specs:
-    github-linguist (4.3.1)
-      charlock_holmes (~> 0.7.3)
-      escape_utils (~> 1.0.1)
-      mime-types (>= 1.19)
-
-GIT
   remote: git://github.com/krisleech/wisper-activejob.git
   revision: 9e43c6c61bc8f3ea0fb2de764624cd8138a49f83
   branch: master
@@ -55,7 +45,7 @@ GIT
 
 GIT
   remote: git://github.com/toptal/chewy.git
-  revision: dcfd2c5ecd9a94c72b3893f3cf74094787c77891
+  revision: ad2feeeac719d02d9c2f6358bd594b031852ba97
   branch: master
   specs:
     chewy (0.8.1)
@@ -209,7 +199,7 @@ GEM
       activesupport (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
-    escape_utils (1.0.1)
+    escape_utils (1.1.0)
     eventmachine (1.0.7)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -235,6 +225,11 @@ GEM
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     gemoji (2.1.0)
+    github-linguist (4.5.5)
+      charlock_holmes (~> 0.7.3)
+      escape_utils (~> 1.1.0)
+      mime-types (>= 1.19)
+      rugged (~> 0.23.0b1)
     github-markdown (0.6.8)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
@@ -295,9 +290,9 @@ GEM
     mini_magick (4.2.7)
     mini_portile (0.6.2)
     minitest (5.7.0)
-    momentjs-rails (2.10.2)
+    momentjs-rails (2.10.3)
       railties (>= 3.1)
-    multi_json (1.11.0)
+    multi_json (1.11.1)
     multipart-post (2.0.0)
     nested_form (0.3.2)
     nokogiri (1.6.6.2)
@@ -383,7 +378,7 @@ GEM
     rspec-mocks (3.2.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
-    rspec-rails (3.2.2)
+    rspec-rails (3.2.3)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
@@ -392,6 +387,7 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
+    rugged (0.23.0b2)
     sanitize (4.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -413,7 +409,7 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
-    slim (3.0.4)
+    slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slim-rails (3.0.1)
@@ -429,7 +425,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    temple (0.7.5)
+    temple (0.7.6)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -448,7 +444,7 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    underscore-rails (1.8.2)
+    underscore-rails (1.8.3)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -502,7 +498,7 @@ DEPENDENCIES
   faye
   friendly_id
   gemoji
-  github-linguist!
+  github-linguist
   github-markdown
   gravtastic
   groupdate
