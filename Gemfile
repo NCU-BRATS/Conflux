@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.2'
 # Use postgres as the database for Active Record
 gem 'pg', '~> 0.18.0'
 # for authentication solution
@@ -128,7 +128,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.2.0'
+  gem 'rspec-rails', '~> 3.3.1'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker', '~> 1.4.3'
   gem 'better_errors'
