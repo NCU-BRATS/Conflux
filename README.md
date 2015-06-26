@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/github/NCU-BRATS/Conflux/badges/gpa.svg)](https://codeclimate.com/github/NCU-BRATS/Conflux)
+[![Test Coverage](https://codeclimate.com/github/NCU-BRATS/Conflux/badges/coverage.svg)](https://codeclimate.com/github/NCU-BRATS/Conflux/coverage)
+
 # 系統需求
 
 * postgresql > 9.4 for jsonb support
