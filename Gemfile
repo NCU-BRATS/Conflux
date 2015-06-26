@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.2'
+gem 'rails', '4.2.3'
 # Use postgres as the database for Active Record
 gem 'pg', '~> 0.18.0'
 # for authentication solution
@@ -102,8 +102,7 @@ gem 'data-confirm-modal', github: 'NCU-BRATS/data-confirm-modal', branch: 'seman
 gem 'momentjs-rails'
 # datetime-picker widget
 gem 'bootstrap3-datetimepicker-rails', github: 'NCU-BRATS/bootstrap3-datetimepicker-rails', branch: 'bs-scope'
-# calendar
-gem 'clndr-rails', github: 'NCU-BRATS/clndr-rails', branch: 'fix-toplevel-constant-referenced'
+gem 'underscore-rails'
 
 # charts
 gem 'chartkick'
