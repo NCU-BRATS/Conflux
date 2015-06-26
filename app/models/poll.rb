@@ -12,7 +12,6 @@ class Poll < ActiveRecord::Base
 
   acts_as_sequenced scope: :project_id
 
-  accepts_nested_attributes_for :comments
   accepts_nested_attributes_for :options, allow_destroy: true
 
   validates :title, :status, :project, :user, :options, presence: true
