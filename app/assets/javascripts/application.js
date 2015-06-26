@@ -27,7 +27,6 @@
 //= require private_pub
 //= require handlebars.runtime
 //= require underscore
-//= require clndr-rails
 //= require jquery-fileupload/basic
 //= require jquery.atwho
 //= require highcharts
@@ -39,4 +38,3 @@
 //= require_tree ./lib
 //= require_tree .
 //= require components
-
