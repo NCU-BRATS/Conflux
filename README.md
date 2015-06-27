@@ -1,5 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/NCU-BRATS/Conflux/badges/gpa.svg)](https://codeclimate.com/github/NCU-BRATS/Conflux)
 [![Test Coverage](https://codeclimate.com/github/NCU-BRATS/Conflux/badges/coverage.svg)](https://codeclimate.com/github/NCU-BRATS/Conflux/coverage)
+[![Build Status](https://travis-ci.org/NCU-BRATS/Conflux.svg?branch=travis-ci)](https://travis-ci.org/NCU-BRATS/Conflux)
 
 # 系統需求
 
