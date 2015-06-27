@@ -364,6 +364,9 @@ GEM
     rspec-expectations (3.3.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
+    rspec-its (1.2.0)
+      rspec-core (>= 3.0.0)
+      rspec-expectations (>= 3.0.0)
     rspec-mocks (3.3.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
@@ -450,6 +453,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     wisper (1.6.0)
+    wisper-rspec (0.0.2)
 
 PLATFORMS
   ruby
@@ -518,6 +522,7 @@ DEPENDENCIES
   responders (~> 2.0)
   rinku
   rouge
+  rspec-its
   rspec-rails (~> 3.3.1)
   sanitize
   sass-rails (~> 5.0.3)
@@ -536,6 +541,7 @@ DEPENDENCIES
   web-console
   wisper
   wisper-activejob!
+  wisper-rspec
 
 BUNDLED WITH
    1.10.3

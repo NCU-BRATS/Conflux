@@ -1,6 +1,6 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  config.form_class = 'ui error form'
+  config.default_form_class = 'ui error form'
   config.error_notification_class = 'ui error message'
   config.button_class = 'ui green submit button'
   config.boolean_label_class = nil

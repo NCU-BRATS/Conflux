@@ -11,7 +11,9 @@ module PollOperation
     end
 
     def process(params)
-      params[:poll][:options_attributes].each do |k, v|
+      params = poll_params(params)
+
+      params[:options_attributes].each do |k, v|
         v['title'] = 1 if v['_destroy'] == '1' # hack to pass validation for options will be deleted.
       end
 
@@ -19,13 +21,13 @@ module PollOperation
         @model.user    = @current_user
         @model.project = @project
         if @model.save
-          comment_param = ActionController::Parameters.new({comment: {content: params[:poll][:content]}})
+          comment_param = ActionController::Parameters.new({comment: {content: params[:content]}})
           CommentOperation::Create.new(@current_user, @model).process(comment_param)
 
           ParticipationOperation::Create.new(@current_user, @model).process
           BroadcastService.fire(:on_poll_created, @model, @current_user)
         end
-      end if validate(params[:poll]) && sync
+      end if validate(params) && sync
     end
   end
 end

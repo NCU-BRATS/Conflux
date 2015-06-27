@@ -128,6 +128,8 @@ gem 'spring',        group: :development
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.3.1'
+  gem 'rspec-its'
+  gem 'wisper-rspec', require: false
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker', '~> 1.4.3'
   gem 'better_errors'

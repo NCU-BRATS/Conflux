@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :project do
-    
-  end
+    name  { Faker::Name.name }
 
+    to_create { |project| project.save(validate: false) }
+  end
 end
