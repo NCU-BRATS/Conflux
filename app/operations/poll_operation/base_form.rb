@@ -19,7 +19,9 @@ module PollOperation
 
     validates :title, presence: true
 
-    private
+    def poll_params(params)
+      params.require(:poll)
+    end
 
   end
 end
