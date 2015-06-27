@@ -1,7 +1,7 @@
 module FactoryHelper
   class << self
 
-    def create_project_with_members(n = 1)
+    def create_project_with_members(n = 2)
       project = FactoryGirl.create(:project)
       members = n.times.map { FactoryGirl.create(:user) }
       members.each { |member| project.members << member }

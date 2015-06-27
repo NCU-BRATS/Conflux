@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PollOperation::Update do
-  include_context 'project with members'
   include_context 'poll with options'
 
   subject { PollOperation::Update.new(@members[0], @poll) }

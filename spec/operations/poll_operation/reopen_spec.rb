@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PollOperation::Reopen do
-  include_context 'project with members'
-  include_context 'poll with options'
+  include_context 'first poll option was voted by first member'
 
   before(:example) { @poll.close }
 
