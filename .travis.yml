@@ -1,0 +1,20 @@
+sudo: false
+language: ruby
+cache: bundler
+rvm:
+  - 2.2.2
+bundler_args: --without production --jobs=3 --retry=3
+
+addons:
+  postgresql: "9.4"
+  apt:
+    packages:
+    - cmake
+    - libicu-dev
+    - imagemagick
+
+before_script:
+  - psql -c 'create database "conflux-test";' -U postgres
+
+env:
+  - DATABASE_USERNAME=postgres DATABASE_PASSWORD=
