@@ -453,6 +453,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     wisper (1.6.0)
+    wisper-rspec (0.0.2)
 
 PLATFORMS
   ruby
@@ -540,6 +541,7 @@ DEPENDENCIES
   web-console
   wisper
   wisper-activejob!
+  wisper-rspec
 
 BUNDLED WITH
    1.10.3
