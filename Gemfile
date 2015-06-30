@@ -136,7 +136,8 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'web-console'
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'database_cleaner'
 end
 
 gem 'rails_12factor', group: :production
