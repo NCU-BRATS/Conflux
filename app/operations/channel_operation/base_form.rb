@@ -9,5 +9,9 @@ module ChannelOperation
 
     copy_validations_from Channel
 
+    def channel_params(params)
+      params.require(:channel)
+    end
+
   end
 end
