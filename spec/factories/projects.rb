@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project do
-    name  { Faker::Name.name }
+    sequence(:name)  { |n| Faker::Internet.user_name + "#{n}" }
 
     to_create { |project| project.save(validate: false) }
   end
