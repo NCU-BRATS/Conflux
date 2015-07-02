@@ -29,3 +29,17 @@ shared_context 'first poll option was voted by first member' do
     @options[0].voted_by(@members[0])
   end
 end
+
+shared_context 'issue sprint with project members and labels' do
+  include_context 'project with members'
+  before(:example) do
+    @issue = FactoryGirl.create(:issue)
+    @issue.project = @project
+    @issue.user    = @members[0]
+    @sprint = FactoryGirl.create(:sprint)
+    @sprint.project = @project
+    @sprint.user = @members[0]
+    @label = FactoryGirl.create(:label)
+    @label.project = @project
+  end
+end

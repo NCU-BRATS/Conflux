@@ -10,13 +10,14 @@ module IssueOperation
     end
 
     def process(params)
-      if validate(params[:issue].except(:label_ids)) && sync
+      issue_params = issue_params(params)
+      if validate( issue_params.except(:label_ids) ) && sync
         @model.user    = @current_user
         @model.project = @project
         if @model.save
-          @model.update_attributes(label_ids: params[:issue][:label_ids])
+          @model.update_attributes(label_ids: issue_params[:label_ids])
 
-          comment_param = ActionController::Parameters.new({comment: {content: params[:issue][:content]}})
+          comment_param = ActionController::Parameters.new({comment: {content: issue_params[:content]}})
           CommentOperation::Create.new(@current_user, @model).process(comment_param)
 
           ParticipationOperation::Create.new(@current_user, @model).process

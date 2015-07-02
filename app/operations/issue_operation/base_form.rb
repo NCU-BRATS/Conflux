@@ -13,7 +13,9 @@ module IssueOperation
 
     validates :title, presence: true
 
-    private
+    def issue_params(params)
+      params.require(:issue)
+    end
 
   end
 end
