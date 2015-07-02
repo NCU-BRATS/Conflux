@@ -8,7 +8,7 @@ module LabelOperation
     end
 
     def process(params)
-      if validate(params[:label]) && sync
+      if validate(label_params(params)) && sync
         @model.project = @project
         @model.save
       end

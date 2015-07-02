@@ -8,7 +8,7 @@ module LabelOperation
     end
 
     def process(params)
-      validate(params[:label]) && save
+      validate(label_params(params)) && save
     end
 
   end
