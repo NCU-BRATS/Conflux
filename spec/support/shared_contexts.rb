@@ -14,6 +14,15 @@ shared_context 'poll with options' do
   end
 end
 
+shared_context 'channel with project and members' do
+  include_context 'project with members'
+  before(:example) do
+    @channel = FactoryGirl.create(:channel)
+    @channel.project = @project
+    @channel.members << @members[0]
+  end
+end
+
 shared_context 'first poll option was voted by first member' do
   include_context 'poll with options'
   before(:example) do

@@ -8,7 +8,7 @@ module ChannelOperation
     end
 
     def process(params)
-      if validate(params[:channel]) && sync
+      if validate( channel_params(params) ) && sync
         @model.project = @project
         @model.members << @current_user
         if @model.save

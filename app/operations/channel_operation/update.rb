@@ -8,7 +8,7 @@ module ChannelOperation
     end
 
     def process(params)
-      validate(params[:channel]) && save
+      validate( channel_params( params ) ) && save
     end
 
   end

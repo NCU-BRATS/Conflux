@@ -98,13 +98,21 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
-  # bypass chewy when testing
-  config.before(:suite) do
-    Chewy.strategy(:bypass)
-  end
-
   # enable Wisper testing
   config.include(Wisper::RSpec::BroadcastMatcher)
 
   config.include ParamsHelper
+
+  config.before(:suite) do
+    # bypass chewy when testing
+    Chewy.strategy(:bypass)
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:example) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
 end
