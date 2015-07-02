@@ -52,3 +52,15 @@ shared_context 'commentable with project and user' do
     @commentable.user      = @members[0]
   end
 end
+
+shared_context 'comment with commentable project and user' do
+  include_context 'commentable with project and user'
+  before(:example) do
+    Faker::Lorem.sentence
+    @comment = Comment.new
+    @comment.content = Faker::Lorem.sentence
+    @comment.user = @members[0]
+    @comment.commentable = @commentable
+    @comment.save(validate: false)
+  end
+end
