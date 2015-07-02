@@ -44,17 +44,20 @@ shared_context 'issue sprint with project members and labels' do
   end
 end
 
-shared_context 'commentable with project and user' do
+shared_context 'commentable issue with project and user' do
   include_context 'project with members'
   before(:example) do
-    @commentable = FactoryGirl.create(:issue)
-    @commentable.project   = @project
-    @commentable.user      = @members[0]
+    @commentable = Issue.new
+    @commentable.title = Faker::Lorem.sentence
+    @commentable.project = @project
+    @commentable.user    = @members[0]
+    @commentable.save(validate: false)
+    @issue = @commentable
   end
 end
 
 shared_context 'comment with commentable project and user' do
-  include_context 'commentable with project and user'
+  include_context 'commentable issue with project and user'
   before(:example) do
     Faker::Lorem.sentence
     @comment = Comment.new
