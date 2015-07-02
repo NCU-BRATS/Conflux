@@ -17,7 +17,7 @@ RSpec.describe IssueOperation::Create do
         @operation.process(@params)
       end
 
-      it 'creates a comment with the given project, user, title and other attributes' do
+      it 'creates an issue with the given project, user, title and other attributes' do
         condiction = [
           @operation.model.project == @project,
           @operation.model.user    == @members[0],
