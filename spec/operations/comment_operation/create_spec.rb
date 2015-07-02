@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CommentOperation::Create do
 
-  include_context 'commentable with project and user'
+  include_context 'commentable issue with project and user'
 
   describe '#process' do
 
@@ -10,7 +10,7 @@ RSpec.describe CommentOperation::Create do
 
       before(:example) do
         @params = new_param({ comment:{
-        content: "testcontent @#{@members[1].name}"
+          content: "testcontent @#{@members[1].name} ##{@issue.sequential_id}"
         }})
         @operation = CommentOperation::Create.new(@members[0], @commentable)
         @operation.process(@params)
@@ -18,7 +18,7 @@ RSpec.describe CommentOperation::Create do
 
       it 'creates a comment with the given content, user and other attributes' do
         condiction = [
-          @operation.model.content     == "testcontent @#{@members[1].name}",
+          @operation.model.content     == "testcontent @#{@members[1].name} ##{@issue.sequential_id}",
           @operation.model.user        == @members[0],
           @operation.model.commentable == @commentable
         ]
@@ -29,8 +29,13 @@ RSpec.describe CommentOperation::Create do
         expect(@operation.model.participations.find {|p| p.user_id == @members[0].id}).not_to be nil
       end
 
-      it 'adds mentioned users to participations' do
+      it 'adds mentioned users to participations and mention list' do
         expect(@operation.model.participations.find {|p| p.user_id == @members[1].id}).not_to be nil
+        expect(@operation.model.mentioned_list['members'].find {|p| p.user_id == @members[1].id}).not_to be nil
+      end
+
+      it 'adds mentioned issues to mention list' do
+        expect(@operation.model.mentioned_list['issues'].find {|p| p.issue_id == @issue.id}).not_to be nil
       end
 
       it 'fires corresponding event' do
