@@ -9,7 +9,7 @@ module IssueOperation
     end
 
     def process(params)
-      validate(params[:issue]) && save
+      validate(issue_params(params)) && save
       ParticipationOperation::Create.new(@model.assignee, @model).process if @model.assignee
     end
 
