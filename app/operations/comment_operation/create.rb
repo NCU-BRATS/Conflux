@@ -8,7 +8,7 @@ module CommentOperation
     end
 
     def process(params)
-      if validate(params[:comment]) && sync
+      if validate( comment_params( params ) ) && sync
         @model.user        = @current_user
         @model.commentable = @commentable
         if @model.save

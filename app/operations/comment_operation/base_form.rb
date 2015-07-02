@@ -4,7 +4,9 @@ module CommentOperation
 
     property :content, validates: {presence: true}
 
-    private
+    def comment_params(params)
+      params.require(:comment)
+    end
 
   end
 end
