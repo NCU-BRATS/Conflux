@@ -43,3 +43,12 @@ shared_context 'issue sprint with project members and labels' do
     @label.project = @project
   end
 end
+
+shared_context 'commentable with project and user' do
+  include_context 'project with members'
+  before(:example) do
+    @commentable = FactoryGirl.create(:issue)
+    @commentable.project   = @project
+    @commentable.user      = @members[0]
+  end
+end
