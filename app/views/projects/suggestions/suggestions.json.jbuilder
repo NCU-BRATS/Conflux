@@ -6,6 +6,6 @@ end
 
 json.issues do
   json.array!(@issues) do |issue|
-    json.extract! issue, :id, :title
+    json.extract! issue, :sequential_id, :title
   end
 end
