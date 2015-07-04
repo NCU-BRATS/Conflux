@@ -4,6 +4,7 @@ RSpec.describe EventCreateListener do
 
   include_context 'issue sprint with project members and labels'
   include_context 'poll with options'
+  include_context 'comment with commentable project and user'
 
   describe '#process' do
     context 'when given valid params' do
@@ -115,6 +116,18 @@ RSpec.describe EventCreateListener do
             event.target_type == @poll.class.name,
             event.author_id == @members[0].id,
             event.reopened? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a comment is created' do
+        event = EventCreateListener.on_comment_created(@comment,@members[0])
+        condiction = [
+            event.project == @comment.project,
+            event.target_id == @comment.id,
+            event.target_type == @comment.class.name,
+            event.author_id == @members[0].id,
+            event.commented? == true
         ]
         expect(condiction).to all( be true )
       end
