@@ -4,7 +4,9 @@ module MessageOperation
 
     property :content, validates: {presence: true}
 
-    private
+    def message_params(params)
+      params.require(:message)
+    end
 
   end
 end

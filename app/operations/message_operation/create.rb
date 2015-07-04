@@ -8,7 +8,7 @@ module MessageOperation
     end
 
     def process(params)
-      if validate(params[:message]) && sync
+      if validate(message_params(params)) && sync
         @model.user        = @current_user
         @model.channel     = @channel
         @model.save
