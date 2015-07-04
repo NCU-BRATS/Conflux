@@ -11,7 +11,9 @@ module SprintOperation
 
     validates :title, presence: true
 
-    private
+    def sprint_params(params)
+      params.require(:sprint)
+    end
 
   end
 end
