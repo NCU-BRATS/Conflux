@@ -46,6 +46,42 @@ RSpec.describe EventCreateListener do
         expect(condiction).to all( be true )
       end
 
+      it 'create a event when a sprint is created' do
+        event = EventCreateListener.on_sprint_created(@sprint,@members[0])
+        condiction = [
+            event.project == @sprint.project,
+            event.target_id == @sprint.id,
+            event.target_type == @sprint.class.name,
+            event.author_id == @members[0].id,
+            event.created? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a sprint is closed' do
+        event = EventCreateListener.on_sprint_closed(@sprint,@members[0])
+        condiction = [
+            event.project == @sprint.project,
+            event.target_id == @sprint.id,
+            event.target_type == @sprint.class.name,
+            event.author_id == @members[0].id,
+            event.closed? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a sprint is reopened' do
+        event = EventCreateListener.on_sprint_reopened(@sprint,@members[0])
+        condiction = [
+            event.project == @sprint.project,
+            event.target_id == @sprint.id,
+            event.target_type == @sprint.class.name,
+            event.author_id == @members[0].id,
+            event.reopened? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
     end
   end
 end
