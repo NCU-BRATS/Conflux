@@ -31,11 +31,11 @@ RSpec.describe CommentOperation::Create do
 
       it 'adds mentioned users to participations and mention list' do
         expect(@operation.model.participations.find {|p| p.user_id == @members[1].id}).not_to be nil
-        expect(@operation.model.mentioned_list['members'].find {|p| p.user_id == @members[1].id}).not_to be nil
+        expect(@operation.model.mentioned_list['members'].find {|p| p == @members[1].id}).not_to be nil
       end
 
       it 'adds mentioned issues to mention list' do
-        expect(@operation.model.mentioned_list['issues'].find {|p| p.issue_id == @issue.id}).not_to be nil
+        expect(@operation.model.mentioned_list['issues'].find {|p| p == @issue.id}).not_to be nil
       end
 
       it 'fires corresponding event' do
