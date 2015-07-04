@@ -67,3 +67,11 @@ shared_context 'comment with commentable project and user' do
     @comment.save(validate: false)
   end
 end
+
+shared_context 'notice' do
+  include_context 'project with members'
+  before(:example) do
+    @notice = Notice.new
+    @notice.save(validate: false)
+  end
+end
