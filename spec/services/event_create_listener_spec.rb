@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe EventCreateListener do
 
   include_context 'issue sprint with project members and labels'
+  include_context 'poll with options'
 
   describe '#process' do
     context 'when given valid params' do
@@ -76,6 +77,42 @@ RSpec.describe EventCreateListener do
             event.project == @sprint.project,
             event.target_id == @sprint.id,
             event.target_type == @sprint.class.name,
+            event.author_id == @members[0].id,
+            event.reopened? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a poll is created' do
+        event = EventCreateListener.on_poll_created(@poll,@members[0])
+        condiction = [
+            event.project == @poll.project,
+            event.target_id == @poll.id,
+            event.target_type == @poll.class.name,
+            event.author_id == @members[0].id,
+            event.created? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a poll is closed' do
+        event = EventCreateListener.on_poll_closed(@poll,@members[0])
+        condiction = [
+            event.project == @poll.project,
+            event.target_id == @poll.id,
+            event.target_type == @poll.class.name,
+            event.author_id == @members[0].id,
+            event.closed? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a poll is reopened' do
+        event = EventCreateListener.on_poll_reopened(@poll,@members[0])
+        condiction = [
+            event.project == @poll.project,
+            event.target_id == @poll.id,
+            event.target_type == @poll.class.name,
             event.author_id == @members[0].id,
             event.reopened? == true
         ]
