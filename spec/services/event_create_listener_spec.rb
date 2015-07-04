@@ -5,6 +5,7 @@ RSpec.describe EventCreateListener do
   include_context 'issue sprint with project members and labels'
   include_context 'poll with options'
   include_context 'comment with commentable project and user'
+  include_context 'channel with project and members'
 
   describe '#process' do
     context 'when given valid params' do
@@ -128,6 +129,18 @@ RSpec.describe EventCreateListener do
             event.target_type == @comment.class.name,
             event.author_id == @members[0].id,
             event.commented? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a channel is created' do
+        event = EventCreateListener.on_channel_created(@channel,@members[0])
+        condiction = [
+            event.project == @channel.project,
+            event.target_id == @channel.id,
+            event.target_type == @channel.class.name,
+            event.author_id == @members[0].id,
+            event.created? == true
         ]
         expect(condiction).to all( be true )
       end
