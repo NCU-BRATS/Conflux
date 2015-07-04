@@ -79,3 +79,13 @@ shared_context 'notice' do
     @notice.save(validate: false)
   end
 end
+
+shared_context  'message with its channel project and member' do
+  include_context 'channel with project and members'
+  before(:example) do
+    @message = FactoryGirl.build(:message)
+    @message.channel = @channel
+    @message.user    = @members[0]
+    @message.save
+  end
+end
