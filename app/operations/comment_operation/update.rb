@@ -7,7 +7,7 @@ module CommentOperation
     end
 
     def process(params)
-      if validate(params[:comment]) && sync
+      if validate( comment_params( params ) ) && sync
         if @model.save
           create_mentioned_participation
           BroadcastService.fire(:on_comment_updated, @model, @model.previous_changes[:mentioned_list], @current_user)

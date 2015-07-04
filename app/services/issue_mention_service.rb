@@ -8,7 +8,8 @@ class IssueMentionService
 
     filtered_field = issue_mention_filter.filter(text) do |match, target|
       issue_id = target.to_i
-      issue = Issue.find(issue_id)
+      issue = Issue.where(project: project, sequential_id: issue_id).first
+      Rails.logger.debug(issue.inspect)
       mentioned_issues << issue if issue
       link = link_to_mentioned_issue(project, issue)
       link ? match.sub("##{target}", link) : match
@@ -20,7 +21,7 @@ class IssueMentionService
   def link_to_mentioned_issue(project, issue)
     return nil unless issue
     url = project_issue_path(project, issue)
-    "<a href='#{url}' class='issue-mention'>##{issue.id}</a>"
+    "<a href='#{url}' class='issue-mention'>##{issue.sequential_id}</a>"
   end
 
 end

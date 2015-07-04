@@ -43,3 +43,27 @@ shared_context 'issue sprint with project members and labels' do
     @label.project = @project
   end
 end
+
+shared_context 'commentable issue with project and user' do
+  include_context 'project with members'
+  before(:example) do
+    @commentable = Issue.new
+    @commentable.title = Faker::Lorem.sentence
+    @commentable.project = @project
+    @commentable.user    = @members[0]
+    @commentable.save(validate: false)
+    @issue = @commentable
+  end
+end
+
+shared_context 'comment with commentable project and user' do
+  include_context 'commentable issue with project and user'
+  before(:example) do
+    Faker::Lorem.sentence
+    @comment = Comment.new
+    @comment.content = Faker::Lorem.sentence
+    @comment.user = @members[0]
+    @comment.commentable = @commentable
+    @comment.save(validate: false)
+  end
+end

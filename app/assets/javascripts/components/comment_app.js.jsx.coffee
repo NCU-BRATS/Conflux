@@ -243,7 +243,7 @@
     $element.atwho
       at: '#'
       displayTpl: "<li>${title}</li>"
-      insertTpl: "${atwho-at}${id}",
+      insertTpl: "${atwho-at}${sequential_id}",
       searchKey: "title"
 
     $element.on 'inserted.atwho', => @setState({commentText: $element.val()})
