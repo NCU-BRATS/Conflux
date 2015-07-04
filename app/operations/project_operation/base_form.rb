@@ -9,5 +9,9 @@ module ProjectOperation
 
     copy_validations_from Project
 
+    def project_params(params)
+      params.require(:project)
+    end
+
   end
 end

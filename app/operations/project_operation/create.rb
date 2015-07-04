@@ -7,7 +7,7 @@ module ProjectOperation
     end
 
     def process(params)
-      if validate(params[:project]) && sync
+      if validate(project_params(params)) && sync
         @model.members << @current_user
         @model.save
       end
