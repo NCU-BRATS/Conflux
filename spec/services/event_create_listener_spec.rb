@@ -145,6 +145,40 @@ RSpec.describe EventCreateListener do
         expect(condiction).to all( be true )
       end
 
+      it 'create a event when a project participation is created' do
+
+        model=@project.project_participations[0]
+        user = model.user
+
+        event = EventCreateListener.on_project_participation_created(model,@members[0])
+        condiction = [
+            event.project == @project,
+            event.target_id == user.id,
+            event.target_type == user.class.name,
+            event.author_id == @members[0].id,
+            event.joined? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when a project participation is deleted' do
+
+        model=@project.project_participations[0]
+        operation = ProjectParticipationOperation::Destroy.new(@members[0],@project,model)
+        operation.process
+        user = model.user
+
+        event = EventCreateListener.on_project_participation_deleted(model,@members[0])
+        condiction = [
+            event.project == @project,
+            event.target_id == user.id,
+            event.target_type == user.class.name,
+            event.author_id == @members[0].id,
+            event.left? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
     end
   end
 end
