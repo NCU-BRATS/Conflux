@@ -9,7 +9,7 @@ module SprintOperation
     end
 
     def process(params)
-      validate(params[:sprint]) && save
+      validate(sprint_params(params)) && save
     end
 
   end

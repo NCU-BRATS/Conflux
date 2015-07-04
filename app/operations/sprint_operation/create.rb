@@ -10,13 +10,14 @@ module SprintOperation
     end
 
     def process(params)
-      if validate(params[:sprint].except(:issue_ids)) && sync
+      sprint_params = sprint_params(params)
+      if validate(sprint_params.except(:issue_ids)) && sync
         @model.user   = @current_user
         @model.project = @project
         if @model.save
-          @model.update_attributes(issue_ids: params[:sprint][:issue_ids])
+          @model.update_attributes(issue_ids: sprint_params[:issue_ids])
 
-          comment_param = ActionController::Parameters.new({comment: {content: params[:sprint][:content]}})
+          comment_param = ActionController::Parameters.new({comment: {content: sprint_params[:content]}})
           CommentOperation::Create.new(@current_user, @model).process(comment_param)
 
           ParticipationOperation::Create.new(@current_user, @model).process

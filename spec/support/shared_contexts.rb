@@ -10,16 +10,19 @@ shared_context 'poll with options' do
     @poll, @options = FactoryHelper.create_poll_with_options
     @poll.project   = @project
     @poll.user      = @members[0]
+    @poll.save
     @options[0].voted_by(@members[0])
+    @options[0].save
   end
 end
 
 shared_context 'channel with project and members' do
   include_context 'project with members'
   before(:example) do
-    @channel = FactoryGirl.create(:channel)
+    @channel = FactoryGirl.build(:channel)
     @channel.project = @project
     @channel.members << @members[0]
+    @channel.save
   end
 end
 
@@ -27,31 +30,34 @@ shared_context 'first poll option was voted by first member' do
   include_context 'poll with options'
   before(:example) do
     @options[0].voted_by(@members[0])
+    @options[0].save
   end
 end
 
 shared_context 'issue sprint with project members and labels' do
   include_context 'project with members'
   before(:example) do
-    @issue = FactoryGirl.create(:issue)
+    @issue = FactoryGirl.build(:issue)
     @issue.project = @project
     @issue.user    = @members[0]
-    @sprint = FactoryGirl.create(:sprint)
+    @issue.save
+    @sprint = FactoryGirl.build(:sprint)
     @sprint.project = @project
     @sprint.user = @members[0]
-    @label = FactoryGirl.create(:label)
+    @sprint.save
+    @label = FactoryGirl.build(:label)
     @label.project = @project
+    @label.save
   end
 end
 
 shared_context 'commentable issue with project and user' do
   include_context 'project with members'
   before(:example) do
-    @commentable = Issue.new
-    @commentable.title = Faker::Lorem.sentence
+    @commentable = FactoryGirl.build(:issue)
     @commentable.project = @project
     @commentable.user    = @members[0]
-    @commentable.save(validate: false)
+    @commentable.save
     @issue = @commentable
   end
 end
@@ -59,12 +65,10 @@ end
 shared_context 'comment with commentable project and user' do
   include_context 'commentable issue with project and user'
   before(:example) do
-    Faker::Lorem.sentence
-    @comment = Comment.new
-    @comment.content = Faker::Lorem.sentence
+    @comment = FactoryGirl.build(:comment)
     @comment.user = @members[0]
     @comment.commentable = @commentable
-    @comment.save(validate: false)
+    @comment.save
   end
 end
 
