@@ -7,7 +7,7 @@ module ProjectOperation
     end
 
     def process(params)
-      validate(params[:project]) && save
+      validate(project_params(params)) && save
     end
 
   end
