@@ -7,9 +7,9 @@ RSpec.describe ParticipationOperation::Create do
   describe '#process' do
     context 'when success' do
 
-      it 'create the participation' do
+      it 'creates the participation' do
         ParticipationOperation::Create.new(@members[0], @issue).process
-        expect(@issue.participations.exists?(user_id: @members[0].id)).to be true
+        expect( @issue.participations.exists?( user_id: @members[0].id ) ).to be true
       end
 
     end
