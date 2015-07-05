@@ -23,12 +23,12 @@ RSpec.describe MessageOperation::Create do
       end
 
       it 'creates a message with the given channel, user and other attributes' do
-        condiction = [
+        conditions = [
           @operation.model.content == 'content',
           @operation.model.channel == @channel,
           @operation.model.user    == @members[0]
         ]
-        expect( condiction ).to all( be true )
+        expect( conditions ).to all( be true )
       end
 
     end
