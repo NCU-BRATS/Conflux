@@ -89,3 +89,12 @@ shared_context  'message with its channel project and member' do
     @message.save
   end
 end
+
+shared_context 'label with color title project and member' do
+  include_context 'project with members'
+  before(:example) do
+    @label = FactoryGirl.build(:label)
+    @label.project = @project
+    @label.save
+  end
+end
