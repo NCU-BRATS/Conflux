@@ -1,13 +1,13 @@
 module MessageOperation
   class Update < BaseForm
 
-    def initialize(current_user, channel)
+    def initialize(current_user, message)
       @current_user = current_user
-      super(channel)
+      super(message)
     end
 
     def process(params)
-      validate(params[:message]) && save
+      validate(message_params(params)) && save
     end
 
   end
