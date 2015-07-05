@@ -8,16 +8,18 @@ RSpec.describe IssueOperation::Reopen do
 
   describe '#process' do
     context 'when success' do
+
       let(:success) { IssueOperation::Reopen.new(@members[0], @project, @issue).process }
 
-      it 'reopen the issue' do
+      it 'reopens the issue' do
         success
-        expect(@issue.open?).to be true
+        expect( @issue.open? ).to be true
       end
 
       it 'fires corresponding event' do
         expect { success }.to broadcast(:on_issue_reopened)
       end
+
     end
   end
 end
