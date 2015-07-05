@@ -2,10 +2,8 @@ class BroadcastService
   include Wisper::Publisher
 
   def initialize
-    unless Rails.env.test?
-      subscribe(EventCreateListener, async: true)
-      subscribe(NoticeCreateListener, async: true)
-    end
+    subscribe(EventCreateListener, async: true)
+    subscribe(NoticeCreateListener, async: true)
   end
 
   class << self
