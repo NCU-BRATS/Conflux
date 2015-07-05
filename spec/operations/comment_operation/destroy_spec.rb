@@ -7,6 +7,7 @@ RSpec.describe CommentOperation::Destroy do
   subject { CommentOperation::Destroy.new(@members[0], @comment) }
 
   describe '#process' do
+
     context 'when called' do
 
       it 'destroys the comment' do
