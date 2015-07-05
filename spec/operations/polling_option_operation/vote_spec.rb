@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PollingOptionOperation::Vote do
+
   include_context 'first poll option was voted by first member'
 
   before(:example) do
@@ -11,22 +12,22 @@ RSpec.describe PollingOptionOperation::Vote do
   subject { PollingOptionOperation::Vote }
 
   describe '#process' do
+
     context 'if the option was voted by the user' do
-      it 'unvote the option' do
+      it 'unvotes the option' do
         subject.new(@user_voted, @poll, @options[0]).process
-        expect(@options[0].voted_by?(@user_voted)).to be false
+        expect( @options[0].voted_by?(@user_voted) ).to be false
       end
     end
 
     context 'if the option was not voted by the user' do
-      it 'vote the option' do
+      it 'votes the option' do
         subject.new(@user_not_voted, @poll, @options[0]).process
-        expect(@options[0].voted_by?(@user_not_voted)).to be true
+        expect( @options[0].voted_by?(@user_not_voted) ).to be true
       end
-
-      it 'add the user into poll participation' do
+      it 'adds the user into poll participation' do
         subject.new(@user_not_voted, @poll, @options[0]).process
-        expect(@poll.participations.find {|p| p.user_id == @user_not_voted.id}).not_to be nil
+        expect( @poll.participations.find {|p| p.user_id == @user_not_voted.id} ).not_to be nil
       end
     end
 
@@ -37,7 +38,7 @@ RSpec.describe PollingOptionOperation::Vote do
           PollingOptionOperation::Vote.new(@user_not_voted, @poll, option).process
         end
         results = @options.map {|option| option.voted_by?(@user_not_voted) }
-        expect(results).to all( be true )
+        expect( results ).to all( be true )
       end
     end
 
@@ -48,7 +49,7 @@ RSpec.describe PollingOptionOperation::Vote do
           PollingOptionOperation::Vote.new(@user_not_voted, @poll, option).process
         end
         results = @options.map {|option| option.voted_by?(@user_not_voted) }
-        expect(results.select {|e| e == true}.size).to be 1
+        expect( results.select {|e| e == true}.size ).to be 1
       end
     end
 
@@ -56,13 +57,13 @@ RSpec.describe PollingOptionOperation::Vote do
       it 'can not be voted' do
         @poll.close!
         PollingOptionOperation::Vote.new(@user_not_voted, @poll, @options[0]).process
-        expect(@options[0].voted_by?(@user_not_voted)).to be false
+        expect( @options[0].voted_by?(@user_not_voted) ).to be false
       end
 
       it 'can not be unvoted' do
         @poll.close!
         PollingOptionOperation::Vote.new(@user_voted, @poll, @options[0]).process
-        expect(@options[0].voted_by?(@user_voted)).to be true
+        expect( @options[0].voted_by?(@user_voted) ).to be true
       end
     end
   end

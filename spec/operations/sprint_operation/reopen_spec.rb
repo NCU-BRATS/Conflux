@@ -8,16 +8,18 @@ RSpec.describe SprintOperation::Reopen do
 
   describe '#process' do
     context 'when success' do
+
       let(:success) { SprintOperation::Reopen.new(@members[0], @project, @sprint).process }
 
-      it 'reopen the sprint' do
+      it 'reopens the sprint' do
         success
-        expect(@sprint.open?).to be true
+        expect( @sprint.open? ).to be true
       end
 
       it 'fires corresponding event' do
         expect { success }.to broadcast(:on_sprint_reopened)
       end
+
     end
   end
 end

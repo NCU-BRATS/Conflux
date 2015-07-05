@@ -7,6 +7,7 @@ RSpec.describe ChannelOperation::Destroy do
   subject { ChannelOperation::Destroy.new(@members[0], @project, @channel) }
 
   describe '#process' do
+
     context 'when called' do
 
       it 'destroys the channel' do
@@ -21,4 +22,5 @@ RSpec.describe ChannelOperation::Destroy do
     end
 
   end
+
 end

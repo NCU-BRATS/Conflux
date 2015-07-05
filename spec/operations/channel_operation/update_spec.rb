@@ -7,6 +7,7 @@ RSpec.describe ChannelOperation::Update do
   subject { ChannelOperation::Update.new(@members[0], @project, @channel) }
 
   describe '#process' do
+
     context 'when given valid params' do
 
       it 'changes the name' do
