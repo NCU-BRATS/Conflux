@@ -7,9 +7,9 @@ RSpec.describe NoticeOperation::Unseal do
   describe '#process' do
     context 'when success' do
 
-      it 'unseal the notice' do
+      it 'unseals the notice' do
         NoticeOperation::Unseal.new(@members[0], @notice).process
-        expect(@notice.unseal?).to be true
+        expect( @notice.unseal? ).to be true
       end
 
     end

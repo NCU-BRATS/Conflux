@@ -7,9 +7,9 @@ RSpec.describe NoticeOperation::Read do
   describe '#process' do
     context 'when success' do
 
-      it 'read the notice' do
+      it 'reads the notice' do
         NoticeOperation::Read.new(@members[0], @notice).process
-        expect(@notice.read?).to be true
+        expect( @notice.read? ).to be true
       end
 
     end

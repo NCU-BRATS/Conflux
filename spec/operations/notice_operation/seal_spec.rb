@@ -7,13 +7,13 @@ RSpec.describe NoticeOperation::Seal do
   describe '#process' do
     context 'when success' do
 
-      it 'seal the notice' do
+      it 'seals the notice' do
         NoticeOperation::Seal.new(@members[0], @notice).process
-        condiction = [
+        conditions = [
             @notice.read? == true,
             @notice.seal? == true
         ]
-        expect(condiction).to all( be true )
+        expect( conditions ).to all( be true )
       end
 
     end
