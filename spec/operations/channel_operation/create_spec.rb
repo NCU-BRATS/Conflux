@@ -25,13 +25,17 @@ RSpec.describe ChannelOperation::Create do
       end
 
       it 'creates a channel with the given project, user and other attributes' do
-        condiction = [
+        conditions = [
           @operation.model.project == @project,
           @operation.model.name         == 'testname',
           @operation.model.description  == 'testdescription',
           @operation.model.announcement == 'testannouncement'
         ]
-        expect( condiction ).to all( be true )
+        expect( conditions ).to all( be true )
+      end
+
+      it 'creates a record in database' do
+        expect( @operation.model.persisted? ).to be true
       end
 
       it 'adds creator to member' do
