@@ -7,6 +7,12 @@ RSpec.describe BroadcastService do
   describe '#process' do
     context 'when given valid params' do
 
+      around(:each) do |example|
+        BroadcastService.listener_toggle = true
+        example.run
+        BroadcastService.listener_toggle = false
+      end
+
       it 'fire a broadcast to event create listener' do
 
         expect(EventCreateListener).to receive(:on_issue_created).with(@issue,@members[0])
@@ -21,24 +27,6 @@ RSpec.describe BroadcastService do
 
       end
 
-      it 'get broadcast service instances' do
-        @broadcast_service = BroadcastService.instance
-        broadcast_service = BroadcastService.instance
-        conditions = [
-            @broadcast_service.class.name == BroadcastService.name,
-            @broadcast_service.equal?(broadcast_service) == true
-        ]
-        expect( conditions ).to all( be true )
-      end
-
-    end
-  end
-end
-
-class BroadcastServiceSpec
-  class << self
-    def test_for_broadcastService
-      $test_for_broadcastService = true
     end
   end
 end

@@ -2,17 +2,21 @@ class BroadcastService
   include Wisper::Publisher
 
   def initialize
-    subscribe(EventCreateListener, async: true)
-    subscribe(NoticeCreateListener, async: true)
+    if BroadcastService.listener_toggle
+      subscribe(EventCreateListener, async: true)
+      subscribe(NoticeCreateListener, async: true)
+    end
   end
 
   class << self
-    def fire(event, *args)
-      instance.send(:broadcast, event, *args)
+    attr_writer :listener_toggle
+
+    def listener_toggle
+      @listener_toggle ||= !(Rails.env.test?)
     end
 
-    def instance
-      @instance ||= new
+    def fire(event, *args)
+      new.send(:broadcast, event, *args)
     end
   end
 end
