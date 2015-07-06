@@ -8,7 +8,7 @@ module PostOperation
     end
 
     def process(params)
-      validate(params[:post]) && save
+      validate(post_params(params)) && save
     end
 
   end

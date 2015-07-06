@@ -98,3 +98,13 @@ shared_context 'label with color title project and member' do
     @label.save
   end
 end
+
+shared_context 'post with project and creator' do
+  include_context 'project with members'
+  before(:example) do
+    @post = FactoryGirl.build(:post)
+    @post.user = @members[0]
+    @post.project = @project
+    @post.save(validate: false)
+  end
+end

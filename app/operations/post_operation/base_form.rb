@@ -5,7 +5,9 @@ module PostOperation
     property :name, validates: {presence: true}
     property :content, validates: {presence: true}
 
-    private
+    def post_params(params)
+      params.require(:post)
+    end
 
   end
 end
