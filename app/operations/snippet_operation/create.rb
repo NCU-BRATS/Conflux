@@ -8,7 +8,7 @@ module SnippetOperation
     end
 
     def process(params)
-      if validate(params[:snippet]) && sync
+      if validate(snippet_params(params)) && sync
         @model.project = @project
         @model.user    = @current_user
         if @model.save

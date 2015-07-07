@@ -108,3 +108,13 @@ shared_context 'post with project and creator' do
     @post.save(validate: false)
   end
 end
+
+shared_context 'snippet with project and creator' do
+  include_context 'project with members'
+  before(:example) do
+    @snippet = FactoryGirl.build(:snippet)
+    @snippet.user = @members[0]
+    @snippet.project = @project
+    @snippet.save(validate: false)
+  end
+end

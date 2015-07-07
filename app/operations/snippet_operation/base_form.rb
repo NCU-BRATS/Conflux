@@ -6,7 +6,9 @@ module SnippetOperation
     property :language, validates: {presence: true}
     property :content, validates: {presence: true}
 
-    private
+    def snippet_params(params)
+      params.require(:snippet)
+    end
 
   end
 end
