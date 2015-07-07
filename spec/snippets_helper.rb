@@ -11,4 +11,9 @@ module SnippetsHelper
       end
     end
   end
+
+  def fake_uploaded_file(filepath, mime_type)
+    uploaded_file = Rack::Test::UploadedFile.new(filepath, mime_type)
+    ActionDispatch::Http::UploadedFile.new({filename: uploaded_file.original_filename, tempfile: uploaded_file.tempfile})
+  end
 end

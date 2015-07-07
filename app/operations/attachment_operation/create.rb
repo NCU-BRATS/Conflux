@@ -15,7 +15,7 @@ module AttachmentOperation
           ParticipationOperation::Create.new(@current_user, @model).process
           BroadcastService.fire(:on_attachment_created, @model, @current_user)
         end
-      end if validate(params[:attachment])
+      end if validate(attachment_params(params))
     end
 
   end
