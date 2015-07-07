@@ -3,6 +3,7 @@ CodeClimate::TestReporter.start
 
 require 'wisper/rspec/matchers'
 require 'params_helper'
+require 'snippets_helper'
 
 Dir["./spec/support/**/*.rb"].each {|f| require f}
 
@@ -102,6 +103,7 @@ RSpec.configure do |config|
   config.include(Wisper::RSpec::BroadcastMatcher)
 
   config.include ParamsHelper
+  config.include SnippetsHelper
 
   config.before(:suite) do
     # bypass chewy when testing
