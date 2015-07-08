@@ -4,6 +4,18 @@ shared_context 'project with members' do
   end
 end
 
+shared_context 'project with members and issues' do
+  include_context 'project with members'
+
+  before(:context) do
+    @issues = 3.times.map { FactoryGirl.create(:issue) }
+    @issues.each do |issue|
+      issue.project = @project
+      issue.save(validate: false)
+    end
+  end
+end
+
 shared_context 'poll with options' do
   include_context 'project with members'
   before(:example) do
