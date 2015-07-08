@@ -8,7 +8,7 @@ module PostOperation
     end
 
     def process(params)
-      if validate(params[:post]) && sync
+      if validate(post_params(params)) && sync
         @model.project = @project
         @model.user    = @current_user
         if @model.save

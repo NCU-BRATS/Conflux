@@ -9,7 +9,9 @@ module AttachmentOperation
 
     validates :name, :path, presence: true
 
-    private
+    def attachment_params(params)
+      params.require(:attachment)
+    end
 
   end
 end

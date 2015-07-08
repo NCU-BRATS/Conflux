@@ -8,7 +8,7 @@ module SnippetOperation
     end
 
     def process(params)
-      validate(params[:snippet]) && save
+      validate(snippet_params(params)) && save
     end
 
   end
