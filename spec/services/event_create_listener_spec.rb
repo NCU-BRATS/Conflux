@@ -6,6 +6,7 @@ RSpec.describe EventCreateListener do
   include_context 'poll with options'
   include_context 'comment with commentable project and user'
   include_context 'channel with project and members'
+  include_context 'snippet with project and creator'
 
   describe '#process' do
     context 'when given valid params' do
@@ -175,6 +176,18 @@ RSpec.describe EventCreateListener do
             event.target_type == user.class.name,
             event.author_id == @members[0].id,
             event.left? == true
+        ]
+        expect(condiction).to all( be true )
+      end
+
+      it 'create a event when an attachment is created' do
+        event = EventCreateListener.on_attachment_created(@snippet,@members[0])
+        condiction = [
+            event.project == @snippet.project,
+            event.target_id == @snippet.id,
+            event.target_type == @snippet.class.name,
+            event.author_id == @members[0].id,
+            event.uploaded? == true
         ]
         expect(condiction).to all( be true )
       end
