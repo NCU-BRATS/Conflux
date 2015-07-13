@@ -24,6 +24,6 @@ end
 
 json.attachments do
   json.array!(@attachments) do |attachment|
-    json.extract! attachment, :id, :name
+    json.extract! attachment, :sequential_id, :name
   end
 end

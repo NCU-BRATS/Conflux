@@ -10,7 +10,7 @@ class AttachmentMentionService
 
     filtered_field = @attachment_mention_filter.filter(text) do |match, target|
       attachment_id = target.to_i
-      attachment = Attachment.where(project: project, id: attachment_id).first
+      attachment = Attachment.where(project: project, sequential_id: attachment_id).first
       mentioned_attachments << attachment if attachment
       link = link_to_mentioned_attachment(project, attachment)
       link ? match.sub("#{@attachment_mention_filter.mention_character}#{target}", link) : match
@@ -22,7 +22,7 @@ class AttachmentMentionService
   def link_to_mentioned_attachment(project, attachment)
     return nil unless attachment
     url = project_attachment_path(project, attachment)
-    "<a href='#{url}' class='attachment-mention'>#{@attachment_mention_filter.mention_character}#{attachment.id}</a>"
+    "<a href='#{url}' class='attachment-mention'>#{@attachment_mention_filter.mention_character}#{attachment.sequential_id}</a>"
   end
 
 end

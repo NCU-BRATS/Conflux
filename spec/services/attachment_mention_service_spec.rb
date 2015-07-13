@@ -13,11 +13,11 @@ RSpec.describe IssueMentionService do
       end
 
       it 'replaces pattern ~ATTACHMENT_ID with a link to the attachment' do
-        link_0 = "<a href=\"#{project_attachment_path(@project, @attachments[0])}\" class=\"attachment-mention\">~#{@attachments[0].id}</a>"
-        link_1 = "<a href=\"#{project_attachment_path(@project, @attachments[1])}\" class=\"attachment-mention\">~#{@attachments[1].id}</a>"
+        link_0 = "<a href=\"#{project_attachment_path(@project, @attachments[0])}\" class=\"attachment-mention\">~#{@attachments[0].sequential_id}</a>"
+        link_1 = "<a href=\"#{project_attachment_path(@project, @attachments[1])}\" class=\"attachment-mention\">~#{@attachments[1].sequential_id}</a>"
 
         parse_result = @attachment_mention_service.parse_mention(
-            "This is a test comment which references ~#{@attachments[0].id} and ~#{@attachments[1].id}",
+            "This is a test comment which references ~#{@attachments[0].sequential_id} and ~#{@attachments[1].sequential_id}",
             @project
         )
         expect(parse_result[:filtered_content]).to eq(
@@ -33,7 +33,7 @@ RSpec.describe IssueMentionService do
 
       it 'would return the attachments it parsed out' do
         parse_result = @attachment_mention_service.parse_mention(
-            "This is a test comment which references ~#{@attachments[0].id} and ~#{@attachments[1].id}",
+            "This is a test comment which references ~#{@attachments[0].sequential_id} and ~#{@attachments[1].sequential_id}",
             @project
         )
         expect(parse_result[:mentioned_attachments]).to eq([ @attachments[0], @attachments[1] ])
