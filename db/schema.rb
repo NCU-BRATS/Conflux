@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602075426) do
+ActiveRecord::Schema.define(version: 20150713083536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150602075426) do
     t.string   "original_filename"
     t.integer  "size"
     t.jsonb    "liked_users",       default: []
+    t.integer  "sequential_id"
   end
 
   create_table "channels", force: :cascade do |t|

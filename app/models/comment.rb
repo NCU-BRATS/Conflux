@@ -60,11 +60,14 @@ class Comment < ActiveRecord::Base
     parse_content
     parse_mentioned_member
     parse_mentioned_issue
+    parse_mentioned_sprint
+    parse_mentioned_poll
+    parse_mentioned_attachment
   end
 
   def parse_mentioned_member
     parse_result = MemberMentionService.new.parse_mention(html)
-    self.html = parse_result[:filterd_content]
+    self.html = parse_result[:filtered_content]
     mentioned_members = parse_result[:mentioned_members]
     self.mentioned_list.reverse_merge!({ 'members' => [] })
     self.mentioned_list['members'] += mentioned_members.map(&:id).as_json
@@ -73,11 +76,38 @@ class Comment < ActiveRecord::Base
 
   def parse_mentioned_issue
     parse_result = IssueMentionService.new.parse_mention(html, project)
-    self.html = parse_result[:filterd_content]
+    self.html = parse_result[:filtered_content]
     mentioned_issues = parse_result[:mentioned_issues]
     self.mentioned_list.reverse_merge!({ 'issues' => [] })
     self.mentioned_list['issues'] += mentioned_issues.map(&:id).as_json
     self.mentioned_list['issues'] = self.mentioned_list['issues'].sort.uniq
+  end
+
+  def parse_mentioned_sprint
+    parse_result = SprintMentionService.new.parse_mention(html, project)
+    self.html = parse_result[:filtered_content]
+    mentioned_sprints = parse_result[:mentioned_sprints]
+    self.mentioned_list.reverse_merge!({ 'sprints' => [] })
+    self.mentioned_list['sprints'] += mentioned_sprints.map(&:id).as_json
+    self.mentioned_list['sprints'] = self.mentioned_list['sprints'].sort.uniq
+  end
+
+  def parse_mentioned_poll
+    parse_result = PollMentionService.new.parse_mention(html, project)
+    self.html = parse_result[:filtered_content]
+    mentioned_polls = parse_result[:mentioned_polls]
+    self.mentioned_list.reverse_merge!({ 'polls' => [] })
+    self.mentioned_list['polls'] += mentioned_polls.map(&:id).as_json
+    self.mentioned_list['polls'] = self.mentioned_list['polls'].sort.uniq
+  end
+
+  def parse_mentioned_attachment
+    parse_result = AttachmentMentionService.new.parse_mention(html, project)
+    self.html = parse_result[:filtered_content]
+    mentioned_attachments = parse_result[:mentioned_attachments]
+    self.mentioned_list.reverse_merge!({ 'attachments' => [] })
+    self.mentioned_list['attachments'] += mentioned_attachments.map(&:id).as_json
+    self.mentioned_list['attachments'] = self.mentioned_list['attachments'].sort.uniq
   end
 
 end

@@ -10,6 +10,8 @@ class Attachment < ActiveRecord::Base
 
   mount_uploader :path, AttachmentUploader
 
+  acts_as_sequenced scope: :project_id
+
   update_index('projects#attachment') { self if should_reindex? }
 
   validates :type, :project, :user, presence: true

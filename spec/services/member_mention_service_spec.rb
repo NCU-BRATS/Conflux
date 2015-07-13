@@ -16,7 +16,7 @@ RSpec.describe MemberMentionService do
       link_1 = "<a href=\"#{user_path(@members[1])}\" class=\"user-mention\">@#{@members[1].name}</a>"
 
       parse_result = @member_mention_service.parse_mention("This is a test comment which references @#{@members[0].name} and @#{@members[1].name}")
-      expect(parse_result[:filterd_content]).to eq(
+      expect(parse_result[:filtered_content]).to eq(
         "This is a test comment which references #{link_0} and #{link_1}"
       )
     end
@@ -24,7 +24,7 @@ RSpec.describe MemberMentionService do
     it 'would not replaced pattern @USER_NAME with a link if user is not exist' do
       paragraph = "This is a test comment which references @NOT_EXIST_USER."
       parse_result = @member_mention_service.parse_mention(paragraph)
-      expect(parse_result[:filterd_content]).to eq(paragraph)
+      expect(parse_result[:filtered_content]).to eq(paragraph)
     end
 
     it 'would return the users it parsed out' do

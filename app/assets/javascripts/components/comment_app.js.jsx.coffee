@@ -246,17 +246,41 @@
       insertTpl: "${atwho-at}${sequential_id}",
       searchKey: "title"
 
+    $element.atwho
+      at: '!'
+      displayTpl: "<li>${title}</li>"
+      insertTpl: "${atwho-at}${sequential_id}",
+      searchKey: "title"
+
+    $element.atwho
+      at: '^'
+      displayTpl: "<li>${title}</li>"
+      insertTpl: "${atwho-at}${sequential_id}",
+      searchKey: "title"
+
+    $element.atwho
+      at: '~'
+      displayTpl: "<li>${name}</li>"
+      insertTpl: "${atwho-at}${sequential_id}",
+      searchKey: "name"
+
     $element.on 'inserted.atwho', => @setState({commentText: $element.val()})
 
     if @suggestions
       $element.atwho 'load', '@', @suggestions.members
       $element.atwho 'load', '#', @suggestions.issues
+      $element.atwho 'load', '!', @suggestions.sprints
+      $element.atwho 'load', '^', @suggestions.polls
+      $element.atwho 'load', '~', @suggestions.attachments
     else
       $suggestionsPath = $element.attr('data-suggestions-path')
       $.getJSON($suggestionsPath).done (data) =>
         @suggestions = data
         $element.atwho 'load', '@', data.members
         $element.atwho 'load', '#', data.issues
+        $element.atwho 'load', '!', data.sprints
+        $element.atwho 'load', '^', data.polls
+        $element.atwho 'load', '~', data.attachments
 
   handleSubmit: (e) ->
     e.preventDefault()
