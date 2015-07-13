@@ -12,7 +12,7 @@ RSpec.describe IssueMentionService do
         @issue_mention_service = IssueMentionService.new
       end
 
-      it 'replaces pattern @ISSUE_ID with a link to the issue' do
+      it 'replaces pattern #ISSUE_ID with a link to the issue' do
         link_0 = "<a href=\"#{project_issue_path(@project, @issues[0])}\" class=\"issue-mention\">##{@issues[0].sequential_id}</a>"
         link_1 = "<a href=\"#{project_issue_path(@project, @issues[1])}\" class=\"issue-mention\">##{@issues[1].sequential_id}</a>"
 
@@ -25,7 +25,7 @@ RSpec.describe IssueMentionService do
         )
       end
 
-      it 'would not replaced pattern @ISSUE_ID with a link if issue is not exist' do
+      it 'would not replaced pattern #ISSUE_ID with a link if issue is not exist' do
         paragraph = "This is a test comment which references #NOT_EXIST_ISSUE."
         parse_result = @issue_mention_service.parse_mention(paragraph, @project)
         expect(parse_result[:filtered_content]).to eq(paragraph)
