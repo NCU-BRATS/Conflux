@@ -16,6 +16,42 @@ shared_context 'project with members and issues' do
   end
 end
 
+shared_context 'project with members and sprints' do
+  include_context 'project with members'
+
+  before(:context) do
+    @sprints = 3.times.map { FactoryGirl.create(:sprint) }
+    @sprints.each do |sprint|
+      sprint.project = @project
+      sprint.save(validate: false)
+    end
+  end
+end
+
+shared_context 'project with members and polls' do
+  include_context 'project with members'
+
+  before(:context) do
+    @polls = 3.times.map { FactoryGirl.create(:poll) }
+    @polls.each do |poll|
+      poll.project = @project
+      poll.save(validate: false)
+    end
+  end
+end
+
+shared_context 'project with members and attachments' do
+  include_context 'project with members'
+
+  before(:context) do
+    @attachments = 3.times.map { FactoryGirl.create(:attachment) }
+    @attachments.each do |attachment|
+      attachment.project = @project
+      attachment.save(validate: false)
+    end
+  end
+end
+
 shared_context 'poll with options' do
   include_context 'project with members'
   before(:example) do
