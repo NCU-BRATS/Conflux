@@ -52,7 +52,7 @@ gem 'active_attr'
 gem 'wisper'
 gem 'wisper-activejob', github: 'krisleech/wisper-activejob', branch: 'master'
 gem 'virtus'
-gem 'reform'
+gem 'reform', '~> 1.2.6'
 
 # responders
 gem 'responders', '~> 2.0'
