@@ -11,6 +11,8 @@ module Conflux
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -31,6 +33,6 @@ module Conflux
     config.active_record.store_full_sti_class = false
 
     config.react.addons = true
-    config.react.jsx_transform_options = {harmony: true}
+    config.react.jsx_transform_options = { harmony: true }
   end
 end
