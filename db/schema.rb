@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713083536) do
+ActiveRecord::Schema.define(version: 20150717091635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,18 @@ ActiveRecord::Schema.define(version: 20150713083536) do
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
   add_index "issues", ["sprint_id"], name: "index_issues_on_sprint_id", using: :btree
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
+
+  create_table "jwt_tokens", force: :cascade do |t|
+    t.integer  "exp"
+    t.integer  "nbf"
+    t.string   "iss"
+    t.string   "aud"
+    t.integer  "iat"
+    t.string   "sub"
+    t.datetime "last_used_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "label_links", force: :cascade do |t|
     t.integer  "label_id"
