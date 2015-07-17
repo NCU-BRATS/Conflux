@@ -30,13 +30,13 @@ gem 'pundit'
 gem 'html-pipeline'
 # html-pipeline dependencies
 gem 'rouge'
-gem 'rinku',   require: false
-gem 'gemoji',   require: false
+gem 'rinku', require: false
+gem 'gemoji', require: false
 gem 'RedCloth', require: false
-gem 'github-markdown',   require: false
-gem 'email_reply_parser',   require: false
-gem 'sanitize',   require: false
-gem 'escape_utils',   require: false
+gem 'github-markdown', require: false
+gem 'email_reply_parser', require: false
+gem 'sanitize', require: false
+gem 'escape_utils', require: false
 gem 'github-linguist'
 # generates scoped sequential IDs
 gem 'sequenced'
@@ -52,7 +52,7 @@ gem 'active_attr'
 gem 'wisper'
 gem 'wisper-activejob', github: 'krisleech/wisper-activejob', branch: 'master'
 gem 'virtus'
-gem 'reform'
+gem 'reform', '~> 1.2.6'
 
 # responders
 gem 'responders', '~> 2.0'
@@ -140,6 +140,7 @@ group :development, :test do
   gem 'web-console'
   gem 'codeclimate-test-reporter', require: nil
   gem 'database_cleaner'
+  gem 'rubocop', require: false
 end
 
 gem 'rails_12factor', group: :production
