@@ -29,15 +29,15 @@ gem 'pundit'
 # html-pipeline
 gem 'html-pipeline'
 # html-pipeline dependencies
-gem "rouge"
-gem "rinku",   :require => false
-gem "gemoji",   :require => false
-gem "RedCloth", :require => false
-gem "github-markdown",   :require => false
-gem "email_reply_parser",   :require => false
-gem "sanitize",   :require => false
-gem "escape_utils",   :require => false
-gem "github-linguist"
+gem 'rouge'
+gem 'rinku',   require: false
+gem 'gemoji',   require: false
+gem 'RedCloth', require: false
+gem 'github-markdown',   require: false
+gem 'email_reply_parser',   require: false
+gem 'sanitize',   require: false
+gem 'escape_utils',   require: false
+gem 'github-linguist'
 # generates scoped sequential IDs
 gem 'sequenced'
 # state machine
@@ -65,7 +65,9 @@ gem 'carrierwave'
 gem 'carrierwave-dropbox'
 gem 'mimetype-fu'
 gem 'mini_magick'
-gem "default_value_for", "~> 3.0.0"
+gem 'default_value_for', '~> 3.0.0'
+
+gem 'grape'
 
 # Gravatar Integration
 gem 'gravtastic'
@@ -116,7 +118,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # jQuery File Upload features multiple file selection, drag&drop support, progress bars and preview images for jQuery
-gem "jquery-fileupload-rails"
+gem 'jquery-fileupload-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
