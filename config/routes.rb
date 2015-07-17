@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ::ConfluxAPI => '/api'
+
   devise_for :users
   devise_scope :user do
     get 'profile', to: 'profiles/registrations#edit'
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :projects, except: [:edit, :update, :show, :destroy] do
     concern :commentable do
-      resources :comments , only: [:create]
+      resources :comments, only: [:create]
     end
     concern :closeable do
       member do
@@ -30,8 +32,8 @@ Rails.application.routes.draw do
         resources :messages, only: [:index, :create]
       end
       resources :messages, only: [:update, :destroy]
-      resources :issues  , concerns: [:commentable, :closeable]
-      resources :sprints , concerns: [:commentable, :closeable]
+      resources :issues, concerns: [:commentable, :closeable]
+      resources :sprints, concerns: [:commentable, :closeable]
       resources :polls,    concerns: [:commentable, :closeable] do
         resources :polling_options, only: [:update]
       end
@@ -51,13 +53,12 @@ Rails.application.routes.draw do
         resources :roles
         resources :project_roles, path: :roles
         resources :members
-        resources :labels, constraints: {id: /\d+/}
+        resources :labels, constraints: { id: /\d+/ }
         # rematch ProjectParticipation Model path to project_member_path
         resources :project_participations, path: :members
       end
       get 'suggestions', to: 'suggestions#suggestions'
     end
-
   end
   get '/projects/:id', to: redirect('/projects/%{id}/dashboard')
 
@@ -77,15 +78,13 @@ Rails.application.routes.draw do
 
   resources :users
 
-
-
   scope 'profile', as: 'profile' do
     scope module: :profiles do
       resource :notifications, only: [:show, :update]
     end
   end
 
-  resource :dashboard, controller: "dashboard", only: [:show] do
+  resource :dashboard, controller: 'dashboard', only: [:show] do
     member do
       get :events
       get :notices
