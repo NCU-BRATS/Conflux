@@ -166,3 +166,29 @@ shared_context 'snippet with project and creator' do
     @snippet.save(validate: false)
   end
 end
+
+shared_context 'project with mentionable resources' do
+  include_context 'project with members'
+  before(:example) do
+    @issues = 3.times.map { FactoryGirl.create(:issue) }
+    @issues.each do |issue|
+      issue.project = @project
+      issue.save(validate: false)
+    end
+    @sprints = 3.times.map { FactoryGirl.create(:sprint) }
+    @sprints.each do |sprint|
+      sprint.project = @project
+      sprint.save(validate: false)
+    end
+    @polls = 3.times.map { FactoryGirl.create(:poll) }
+    @polls.each do |poll|
+      poll.project = @project
+      poll.save(validate: false)
+    end
+    @attachments = 3.times.map { FactoryGirl.create(:attachment) }
+    @attachments.each do |attachment|
+      attachment.project = @project
+      attachment.save(validate: false)
+    end
+  end
+end
