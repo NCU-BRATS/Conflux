@@ -39,7 +39,7 @@ RSpec.describe CommentOperation::Create do
       end
 
       it 'adds mentioned issues to mention list' do
-        expect( @operation.model.mentioned_list['issues'].find {|p| p == @issue.id} ).not_to be nil
+        expect( @operation.model.mentioned_list['issues'].find {|p| p == @issue.sequential_id} ).not_to be nil
       end
 
       it 'fires corresponding event' do
