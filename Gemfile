@@ -68,6 +68,8 @@ gem 'mini_magick'
 gem 'default_value_for', '~> 3.0.0'
 
 gem 'grape'
+gem 'grape-entity'
+gem 'jwt'
 
 # Gravatar Integration
 gem 'gravtastic'

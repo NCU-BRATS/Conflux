@@ -4,6 +4,16 @@ shared_context 'project with members' do
   end
 end
 
+shared_context 'member jwts' do
+  before(:context) do
+    @jwts = @members.map do |member|
+      post '/api/v1/authentication', usermail: member.email, password: member.password
+      jwt = JSON.parse(response.body)
+      jwt['token']
+    end
+  end
+end
+
 shared_context 'project with members and issues' do
   include_context 'project with members'
 

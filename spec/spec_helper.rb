@@ -4,6 +4,7 @@ CodeClimate::TestReporter.start
 require 'wisper/rspec/matchers'
 require 'params_helper'
 require 'snippets_helper'
+require 'api_helper'
 
 Dir["./spec/support/**/*.rb"].each {|f| require f}
 
@@ -102,6 +103,7 @@ RSpec.configure do |config|
   # enable Wisper testing
   config.include(Wisper::RSpec::BroadcastMatcher)
 
+  config.include ApiHelper
   config.include ParamsHelper
   config.include SnippetsHelper
 
