@@ -1,6 +1,5 @@
 module V1
   class ProjectAPI < Grape::API
-
     desc 'project index'
     get do
       q = Project.with_visibility_level(:public).search(params[:q])
@@ -10,7 +9,7 @@ module V1
 
     route_param :id do
       before do
-        @project = Project.friendly.find( params[:id] )
+        @project = Project.friendly.find(params[:id])
       end
 
       desc 'project show'
@@ -18,8 +17,7 @@ module V1
         present @project, with: Projects::ProjectEntity
       end
 
-      mount V1::IssueAPI
+      mount V1::ProjectIssueAPI
     end
-
   end
 end
