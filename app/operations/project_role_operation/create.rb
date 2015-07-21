@@ -8,7 +8,7 @@ module ProjectRoleOperation
     end
 
     def process(params)
-      if validate(params[:project_role]) && sync
+      if validate(project_role_params(params)) && sync
         @model.project = @project
         @model.save
       end

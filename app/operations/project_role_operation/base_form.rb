@@ -9,5 +9,9 @@ module ProjectRoleOperation
 
     private
 
+    def project_role_params(params)
+      params.require(:project_role)
+    end
+
   end
 end

@@ -8,7 +8,7 @@ module ProjectRoleOperation
     end
 
     def process(params)
-      validate(params[:project_role]) && save
+      validate(project_role_params(params)) && save
     end
 
   end
