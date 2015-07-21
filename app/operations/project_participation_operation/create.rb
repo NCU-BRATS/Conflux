@@ -10,7 +10,7 @@ module ProjectParticipationOperation
     end
 
     def process(params)
-      if validate(params[:project_participation]) && sync
+      if validate(project_participation_params(params)) && sync
         @model.project = @project
         if @model.save
           BroadcastService.fire(:on_project_participation_created, @model, @current_user)

@@ -8,7 +8,7 @@ module ProjectParticipationOperation
     end
 
     def process(params)
-      validate(params[:project_participation]) && save
+      validate(project_participation_params(params)) && save
     end
 
   end

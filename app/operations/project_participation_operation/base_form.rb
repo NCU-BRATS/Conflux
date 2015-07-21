@@ -7,5 +7,9 @@ module ProjectParticipationOperation
 
     private
 
+    def project_participation_params(params)
+      params.require(:project_participation)
+    end
+
   end
 end
