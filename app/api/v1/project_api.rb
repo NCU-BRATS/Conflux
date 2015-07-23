@@ -18,6 +18,9 @@ module V1
       end
 
       mount V1::ProjectIssueAPI
+      mount V1::ProjectAttachmentAPI
+      mount V1::ProjectPostAPI
+      mount V1::ProjectSnippetAPI
     end
   end
 end
