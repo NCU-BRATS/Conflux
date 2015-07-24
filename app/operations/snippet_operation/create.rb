@@ -16,6 +16,10 @@ module SnippetOperation
           BroadcastService.fire(:on_attachment_created, @model, @current_user)
         end
       end
+
+      unless errors.valid?
+        raise ::Grape::Exceptions::Base.new(message: 'validation failed', status: 400)
+      end
     end
 
   end
