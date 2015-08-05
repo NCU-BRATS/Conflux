@@ -12,6 +12,14 @@ class Projects::IssuesController < Projects::ApplicationController
     respond_with @project, @issue
   end
 
+  def participations
+    respond_with @project, @issue
+  end
+
+  def comments
+    respond_with @project, @issue
+  end
+
   def new
     @form = IssueOperation::Create.new(current_user, @project)
     respond_with @project, @form

@@ -32,7 +32,10 @@ Rails.application.routes.draw do
         resources :messages, only: [:index, :create]
       end
       resources :messages, only: [:update, :destroy]
-      resources :issues, concerns: [:commentable]
+      resources :issues, concerns: [:commentable] do
+        get 'participations', on: :member
+        get 'comments', on: :member
+      end
       resources :sprints, concerns: [:commentable]
       resources :polls,    concerns: [:commentable, :closeable] do
         resources :polling_options, only: [:update]
