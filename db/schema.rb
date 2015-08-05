@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717091635) do
+ActiveRecord::Schema.define(version: 20150821065258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,10 @@ ActiveRecord::Schema.define(version: 20150717091635) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "assignee_id"
+    t.float    "order",         default: 0.0
+    t.integer  "point",         default: 0
+    t.text     "memo"
+    t.text     "memo_html"
   end
 
   add_index "issues", ["assignee_id"], name: "index_issues_on_assignee_id", using: :btree
@@ -304,7 +308,9 @@ ActiveRecord::Schema.define(version: 20150717091635) do
     t.datetime "due_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "issues_count",  default: 0, null: false
+    t.integer  "issues_count",  default: 0,     null: false
+    t.jsonb    "statuses",      default: []
+    t.boolean  "archived",      default: false
   end
 
   add_index "sprints", ["project_id"], name: "index_sprints_on_project_id", using: :btree
