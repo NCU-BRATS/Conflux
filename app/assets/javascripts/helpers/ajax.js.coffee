@@ -1,5 +1,9 @@
 @Ajaxer =
 
+  get: ( setting ) ->
+
+    @ajax( 'GET', setting )
+
   patch: ( setting ) ->
 
     @ajax( 'PATCH', setting )
@@ -22,6 +26,7 @@
     $.ajax( path, {
       method: method
       data: data
+      contentType: setting.contentType || 'application/x-www-form-urlencoded; charset=UTF-8'
     })
     .done ( data, status, xhr ) =>
       done( data, status, xhr ) if done
