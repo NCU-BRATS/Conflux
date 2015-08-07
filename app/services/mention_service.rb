@@ -1,7 +1,7 @@
 class MentionService
   def self.parse_mentioned(content, project)
     content, mentioned_resource = parse_mentioned_resources(['member'], content)
-    content, mentioned_project_resource = parse_mentioned_project_resources(['attachment', 'issue', 'sprint', 'poll'], content, project)
+    content, mentioned_project_resource = parse_mentioned_project_resources(['attachment', 'issue', 'sprint', 'poll', 'message'], content, project)
     return content, mentioned_resource.merge(mentioned_project_resource)
   end
 
