@@ -6,16 +6,26 @@
     commentable_type:        React.PropTypes.string.isRequired
     commentable_resource_id: React.PropTypes.any.isRequired
     commentable_record_id:   React.PropTypes.any.isRequired
+    commentable_socket_path: React.PropTypes.string
     is_user_in_project:      React.PropTypes.bool.isRequired
 
   getInitialState: () ->
     return {comments: @props.comments}
 
+  componentWillReceiveProps: (props) ->
+    @setState({comments: props.comments})
+
   componentDidMount: () ->
-    PrivatePub.subscribe("/#{@props.commentable_type}/#{@props.commentable_record_id}/comments", @dataRecieve)
+    if @props.commentable_socket_path
+      PrivatePub.subscribe( @props.commentable_socket_path, @dataRecieve )
+    else
+      PrivatePub.subscribe("/#{@props.commentable_type}/#{@props.commentable_record_id}/comments", @dataRecieve)
 
   componentWillUnmount: () ->
-    PrivatePub.unsubscribe("/#{@props.commentable_type}/#{@props.commentable_record_id}/comments")
+    if @props.commentable_socket_path
+      PrivatePub.unsubscribe( @props.commentable_socket_path )
+    else
+      PrivatePub.unsubscribe("/#{@props.commentable_type}/#{@props.commentable_record_id}/comments")
 
   dataRecieve: (res, channel) ->
     @appendComment(res.data)  if res.target == 'comment' && res.action == 'create'
