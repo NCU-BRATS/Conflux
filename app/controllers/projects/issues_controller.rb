@@ -7,8 +7,6 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def show
-    @private_pub_channel1 = "/projects/#{@project.id}/issues/#{@issue.sequential_id}"
-    @private_pub_channel2 = "/issue/#{@issue.id}/comments"
     respond_with @project, @issue
   end
 
@@ -54,11 +52,11 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def private_pub_channel
-    @private_pub_channel ||= "/projects/#{@project.id}/issues/#{@form.model.sequential_id}"
+    @private_pub_channel ||= "/projects/#{@project.id}/issues"
   end
 
   def private_pub_data
-    @form.model.as_json(include: [ :user, :sprint, :assignee, :labels, :participations => { include: [ :user ] } ])
+    @form.model.as_json(include: [ :user, :sprint, :assignee, :labels ])
   end
 
 end
