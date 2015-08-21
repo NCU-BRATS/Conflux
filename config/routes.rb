@@ -32,8 +32,8 @@ Rails.application.routes.draw do
         resources :messages, only: [:index, :create]
       end
       resources :messages, only: [:update, :destroy]
-      resources :issues, concerns: [:commentable, :closeable]
-      resources :sprints, concerns: [:commentable, :closeable]
+      resources :issues, concerns: [:commentable]
+      resources :sprints, concerns: [:commentable]
       resources :polls,    concerns: [:commentable, :closeable] do
         resources :polling_options, only: [:update]
       end

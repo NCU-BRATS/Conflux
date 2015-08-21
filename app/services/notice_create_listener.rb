@@ -1,21 +1,11 @@
 class NoticeCreateListener
   class << self
     def on_issue_created(issue, current_user)
-      mentioned_members = issue.comments.first.mentioned_list['members']
-      create_notice_without_mentioned(issue, current_user, :created, mentioned_members)
-    end
-
-    def on_issue_closed(issue, current_user)
-      create_notice(issue, current_user, :closed)
-    end
-
-    def on_issue_reopened(issue, current_user)
-      create_notice(issue, current_user, :reopened)
+      create_notice_without_mentioned(issue, current_user, :created, [])
     end
 
     def on_sprint_created(sprint, current_user)
-      mentioned_members = sprint.comments.first.mentioned_list['members']
-      create_notice_without_mentioned(sprint, current_user, :created, mentioned_members)
+      create_notice_without_mentioned(sprint, current_user, :created, [])
     end
 
     def on_sprint_closed(sprint, current_user)

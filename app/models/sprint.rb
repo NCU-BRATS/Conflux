@@ -1,5 +1,4 @@
 class Sprint < ActiveRecord::Base
-  include CloseableConcern
   include ParserConcern
   include ParticipableConcern
   include CommentableConcern
@@ -12,11 +11,9 @@ class Sprint < ActiveRecord::Base
 
   acts_as_sequenced scope: :project_id
 
-  accepts_nested_attributes_for :comments
-
   update_index('projects#sprint') { self if should_reindex? }
 
-  validates :title, :status, :project, :user, presence: true
+  validates :title, :project, :user, presence: true
 
   def to_param
     self.sequential_id.to_s

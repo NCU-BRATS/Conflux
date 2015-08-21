@@ -10,6 +10,9 @@ module IssueOperation
     property :assignee_id
     property :sprint_id
     property :label_ids
+    property :point
+    property :order
+    property :memo
 
     validates :title, presence: true
 

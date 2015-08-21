@@ -39,28 +39,6 @@ class Projects::IssuesController < Projects::ApplicationController
     respond_with @project, @form
   end
 
-  def close
-    @form = IssueOperation::Close.new(current_user, @project, @issue)
-    @form.process
-    PrivatePub.publish_to( private_pub_channel, {
-         action: 'update',
-         target: 'issue',
-         data:   private_pub_data
-     })
-    respond_with @project, @form
-  end
-
-  def reopen
-    @form = IssueOperation::Reopen.new(current_user, @project, @issue)
-    @form.process
-    PrivatePub.publish_to( private_pub_channel, {
-         action: 'update',
-         target: 'issue',
-         data:   private_pub_data
-     })
-    respond_with @project, @form
-  end
-
   protected
 
   def resource

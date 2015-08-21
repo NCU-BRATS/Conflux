@@ -8,7 +8,6 @@ class Projects::SprintsController < Projects::ApplicationController
 
   def show
     @private_pub_channel1 = "/projects/#{@project.id}/sprints/#{@sprint.sequential_id}"
-    @private_pub_channel2 = "/sprint/#{@sprint.id}/comments"
     respond_with @project, @sprint
   end
 
@@ -31,28 +30,6 @@ class Projects::SprintsController < Projects::ApplicationController
   def update
     @form = SprintOperation::Update.new(current_user, @project, @sprint)
     @form.process(params)
-    PrivatePub.publish_to( private_pub_channel, {
-        action: 'update',
-        target: 'sprint',
-        data:   private_pub_data
-    })
-    respond_with @project, @form
-  end
-
-  def close
-    @form = SprintOperation::Close.new(current_user, @project, @sprint)
-    @form.process
-    PrivatePub.publish_to( private_pub_channel, {
-        action: 'update',
-        target: 'sprint',
-        data:   private_pub_data
-    })
-    respond_with @project, @form
-  end
-
-  def reopen
-    @form = SprintOperation::Reopen.new(current_user, @project, @sprint)
-    @form.process
     PrivatePub.publish_to( private_pub_channel, {
         action: 'update',
         target: 'sprint',

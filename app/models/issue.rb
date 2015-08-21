@@ -1,5 +1,4 @@
 class Issue < ActiveRecord::Base
-  include CloseableConcern
   include ParserConcern
   include ParticipableConcern
   include CommentableConcern
@@ -18,9 +17,13 @@ class Issue < ActiveRecord::Base
 
   acts_as_sequenced scope: :project_id
 
-  accepts_nested_attributes_for :comments
-
   validates :title, :status, :project, :user, presence: true
+
+  before_save :parse_content
+
+  def parse_content
+    self.memo_html = self.class.parse memo
+  end
 
   def to_param
     self.sequential_id.to_s

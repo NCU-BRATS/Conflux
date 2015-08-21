@@ -8,6 +8,8 @@ module SprintOperation
     property :due_at
     property :status
     property :issue_ids
+    property :statuses
+    property :archived
 
     validates :title, presence: true
 
