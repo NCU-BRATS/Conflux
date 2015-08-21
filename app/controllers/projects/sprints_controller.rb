@@ -3,11 +3,13 @@ class Projects::SprintsController < Projects::ApplicationController
   def index
     @q = @project.sprints.includes(:user).search(params[:q])
     @sprints = @q.result.uniq.page(params[:page]).per(params[:per]||10)
+    @private_pub_channel1 = "/projects/#{@project.id}/sprints"
+    @private_pub_channel2 = "/projects/#{@project.id}/issues"
+    @private_pub_channel3 = '/issue/comments'
     respond_with @project, @sprints
   end
 
   def show
-    @private_pub_channel1 = "/projects/#{@project.id}/sprints/#{@sprint.sequential_id}"
     respond_with @project, @sprint
   end
 
@@ -45,11 +47,11 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def private_pub_channel
-    @private_pub_channel ||= "/projects/#{@project.id}/sprints/#{@form.model.sequential_id}"
+    @private_pub_channel ||= "/projects/#{@project.id}/sprints"
   end
 
   def private_pub_data
-    @form.model.as_json(include: [ :user, :issues, :participations => { include: [ :user ] } ])
+    @form.model.as_json(include: [ :user ])
   end
 
 end
