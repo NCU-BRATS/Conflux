@@ -3,6 +3,7 @@ class Sprint < ActiveRecord::Base
   include ParticipableConcern
   include CommentableConcern
   include EventableConcern
+  include PlannableConcern
 
   belongs_to :project
   belongs_to :user

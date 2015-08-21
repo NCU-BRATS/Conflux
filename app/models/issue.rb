@@ -4,6 +4,7 @@ class Issue < ActiveRecord::Base
   include CommentableConcern
   include LabelableConcern
   include EventableConcern
+  include PlannableConcern
 
   belongs_to :project
   belongs_to :user
