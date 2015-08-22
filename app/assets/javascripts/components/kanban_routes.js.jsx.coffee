@@ -791,6 +791,7 @@
   propTypes:
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object
+    sprint:  React.PropTypes.object
     sprints: React.PropTypes.array.isRequired
     current_user: React.PropTypes.object.isRequired
 
@@ -856,6 +857,7 @@
 
 @KanbanIssuePanelStatus = React.createClass
   propTypes:
+    sprint:  React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
 
   componentDidMount: () ->
@@ -870,10 +872,9 @@
       data: { issue: { status: status.id } }
 
   render: ->
-    issue = @props.issue
-    currentStatus = _.find issue.sprint.statuses, (status) ->
-      status.id.toString() == issue.status.toString()
-    statusItems = issue.sprint.statuses.map (status) =>
+    currentStatus = _.find @props.sprint.statuses, (status) =>
+      status.id.toString() == @props.issue.status.toString()
+    statusItems = @props.sprint.statuses.map (status) =>
       if status.name == currentStatus.name
         activeable = 'active'
       handleClick = () =>
@@ -883,7 +884,9 @@
     `<span className="kanban-issue-panel-meta">
         <span className="kanban-issue-panel-meta">狀態:</span>
         <div className="ui dropdown" ref="dropdown">
-            <div className="text simple gray bold link"> { currentStatus.name } </div>
+            <div className="text simple gray bold link">
+                { currentStatus.name }
+            </div>
             <div className="menu">
                 { statusItems }
             </div>
