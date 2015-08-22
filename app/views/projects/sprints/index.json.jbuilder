@@ -1,0 +1,1 @@
+json.partial! partial: 'projects/sprints/sprint', collection: @sprints, as: :sprint

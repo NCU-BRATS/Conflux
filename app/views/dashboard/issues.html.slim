@@ -15,10 +15,10 @@ div
       .ui.grid
         .twelve.wide.column
           .ui.header
-            - if issue.open?
-              i.green.icon.unlock
-            - elsif issue.closed?
+            - if issue.status.to_s == issue.sprint.statuses[-1]['id'].to_s
               i.red.icon.lock
+            - else
+              i.green.icon.unlock
             .content
               = link_to issue.title, project_issue_path(issue.project, issue)
 

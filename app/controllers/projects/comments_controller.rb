@@ -3,33 +3,21 @@ class Projects::CommentsController < Projects::ApplicationController
   def create
     @form = CommentOperation::Create.new(current_user, commentable)
     @form.process(params)
-    PrivatePub.publish_to( private_pub_channel, {
-         action: 'create',
-         target: 'comment',
-         data:   private_pub_data
-     })
+    publish_to 'create'
     respond_with @project, @form
   end
 
   def update
     @form = CommentOperation::Update.new(current_user, @comment)
     @form.process(params)
-    PrivatePub.publish_to( private_pub_channel, {
-        action: 'update',
-        target: 'comment',
-        data:   private_pub_data
-    })
+    publish_to 'update'
     respond_with @project, @form
   end
 
   def destroy
     @form = CommentOperation::Destroy.new(current_user, @comment)
     @form.process
-    PrivatePub.publish_to( private_pub_channel, {
-        action: 'destroy',
-        target: 'comment',
-        data:   private_pub_data
-    })
+    publish_to 'destroy'
     respond_with @project, @form
   end
 
@@ -48,8 +36,26 @@ class Projects::CommentsController < Projects::ApplicationController
     @comment ||= Comment.find(params[:id])
   end
 
-  def private_pub_channel
-    @private_pub_channel ||= "/#{@form.model.commentable_type.downcase}/#{@form.model.commentable_id}/comments"
+  def publish_to( action )
+    PrivatePub.publish_to( private_pub_channel1, {
+         action: action,
+         target: 'comment',
+         data:   private_pub_data
+     })
+
+    PrivatePub.publish_to( private_pub_channel2, {
+         action: action,
+         target: 'comment',
+         data:   private_pub_data
+     })
+  end
+
+  def private_pub_channel1
+    @private_pub_channel1 ||= "/#{@form.model.commentable_type.downcase}/#{@form.model.commentable_id}/comments"
+  end
+
+  def private_pub_channel2
+    @private_pub_channel2 ||= "/#{@form.model.commentable_type.downcase}/comments"
   end
 
   def private_pub_data

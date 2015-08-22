@@ -47,9 +47,6 @@ zh-TW:
         sprint_id: '戰役'
         labels: '標籤'
         label_ids: '標籤'
-        status:
-          open: 開啟
-          closed: 關閉
       sprint:
         sequential_id: '序號'
         title: '標題'
@@ -59,9 +56,6 @@ zh-TW:
         due_at: '結束時間'
         issues: '專屬任務'
         issue_ids: '專屬任務'
-        status:
-          open: 開啟
-          closed: 關閉
       comment:
         content: '內容'
       attachment:
@@ -92,4 +86,3 @@ zh-TW:
       format: '不符格式 ^[a-zA-Z][a-zA-Z0-9_]+$'
     user:
       format: '不符格式 ^[a-zA-Z][a-zA-Z0-9_]+$'
-

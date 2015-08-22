@@ -7,8 +7,14 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def show
-    @private_pub_channel1 = "/projects/#{@project.id}/issues/#{@issue.sequential_id}"
-    @private_pub_channel2 = "/issue/#{@issue.id}/comments"
+    respond_with @project, @issue
+  end
+
+  def participations
+    respond_with @project, @issue
+  end
+
+  def comments
     respond_with @project, @issue
   end
 
@@ -39,28 +45,6 @@ class Projects::IssuesController < Projects::ApplicationController
     respond_with @project, @form
   end
 
-  def close
-    @form = IssueOperation::Close.new(current_user, @project, @issue)
-    @form.process
-    PrivatePub.publish_to( private_pub_channel, {
-         action: 'update',
-         target: 'issue',
-         data:   private_pub_data
-     })
-    respond_with @project, @form
-  end
-
-  def reopen
-    @form = IssueOperation::Reopen.new(current_user, @project, @issue)
-    @form.process
-    PrivatePub.publish_to( private_pub_channel, {
-         action: 'update',
-         target: 'issue',
-         data:   private_pub_data
-     })
-    respond_with @project, @form
-  end
-
   protected
 
   def resource
@@ -68,11 +52,11 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def private_pub_channel
-    @private_pub_channel ||= "/projects/#{@project.id}/issues/#{@form.model.sequential_id}"
+    @private_pub_channel ||= "/projects/#{@project.id}/issues"
   end
 
   def private_pub_data
-    @form.model.as_json(include: [ :user, :sprint, :assignee, :labels, :participations => { include: [ :user ] } ])
+    @form.model.as_json(include: [ :user, :sprint, :assignee, :labels ])
   end
 
 end

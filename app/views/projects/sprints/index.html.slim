@@ -1,16 +1,8 @@
-= render partial: 'projects/page_header'
 
-- @working, @not_working = @sprints.partition {|sprint| sprint.planned? && (sprint.working? || sprint.expired?)}
+- title '任務'
 
-- unless @working.empty?
-  = render partial: 'sprint_working', collection: @working
+= subscribe_to_ujs @private_pub_channel1
+= subscribe_to_ujs @private_pub_channel2
+= subscribe_to_ujs @private_pub_channel3
 
-- unless @not_working.empty?
-  = render partial: 'sprint_not_working', collection: @not_working
-
-= paginate @sprints
-
-
-- content_for :javascripts
-  coffee:
-    $('.progress').progress()
+= react_component( 'KanbanApp', { project: @project, current_user: current_user } )

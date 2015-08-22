@@ -1,0 +1,1 @@
+json.partial! partial: 'users/participation', collection: @issue.participations, as: :participation

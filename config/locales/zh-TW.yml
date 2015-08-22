@@ -211,8 +211,6 @@ zh-TW:
       add: 新增%{target}
       edit: 編輯%{target}
       back: 返回%{target}
-      open: 開啟%{target}
-      close: 關閉%{target}
       delete: 刪除%{target}
       cancel: 取消%{target}
       write: 撰寫%{target}
@@ -355,9 +353,6 @@ zh-TW:
       status: 狀態
       attachment_type: 類型
       channel: 頻道
-    status:
-      open: 開啟
-      closed: 關閉
   notice:
     seal: 封存
     unseal: 未封存

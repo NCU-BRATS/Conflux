@@ -1,0 +1,1 @@
+json.partial! partial: 'projects/issues/issue', collection: @issues, as: :issue

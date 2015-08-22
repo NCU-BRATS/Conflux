@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe IssueOperation::Create do
 
-  include_context 'project with members'
+  include_context 'project with members and sprints'
 
   describe '#process' do
 
@@ -12,6 +12,8 @@ RSpec.describe IssueOperation::Create do
          @params = new_param({ issue:{
           title: 'testtitle',
           content: 'testcontent',
+          sprint_id: @sprints[0].id,
+          status: @sprints[0].statuses[0]['id'],
           assignee_id: @members[1].id
         }})
 
@@ -26,15 +28,13 @@ RSpec.describe IssueOperation::Create do
       it 'creates an issue with the given project, user, title and other attributes' do
         conditions = [
           @operation.model.project == @project,
+          @operation.model.sprint  == @sprints[0],
+          @operation.model.status  == @sprints[0].statuses[0]['id'].to_s,
           @operation.model.user    == @members[0],
           @operation.model.title   == 'testtitle',
           @operation.model.assignee == @members[1]
         ]
         expect( conditions ).to all( be true )
-      end
-
-      it 'creates a comment as content' do
-        expect( @operation.model.comments.first.content ).to eq('testcontent')
       end
 
       it 'adds creator to participation' do

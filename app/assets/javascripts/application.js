@@ -24,6 +24,8 @@
 //= require moment/zh-tw
 //= require bootstrap-datetimepicker
 //= require semantic_ui/semantic_ui
+//= require sortable/Sortable.min
+//= require sortable/react-sortable-mixin
 //= require private_pub
 //= require handlebars.runtime
 //= require underscore

@@ -93,3 +93,194 @@
         <input data-toggle="datatime-picker" type="text" className="datetime optional"
                value={this.props.time} name={this.props.name} onChange={this.defaultOnChange} ref="input" />
     </div>`
+
+@ContentClickEditableInput = React.createClass
+  propTypes:
+    type:         React.PropTypes.string.isRequired
+    content1:     React.PropTypes.node.isRequired
+    content2:     React.PropTypes.node.isRequired
+    onSave:       React.PropTypes.func
+    onCancel:     React.PropTypes.func
+    getFocusNode: React.PropTypes.func
+
+  mixins: [React.addons.LinkedStateMixin]
+
+  getInitialState: () ->
+    { inputValue: @props.content2 }
+
+  getFocusNode: () ->
+    @refs.input.getDOMNode()
+
+  handleSave: () ->
+    @props.onSave( @state.inputValue ) if @props.onSave
+
+  handleCancel: () ->
+    @props.onCancel( @state.inputValue ) if @props.onCancel
+    @setState( @getInitialState() )
+
+  render: ->
+    content2 =
+      `<div className="ui form">
+          <div className="field" >
+              <input type={this.props.type} ref="input" valueLink={this.linkState('inputValue')}/>
+          </div>
+      </div>`
+
+    `<ContentClickEditable
+        content1={this.props.content1}
+        content2={content2}
+        onSave={this.handleSave}
+        onCancel={this.handleCancel}
+        getFocusNode={this.getFocusNode} />`
+
+@ContentClickEditableTextArea = React.createClass
+  propTypes:
+    content1:     React.PropTypes.node.isRequired
+    content2:     React.PropTypes.node.isRequired
+    onSave:       React.PropTypes.func
+    onCancel:     React.PropTypes.func
+    getFocusNode: React.PropTypes.func
+
+  mixins: [React.addons.LinkedStateMixin]
+
+  getInitialState: () ->
+    { text: @props.content2 }
+
+  getFocusNode: () ->
+    @refs.textarea.getDOMNode()
+
+  handleSave: () ->
+    @props.onSave( @state.text ) if @props.onSave
+
+  handleCancel: () ->
+    @props.onCancel( @state.text ) if @props.onCancel
+    @setState( @getInitialState() )
+
+  render: ->
+    content2 =
+      `<div className="ui form">
+          <div className="field" >
+              <textarea type="text" ref="textarea" valueLink={this.linkState('text')}/>
+          </div>
+      </div>`
+
+    `<ContentClickEditable
+        content1={this.props.content1}
+        content2={content2}
+        onSave={this.handleSave}
+        onCancel={this.handleCancel}
+        getFocusNode={this.getFocusNode} />`
+
+@ContentClickEditable = React.createClass
+  propTypes:
+    content1:     React.PropTypes.node.isRequired
+    content2:     React.PropTypes.node.isRequired
+    onSave:       React.PropTypes.func
+    onCancel:     React.PropTypes.func
+    getFocusNode: React.PropTypes.func
+
+  getInitialState: () ->
+    { editMode: false }
+
+  handleClick: () ->
+    @setState { editMode: true }, () ->
+      if @props.getFocusNode
+        $(@props.getFocusNode()).focus()
+
+  toShowMode: () ->
+    @setState( { editMode: false } )
+
+  handleSave: (e) ->
+    e.preventDefault() if e
+    @props.onSave() if @props.onSave
+    @toShowMode()
+
+  handleCancel: (e) ->
+    e.preventDefault() if e
+    @props.onCancel() if @props.onCancel
+    @toShowMode()
+
+  render: ->
+    if @state.editMode
+      if @props.onSave
+        saveButton = ` <div className="ui button" onClick={this.handleSave}>儲存</div>`
+      `<div>
+          <div ref="content2">
+            { this.props.content2 }
+          </div>
+          <div className="ui divider" />
+          <div className="ui right floated small buttons">
+              { saveButton }
+              <div className="ui button" onClick={this.handleCancel}>取消</div>
+          </div>
+      </div>`
+    else
+      `<div className="content-click-editable" onClick={this.handleClick} title="點擊即可編輯">
+          { this.props.content1 }
+      </div>`
+
+@ContentClickEditablePopupInput = React.createClass
+  propTypes:
+    type:      React.PropTypes.string.isRequired
+    content1:  React.PropTypes.node.isRequired
+    content2:  React.PropTypes.node.isRequired
+    onSave:    React.PropTypes.func
+    focusNode: React.PropTypes.func
+    popupWidth: React.PropTypes.string
+
+  mixins: [React.addons.LinkedStateMixin]
+
+  getInitialState: () ->
+    { inputValue: @props.content2 }
+
+  handleSave: () ->
+    @props.onSave( @state.inputValue )
+
+  focusNode: () ->
+    @refs.input.getDOMNode()
+
+  render: ->
+    content2 =
+      `<div className="ui form">
+          <div className="field" >
+              <input type={this.props.type} ref="input" valueLink={this.linkState('inputValue')}/>
+          </div>
+          <div className="ui center floated buttons">
+              <div className="ui button" onClick={this.handleSave}>保存</div>
+          </div>
+      </div>`
+
+    `<ContentClickEditablePopup
+        content1={this.props.content1}
+        content2={content2}
+        popupWidth={this.props.popupWidth}
+        focusNode={this.focusNode} />`
+
+@ContentClickEditablePopup = React.createClass
+  propTypes:
+    content1:  React.PropTypes.node.isRequired
+    content2:  React.PropTypes.node.isRequired
+    focusNode: React.PropTypes.func
+    popupWidth: React.PropTypes.string
+
+  componentDidMount: () ->
+    $(@refs.content1.getDOMNode()).popup
+      popup: $(@refs.content2.getDOMNode())
+      on: 'click'
+      exclusive: true
+      onVisible: () =>
+        if @props.focusNode
+          $(@props.focusNode()).focus()
+
+  render: ->
+    if @props.popupWidth
+      style = { 'minWidth' : @props.popupWidth }
+
+    `<div>
+        <div ref="content1" title="點擊即可編輯" >
+            { this.props.content1 }
+        </div>
+        <div ref="content2" className="ui hidden transition inline popup" style={ style }>
+            { this.props.content2 }
+        </div>
+    </div>`
