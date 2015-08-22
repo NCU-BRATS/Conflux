@@ -35,10 +35,6 @@ RSpec.describe SprintOperation::Create do
         expect( conditions ).to all( be true )
       end
 
-      it 'creates a comment as content' do
-        expect( @operation.model.comments.first.content ).to eq('testcontent')
-      end
-
       it 'adds creator to participation' do
         expect( @operation.model.participations.find {|p| p.user_id == @members[0].id} ).not_to be nil
       end

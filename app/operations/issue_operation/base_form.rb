@@ -14,7 +14,9 @@ module IssueOperation
     property :order
     property :memo
 
-    validates :title, presence: true
+    validates :title,  presence: true
+    validates :sprint_id,  presence: true
+    validates :status,  presence: true
 
     def issue_params(params)
       params.require(:issue)

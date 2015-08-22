@@ -14,7 +14,7 @@ class Sprint < ActiveRecord::Base
 
   update_index('projects#sprint') { self if should_reindex? }
 
-  validates :title, :project, :user, presence: true
+  validates :title, :project, :user, :statuses, presence: true
 
   def to_param
     self.sequential_id.to_s

@@ -18,7 +18,7 @@ class Issue < ActiveRecord::Base
 
   acts_as_sequenced scope: :project_id
 
-  validates :title, :status, :project, :user, presence: true
+  validates :title, :status, :project, :sprint, :user, presence: true
 
   before_save :parse_content
 

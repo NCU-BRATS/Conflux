@@ -18,9 +18,16 @@ shared_context 'project with members and issues' do
   include_context 'project with members'
 
   before(:context) do
+    @sprint = FactoryGirl.build(:sprint)
+    @sprint.project = @project
+    @sprint.user = @members[0]
+    @sprint.save
     @issues = 3.times.map { FactoryGirl.create(:issue) }
     @issues.each do |issue|
+      issue.sprint  = @sprint
+      issue.status  = @sprint.statuses[0]['id']
       issue.project = @project
+      issue.user    = @members[0]
       issue.save(validate: false)
     end
   end
@@ -33,6 +40,7 @@ shared_context 'project with members and sprints' do
     @sprints = 3.times.map { FactoryGirl.create(:sprint) }
     @sprints.each do |sprint|
       sprint.project = @project
+      sprint.user = @members[0]
       sprint.save(validate: false)
     end
   end
@@ -95,14 +103,16 @@ end
 shared_context 'issue sprint with project members and labels' do
   include_context 'project with members'
   before(:example) do
-    @issue = FactoryGirl.build(:issue)
-    @issue.project = @project
-    @issue.user    = @members[0]
-    @issue.save
     @sprint = FactoryGirl.build(:sprint)
     @sprint.project = @project
     @sprint.user = @members[0]
     @sprint.save
+    @issue = FactoryGirl.build(:issue)
+    @issue.sprint  = @sprint
+    @issue.project = @project
+    @issue.user    = @members[0]
+    @issue.status  = @sprint.statuses[0]['id']
+    @issue.save
     @label = FactoryGirl.build(:label)
     @label.project = @project
     @label.save
@@ -110,13 +120,9 @@ shared_context 'issue sprint with project members and labels' do
 end
 
 shared_context 'commentable issue with project and user' do
-  include_context 'project with members'
+  include_context 'issue sprint with project members and labels'
   before(:example) do
-    @commentable = FactoryGirl.build(:issue)
-    @commentable.project = @project
-    @commentable.user    = @members[0]
-    @commentable.save
-    @issue = @commentable
+    @commentable = @issue
   end
 end
 
@@ -180,15 +186,19 @@ end
 shared_context 'project with mentionable resources' do
   include_context 'project with members'
   before(:example) do
-    @issues = 3.times.map { FactoryGirl.create(:issue) }
-    @issues.each do |issue|
-      issue.project = @project
-      issue.save(validate: false)
-    end
     @sprints = 3.times.map { FactoryGirl.create(:sprint) }
     @sprints.each do |sprint|
       sprint.project = @project
+      sprint.user    = @members[0]
       sprint.save(validate: false)
+    end
+    @issues = 3.times.map { FactoryGirl.create(:issue) }
+    @issues.each do |issue|
+      issue.project = @project
+      issue.user    = @members[0]
+      issue.sprint  = @sprints[0]
+      issue.status  = @sprints[0].statuses[0]['id']
+      issue.save(validate: false)
     end
     @polls = 3.times.map { FactoryGirl.create(:poll) }
     @polls.each do |poll|
