@@ -478,7 +478,7 @@
         <div className="ui large list kanban-issue-content">
             <div className="item">
                 <div className="ui image kanban-issue-avatar">
-                    <AvatarImage user={issue.assignee} size={25} />
+                    <AvatarImage user={issue.assignee} />
                 </div>
                 <div className="middle aligned content">
                     <div className="header">
