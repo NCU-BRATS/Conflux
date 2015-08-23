@@ -267,7 +267,7 @@
     $(@refs.content1.getDOMNode()).popup
       popup: $(@refs.content2.getDOMNode())
       on: 'click'
-      exclusive: true
+      exclusive: false
       onVisible: () =>
         if @props.focusNode
           $(@props.focusNode()).focus()
