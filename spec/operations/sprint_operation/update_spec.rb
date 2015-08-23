@@ -25,11 +25,6 @@ RSpec.describe SprintOperation::Update do
         expect( @sprint.due_at.strftime('%F') ).to eq '2015-07-02'
       end
 
-      it 'changes the status' do
-        subject.process( new_param( { sprint: { status: 'closed' } } ) )
-        expect( @sprint.status ).to eq 'closed'
-      end
-
       it 'changes the issues' do
         subject.process( new_param( { sprint: { issue_ids: [ @issue.id ] } } ) )
         expect( @sprint.issues.include? @issue ).to be true
@@ -38,6 +33,10 @@ RSpec.describe SprintOperation::Update do
     end
 
     context 'when given incorrect params' do
+      it 'doesnt change the statuses' do
+        subject.process( new_param( { sprint: { statuses: [ { id:3, name:'gg' } ] } } ) )
+        expect( Sprint.find(@sprint.id).statuses ).not_to eq [ { id:3, name:'gg' } ]
+      end
       it 'raise ActionController::ParameterMissing' do
         expect{ subject.process(new_param) }.to raise_error ActionController::ParameterMissing
       end

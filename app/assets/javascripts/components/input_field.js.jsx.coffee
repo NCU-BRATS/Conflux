@@ -182,10 +182,10 @@
   getInitialState: () ->
     { editMode: false }
 
-  handleClick: () ->
-    @setState { editMode: true }, () ->
-      if @props.getFocusNode
-        $(@props.getFocusNode()).focus()
+  componentDidMount: () ->
+    $(@refs.editable.getDOMNode()).click () =>
+      if !getSelection().toString()
+        @setState { editMode: true }
 
   toShowMode: () ->
     @setState( { editMode: false } )
@@ -215,7 +215,7 @@
           </div>
       </div>`
     else
-      `<div className="content-click-editable" onClick={this.handleClick} title="點擊即可編輯">
+      `<div className="content-click-editable" ref="editable" title="點擊即可編輯">
           { this.props.content1 }
       </div>`
 
@@ -267,7 +267,7 @@
     $(@refs.content1.getDOMNode()).popup
       popup: $(@refs.content2.getDOMNode())
       on: 'click'
-      exclusive: true
+      exclusive: false
       onVisible: () =>
         if @props.focusNode
           $(@props.focusNode()).focus()

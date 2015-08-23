@@ -130,7 +130,7 @@
           {icon}
           {sprint.title}
           <div className="ui label">
-              { sprint.issues_count }
+              { sprint.issues_count - sprint.issues_done_count }
           </div>
       </a>`
 
@@ -251,7 +251,7 @@
         </p>
         <p>
             <ul>
-                <li>各戰役名稱旁顯示之數字代表所屬的任務數量</li>
+                <li>各戰役名稱旁顯示之數字代表未完成任務數量</li>
                 <li>各戰役名稱旁顯示之日曆圖案代表該戰役已過期</li>
             </ul>
         </p>
@@ -478,7 +478,7 @@
         <div className="ui large list kanban-issue-content">
             <div className="item">
                 <div className="ui image kanban-issue-avatar">
-                    <AvatarImage user={issue.assignee} size={25} />
+                    <AvatarImage user={issue.assignee} />
                 </div>
                 <div className="middle aligned content">
                     <div className="header">

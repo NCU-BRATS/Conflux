@@ -52,6 +52,19 @@ RSpec.describe IssueOperation::Create do
     end
 
     context 'when given incorrect params'  do
+      it 'doesnt create record in database' do
+        @params = new_param({ issue:{
+                                title: 'testtitle',
+                                content: 'testcontent',
+                                sprint_id: @sprints[0].id,
+                                status: -1,
+                                assignee_id: @members[1].id
+                            }})
+
+        @operation = IssueOperation::Create.new(@members[0], @project)
+        @operation.process(@params)
+        expect( @operation.model.persisted? ).to be false
+      end
       it 'raise ActionController::ParameterMissing' do
         expect{ IssueOperation::Create.new(@members[0], @project).process(new_param) }.to raise_error ActionController::ParameterMissing
       end

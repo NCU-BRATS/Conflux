@@ -33,7 +33,7 @@ module V1
 
     group do
       before do
-        authenticate_user!
+        authenticate_api_user!
       end
 
       desc 'revoke jwt token'
@@ -45,7 +45,7 @@ module V1
       desc 'refresh jwt token'
       put :authentication do
         current_jwt_record.delete
-        { token: generate_jwt( current_user, 14400 ), expires_in: 14400 }
+        { token: generate_jwt( current_api_user, 14400 ), expires_in: 14400 }
       end
     end
 

@@ -19,10 +19,18 @@
   propTypes:
     user: React.PropTypes.object
     size: React.PropTypes.number
+
+  componentWillReceiveProps: (props) ->
+    @refreshPicture(props)
+
   componentDidMount: ->
-    if @props.user
-      avatarUrl = Gravtastic(@props.user.email, {size: @props.size || 60, default: 'identicon'})
+    @refreshPicture(@props)
+
+  refreshPicture: (props) ->
+    if props.user
+      avatarUrl = Gravtastic(props.user.email, {size: props.size || 60, default: 'identicon'})
       $(@refs.img.getDOMNode()).attr('src', avatarUrl)
+
   render: ->
     `<img className="ui avatar image" ref="img"></img>`
 

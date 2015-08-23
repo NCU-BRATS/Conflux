@@ -5,7 +5,7 @@ module GrapeHelper extend Grape::API::Helpers
   end
 
   def current_authorization_token
-    @authorization_toen ||= if headers['Authorization'].present? and headers['Authorization'] =~ /Bearer (.+)/
+    @authorization_token ||= if headers['Authorization'].present? and headers['Authorization'] =~ /Bearer (.+)/
       $1
     else
       error_message( "token not provided in Authorization header like 'Bearer [your_token]'", 400 )
@@ -20,11 +20,11 @@ module GrapeHelper extend Grape::API::Helpers
     @jwt_record ||= JwtToken.find_by_id( current_jwt_object[0]['jti'] )
   end
 
-  def current_user
-    @current_user ||= authenticate_user!
+  def current_api_user
+    @current_user ||= authenticate_api_user!
   end
 
-  def authenticate_user!
+  def authenticate_api_user!
     jwt_object = current_jwt_object
     jwt_record = current_jwt_record
     if jwt_record.present?
