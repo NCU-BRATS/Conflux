@@ -17,7 +17,7 @@ class ConfluxAPI < Grape::API
 
     group do
       before do
-        authenticate_user!
+        authenticate_api_user!
       end
       resources :projects do
         mount V1::ProjectAPI
