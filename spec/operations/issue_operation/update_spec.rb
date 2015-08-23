@@ -49,6 +49,10 @@ RSpec.describe IssueOperation::Update do
     end
 
     context 'when given incorrect params' do
+      it 'doesnt update record in database' do
+        subject.process( new_param( { issue: { status: -1 } } ) )
+        expect( Issue.find(@issue.id).status.to_s ).not_to eq '-1'
+      end
       it 'raise ActionController::ParameterMissing' do
         expect{ subject.process(new_param) }.to raise_error ActionController::ParameterMissing
       end
