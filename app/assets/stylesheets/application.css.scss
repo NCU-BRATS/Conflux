@@ -42,6 +42,10 @@
  @import "kanban";
  @import "poll";
 
+.not_show {
+  display: none;
+}
+
 .checkbox, .radio {
   margin-bottom: 4px;
   margin-top: 4px;

@@ -183,7 +183,7 @@
     { editMode: false }
 
   componentDidMount: () ->
-    $(@refs.editable.getDOMNode()).click () =>
+    $(@refs.editable1.getDOMNode()).click () =>
       if !getSelection().toString()
         @setState { editMode: true }
 
@@ -204,20 +204,25 @@
     if @state.editMode
       if @props.onSave
         saveButton = ` <div className="ui button" onClick={this.handleSave}>儲存</div>`
-      `<div>
-          <div ref="content2">
-            { this.props.content2 }
-          </div>
-          <div className="ui divider" />
-          <div className="ui right floated small buttons">
-              { saveButton }
-              <div className="ui button" onClick={this.handleCancel}>取消</div>
-          </div>
-      </div>`
+      editable1Class = "not_show"
     else
-      `<div className="content-click-editable" ref="editable" title="點擊即可編輯">
-          { this.props.content1 }
-      </div>`
+      editable2Class = "not_show"
+
+    `<div className="content-click-editable">
+        <div ref="editable1" title="點擊即可編輯" className={ editable1Class || "" }>
+            { this.props.content1 }
+        </div>
+        <div ref="editable2" className={ editable2Class || "" }>
+            <div>
+                { this.props.content2 }
+            </div>
+            <div className="ui divider"></div>
+            <div className="ui right floated small buttons">
+                { saveButton }
+                <div className="ui button" onClick={this.handleCancel}>取消</div>
+            </div>
+        </div>
+    </div>`
 
 @ContentClickEditablePopupInput = React.createClass
   propTypes:
