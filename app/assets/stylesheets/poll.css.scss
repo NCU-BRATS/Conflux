@@ -50,6 +50,15 @@
   }
   .contents, {
     @include flex(1);
+    .poll-container {
+      @include flexbox;
+      .poll-container-tag {
+        margin-right: 5px;
+      }
+      .poll-container-content {
+        @include flex(1);
+      }
+    }
   }
 
   .attributes {
