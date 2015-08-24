@@ -26,7 +26,7 @@
     poll = @state.poll
     `<div className='poll-app'>
         <div className='contents'>
-          <PollHeader ref='header' poll={poll}/>
+          <PollHeader ref='header' poll={poll} project={this.props.project}/>
           <div className="ui divider"/>
           <CommentApp is_user_in_project={is_user_in_project} project={this.props.project} user={this.props.user}
                       comments={this.props.comments}
@@ -41,15 +41,28 @@
 
 @PollHeader = React.createClass
   propTypes:
-    poll: React.PropTypes.object.isRequired
+    project: React.PropTypes.object.isRequired
+    poll:    React.PropTypes.object.isRequired
+
+  handleSave: (value) ->
+    Ajaxer.patch
+      path: "/projects/#{this.props.project.slug}/polls/#{this.props.poll.sequential_id}.json"
+      data: { poll: { title: value } }
+
   render: ->
     poll = @props.poll
+    content1 = ` <h3>{ poll.title }</h3>`
 
-    `<div className="poll-header">
-        <h3>
-            <PollStatusMark poll={poll} />
-            {" ^"+poll.sequential_id} {poll.title}
-        </h3>
+    `<div className="poll-container">
+        <div className="poll-container-tag">
+            <h3>
+                <PollStatusMark poll={poll} />
+                ^{ poll.sequential_id }
+            </h3>
+        </div>
+        <div className="poll-container-content">
+            <ContentClickEditableInput type="text" content1={content1} content2={poll.title} onSave={this.handleSave} />
+        </div>
     </div>`
 
 @PollStatusMark = React.createClass
