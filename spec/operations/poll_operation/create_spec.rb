@@ -12,7 +12,6 @@ RSpec.describe PollOperation::Create do
          @params = new_param({ poll:{
           title: 'test',
           allow_multiple_choice: 1,
-          content: 'test content',
           options_attributes: { '0': { 'title': 'new_option' } }
         }})
 
@@ -32,10 +31,6 @@ RSpec.describe PollOperation::Create do
           @operation.model.allow_multiple_choice == true
         ]
         expect( conditions ).to all( be true )
-      end
-
-      it 'creates a comment as content' do
-        expect( @operation.model.comments.first.content ).to eq('test content')
       end
 
       it 'adds creator to participation' do

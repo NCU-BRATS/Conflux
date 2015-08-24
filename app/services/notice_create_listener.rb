@@ -9,8 +9,7 @@ class NoticeCreateListener
     end
 
     def on_poll_created(poll, current_user)
-      mentioned_members = poll.comments.first.mentioned_list['members']
-      create_notice_without_mentioned(poll, current_user, :created, mentioned_members)
+      create_notice(poll, current_user, :created)
     end
 
     def on_poll_closed(poll, current_user)
