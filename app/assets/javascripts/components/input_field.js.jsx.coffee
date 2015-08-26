@@ -102,6 +102,7 @@
     onSave:       React.PropTypes.func
     onCancel:     React.PropTypes.func
     getFocusNode: React.PropTypes.func
+    quickSave:    React.PropTypes.bool
 
   mixins: [React.addons.LinkedStateMixin]
 
@@ -118,11 +119,22 @@
     @props.onCancel( @state.inputValue ) if @props.onCancel
     @setState( @getInitialState() )
 
+  handleOnEnter: (e) ->
+    if e.keyCode == 27
+      @toShowMode()
+    if @props.quickSave && e.keyCode == 13
+      if @props.content2 != @state.inputValue
+        @handleSave(e)
+      @toShowMode()
+
+  setToShowMode: (toShowMode) ->
+    @toShowMode = toShowMode
+
   render: ->
     content2 =
       `<div className="ui form">
           <div className="field" >
-              <input type={this.props.type} ref="input" valueLink={this.linkState('inputValue')}/>
+              <input type={this.props.type} ref="input" valueLink={this.linkState('inputValue')} onKeyUp={this.handleOnEnter}/>
           </div>
       </div>`
 
@@ -131,7 +143,9 @@
         content2={content2}
         onSave={this.handleSave}
         onCancel={this.handleCancel}
-        getFocusNode={this.getFocusNode} />`
+        getFocusNode={this.getFocusNode}
+        simpleMode={this.props.quickSave}
+        setToShowMode={this.setToShowMode}/>`
 
 @ContentClickEditableTextArea = React.createClass
   propTypes:
@@ -178,11 +192,14 @@
     onSave:       React.PropTypes.func
     onCancel:     React.PropTypes.func
     getFocusNode: React.PropTypes.func
+    setToShowMode:React.PropTypes.func
+    simpleMode:   React.PropTypes.bool
 
   getInitialState: () ->
     { editMode: false }
 
   componentDidMount: () ->
+    @props.setToShowMode( @toShowMode )
     $(@refs.editable1.getDOMNode()).click () =>
       if !getSelection().toString()
         @setState { editMode: true }
@@ -202,11 +219,21 @@
 
   render: ->
     if @state.editMode
-      if @props.onSave
-        saveButton = ` <div className="ui button" onClick={this.handleSave}>儲存</div>`
       editable1Class = "not_show"
     else
       editable2Class = "not_show"
+
+    unless @props.simpleMode
+      if @props.onSave
+        saveButton = ` <div className="ui button" onClick={this.handleSave}>儲存</div>`
+      control = `
+          <div>
+              <div className="ui divider"></div>
+              <div className="ui right floated small buttons">
+                  { saveButton }
+                  <div className="ui button" onClick={this.handleCancel}>取消</div>
+              </div>
+          </div>`
 
     `<div className="content-click-editable">
         <div ref="editable1" title="點擊即可編輯" className={ editable1Class || "" }>
@@ -216,11 +243,7 @@
             <div>
                 { this.props.content2 }
             </div>
-            <div className="ui divider"></div>
-            <div className="ui right floated small buttons">
-                { saveButton }
-                <div className="ui button" onClick={this.handleCancel}>取消</div>
-            </div>
+            { control }
         </div>
     </div>`
 
