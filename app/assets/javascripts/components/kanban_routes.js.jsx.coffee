@@ -78,11 +78,11 @@
 
   openIssuePanel: (issue) ->
     @setState { issue: issue, mode: 'issue' }, () ->
-      $('#kanban-panel').sidebar('toggle')
+      $('#kanban-panel').sidebar('show')
 
   openSprintPanel: () ->
     @setState { mode: 'sprint' }, () ->
-      $('#kanban-panel').sidebar('toggle')
+      $('#kanban-panel').sidebar('show')
 
   render: ->
       `<div className="kanban-app">
@@ -190,16 +190,32 @@
     current_user: React.PropTypes.object.isRequired
     openIssuePanel:  React.PropTypes.func.isRequired
 
+  getInitialState: () ->
+    { isEnable: false }
+
+  componentDidMount: () ->
+    $(@refs.kanbanPanel.getDOMNode()).sidebar
+      context: $(@refs.kanban.getDOMNode())
+      dimPage: false
+      transition: 'overlay'
+      onVisible: () =>
+        @setState({ isEnable: true })
+      onHidden: () =>
+        @setState({ isEnable: false })
+
+  closePanel: () ->
+    $(@refs.kanbanPanel.getDOMNode()).sidebar('hide')
+
   render: ->
 
     panelContent =  if @props.mode == 'issue'
-      `<KanbanIssuePanel {...this.props} />`
+      `<KanbanIssuePanel closePanel={this.closePanel} {...this.props} />`
     else
-      `<KanbanSprintPanel {...this.props} />`
+      `<KanbanSprintPanel closePanel={this.closePanel} {...this.props} />`
 
-    `<div className="pushable kanban">
+    `<div className="ui pushable kanban" ref="kanban">
         <KanbanColumns {...this.props} />
-        <KanbanPanel>
+        <KanbanPanel isEnable={this.state.isEnable} ref="kanbanPanel">
             { panelContent }
         </KanbanPanel>
     </div>`
@@ -462,7 +478,9 @@
     openIssuePanel: React.PropTypes.func.isRequired
 
   handleOnClick: () ->
-    @props.openIssuePanel( @props.issue )
+    setTimeout( ()=>
+      @props.openIssuePanel( @props.issue )
+    , 510)
 
   render: ->
     issue = @props.issue
@@ -529,25 +547,11 @@
     </div>`
 
 @KanbanPanel = React.createClass
-
-  getInitialState: () ->
-    { isEnable: false }
-
-  componentDidMount: () ->
-    $('#kanban-panel').sidebar
-      context: $('.kanban')
-      exclusive: true
-      dimPage: false
-      transition: 'overlay'
-      onVisible: () =>
-        @setState({ isEnable: true })
-      onHidden: () =>
-        @setState({ isEnable: false })
-    $('.kanban-columns').click () ->
-      $('#kanban-panel').sidebar('hide')
+  propTypes:
+    isEnable: React.PropTypes.bool.isRequired
 
   render: ->
-    if @state.isEnable
+    if @props.isEnable
       content =
         `<div>
             { this.props.children }
@@ -561,6 +565,11 @@
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     issues:  React.PropTypes.array
+    closePanel: React.PropTypes.func.isRequired
+
+  componentWillReceiveProps: (props) ->
+    unless props.sprint
+      props.closePanel()
 
   render: ->
     if @props.sprint
@@ -795,7 +804,12 @@
     issue:   React.PropTypes.object
     sprint:  React.PropTypes.object
     sprints: React.PropTypes.array.isRequired
+    closePanel:   React.PropTypes.func.isRequired
     current_user: React.PropTypes.object.isRequired
+
+  componentWillReceiveProps: (props) ->
+    unless props.issue
+      props.closePanel()
 
   render: ->
     if @props.issue
@@ -929,7 +943,7 @@
   render: ->
     content1 = ` <h1>{ this.props.issue.title } </h1>`
 
-    `<div className="ui raised segment kanban-issue-panel-container">
+    `<div className="ui segment kanban-issue-panel-container">
         <div className="kanban-issue-panel-container-tag">
             <h1>#{ this.props.issue.sequential_id }</h1>
         </div>
@@ -1059,7 +1073,7 @@
 
     content2 = `<IssueLabelsInput {...this.props} />`
 
-    `<div className="ui raised segment kanban-issue-panel-container">
+    `<div className="ui segment kanban-issue-panel-container">
         <div className="kanban-issue-panel-container-tag">
             <div className="" title="標籤">
                 <i className="bordered icon tag"/>
@@ -1113,7 +1127,7 @@
     else
       `<div dangerouslySetInnerHTML={{__html:this.props.issue.memo_html||""}} />`
 
-    `<div className="ui raised segment kanban-issue-panel-container">
+    `<div className="ui segment kanban-issue-panel-container">
             <span className="kanban-issue-panel-container-tag">
                 <div className="" title="備註">
                     <i className="bordered icon file text"/>
@@ -1149,7 +1163,7 @@
     participations = @state.participations.map (participation) ->
       `<LabelAvatar user={participation} key={participation.id} />`
 
-    `<div className="ui raised segment kanban-issue-panel-container">
+    `<div className="ui segment kanban-issue-panel-container">
         <span className="kanban-issue-panel-container-tag">
             <div className="" title="參與者">
                 <i className="bordered icon users"/>
