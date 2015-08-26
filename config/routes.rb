@@ -57,6 +57,7 @@ Rails.application.routes.draw do
         resources :roles
         resources :project_roles, path: :roles
         resources :members
+        resources :channels, only: [ :index ]
         resources :labels, constraints: { id: /\d+/ }
         # rematch ProjectParticipation Model path to project_member_path
         resources :project_participations, path: :members

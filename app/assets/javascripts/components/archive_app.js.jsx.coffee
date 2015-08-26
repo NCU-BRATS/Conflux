@@ -7,12 +7,15 @@
     { model: 'sprint' }
 
   handleOnClickMode: (e) ->
-    @setState( { model: e.target.getAttribute('data-mode') } )
+    $('.archive-menu-item').removeClass( 'active' )
+    $(e.currentTarget).addClass( 'active' )
+    @setState( { model: e.currentTarget.getAttribute('data-mode') } )
 
   render: ->
     `<div className="archive-app">
-        <div className="ui one item menu">
-            <a className="item" data-mode="sprint" onClick={this.handleOnClickMode}><i className="icon flag"/>sprint</a>
+        <div className="ui two item teal menu">
+            <a className="active item archive-menu-item" data-mode="sprint" onClick={this.handleOnClickMode}><i className="icon flag"/>sprint</a>
+            <a className="item archive-menu-item" data-mode="channel" onClick={this.handleOnClickMode}><i className="icon comments"/>channel</a>
         </div>
         <div className="">
             <ArchiveModelApp model={this.state.model} key={this.state.model} {...this.props} />
@@ -37,23 +40,19 @@
     PrivatePub.unsubscribe("/projects/#{@props.project.id}/#{@props.model}s")
 
   itemRecieve: (res, channel) ->
-    console.log('receive')
     if res.data.archived
-      @appendItem(res.data)  if res.target == @props.model && res.action == 'update'
-      @replaceItem(res.data) if res.target == @props.model && res.action == 'update'
+      @updateItem(res.data)  if res.target == @props.model && res.action == 'update'
     else
       @removeItem(res.data)  if res.target == @props.model && res.action == 'update'
 
-  appendItem: (item) ->
-    items = [ item ].concat(@state.items)
-    @setState({items: items})
-
-  replaceItem: (item) ->
+  updateItem: (item) ->
     items = @state.items.slice()
     i = _.findIndex(items, (c)-> c.id == item.id)
     if i >= 0
       items[i] = item
-      @setState({items: items})
+    else
+      items = [ item ].concat(@state.items)
+    @setState({items: items})
 
   removeItem: (item) ->
     items = @state.items.slice()
@@ -99,6 +98,7 @@
   render: ->
 
     return `<ArchiveSprintItem {...this.props}/>` if @props.model == 'sprint'
+    return `<ArchiveChannelItem {...this.props}/>` if @props.model == 'channel'
     return `<div>NOT VALID MODEL</div>`
 
 @ArchiveSprintItem = React.createClass
@@ -141,3 +141,29 @@
         </div>
     </div>`
 
+@ArchiveChannelItem = React.createClass
+  propTypes:
+    item:    React.PropTypes.object.isRequired
+    project: React.PropTypes.object.isRequired
+
+  handleOnDearchive: () ->
+    if confirm( '確定要解除封存?' )
+      Ajaxer.patch
+        path: "/projects/#{this.props.project.slug}/channels/#{this.props.item.id}.json"
+        data: { channel: { archived: false } }
+
+  render: ->
+    item = @props.item
+    `<div className="ui card">
+        <div className="content">
+            <a className="ui corner label" title="解除封存" onClick={this.handleOnDearchive}>
+                <i className="icon reply"/>
+            </a>
+            <div className="header">
+                { item.name }
+            </div>
+            <div className="meta">
+                { new moment( new Date(item.updated_at) ).fromNow() }
+            </div>
+        </div>
+    </div>`

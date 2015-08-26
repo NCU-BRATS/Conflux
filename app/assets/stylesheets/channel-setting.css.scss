@@ -1,0 +1,17 @@
+.channel-setting-app {
+  font-size: 18px;
+  .channel-setting-item {
+      @include flexbox;
+      .channel-setting-item-handle {
+        &:hover {
+          cursor: pointer;
+        }
+        margin-right: 1em;
+      }
+      .channel-setting-item-name {
+        @include flex(1);
+        font-weight: 700;
+      }
+  }
+
+}
