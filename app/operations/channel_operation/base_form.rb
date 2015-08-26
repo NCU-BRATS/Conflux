@@ -6,6 +6,8 @@ module ChannelOperation
     property :name, validates: {presence: true}
     property :description
     property :announcement
+    property :order
+    property :archived
 
     copy_validations_from Channel
 

@@ -29,7 +29,8 @@ RSpec.describe ChannelOperation::Create do
           @operation.model.project == @project,
           @operation.model.name         == 'testname',
           @operation.model.description  == 'testdescription',
-          @operation.model.announcement == 'testannouncement'
+          @operation.model.announcement == 'testannouncement',
+          @operation.model.order == @project.channels.maximum('order')
         ]
         expect( conditions ).to all( be true )
       end
