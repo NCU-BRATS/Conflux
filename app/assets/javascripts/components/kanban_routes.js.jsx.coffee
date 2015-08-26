@@ -190,8 +190,21 @@
     current_user: React.PropTypes.object.isRequired
     openIssuePanel:  React.PropTypes.func.isRequired
 
+  getInitialState: () ->
+    { isEnable: false }
+
+  componentDidMount: () ->
+    $(@refs.kanbanPanel.getDOMNode()).sidebar
+      context: $(@refs.kanban.getDOMNode())
+      dimPage: false
+      transition: 'overlay'
+      onVisible: () =>
+        @setState({ isEnable: true })
+      onHidden: () =>
+        @setState({ isEnable: false })
+
   closePanel: () ->
-    $('#kanban-panel').sidebar('hide')
+    $(@refs.kanbanPanel.getDOMNode()).sidebar('hide')
 
   render: ->
 
@@ -200,9 +213,9 @@
     else
       `<KanbanSprintPanel closePanel={this.closePanel} {...this.props} />`
 
-    `<div className="ui pushable kanban">
+    `<div className="ui pushable kanban" ref="kanban">
         <KanbanColumns {...this.props} />
-        <KanbanPanel>
+        <KanbanPanel isEnable={this.state.isEnable} ref="kanbanPanel">
             { panelContent }
         </KanbanPanel>
     </div>`
@@ -534,22 +547,11 @@
     </div>`
 
 @KanbanPanel = React.createClass
-
-  getInitialState: () ->
-    { isEnable: false }
-
-  componentDidMount: () ->
-    $('#kanban-panel').sidebar
-      context: $('.kanban')
-      dimPage: false
-      transition: 'overlay'
-      onVisible: () =>
-        @setState({ isEnable: true })
-      onHidden: () =>
-        @setState({ isEnable: false })
+  propTypes:
+    isEnable: React.PropTypes.bool.isRequired
 
   render: ->
-    if @state.isEnable
+    if @props.isEnable
       content =
         `<div>
             { this.props.children }
