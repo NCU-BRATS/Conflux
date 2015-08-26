@@ -269,6 +269,7 @@ zh-TW:
     statistic: '%{element}統計'
   project:
     project: 專案
+    archives: 倉庫
     search: 搜尋整個專案
     dashboard: 主頁
     back: 返回
