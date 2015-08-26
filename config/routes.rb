@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         get 'tasks'
         get 'attachments'
       end
+      resources :archives, only: [ :index ]
       namespace :settings do
         resources :roles
         resources :project_roles, path: :roles

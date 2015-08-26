@@ -270,6 +270,7 @@ en:
     statistic: '%{element} statistics'
   project:
     project: Project
+    archives: Archives
     search: search in project
     dashboard: Dashboard
     back: Back

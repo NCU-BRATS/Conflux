@@ -1,0 +1,3 @@
+class ArchivePolicy < ProjectResourcePolicy
+
+end

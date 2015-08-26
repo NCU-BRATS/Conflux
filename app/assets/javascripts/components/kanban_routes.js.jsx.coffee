@@ -10,7 +10,7 @@
     PrivatePub.subscribe("/projects/#{@props.project.id}/sprints", @sprintRecieve)
     PrivatePub.subscribe("/projects/#{@props.project.id}/issues", @issueRecieve)
     Ajaxer.get
-      path: "/projects/#{@props.project.id}/sprints.json?q[s]=begin_at asc&q[archived_eq]=false"
+      path: "/projects/#{@props.project.id}/sprints.json?q[s]=id asc&q[archived_eq]=false"
       done: (data) =>
         @setState({sprints: data})
 
@@ -31,8 +31,10 @@
     i = _.findIndex(sprints, (c)-> c.id == sprint.id)
     if sprint.archived
       sprints.splice(i,1)
-    else
+    else if i >= 0
       sprints[i] = sprint
+    else
+      sprints = sprints.concat(sprint)
     if @state.sprint and sprint.id == @state.sprint.id
       if sprint.archived
         @setState({sprints: sprints, sprint: null})
