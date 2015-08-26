@@ -51,7 +51,9 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def private_pub_data
-    @form.model.as_json(include: [ :user ])
+    data = @form.model.as_json(include: [ :user ])
+    data[:issues_done_count] = @form.model.issues.where(status:@form.model.statuses[-1]['id']).count
+    data
   end
 
 end
