@@ -1,7 +1,9 @@
 class Projects::ChannelsController < Projects::ApplicationController
 
   def index
-    respond_with @project, @project.channels
+    @q = @project.channels.search(params[:q])
+    @channels = @q.result.uniq.page(params[:page]).per(params[:per]||10)
+    respond_with @project, @channels
   end
 
   def show
@@ -20,7 +22,7 @@ class Projects::ChannelsController < Projects::ApplicationController
     PrivatePub.publish_to("/projects/#{@project.id}/channels", {
       action: 'create',
       target: 'channel',
-      data:   @form.model
+      data:   private_pub_data
     })
     respond_with @project, @form
   end
@@ -36,12 +38,12 @@ class Projects::ChannelsController < Projects::ApplicationController
     PrivatePub.publish_to("/projects/#{@project.id}/channels/#{@channel.id}", {
       action: 'update',
       target: 'channel',
-      data:   @channel
+      data:   private_pub_data
     })
     PrivatePub.publish_to("/projects/#{@project.id}/channels", {
       action: 'update',
       target: 'channel',
-      data:   @channel
+      data:   private_pub_data
     })
     respond_with @project, @form
   end
@@ -52,12 +54,16 @@ class Projects::ChannelsController < Projects::ApplicationController
     PrivatePub.publish_to("/projects/#{@project.id}/channels", {
       action: 'destroy',
       target: 'channel',
-      data:   @form.model
+      data:   private_pub_data
     })
     respond_with @project, @form, location: project_dashboard_path(@project)
   end
 
   protected
+
+  def private_pub_data
+    @form.model.as_json
+  end
 
   def resource
     @channel ||= Channel.friendly.find( params[:id] )
