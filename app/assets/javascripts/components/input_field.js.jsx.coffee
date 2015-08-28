@@ -199,7 +199,7 @@
     { editMode: false }
 
   componentDidMount: () ->
-    @props.setToShowMode( @toShowMode )
+    @props.setToShowMode( @toShowMode ) if @props.setToShowMode
     $(@refs.editable1.getDOMNode()).click () =>
       if !getSelection().toString()
         @setState { editMode: true }
