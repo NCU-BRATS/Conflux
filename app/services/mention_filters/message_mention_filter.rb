@@ -2,8 +2,8 @@ class MentionFilters::MessageMentionFilter < MentionFilters::MentionFilter
 
   def pattern
     /
-      (?:^|\W)                   # beginning of string or non-word char
-      \?((?>[1-9][0-9]*)-(?>[1-9][0-9]*))             # ?channel_sequential_id-message_floor
+      (?:^|\s)                   # beginning of string or non-word char
+      \:((?>[1-9][0-9]*)-(?>[1-9][0-9]*))             # ?channel_sequential_id-message_floor
       (?!\/)                     # without a trailing slash
       (?=
         \.+[ \t\W]|              # dots followed by space or non-word character
@@ -15,7 +15,7 @@ class MentionFilters::MessageMentionFilter < MentionFilters::MentionFilter
   end
 
   def mention_character
-    '?'
+    ':'
   end
 
 end

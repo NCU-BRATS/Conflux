@@ -2,7 +2,7 @@ class MentionFilters::MemberMentionFilter < MentionFilters::MentionFilter
 
   def pattern
     /
-      (?:^|\W)                   # beginning of string or non-word char
+      (?:^|\s)                   # beginning of string or non-word char
       @((?>[a-zA-Z0-9_][a-zA-Z0-9_]*))  # @username
       (?!\/)                     # without a trailing slash
       (?=
