@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         resources :project_participations, path: :members
       end
       get 'suggestions', to: 'suggestions#suggestions'
+      get 'suggestions/channels/:channel_id/messages', to: 'suggestions#messages'
     end
   end
   get '/projects/:id', to: redirect('/projects/%{id}/dashboard')

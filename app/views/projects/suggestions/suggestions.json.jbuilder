@@ -27,3 +27,9 @@ json.attachments do
     json.extract! attachment, :sequential_id, :name
   end
 end
+
+json.channels do
+  json.array!(@channels) do |channel|
+    json.extract! channel, :sequential_id, :name, :description, :announcement
+  end
+end
