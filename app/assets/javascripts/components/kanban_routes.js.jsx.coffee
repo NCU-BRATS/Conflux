@@ -12,7 +12,10 @@
     Ajaxer.get
       path: "/projects/#{@props.project.id}/sprints.json?q[s]=id asc&q[archived_eq]=false"
       done: (data) =>
-        @setState({sprints: data})
+        @setState {sprints: data}, () ->
+          params = @getURLParams()
+          if params['sprint_sequential_id']
+            @chooseSprintAndIssue( params['sprint_sequential_id'], params['issue_sequential_id'] )
 
   componentWillUnmount: () ->
     PrivatePub.unsubscribe("/projects/#{@props.project.id}/sprints")
@@ -66,23 +69,50 @@
     else
       @setState( { issues: issues } )
 
-  chooseSprintAndIssues: (sprint) ->
+  chooseSprintAndIssue: (sprint_sequential_id, issue_sequential_id) ->
+    @setState({loading: true})
+    sprint_index = _.findIndex(@state.sprints, (c)-> "#{c.sequential_id}" == sprint_sequential_id)
+    if sprint_index >= 0
+      @chooseSprintAndIssues @state.sprints[ sprint_index ], () =>
+        if issue_sequential_id
+          issue_index = _.findIndex(@state.issues, (c)-> "#{c.sequential_id}" == issue_sequential_id)
+          if issue_index >= 0
+            @openIssuePanel( @state.issues[ issue_index ] )
+          else
+            alert( '不存在的任務' )
+    else
+      alert( '不存在的戰役' )
+
+  chooseSprintAndIssues: (sprint,callback) ->
     @setState({loading: true})
     if sprint
       Ajaxer.get
         path: "/projects/#{@props.project.id}/issues.json?q[sprint_id_eq]=#{sprint.id}"
         done: (data) =>
-          @setState({sprint: sprint, issues: data, loading: false})
+          window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{sprint.sequential_id}")
+          @setState {sprint: sprint, issues: data, loading: false}, ()->
+            $('#kanban-panel').sidebar('hide')
+            callback() if callback
     else
       @setState({sprint: sprint, loading: false})
 
   openIssuePanel: (issue) ->
     @setState { issue: issue, mode: 'issue' }, () ->
+      window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}&issue_sequential_id=#{issue.sequential_id}")
       $('#kanban-panel').sidebar('show')
 
   openSprintPanel: () ->
     @setState { mode: 'sprint' }, () ->
       $('#kanban-panel').sidebar('show')
+
+  getURLParams: () ->
+    query = window.location.search.substring(1)
+    raw_vars = query.split("&")
+    params = {}
+    for v in raw_vars
+      [key, val] = v.split("=")
+      params[key] = decodeURIComponent(val)
+    params
 
   render: ->
       `<div className="kanban-app">
@@ -126,9 +156,10 @@
 
   render: ->
     sprintItems = @props.sprints.map (sprint,i) =>
+      sprintActiveClass = if @props.sprint && @props.sprint.id == sprint.id then "active" else ""
       icon = if moment(new Date(sprint.due_at)) < moment() then `<i className="red calendar icon" />`
       handleClick = @chooseSprint(sprint)
-      `<a className="item kanban-sprint-item" onClick={handleClick} key={sprint.id} >
+      `<a className={ sprintActiveClass + " item kanban-sprint-item"} onClick={handleClick} key={sprint.id} >
           {icon}
           {sprint.title}
           <div className="ui label">
@@ -139,8 +170,10 @@
     if @props.sprint
       sprintInfo = `<KanbanShowSprintInfoButton openSprintPanel={this.props.openSprintPanel}/>`
 
+    homeActiveClass = if @props.sprint then "" else "active"
+
     `<div className="ui green labeled menu">
-        <a className="active item kanban-sprint-item" onClick={this.chooseDefault()}><i className="icon home"/></a>
+        <a className={ homeActiveClass + " item kanban-sprint-item" } onClick={this.chooseDefault()}><i className="icon home"/></a>
         { sprintItems }
         <KanbanAddSprintButton project={this.props.project} />
         { sprintInfo }
@@ -389,6 +422,8 @@
     if confirm( '確定要刪除此狀態？' )
       if @props.issues.length != 0
         alert( '請先清空屬於此狀態的任務' )
+      if @props.sprint.statuses.length <= 2
+        alert( '已達戰役最少狀態數量' )
       else
         newStatuses = _.difference( @props.sprint.statuses, [ @props.status ] )
         Ajaxer.patch
@@ -463,8 +498,6 @@
     isDone = @props.isDone
     openIssuePanel = @props.openIssuePanel
     issues = @state.items.map (issue,i) =>
-      chooseIssue = (e) =>
-        handleChooseIssue(issue)
       `<KanbanIssue issue={issue} key={issue.id} openIssuePanel={openIssuePanel} isDone={isDone} />`
 
     `<div className={ "ui attached segment secondary kanban-column-container " + ( isDone ? "done" : "" ) }>
