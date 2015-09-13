@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   layout 'default'
 
-  responders :flash, :http_cache, :js_default
+  responders :flash, :js_default
   respond_to :html, :json, :js
 
   # Prevent CSRF attacks by raising an exception.
