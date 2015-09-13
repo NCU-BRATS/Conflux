@@ -145,7 +145,7 @@ group :development, :test do
 end
 
 gem 'rails_12factor', group: :production
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -161,4 +161,4 @@ gem 'airbrake'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-ruby '2.2.2'
+ruby '2.2.3'
