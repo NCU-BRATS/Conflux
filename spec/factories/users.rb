@@ -4,6 +4,9 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password { Faker::Number.number(10) }
 
-    to_create { |user| user.save(validate: false) }
+    to_create do |user|
+      user.confirm
+      user.save(validate: false)
+    end
   end
 end

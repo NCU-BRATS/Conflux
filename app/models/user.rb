@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_many :group_participations
   has_many :groups, through: :group_participations
