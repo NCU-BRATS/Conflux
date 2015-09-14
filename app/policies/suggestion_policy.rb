@@ -4,4 +4,8 @@ class SuggestionPolicy < ProjectResourcePolicy
     is_user_project_member?
   end
 
+  def messages?
+    is_user_project_member?
+  end
+
 end

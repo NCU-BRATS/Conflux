@@ -2,7 +2,7 @@ class MentionFilters::IssueMentionFilter < MentionFilters::MentionFilter
 
   def pattern
     /
-      (?:^|\W)                   # beginning of string or non-word char
+      (?:^|\s)                   # beginning of string or non-word char
       \#((?>[1-9][0-9]*))             # #issue_id
       (?!\/)                     # without a trailing slash
       (?=

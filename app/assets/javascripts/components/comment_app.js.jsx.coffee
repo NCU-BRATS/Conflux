@@ -295,6 +295,7 @@
   handleSubmit: (e) ->
     e.preventDefault()
     if @state.commentText.trim().length == 0
+      console.log('zero')
       return
     @props.handleSubmit @state.commentText, () =>
       @setState({isPreviewMode: false, commentText: ''})
@@ -309,6 +310,84 @@
       $(@refs.originModeButton.getDOMNode()).addClass('active')
       $(@refs.previewModeButton.getDOMNode()).removeClass('active')
 
+  getConfigurations: ->
+    configurations =
+      mode: 'static'
+      targets: [
+        {
+          flag: '@'
+          stages: [{
+            searchField: 'name'
+            insertField: 'name'
+            dataFetcher: (stageChoices, callback) =>
+              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+                callback(data.members)
+          }]
+        }
+        {
+          flag: '^'
+          stages: [{
+            searchField: 'title'
+            insertField: 'sequential_id'
+            dataFetcher: (stageChoices, callback) =>
+              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+                callback(data.polls)
+          }]
+        }
+        {
+          flag: '$'
+          stages: [{
+            searchField: 'name'
+            insertField: 'sequential_id'
+            dataFetcher: (stageChoices, callback) =>
+              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+                callback(data.attachments)
+          }]
+        }
+        {
+          flag: '#'
+          stages: [{
+            searchField: 'title'
+            insertField: 'sequential_id'
+            dataFetcher: (stageChoices, callback) =>
+              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+                callback(data.issues)
+          }]
+        }
+        {
+          flag: '##'
+          stages: [{
+            searchField: 'title'
+            insertField: 'sequential_id'
+            dataFetcher: (stageChoices, callback) =>
+              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+                callback(data.sprints)
+          }]
+        }
+        {
+          flag: ':'
+          stages: [
+            {
+              searchField: 'name'
+              insertField: 'sequential_id'
+              dataFetcher: (stageChoices, callback) =>
+                $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+                  callback(data.channels)
+            }
+            {
+              searchField: 'content'
+              insertField: 'sequential_id'
+              dataFetcher: (stageChoices, callback) =>
+                $.get "/projects/#{@props.project.id}/suggestions/channels/#{stageChoices[0]}/messages", (data) =>
+                  callback(data.messages)
+            }
+          ]
+        }
+      ]
+
+  handleTextareaChange: (textareaContent) ->
+    this.setState({commentText: textareaContent})
+
   render: ->
 
     if @state.isPreviewMode
@@ -320,7 +399,7 @@
       project_suggestions_path = "/projects/#{@props.project.id}/suggestions"
       displayField =
         `<div className="ui attached segment">
-            <textarea type="text" ref="textarea" placeholder="撰寫評論 支援 markdown" valueLink={this.linkState('commentText')} data-suggestions-path={project_suggestions_path}/>
+            <MentionableTextarea placeholder={'撰寫評論 支援 Markdown'} configurations={this.getConfigurations()} ref="textarea" valueLink={this.linkState('commentText')} data-suggestions-path={project_suggestions_path}/>
         </div>`
 
     `<form className="ui form" onSubmit={this.handleSubmit}>

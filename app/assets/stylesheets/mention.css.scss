@@ -1,0 +1,35 @@
+.options-box {
+    position: absolute;
+    border: 1px;
+    box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #fff;
+    margin-left: 10px;
+}
+
+.options-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.options-box ul li {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.options-box ul li:hover {
+    cursor: default;
+}
+
+.options-box ul li.selected {
+    background-color: #3434ff;
+    color: #fff;
+}
+
+.options-box strong {
+    color: red;
+}

@@ -6,6 +6,12 @@ class Projects::SuggestionsController < Projects::ApplicationController
     @sprints = @project.sprints
     @polls = @project.polls
     @attachments = @project.attachments
+    @channels = @project.channels
+  end
+
+  def messages
+    @channel = @project.channels.where(sequential_id: params[:channel_id]).first
+    @messages = @channel.messages.where('content LIKE ?', "#{params[:query]}%")
   end
 
   def model

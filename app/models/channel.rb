@@ -4,6 +4,7 @@ class Channel < ActiveRecord::Base
   include EventableConcern
 
   friendly_id :name, use: :slugged
+  acts_as_sequenced scope: :project_id
 
   belongs_to :project
 

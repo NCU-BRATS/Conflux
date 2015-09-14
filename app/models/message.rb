@@ -9,6 +9,7 @@ class Message < ActiveRecord::Base
   before_save :parse_content, if: :content_changed?
 
   update_index('projects#message') { self if should_reindex? }
+  acts_as_sequenced scope: :channel_id
 
   delegate :project, to: :channel
 

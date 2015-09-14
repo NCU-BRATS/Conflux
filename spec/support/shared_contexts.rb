@@ -92,6 +92,16 @@ shared_context 'channel with project and members' do
   end
 end
 
+shared_context 'project with members channels and messages' do
+  include_context 'project with members'
+  before(:example) do
+    @channel = FactoryGirl.build(:channel)
+    @channel.project = @project
+    @channel.members << @members[0]
+    @channel.save
+  end
+end
+
 shared_context 'first poll option was voted by first member' do
   include_context 'poll with options'
   before(:example) do
@@ -209,6 +219,16 @@ shared_context 'project with mentionable resources' do
     @attachments.each do |attachment|
       attachment.project = @project
       attachment.save(validate: false)
+    end
+    @channels = 3.times.map { FactoryGirl.create(:channel) }
+    @channels.each do |channel|
+      channel.project = @project
+      channel.save(validate: false)
+    end
+    @messages = 3.times.map { FactoryGirl.create(:message) }
+    @messages.each do |message|
+      message.channel = @channels[0]
+      message.save(validate: false)
     end
   end
 end
