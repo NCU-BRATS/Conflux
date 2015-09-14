@@ -172,7 +172,7 @@
 
     homeActiveClass = if @props.sprint then "" else "active"
 
-    `<div className="ui green labeled menu">
+    `<div className="ui green labeled menu sprint">
         <a className={ homeActiveClass + " item kanban-sprint-item" } onClick={this.chooseDefault()}><i className="icon home"/></a>
         { sprintItems }
         <KanbanAddSprintButton project={this.props.project} />
