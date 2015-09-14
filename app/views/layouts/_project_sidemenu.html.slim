@@ -7,7 +7,7 @@
   a.item.search-toggle
     i.search.icon
     span = t('action.word.search')
-  = active_link_to project_sprints_path(@project), class: 'item' do
+  = active_link_to project_kanban_path(@project), class: 'item' do
     i.calendar.outline.icon
     span = t('project.issues')
   = active_link_to project_attachments_path(@project), class: 'item' do

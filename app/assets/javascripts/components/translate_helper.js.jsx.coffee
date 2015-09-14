@@ -21,6 +21,11 @@
   targetPath: (type, target) ->
     if type == "Comment"
       result = @targetPath(target.commentable_type, target.commentable)
+    else if type == "Sprint"
+      result = 'kanban?sprint_sequential_id='  + (target.sequential_id)
+    else if type == "Issue"
+      console.log(target)
+      result = 'kanban?sprint_sequential_id='  + (target.sprint_id) + '&issue_sequential_id=' + (target.sequential_id)
     else
       result = _.pluralize(type.toLowerCase()) + '/' + (target.sequential_id || target.id)
     return result

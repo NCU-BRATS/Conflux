@@ -7,7 +7,7 @@ class Projects::IssuesController < Projects::ApplicationController
   end
 
   def show
-    respond_with @project, @issue
+    redirect_to project_kanban_url(@project, {sprint_sequential_id: @issue.sprint.sequential_id, issue_sequential_id: @issue.sequential_id})
   end
 
   def participations

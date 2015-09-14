@@ -10,7 +10,7 @@ class Projects::SprintsController < Projects::ApplicationController
   end
 
   def show
-    respond_with @project, @sprint
+    redirect_to project_kanban_url(@project, {sprint_sequential_id: @sprint.sequential_id})
   end
 
   def new

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         get 'comments', on: :member
       end
       resources :sprints, concerns: [:commentable]
+      match '/kanban' => 'sprints#index', via: :get
       resources :polls,    concerns: [:commentable, :closeable] do
         resources :polling_options, only: [:update]
       end
