@@ -29,6 +29,7 @@
           <PollHeader ref='header' poll={poll} project={this.props.project}/>
           <div className="ui divider"/>
           <CommentApp is_user_in_project={is_user_in_project} project={this.props.project} user={this.props.user}
+                      notReset={true}
                       comments={this.props.comments}
                       commentable_type="poll"
                       commentable_record_id={this.props.poll.id}

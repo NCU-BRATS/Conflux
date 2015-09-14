@@ -13,7 +13,8 @@
     return {comments: @props.comments}
 
   componentWillReceiveProps: (props) ->
-    @setState({comments: props.comments})
+    if (!@props.notReset)
+      @setState({comments: props.comments})
 
   componentDidMount: () ->
     if @props.commentable_socket_path
