@@ -27,11 +27,8 @@ RSpec.describe ProjectParticipationOperation::Destroy do
     context 'when number of the members of project is 1' do
 
       before(:context) do
-        @project = Project.new
-        @project.save(validate: false)
-        @user = User.new
-        @user.email = 'unit@test.projectparticipation'
-        @user.save(validate: false)
+        @project = FactoryGirl.create(:project)
+        @user = FactoryGirl.create(:user)
 
         @params = new_param({ project_participation: { user_id: @user.id, project_id: @project.id}})
         @operation = ProjectParticipationOperation::Create.new(@user,@project) 
