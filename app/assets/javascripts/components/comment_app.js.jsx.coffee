@@ -8,6 +8,7 @@
     commentable_record_id:   React.PropTypes.any.isRequired
     commentable_socket_path: React.PropTypes.string
     is_user_in_project:      React.PropTypes.bool.isRequired
+    is_unsubscribable:       React.PropTypes.bool
 
   getInitialState: () ->
     return {comments: @props.comments}
@@ -23,10 +24,11 @@
       PrivatePub.subscribe("/#{@props.commentable_type}/#{@props.commentable_record_id}/comments", @dataRecieve)
 
   componentWillUnmount: () ->
-    if @props.commentable_socket_path
-      PrivatePub.unsubscribe( @props.commentable_socket_path )
-    else
-      PrivatePub.unsubscribe("/#{@props.commentable_type}/#{@props.commentable_record_id}/comments")
+    if @props.is_unsubscribable
+      if @props.commentable_socket_path
+        PrivatePub.unsubscribe( @props.commentable_socket_path )
+      else
+        PrivatePub.unsubscribe("/#{@props.commentable_type}/#{@props.commentable_record_id}/comments")
 
   dataRecieve: (res, channel) ->
     @appendComment(res.data)  if res.target == 'comment' && res.action == 'create'
@@ -82,7 +84,7 @@
     project = @props.project
     is_user_in_project = @props.is_user_in_project
     commentNodes = @props.comments.map (comment) =>
-      `<Comment ref={comment.id} key={comment.id} comment={comment}
+      `<Comment key={comment.id} comment={comment}
           user={user} project={project} is_user_in_project={is_user_in_project} />`
 
     `<div className='commentList' ref='commentList'>
