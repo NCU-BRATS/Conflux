@@ -1,5 +1,13 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   mount ::ConfluxAPI => '/api'
+
+  require "sidekiq/web"
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
+  end if Rails.env.production?
+  mount Sidekiq::Web, at: "/sidekiq"
 
   devise_for :users
   devise_scope :user do
