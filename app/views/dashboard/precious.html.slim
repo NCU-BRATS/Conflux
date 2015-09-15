@@ -2,10 +2,10 @@
   - %w(comments posts snippets images others).each do |type|
     = link_to precious_dashboard_path(precious: type), class: "item #{params[:precious] == type ? 'active' : ''}" do
       = t('project.'+type)
-.ui.divider
+.ui.divider.hidden
 
 - @precious.each do |precious|
   = render  'precious/precious', precious: precious
-  .ui.divider
+  .ui.divider.hidden
   = paginate @precious
 
