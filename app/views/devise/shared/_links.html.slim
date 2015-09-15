@@ -12,7 +12,7 @@
       = t('devise.questions.forget_password')
 
   - if devise_mapping.confirmable? && controller_name != 'confirmations'
-    a.gray.link href=new_user_confirmation_path(resource_name)
+    a.gray.link href=new_confirmation_path(resource_name)
       = t('devise.questions.authentication_mail_not_received')
 
   - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
