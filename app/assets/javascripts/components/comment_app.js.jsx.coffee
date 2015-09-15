@@ -10,6 +10,9 @@
     is_user_in_project:      React.PropTypes.bool.isRequired
     is_unsubscribable:       React.PropTypes.bool
 
+  getDefaultProps: () ->
+    { is_unsubscribable: true }
+
   getInitialState: () ->
     return {comments: @props.comments}
 
