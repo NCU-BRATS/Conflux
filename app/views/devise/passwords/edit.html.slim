@@ -4,9 +4,9 @@
 .login-container style='height: 300px;margin-top: -150px;'
   .ui.attached.segment.tertiary
     h1 style='text-align:center;'
-      = "重設密碼"
+      = '重設密碼'
 
-  - title "重設密碼"
+  - title '重設密碼'
 
   .ui.attached.segment
     = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
@@ -17,6 +17,6 @@
       = f.input :password, label: '新密碼', required: true, autofocus: true
       = f.input :password_confirmation, label: '確認新密碼', required: true
 
-      = f.button :submit, '改變密碼'
+      = f.button :submit, '改變密碼', class: 'fluid'
   .ui.attached.segment.tertiary
     = render 'devise/shared/links'
