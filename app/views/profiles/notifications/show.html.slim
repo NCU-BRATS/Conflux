@@ -37,30 +37,30 @@
             | Watch
             .sub.header  = t('profile.notification.watch_description')
 
-.ui.stacked.tertiary.segment
-  .h3.ui.header
-    = t('profile.notification.email_notification')
-    .sub.header = t('profile.notification.email_notification_description')
-
-.grouped.fields
-  = form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
-    = hidden_field_tag :notification_type, 'email'
-    .field
-      .ui.toggle.checkbox.trigger-submit
-        input name='option[mention_email_enabled]' type='hidden' value='0'
-        = check_box_tag :'option[mention_email_enabled]', 1, @email_options[:mention]
-        label Mention
-    .field
-      .ui.toggle.checkbox.trigger-submit
-        input name='option[participating_email_enabled]' type='hidden' value='0'
-        = check_box_tag :'option[participating_email_enabled]', 1, @email_options[:participating]
-        label Participating
-    .field
-      .ui.toggle.checkbox.trigger-submit
-        input name='option[watch_email_enabled]' type='hidden' value='0'
-        = check_box_tag :'option[watch_email_enabled]', 1, @email_options[:watch]
-        label Watch
-
+/.ui.stacked.tertiary.segment
+/  .h3.ui.header
+/    = t('profile.notification.email_notification')
+/    .sub.header = t('profile.notification.email_notification_description')
+/
+/.grouped.fields
+/  = form_tag profile_notifications_path, method: :put, remote: true, class: 'ui form' do
+/    = hidden_field_tag :notification_type, 'email'
+/    .field
+/      .ui.toggle.checkbox.trigger-submit
+/        input name='option[mention_email_enabled]' type='hidden' value='0'
+/        = check_box_tag :'option[mention_email_enabled]', 1, @email_options[:mention]
+/        label Mention
+/    .field
+/      .ui.toggle.checkbox.trigger-submit
+/        input name='option[participating_email_enabled]' type='hidden' value='0'
+/        = check_box_tag :'option[participating_email_enabled]', 1, @email_options[:participating]
+/        label Participating
+/    .field
+/      .ui.toggle.checkbox.trigger-submit
+/        input name='option[watch_email_enabled]' type='hidden' value='0'
+/        = check_box_tag :'option[watch_email_enabled]', 1, @email_options[:watch]
+/        label Watch
+/
 .ui.stacked.tertiary.segment
   h3.ui.header
     = t('profile.notification.project_notification')
