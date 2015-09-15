@@ -15,6 +15,5 @@ h2
 
   = f.button :submit, '更新'
 h3 帳號停用
-p 不高興嗎?
 = link_to '點此停用我的帳號', registration_path(resource_name), data: { confirm: '你確定要停用嗎?' }, method: :delete, class: 'negative ui button'
 = link_to '返回', :back, class: 'ui button pull-right'

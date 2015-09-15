@@ -5,7 +5,9 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @events = current_user.recent_events.page( params[:page] ).per( params[:per] )
+    @q = current_user.projects.page.search( params[:q] )
+    @projects = @q.result.uniq.page( params[:page] ).per( params[:per] ).limit(5)
+    respond_with @projects
   end
 
   def events

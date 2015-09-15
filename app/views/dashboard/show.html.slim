@@ -1,8 +1,5 @@
 - title t('project.dashboard')
 
-h2
-  = 'Welcome to Conflux! '
-.ui.divider
 .ui.four.doubling.cards
   .card
     .image style='text-align:center'
@@ -11,40 +8,63 @@ h2
       .header style='text-align:center'
         = 'Project'
       .description style='text-align:center'
-        = 'to achieve the goal'
+        = 'task management and discussion'
     a.ui.bottom.attached.button href=new_project_path
       i.add.icon
-      = 'start to create'
+      = 'create'
   .card
     .image style='text-align:center'
-      i.massive.university.icon style='margin-top:40px;margin-bottom:40px'
+      i.massive.find.icon style='margin-top:40px;margin-bottom:40px'
     .content
       .header style='text-align:center'
-        = 'Group'
+        = 'Exploration'
       .description style='text-align:center'
-        = 'manage a group of people'
-    .ui.bottom.attached.button
-      i.add.icon
-      = 'start to create'
-  .card
-    .image style='text-align:center'
-      i.massive.database.icon style='margin-top:40px;margin-bottom:40px'
-    .content
-      .header style='text-align:center'
-        = 'System'
-      .description style='text-align:center'
-        = 'environment information'
-    .ui.bottom.attached.button
+        = 'find interesting project'
+    a.ui.bottom.attached.button href=projects_path
       i.asterisk.icon
-      = 'start to read'
+      = 'start'
   .card
     .image style='text-align:center'
-      i.massive.file.text.icon style='margin-top:40px;margin-bottom:40px'
+      i.massive.trophy.icon style='margin-top:40px;margin-bottom:40px'
     .content
       .header style='text-align:center'
-        = 'Tutorial'
+        = 'Contribution'
       .description style='text-align:center'
-        = 'some tips to use conflux'
-    .ui.bottom.attached.button
+        = 'bug reporting and code enhancement'
+    a.ui.bottom.attached.button href='https://github.com/NCU-BRATS/Conflux/issues'
       i.asterisk.icon
-      = 'start to read'
+      = 'start'
+  .card
+    .image style='text-align:center'
+      i.massive.info.circle.icon style='margin-top:40px;margin-bottom:40px'
+    .content
+      .header style='text-align:center'
+        = 'About'
+      .description style='text-align:center'
+        = 'system information'
+    .ui.bottom.attached.button.about-button
+      i.asterisk.icon
+      = 'read'
+
+.ui.divider.hidden
+
+.ui.attached.segment.tertiary
+  = '我的專案'
+- if @projects.empty?
+  .ui.attached.segment
+    = '尚無資料 可以在'
+    a href=projects_path 這裡
+    = '尋找專案加入'
+- @projects.each do |project|
+  .ui.attached.segment
+    .ui.header
+      i.cube.icon
+      .content
+        = link_to project.name, project_dashboard_path(project)
+        .sub.header.gray
+          = project.description
+
+- content_for :javascripts
+  coffee:
+    $('.about-button').click () ->
+      alert('Conflux v1.0.0-Sleeping-Beauty')
