@@ -1235,5 +1235,6 @@
                     commentable_type="issue"
                     commentable_record_id={this.props.issue.id}
                     commentable_resource_id={this.props.issue.sequential_id}
-                    commentable_socket_path="/issue/comments"  />
+                    commentable_socket_path="/issue/comments"
+                    is_unsubscribable={false} />
     </div>`

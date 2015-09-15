@@ -1,9 +1,20 @@
-h2 重寄認證信
-= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-  = f.error_notification
-  = f.full_error :confirmation_token
 
-  = f.input :email, required: true, autofocus: true
+= render partial: 'devise/login_background'
 
-  = f.button :submit, '重寄認證信'
-= render 'devise/shared/links'
+.login-container style='height: 300px;margin-top: -150px;'
+  .ui.attached.segment.tertiary
+    h1 style='text-align:center;'
+      = "重寄認證信"
+
+  - title "重寄認證信"
+
+  .ui.attached.segment
+    = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+      = f.error_notification
+      = f.full_error :confirmation_token
+
+      = f.input :email, required: true, autofocus: true
+
+      = f.button :submit, '重寄認證信'
+  .ui.attached.segment.tertiary
+    = render 'devise/shared/links'
