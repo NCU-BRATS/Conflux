@@ -102,11 +102,37 @@ class NoticeCreateListener
     end
 
     def build_recipients(target, current_user, project)
-      recipients = project.members.where(notification_level: 2)
-      recipients = recipients - target.participations.unsubscribed.includes(:user).map(&:user)
-      recipients = recipients + target.participations.subscribed.includes(:user).map(&:user).uniq
-      recipients.delete(current_user)
-      recipients
+      # 1. 撈出 project 底下所有的 project_participations
+      # 2. 撈出 project 底下所有的 members
+      # 3. 撈出 issue 底下所有的 participations
+      # 4. 針對 issue 底下所有的每個 participation 去檢查 subscribed?
+      #     檢查方法：檢查這個人他的 project_participations 裡面的 notification_level 是不是 3(default)
+      #       如果是，就去看 user 的 notification_level
+      #       如果 notification_level 是 participation 或是 watch 就放入那個空 array ，其餘移除
+      # 5. 對於剩下的 member，檢查他是不是 watch project
+      recipients = []
+      project_participations = project.project_participations.includes(:user).to_a
+      members = project_participations.map(&:user)
+      participations = target.participations
+
+      participations.each do |p|
+        pp = project_participations.find {|pp| pp.user_id == p.user_id }
+        mm = members.find {|m| m.id == pp.user_id }
+        recipients << mm if subscribed?(pp, mm)
+        project_participations -= [pp]
+      end
+
+      project_participations.each do |pp|
+        mm = members.find {|m| m.id == pp.user_id }
+        recipients << mm if subscribed?(pp, mm)
+      end
+
+      recipients - [current_user]
+    end
+
+    def subscribed?(project_participation, member)
+      target = (project_participation.notification_level == 3) ? member : project_participation
+      target.notification_level == 1 || target.notification_level == 2
     end
   end
 end
