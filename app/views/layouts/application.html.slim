@@ -14,12 +14,20 @@ html
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', '#{ENV['GA']}', 'auto');
 
-      ga('create', 'UA-67604277-1', 'auto');
+      (function(e,t){var r=e.amplitude||{};var n=t.createElement("script");n.type="text/javascript";
+      n.async=true;n.src="https://d24n15hnbwhuhn.cloudfront.net/libs/amplitude-2.4.0-min.gz.js";
+      var s=t.getElementsByTagName("script")[0];s.parentNode.insertBefore(n,s);r._q=[];function a(e){
+      r[e]=function(){r._q.push([e].concat(Array.prototype.slice.call(arguments,0)))}}var i=["init","logEvent","logRevenue","setUserId","setUserProperties","setOptOut","setVersionName","setDomain","setDeviceId","setGlobalUserProperties"];
+      for(var o=0;o<i.length;o++){a(i[o])}e.amplitude=r})(window,document);
+
+      amplitude.init('#{ENV['AMPLITUDE']}');
 
     - if current_user
       javascript:
-        ga('set', '&uid', '"#{current_user.email}"');
+        ga('set', '&uid', '#{current_user.email}');
+        amplitude.setUserId('#{current_user.email}');
 
     = csrf_meta_tags
 
