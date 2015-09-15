@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :name, format: { with: /\A[a-zA-Z][a-zA-Z0-9_]+\Z/, message: I18n.t('validation.slug.format') }
+  validates :name, format: { with: /\A\D.+\Z/, message: I18n.t('validation.slug.format') }
 
   def has_member?(user)
     members.include? user

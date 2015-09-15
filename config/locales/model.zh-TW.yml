@@ -83,6 +83,6 @@ zh-TW:
 
   validation:
     slug:
-      format: '不符格式 ^[a-zA-Z][a-zA-Z0-9_]+$'
+      format: '不符格式 ^\D.+$'
     user:
       format: '不符格式 ^[a-zA-Z][a-zA-Z0-9_]+$'

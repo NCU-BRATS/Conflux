@@ -13,7 +13,7 @@ class Channel < ActiveRecord::Base
   has_many :messages, dependent: :destroy
 
   validates :name, :project, presence: true
-  validates :name, format: { with: /\A[a-zA-Z][a-zA-Z0-9_]+\Z/, message: I18n.t('validation.slug.format') }
+  validates :name, format: { with: /\A\D.+\Z/, message: I18n.t('validation.slug.format') }
 
   before_save :parse_announcement, if: :announcement_changed?
 
