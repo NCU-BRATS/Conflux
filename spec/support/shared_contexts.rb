@@ -223,6 +223,7 @@ shared_context 'project with mentionable resources' do
     @channels = 3.times.map { FactoryGirl.create(:channel) }
     @channels.each do |channel|
       channel.project = @project
+      channel.slug = channel.name
       channel.save(validate: false)
     end
     @messages = 3.times.map { FactoryGirl.create(:message) }

@@ -12,7 +12,7 @@ RSpec.describe MentionService do
       link_issue = "<a href=\"#{project_issue_path(@project, @issues[0])}\" class=\"issue-mention\">##{@issues[0].sequential_id}</a>"
       link_poll = "<a href=\"#{project_poll_path(@project, @polls[0])}\" class=\"poll-mention\">^#{@polls[0].sequential_id}</a>"
       link_sprint = "<a href=\"#{project_sprint_path(@project, @sprints[0])}\" class=\"sprint-mention\">###{@sprints[0].sequential_id}</a>"
-      link_message = "<a href=\"#{project_channel_path(@project, @channels[0])}##{@messages[0].sequential_id}\" class=\"message-mention\">:#{@channels[0].sequential_id}-#{@messages[0].sequential_id}</a>"
+      link_message = "<a href=\"#{project_channel_path(@project, @channels[0].slug)}##{@messages[0].sequential_id}\" class=\"message-mention\">:#{@channels[0].sequential_id}-#{@messages[0].sequential_id}</a>"
 
       content, mentioned = MentionService.parse_mentioned(
           "This is a test comment which references @#{@members[0].name}, $#{@attachments[0].sequential_id}, " +

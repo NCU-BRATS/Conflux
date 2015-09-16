@@ -13,8 +13,8 @@ RSpec.describe MessageMentionService do
       end
 
       it 'replaces pattern :CHANNEL_ID-MESSAGE_ID with a link to the message' do
-        link_0 = "<a href=\"#{project_channel_path(@project, @channels[0])}##{@messages[0].sequential_id}\" class=\"message-mention\">:#{@channels[0].sequential_id}-#{@messages[0].sequential_id}</a>"
-        link_1 = "<a href=\"#{project_channel_path(@project, @channels[0])}##{@messages[1].sequential_id}\" class=\"message-mention\">:#{@channels[0].sequential_id}-#{@messages[1].sequential_id}</a>"
+        link_0 = "<a href=\"#{project_channel_path(@project, @channels[0].slug)}##{@messages[0].sequential_id}\" class=\"message-mention\">:#{@channels[0].sequential_id}-#{@messages[0].sequential_id}</a>"
+        link_1 = "<a href=\"#{project_channel_path(@project, @channels[0].slug)}##{@messages[1].sequential_id}\" class=\"message-mention\">:#{@channels[0].sequential_id}-#{@messages[1].sequential_id}</a>"
 
         parse_result = @message_mention_service.parse_mention(
             "This is a test comment which references :#{@channels[0].sequential_id}-#{@messages[0].sequential_id} and :#{@channels[0].sequential_id}-#{@messages[1].sequential_id}",
