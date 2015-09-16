@@ -42,20 +42,14 @@ class Projects::CommentsController < Projects::ApplicationController
          target: 'comment',
          data:   private_pub_data
      })
-
-    PrivatePub.publish_to( private_pub_channel2, {
-         action: action,
-         target: 'comment',
-         data:   private_pub_data
-     })
   end
 
   def private_pub_channel1
-    @private_pub_channel1 ||= "/#{@form.model.commentable_type.downcase}/#{@form.model.commentable_id}/comments"
-  end
-
-  def private_pub_channel2
-    @private_pub_channel2 ||= "/#{@form.model.commentable_type.downcase}/comments"
+    if @form.model.commentable_type == 'Issue'
+      @private_pub_channel1 ||= "/projects/#{@project.id}/issues/comments"
+    else
+      @private_pub_channel1 ||= "/#{@form.model.commentable_type.downcase}/#{@form.model.commentable_id}/comments"
+    end
   end
 
   def private_pub_data

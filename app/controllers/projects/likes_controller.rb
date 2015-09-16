@@ -33,13 +33,18 @@ class Projects::LikesController < Projects::ApplicationController
 
   def private_pub_decide
     case @favor
-      when Comment
-        @private_pub_channel = "/#{@favor.commentable_type.downcase}/#{@favor.commentable_id}/comments"
-        @private_pub_action  = 'update'
-        @private_pub_target  = 'comment'
-        @private_pub_data    = @favor.as_json(include: :user)
+    when Comment
+      case @favor.commentable_type
+      when 'Issue'
+        @private_pub_channel = "/projects/#{@project.id}/issues/comments"
       else
-        nil
+        @private_pub_channel = "/#{@favor.commentable_type.downcase}/#{@favor.commentable_id}/comments"
+      end
+      @private_pub_action  = 'update'
+      @private_pub_target  = 'comment'
+      @private_pub_data    = @favor.as_json(include: :user)
+    else
+      nil
     end
   end
 

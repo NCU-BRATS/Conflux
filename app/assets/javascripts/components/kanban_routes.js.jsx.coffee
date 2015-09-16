@@ -1229,12 +1229,13 @@
         @setState({comments: data})
 
   render: ->
+    commentableSocketPath = "/projects/#{@props.project.id}/issues/comments"
     `<div className="">
         <CommentApp is_user_in_project={true} project={this.props.project} user={this.props.current_user}
                     comments={this.state.comments}
                     commentable_type="issue"
                     commentable_record_id={this.props.issue.id}
                     commentable_resource_id={this.props.issue.sequential_id}
-                    commentable_socket_path="/issue/comments"
+                    commentable_socket_path={commentableSocketPath}
                     is_unsubscribable={false} />
     </div>`
