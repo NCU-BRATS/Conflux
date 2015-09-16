@@ -16,10 +16,10 @@ GIT
 
 GIT
   remote: git://github.com/krisleech/wisper-activejob.git
-  revision: 9e43c6c61bc8f3ea0fb2de764624cd8138a49f83
+  revision: a13810620d9bcaba6825842f9746fbdefdbb7b17
   branch: master
   specs:
-    wisper-activejob (0.0.1)
+    wisper-activejob (0.0.2)
       rails (~> 4.2)
       wisper
 
@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: git://github.com/toptal/chewy.git
-  revision: e4d25ad8e42e37d1241ff5cd49ed69b21b84d12a
+  revision: a4c5d5816218332f2d16449487a18054e18fa210
   branch: master
   specs:
     chewy (0.8.1)
@@ -194,7 +194,7 @@ GEM
       activerecord (>= 3.2.0, < 5.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.5.1)
+    devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -212,12 +212,12 @@ GEM
       railties (~> 4.0)
     dropbox-sdk (1.6.4)
       json
-    elasticsearch (1.0.12)
-      elasticsearch-api (= 1.0.12)
-      elasticsearch-transport (= 1.0.12)
-    elasticsearch-api (1.0.12)
+    elasticsearch (1.0.13)
+      elasticsearch-api (= 1.0.13)
+      elasticsearch-transport (= 1.0.13)
+    elasticsearch-api (1.0.13)
       multi_json
-    elasticsearch-transport (1.0.12)
+    elasticsearch-transport (1.0.13)
       faraday
       multi_json
     em-http-request (1.1.2)
@@ -335,14 +335,14 @@ GEM
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
-    mime-types (2.6.1)
+    mime-types (2.6.2)
     mimetype-fu (0.1.2)
     mini_magick (4.2.7)
     mini_portile (0.6.2)
     minitest (5.8.0)
     momentjs-rails (2.10.3)
       railties (>= 3.1)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nenv (0.2.0)
@@ -545,7 +545,7 @@ GEM
     websocket-driver (0.5.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    wisper (1.6.0)
+    wisper (1.6.1)
     wisper-rspec (0.0.2)
 
 PLATFORMS
