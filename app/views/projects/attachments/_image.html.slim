@@ -18,7 +18,7 @@
   - if policy(attachment).destroy?
     = link_to project_attachment_path(@project, attachment), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
       i.icon.trash
-  = link_to project_attachment_likes_path(@project, attachment), :method => :put, remote: true, class: 'ui green icon basic button left floated' do
+  = link_to project_attachment_likes_path(@project, attachment.id), :method => :put, remote: true, class: 'ui green icon basic button left floated' do
     = render partial: 'precious/liked_icon', locals: {favor: attachment}
     = ' '
     = attachment.total_likes.to_i

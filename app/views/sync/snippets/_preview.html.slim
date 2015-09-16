@@ -8,7 +8,7 @@
         .meta.right.floated
           = render partial: 'sync/attachment/delete_button', locals: {path: project_attachment_path(@project || snippet.project, snippet)}
           = render partial: 'sync/attachment/edit_button', locals: {path: edit_project_snippet_path(@project || snippet.project, snippet)}
-          = render partial: 'sync/attachment/like_button', locals: {path: project_attachment_likes_path(@project || snippet.project, snippet), liked: snippet.is_liked_by?(snippet.user)}
+          = render partial: 'sync/attachment/like_button', locals: {path: project_attachment_likes_path(@project || snippet.project, snippet.id), liked: snippet.is_liked_by?(snippet.user)}
   .content
     .meta
       = render partial: 'sync/attachment/meta', locals: {attachment: snippet}

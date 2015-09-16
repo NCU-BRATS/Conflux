@@ -43,6 +43,11 @@ class Projects::LikesController < Projects::ApplicationController
       @private_pub_action  = 'update'
       @private_pub_target  = 'comment'
       @private_pub_data    = @favor.as_json(include: :user)
+    when Attachment
+      @private_pub_channel = "/projects/#{@project.id}/attachments"
+      @private_pub_action  = 'update'
+      @private_pub_target  = 'attachment'
+      @private_pub_data    = {id: @favor.id, type: @favor.type}
     else
       nil
     end

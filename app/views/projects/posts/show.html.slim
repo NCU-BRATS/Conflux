@@ -20,7 +20,7 @@
   - if policy(@post).destroy?
     = link_to project_attachment_path(@project, @post), data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui icon basic button left floated' do
       i.icon.trash
-  = link_to project_attachment_likes_path(@project, @post), :method => :put, remote: true, class: 'ui green icon basic button left floated' do
+  = link_to project_attachment_likes_path(@project, @post.id), :method => :put, remote: true, class: 'ui green icon basic button left floated' do
     - if @post.is_liked_by?(@post.user) 
       i.green.heart.icon
     - else
@@ -42,3 +42,14 @@
                                    is_user_in_project: @project.has_member?(current_user),
                                    project: @project,
                                    user: current_user })
+
+= subscribe_to_ujs "/projects/#{@project.id}/attachments"
+
+- content_for :javascripts
+  javascript:
+    var resourceId = #{@post.id};
+    PrivatePub.subscribe("/projects/#{@project.id}/attachments", function (res) {
+      if(resourceId === res.data.id) {
+        location.reload();
+      }
+    });
