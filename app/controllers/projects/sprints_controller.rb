@@ -5,7 +5,7 @@ class Projects::SprintsController < Projects::ApplicationController
     @sprints = @q.result.uniq.page(params[:page]).per(params[:per]||10)
     @private_pub_channel1 = "/projects/#{@project.id}/sprints"
     @private_pub_channel2 = "/projects/#{@project.id}/issues"
-    @private_pub_channel3 = '/issue/comments'
+    @private_pub_channel3 = "/projects/#{@project.id}/issues/comments"
     respond_with @project, @sprints
   end
 
