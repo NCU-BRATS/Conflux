@@ -20,7 +20,7 @@
 
 - content_for :javascripts
   javascript:
-    var resourceId = #{attachment.id};
+    var resourceId = #{@attachment.id};
     PrivatePub.subscribe("/projects/#{@project.id}/attachments", function (res) {
       if(resourceId == res.data.id) {
         location.reload();
