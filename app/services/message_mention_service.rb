@@ -24,7 +24,7 @@ class MessageMentionService
 
   def link_to_mentioned_message(project, message)
     return nil unless message
-    url = project_channel_path(project, message.channel) + "##{message.sequential_id}"
+    url = project_channel_path(project, message.channel.slug) + "##{message.sequential_id}"
     "<a href='#{url}' class='message-mention'>#{@message_mention_filter.mention_character}#{message.channel.sequential_id}-#{message.sequential_id}</a>"
   end
 

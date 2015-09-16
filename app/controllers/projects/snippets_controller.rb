@@ -30,7 +30,7 @@ class Projects::SnippetsController < Projects::ApplicationController
   protected
 
   def resource
-    @snippet ||= @project.snippets.find(params[:id])
+    @snippet ||= @project.snippets.find_by_sequential_id(params[:id])
   end
 
 end

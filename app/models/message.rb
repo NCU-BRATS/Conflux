@@ -21,4 +21,8 @@ class Message < ActiveRecord::Base
     destroyed? || (previous_changes.keys & ['content']).present?
   end
 
+  def to_param
+    self.sequential_id.to_s
+  end
+
 end

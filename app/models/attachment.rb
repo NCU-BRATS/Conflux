@@ -71,4 +71,8 @@ class Attachment < ActiveRecord::Base
     end
   end
 
+  def to_param
+    self.sequential_id.to_s
+  end
+
 end
