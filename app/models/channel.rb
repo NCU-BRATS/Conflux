@@ -25,4 +25,7 @@ class Channel < ActiveRecord::Base
     name_changed? || super
   end
 
+  def to_param
+    self.sequential_id.to_s
+  end
 end

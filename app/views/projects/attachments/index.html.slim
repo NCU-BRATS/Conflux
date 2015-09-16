@@ -46,6 +46,8 @@
   = render partial: 'projects/attachments/modals/post', locals: {project: @project, form: Post.new}
   = render partial: 'projects/attachments/modals/snippet', locals: {project: @project, form: Snippet.new}
 
+= subscribe_to_ujs "/projects/#{@project.id}/attachments"
+
 - content_for :javascripts
   coffee:
     $('.dropdown').dropdown
@@ -56,3 +58,10 @@
       $('#post-modal').modal('show')
     $('#create-snippet-btn').on 'click', ->
       $('#snippet-modal').modal('show')
+
+  javascript:
+    PrivatePub.subscribe("/projects/#{@project.id}/attachments", function (res) {
+      if("#{attachment_type}" === res.data.type){
+        location.reload();
+      }
+    });
