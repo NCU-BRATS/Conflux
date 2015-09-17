@@ -5,10 +5,7 @@
         i.file.blue.code.outline.large.icon
         = "#{Snippet.model_name.human} - #{attachment.name}"
       == " ( #{link_to attachment.project.name, project_dashboard_path(attachment.project), {class:'black bold link'}} )"
-      .meta.right.floated
-        = render partial: 'delete_button', locals: { path: project_attachment_path(attachment.project, attachment) }
-        = render partial: 'edit_button', locals: { path: edit_project_post_path(attachment.project, attachment) }
-.content
+.content style="margin-top: 15px;"
   .meta
     = render partial: 'meta', locals: {attachment: attachment}
   .preview
