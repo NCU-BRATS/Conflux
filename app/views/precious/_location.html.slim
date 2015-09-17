@@ -15,3 +15,7 @@
   = t('project.sprints')
   = link_to project_sprint_path(comment.project,comment.commentable_proxy) do
     = comment.commentable_proxy.title 
+- elsif comment.commentable_type == "Poll"
+  = t('project.polls')
+  = link_to project_poll_path(comment.project,comment.commentable_proxy) do
+    = comment.commentable_proxy.title 
