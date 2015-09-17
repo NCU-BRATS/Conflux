@@ -56,8 +56,8 @@ class EventCreateListener
       create_member_event(participation, current_user, :joined)
     end
 
-    def on_project_participation_deleted(participation, current_user)
-      create_member_event(participation, current_user, :left)
+    def on_project_participation_deleted(project, user, current_user)
+      create_member_delete_event(project, user, current_user, :left)
     end
 
     def on_channel_created(channel, current_user)
@@ -76,6 +76,17 @@ class EventCreateListener
           target_id: record.user.id,
           target_type: record.user.class.name,
           target_json: record.user.to_target_json,
+          action: status,
+          author_id: current_user.id
+      )
+    end
+
+    def create_member_delete_event(project, user, current_user, status)
+      Event.create(
+          project: project,
+          target_id: user.id,
+          target_type: user.class.name,
+          target_json: user.to_target_json,
           action: status,
           author_id: current_user.id
       )
