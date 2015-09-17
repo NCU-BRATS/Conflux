@@ -2,10 +2,11 @@ class Projects::AttachmentsController < Projects::ApplicationController
 
   def index
     @q = @project.attachments.includes(:user).search(params[:q])
-    if params[:q][:type_eq] == 'All'
+    if params[:q] && params[:q][:type_eq] == 'All'
       @attachments = Attachment.all.latest.page(params[:page]).per(params[:per]||5)
     else
       @attachments = @q.result.uniq.latest.page(params[:page]).per(params[:per]||5)
+      @q.type_eq = 'All' unless params[:q]
     end
 
     respond_with @project, @attachments
