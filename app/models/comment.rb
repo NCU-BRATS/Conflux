@@ -5,7 +5,7 @@ class Comment < ActiveRecord::Base
   include FavorableConcern
 
   belongs_to :user
-  belongs_to :commentable_proxy, polymorphic: true
+  belongs_to :commentable, polymorphic: true
 
   delegate :participations, to: :commentable
 
@@ -19,18 +19,18 @@ class Comment < ActiveRecord::Base
   validates :content, :user, presence: true
   before_save :parse_content
 
-  delegate :project, to: :commentable
+  delegate :project, to: :commentable_proxy
 
   scope :asc, -> { order(:created_at) }
 
   has_reputation :likes, source: :user
 
-  def commentable
+  def commentable_proxy
     begin
       if commentable_type == 'Attachment'
         Attachment.unscoped.find(commentable_id)
       else
-        commentable_proxy
+        commentable
       end
     rescue
       nil

@@ -5,14 +5,13 @@
 = ' / '
 - if comment.commentable_type == "Attachment"
   = (t('project.attachments')+' ')
-  = link_to project_attachment_path(comment.project,comment.commentable) do
-    = comment.commentable.name
+  = link_to project_attachment_path(comment.project,comment.commentable_proxy) do
+    = comment.commentable_proxy.name
 - elsif comment.commentable_type == "Issue"
   = t('project.issues')
-  = link_to project_issue_path(comment.project,comment.commentable) do
-    = comment.commentable.title 
+  = link_to project_issue_path(comment.project,comment.commentable_proxy) do
+    = comment.commentable_proxy.title 
 - elsif comment.commentable_type == "Sprint"
   = t('project.sprints')
-  = link_to project_sprint_path(comment.project,comment.commentable) do
-    = comment.commentable.title 
-
+  = link_to project_sprint_path(comment.project,comment.commentable_proxy) do
+    = comment.commentable_proxy.title 
