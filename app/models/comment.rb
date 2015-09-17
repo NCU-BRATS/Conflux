@@ -5,10 +5,10 @@ class Comment < ActiveRecord::Base
   include FavorableConcern
 
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable_proxy, polymorphic: true
 
   delegate :participations, to: :commentable
-  delegate :project, to: :commentable
+
   alias owner user
 
   update_index('projects#issue')      { commentable if for_issue?      && should_reindex? }
@@ -24,6 +24,18 @@ class Comment < ActiveRecord::Base
   scope :asc, -> { order(:created_at) }
 
   has_reputation :likes, source: :user
+
+  def commentable
+    begin
+      if commentable_type == 'Attachment'
+        Attachment.unscoped.find(commentable_id)
+      else
+        commentable_proxy
+      end
+    rescue
+      nil
+    end
+  end
 
   def parse_content
     self.html = self.class.parse content
