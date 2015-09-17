@@ -23,8 +23,6 @@
       result = @targetPath(target.commentable_type, target.commentable)
     else if type == "Sprint"
       result = 'kanban?sprint_sequential_id='  + (target.sequential_id)
-    else if type == "Issue"
-      result = 'kanban?sprint_sequential_id='  + (target.sprint_id) + '&issue_sequential_id=' + (target.sequential_id)
     else if type == "User"
       result = "../../users/#{target.slug}"
     else if type == "OtherAttachment" || type == 'Image'
