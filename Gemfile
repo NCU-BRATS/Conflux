@@ -54,6 +54,8 @@ gem 'wisper-activejob', github: 'krisleech/wisper-activejob', branch: 'master'
 gem 'virtus'
 gem 'reform'
 
+gem "paranoia", "~> 2.1"
+
 # responders
 gem 'responders', '~> 2.0'
 

@@ -1,4 +1,6 @@
 class Attachment < ActiveRecord::Base
+  acts_as_paranoid
+
   include CommentableConcern
   include ParticipableConcern
   include EventableConcern
