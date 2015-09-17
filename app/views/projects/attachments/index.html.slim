@@ -2,44 +2,54 @@
 
   - title t('structure.list', element: Attachment.model_name.human )
 
-  .search-field.divided
-    = simple_form_for [@project, ProjectSearch.new(type: model_sym)], method: 'get', html: { 'data-turboform' => 'true' }  do |f|
-      .ui.left.icon.fluid.input
-        = f.input :query, placeholder: t('action.word.search'), label: false
-      = f.input :type, as: :hidden
-
-  - if policy(:attachment).create?
-    .ui.right.floated.buttons
-      .ui.inverted.buttons
-        .ui.pointing.dropdown.icon.button
-          i.icon.upload
-          .text = t('action.word.add')
-          .menu style='z-index:999;'
-            .item#upload-btn
-              i.icon.file.outline
-              = Attachment.model_name.human
-            .item#create-post-btn
-              i.icon.file.text.outline
-              = Post.model_name.human
-            .item#create-snippet-btn
-              i.icon.file.code.outline
-              = Snippet.model_name.human
-
 .ui.hidden.divider
 
-- attachment_type = params[:q][:type_eq]
-- attachment_class = "#{attachment_type}".constantize
+.attachment-app
+  .contents
+    .ui.relaxed.divided.items
+      - @attachments.each do |attachment|
+        = render partial: "sync/#{attachment.class.name.pluralize.underscore}/preview", locals: { attachment.class.name.underscore.to_sym => attachment }
 
-.ui.fluid.four.item.red.menu
-  - Attachment.subclasses.each do |x|
-    = link_to [@project, model, {q: { type_eq: x.name} }], id: "menu_#{x.name.underscore}", class: "item #{attachment_type == x.name ? 'active' : ''}" do
-      = x.model_name.human
-      .floating.ui.teal.label = @project.send(x.name.pluralize.underscore.to_sym).size
-.ui.relaxed.divided.items
-  - @attachments.each do |attachment|
-    = render partial: "sync/#{attachment.class.name.pluralize.underscore}/preview", locals: { attachment.class.name.underscore.to_sym => attachment }
+    = paginate @attachments
+  .attributes
+    = simple_form_for [@project, ProjectSearch.new(type: model_sym)], method: 'get', html: {'data-turboform' => 'true'} do |f|
+      .field
+        label 搜尋
+        input.string.optional placeholder='請輸入搜尋關鍵字' type="text" name="project_search[query]" id="project_search_query"
+        = f.input :type, as: :hidden
 
-  = paginate @attachments
+    .ui.hidden.divider
+    = search_form_for [@project, @q], class: 'ui form error' do |f|
+      .field
+        label 檔案類型
+        - options = Attachment.subclasses.map { |x| [x.model_name.human, x.name] } << ['全部種類', 'All']
+        = f.select :type_eq, options_for_select(options, @q.type_eq)
+      /.field
+      /  label 檔案類型
+      /  .ui.selection.dropdown
+      /    .default.text ALL
+      /    input.optional type="hidden" name="q[type_eq]"
+      /    i.dropdown.icon
+      /    .menu
+      /
+      /      - Attachment.subclasses.each do |x|
+      /        .item data-value="#{x.name}"
+      /          = x.model_name.human
+
+    - if policy(:attachment).create?
+      .ui.hidden.divider
+      .ui.form
+        .field
+          label 新增
+          .ui.blue.button#upload-btn
+            i.icon.file.outline
+            = Attachment.model_name.human
+          .ui.green.button#create-post-btn
+            i.icon.file.text.outline
+            = Post.model_name.human
+          .ui.teal.button#create-snippet-btn
+            i.icon.file.code.outline
+            = Snippet.model_name.human
 
 - if policy(:attachment).create?
   = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, form: Attachment.new}
@@ -49,9 +59,28 @@
 = subscribe_to_ujs "/projects/#{@project.id}/attachments"
 
 - content_for :javascripts
+  javascript:
+    var currentSearchType = "#{@q.type_eq}";
   coffee:
-    $('.dropdown').dropdown
-      action: 'nothing'
+    $('#q_type_eq').dropdown({
+      onChange: (value, text, choice) ->
+        if(value != currentSearchType && value)
+          $(@).closest('form').submit()
+    })
+
+    getUrlParameter = (sParam) ->
+      sPageURL = decodeURIComponent(window.location.search.substring(1))
+      sURLVariables = sPageURL.split('&')
+      sParameterName = undefined
+      i = undefined
+      i = 0
+      while i < sURLVariables.length
+        sParameterName = sURLVariables[i].split('=')
+        if sParameterName[0] == sParam
+          return if sParameterName[1] == undefined then true else sParameterName[1]
+        i++
+      return
+
     $('#upload-btn').on 'click', ->
       $('#upload-modal').modal('show')
     $('#create-post-btn').on 'click', ->
@@ -61,7 +90,6 @@
 
   javascript:
     PrivatePub.subscribe("/projects/#{@project.id}/attachments", function (res) {
-      if("#{attachment_type}" === res.data.type){
-        location.reload();
-      }
+      location.reload();
     });
+

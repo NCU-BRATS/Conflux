@@ -1,0 +1,55 @@
+.attachment-app {
+  @include flexbox;
+  a.toggle, .plus, .minus {
+    cursor: pointer;
+    float: right;
+  }
+
+  .contents, .attributes {
+    margin-top: -30px;
+    margin-bottom: -10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 20px;
+    height: calc( 100vh );
+    overflow-y: auto;
+  }
+  .contents, {
+    @include flex(1);
+    .poll-container {
+      @include flexbox;
+      .poll-container-tag {
+        margin-right: 5px;
+      }
+      .poll-container-content {
+        @include flex(1);
+      }
+    }
+  }
+
+  .attributes {
+    width: 345px;
+    padding-left: 15px;
+    padding-right: 30px;
+    margin-right: -30px;
+
+    .container {
+      &:last-child {
+        margin-bottom: 10px;
+      }
+      .block {
+        margin-top: 10px;
+        .segment {
+          border-radius: 0;
+        }
+        .top.segment {
+          padding: 0.5em 1em;
+        }
+        .datetime-input {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
+
