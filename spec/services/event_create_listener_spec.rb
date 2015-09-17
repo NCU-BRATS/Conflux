@@ -169,7 +169,7 @@ RSpec.describe EventCreateListener do
         operation.process
         user = model.user
 
-        event = EventCreateListener.on_project_participation_deleted(model,@members[0])
+        event = EventCreateListener.on_project_participation_deleted(@project, user ,@members[0])
         condiction = [
             event.project == @project,
             event.target_id == user.id,
