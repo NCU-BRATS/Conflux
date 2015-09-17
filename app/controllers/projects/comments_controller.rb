@@ -15,9 +15,9 @@ class Projects::CommentsController < Projects::ApplicationController
   end
 
   def destroy
-    @form = CommentOperation::Destroy.new(current_user, @comment)
-    @form.process
-    publish_to 'destroy'
+    # @form = CommentOperation::Destroy.new(current_user, @comment)
+    # @form.process
+    # publish_to 'destroy'
     respond_with @project, @form
   end
 

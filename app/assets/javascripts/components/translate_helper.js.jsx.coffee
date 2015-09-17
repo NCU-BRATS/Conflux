@@ -25,6 +25,8 @@
       result = 'kanban?sprint_sequential_id='  + (target.sequential_id)
     else if type == "Issue"
       result = 'kanban?sprint_sequential_id='  + (target.sprint_id) + '&issue_sequential_id=' + (target.sequential_id)
+    else if type == "User"
+      result = '../../' + _.pluralize(type.toLowerCase()) + '/' + (target.sequential_id || target.id)
     else
       result = _.pluralize(type.toLowerCase()) + '/' + (target.sequential_id || target.id)
     return result

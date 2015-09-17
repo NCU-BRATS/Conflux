@@ -48,8 +48,8 @@ class EventCreateListener
       create_event(attachment, current_user, :uploaded)
     end
 
-    def on_attachment_deleted(attachment, current_user)
-      # create_event(attachment, current_user, :deleted)
+    def on_attachment_deleted(project, type, attachment, current_user)
+      create_delete_event(project, type, attachment, current_user, :deleted)
     end
 
     def on_project_participation_created(participation, current_user)
@@ -98,6 +98,16 @@ class EventCreateListener
           target_id: record.id,
           target_type: record.class.name,
           target_json: record.to_target_json,
+          action: status,
+          author_id: current_user.id
+      )
+    end
+
+    def create_delete_event(project, type, record, current_user, status)
+      Event.create(
+          project: project,
+          target_type: type,
+          target_json: record,
           action: status,
           author_id: current_user.id
       )

@@ -37,7 +37,7 @@ class NoticeCreateListener
       create_notice(attachment, current_user, :uploaded)
     end
 
-    def on_attachment_deleted(attachment, current_user)
+    def on_attachment_deleted(project, type, attachment, current_user)
       # create_notice(attachment, current_user, :deleted)
     end
 
