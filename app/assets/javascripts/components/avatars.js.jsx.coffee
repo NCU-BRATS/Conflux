@@ -30,6 +30,8 @@
     if props.user
       avatarUrl = Gravtastic(props.user.email, {size: props.size || 60, default: 'identicon'})
       $(@refs.img.getDOMNode()).attr('src', avatarUrl)
+    else
+      $(@refs.img.getDOMNode()).attr('src', 'http://i.imgur.com/geKmbu9.png')
 
   render: ->
     `<img className="ui avatar image" ref="img"></img>`
