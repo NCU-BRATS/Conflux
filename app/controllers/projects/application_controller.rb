@@ -13,7 +13,7 @@ class Projects::ApplicationController < ApplicationController
   protected
 
   def set_project
-    @project ||= Project.friendly.find(params[:project_id])
+    @project ||= Project.find_by_slug!(params[:project_id])
   end
 
   def pundit_user

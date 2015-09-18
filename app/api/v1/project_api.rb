@@ -9,7 +9,7 @@ module V1
 
     route_param :id do
       before do
-        @project = Project.friendly.find(params[:id])
+        @project = Project.find_by_slug!(params[:id])
       end
 
       desc 'project show'

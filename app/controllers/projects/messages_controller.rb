@@ -1,12 +1,12 @@
 class Projects::MessagesController < Projects::ApplicationController
 
   def index
-    @channel = @project.channels.find_by_slug( params[:channel_id] )
+    @channel = @project.channels.find_by_slug!( params[:channel_id] )
     @messages = @channel.messages.includes(:user).order('id desc').limit(50).search(params[:q]).result.reverse
   end
 
   def create
-    @channel = @project.channels.find_by_slug(params[:channel_id])
+    @channel = @project.channels.find_by_slug!(params[:channel_id])
     @form = MessageOperation::Create.new(current_user, @channel)
     @form.process(params)
     PrivatePub.publish_to(private_pub_channel, {

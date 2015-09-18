@@ -50,7 +50,7 @@ class Projects::AttachmentsController < Projects::ApplicationController
   protected
 
   def resource
-    @attachment ||= @project.attachments.find_by_sequential_id(params[:id])
+    @attachment ||= @project.attachments.find_by_sequential_id!(params[:id])
   end
 
 end

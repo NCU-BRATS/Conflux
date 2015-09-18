@@ -30,7 +30,7 @@ class Projects::PostsController < Projects::ApplicationController
   protected
 
   def resource
-    @post ||= @project.posts.find_by_sequential_id(params[:id])
+    @post ||= @project.posts.find_by_sequential_id!(params[:id])
   end
 
 end
