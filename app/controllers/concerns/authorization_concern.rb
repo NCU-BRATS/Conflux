@@ -12,7 +12,11 @@ module AuthorizationConcern
   protected
 
   def authorize_resourse
-    authorize (params[:id] ? resource : model)
+    begin
+      authorize (params[:id] ? resource : model)
+    rescue
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def resource
