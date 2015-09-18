@@ -107,7 +107,7 @@ class EventCreateListener
       Event.create(
           project: project,
           target_type: type,
-          target_json: record,
+          target_json: record.to_target_json,
           action: status,
           author_id: current_user.id
       )
