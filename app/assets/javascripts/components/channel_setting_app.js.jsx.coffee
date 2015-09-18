@@ -9,7 +9,7 @@
   componentDidMount: () ->
     PrivatePub.subscribe("/projects/#{@props.project.id}/channels", @channelRecieve)
     Ajaxer.get
-      path: "/projects/#{@props.project.id}/channels.json?q[s]=order asc&q[archived_eq]=false"
+      path: "/projects/#{@props.project.slug}/channels.json?q[s]=order asc&q[archived_eq]=false"
       done: (data) =>
         @setState({channels: data})
 

@@ -228,7 +228,7 @@
           `<AssociationInput ref="input" name="sprint[issue_ids][]" collection={issues} onChange={this.handleChange} multiple={true}
               data_set={
                 {
-                    'resource-path' : "/projects/"+ project.id + "/issues",
+                    'resource-path' : "/projects/"+ project.slug + "/issues",
                     'search-field' : '[ "title" ]',
                     'option-tpl' : 'option-simple',
                     'item-tpl' : 'item-simple',
@@ -296,7 +296,7 @@
 
   render: ->
     sprint = @props.sprint
-    href = "/projects/#{this.props.project.id}/sprints/#{this.props.sprint.sequential_id}"
+    href = "/projects/#{this.props.project.slug}/sprints/#{this.props.sprint.sequential_id}"
     `<a className="ui label" href={href}>
         <i className="icon flag" />
         { sprint.title }

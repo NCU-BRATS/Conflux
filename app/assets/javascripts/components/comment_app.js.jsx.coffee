@@ -167,7 +167,7 @@
   handleLike: (e) ->
     e.preventDefault()
     Ajaxer.put
-      path: "/projects/#{@props.project.id}/comments/#{@props.comment.id}/likes"
+      path: "/projects/#{@props.project.slug}/comments/#{@props.comment.id}/likes"
 
   render: ->
     deletePath = "../comments/#{@props.comment.id}.json"
@@ -196,7 +196,7 @@
 
   handleSubmit: ( data, done ) ->
     Ajaxer.patch
-      path: "/projects/#{@props.project.id}/comments/#{@props.comment.id}.json"
+      path: "/projects/#{@props.project.slug}/comments/#{@props.comment.id}.json"
       data: { comment: { content: data } }
       done: =>
         @props.toggleEdit()
@@ -218,7 +218,7 @@
 
   handleSubmit: ( data, done ) ->
     Ajaxer.post
-      path: "/projects/#{@props.project.id}/#{@props.commentable_type}s/#{@props.commentable_resource_id}/comments.json"
+      path: "/projects/#{@props.project.slug}/#{@props.commentable_type}s/#{@props.commentable_resource_id}/comments.json"
       data: { comment: { content: data } }
       done: =>
         done()
@@ -326,7 +326,7 @@
             searchField: 'name'
             insertField: 'name'
             dataFetcher: (stageChoices, callback) =>
-              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+              $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.members)
           }]
         }
@@ -336,7 +336,7 @@
             searchField: 'title'
             insertField: 'sequential_id'
             dataFetcher: (stageChoices, callback) =>
-              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+              $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.polls)
           }]
         }
@@ -346,7 +346,7 @@
             searchField: 'name'
             insertField: 'sequential_id'
             dataFetcher: (stageChoices, callback) =>
-              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+              $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.attachments)
           }]
         }
@@ -356,7 +356,7 @@
             searchField: 'title'
             insertField: 'sequential_id'
             dataFetcher: (stageChoices, callback) =>
-              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+              $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.issues)
           }]
         }
@@ -366,7 +366,7 @@
             searchField: 'title'
             insertField: 'sequential_id'
             dataFetcher: (stageChoices, callback) =>
-              $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+              $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.sprints)
           }]
         }
@@ -377,14 +377,14 @@
               searchField: 'name'
               insertField: 'sequential_id'
               dataFetcher: (stageChoices, callback) =>
-                $.get "/projects/#{@props.project.id}/suggestions.json", (data) =>
+                $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                   callback(data.channels)
             }
             {
               searchField: 'content'
               insertField: 'sequential_id'
               dataFetcher: (stageChoices, callback) =>
-                $.get "/projects/#{@props.project.id}/suggestions/channels/#{stageChoices[0]}/messages", (data) =>
+                $.get "/projects/#{@props.project.slug}/suggestions/channels/#{stageChoices[0]}/messages", (data) =>
                   callback(data.messages)
             }
           ]
@@ -402,7 +402,7 @@
             <CommentPreviewField originText={this.state.commentText}/>
         </div>`
     else
-      project_suggestions_path = "/projects/#{@props.project.id}/suggestions"
+      project_suggestions_path = "/projects/#{@props.project.slug}/suggestions"
       displayField =
         `<div className="ui attached segment">
             <MentionableTextarea placeholder={'撰寫評論 支援 Markdown'} configurations={this.getConfigurations()} ref="textarea" valueLink={this.linkState('commentText')} data-suggestions-path={project_suggestions_path}/>

@@ -198,7 +198,7 @@
           `<AssociationInput name="issue[assignee_id]" collection={[assignee]} onChange={this.handleChange}
               data_set={
                 {
-                    'resource-path' : "/projects/"+ this.props.project.id + "/settings/members",
+                    'resource-path' : "/projects/"+ this.props.project.slug + "/settings/members",
                     'search-field' : '[ "name", "email" ]',
                     'option-tpl' : 'option-user'
                 }
@@ -245,7 +245,7 @@
           `<AssociationInput name="issue[spring_id]" collection={[sprint]} onChange={this.handleChange}
               data_set={
                 {
-                    'resource-path' : "/projects/"+ this.props.project.id + "/sprints",
+                    'resource-path' : "/projects/"+ this.props.project.slug + "/sprints",
                     'search-field' : '[ "title" ]',
                     'add-new' : 'true'
                 }
@@ -292,7 +292,7 @@
           `<AssociationInput ref="input" name="issue[label_ids][]" collection={labels} onChange={this.handleChange} multiple={true}
             data_set={
               {
-                  'resource-path' : "/projects/"+ this.props.project.id + "/settings/labels",
+                  'resource-path' : "/projects/"+ this.props.project.slug + "/settings/labels",
                   'search-field' : '[ "title" ]',
                   'option-tpl' : 'option-label',
                   'item-tpl' : 'item-label',
@@ -374,7 +374,7 @@
     else
       color = 'red'
 
-    href = "/projects/#{this.props.project.id}/issues/#{this.props.issue.sequential_id}"
+    href = "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}"
     `<a className={"issue ui label "+color} href={href}>
         <i className="icon tasks" />
         { issue.title }
