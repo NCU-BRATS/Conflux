@@ -13,7 +13,7 @@
     `<AssociationInput name="q[user_id_eq]" collection={[this.props.current_uploader]} onChange={this.handleChange}
                        data_set={
                 {
-                    'resource-path' : "/projects/"+ this.props.project.id + "/settings/members",
+                    'resource-path' : "/projects/"+ this.props.project.slug + "/settings/members",
                     'search-field' : '[ "name", "email" ]',
                     'option-tpl' : 'option-user'
                 }

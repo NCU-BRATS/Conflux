@@ -71,7 +71,7 @@
     lastUpdated = _.last(@state.items).updated_at if @state.items.length > 0
     @setState({loading: true})
     Ajaxer.get
-      path: "/projects/#{@props.project.id}/#{@props.model}s.json?q[s]=updated_at desc&q[archived_eq]=true&per=#{@state.per}" + if lastUpdated then "&q[updated_at_lt]=#{lastUpdated}" else ''
+      path: "/projects/#{@props.project.slug}/#{@props.model}s.json?q[s]=updated_at desc&q[archived_eq]=true&per=#{@state.per}" + if lastUpdated then "&q[updated_at_lt]=#{lastUpdated}" else ''
       done: (data) =>
         items = @state.items.concat(data)
         @setState({items: items, loading: false, noMoreItems: (data.length < @state.per)})

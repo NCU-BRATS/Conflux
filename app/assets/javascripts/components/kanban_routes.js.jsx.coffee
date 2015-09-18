@@ -10,7 +10,7 @@
     PrivatePub.subscribe("/projects/#{@props.project.id}/sprints", @sprintRecieve)
     PrivatePub.subscribe("/projects/#{@props.project.id}/issues", @issueRecieve)
     Ajaxer.get
-      path: "/projects/#{@props.project.id}/sprints.json?q[s]=id asc&q[archived_eq]=false"
+      path: "/projects/#{@props.project.slug}/sprints.json?q[s]=id asc&q[archived_eq]=false"
       done: (data) =>
         @setState {sprints: data}, () ->
           params = @getURLParams()
@@ -87,7 +87,7 @@
     @setState({loading: true})
     if sprint
       Ajaxer.get
-        path: "/projects/#{@props.project.id}/issues.json?q[sprint_id_eq]=#{sprint.id}"
+        path: "/projects/#{@props.project.slug}/issues.json?q[sprint_id_eq]=#{sprint.id}"
         done: (data) =>
           window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{sprint.sequential_id}")
           @setState {sprint: sprint, issues: data, loading: false}, ()->
@@ -1033,7 +1033,7 @@
     `<AssociationInput name="issue[assignee_id]" collection={[this.props.issue.assignee]} onChange={this.handleChange}
                        data_set={
                 {
-                    'resource-path' : "/projects/"+ this.props.project.id + "/settings/members",
+                    'resource-path' : "/projects/"+ this.props.project.slug + "/settings/members",
                     'search-field' : '[ "name", "email" ]',
                     'option-tpl' : 'option-user'
                 }
@@ -1134,7 +1134,7 @@
     `<AssociationInput ref="input" name="issue[label_ids][]" collection={this.props.issue.labels} onChange={this.handleChange} multiple={true}
                        data_set={
               {
-                  'resource-path' : "/projects/"+ this.props.project.id + "/settings/labels",
+                  'resource-path' : "/projects/"+ this.props.project.slug + "/settings/labels",
                   'search-field' : '[ "title" ]',
                   'option-tpl' : 'option-label',
                   'item-tpl' : 'item-label',
