@@ -66,7 +66,7 @@ class Projects::ChannelsController < Projects::ApplicationController
   end
 
   def resource
-    @channel ||= Channel.friendly.find( params[:id] )
+    @channel ||= @project.channels.find_by_slug( params[:id] )
   end
 
 end
