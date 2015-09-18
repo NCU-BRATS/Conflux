@@ -21,8 +21,9 @@ class NoticeCreateListener
     end
 
     def on_comment_created(comment, current_user)
-      create_comment_notice(comment, current_user, :commented)
-      create_all_mentioned_notice(comment, current_user)
+      data = fetch_data(comment.commentable)
+      create_comment_notice(comment, current_user, :commented, data)
+      create_all_mentioned_notice(comment, current_user, data)
     end
 
     def on_comment_updated(comment, mentioned_list, current_user)
@@ -57,8 +58,9 @@ class NoticeCreateListener
       send_notice(recipients, record, current_user, status)
     end
 
-    def create_all_mentioned_notice(record, current_user)
-      send_notice(User.find(record.mentioned_list['members']), record, current_user, :mention)
+    def create_all_mentioned_notice(record, current_user, data)
+      recipients = build_mention_recipients(current_user, record.mentioned_list['members'], data)
+      send_notice(recipients, record, current_user, :mention)
     end
 
     def create_new_mentioned_notice(record, mentioned_list, current_user)
@@ -66,12 +68,13 @@ class NoticeCreateListener
 
       return if old_list.nil? || new_list.nil?
 
+      data = fetch_data(record.commentable)
       new_mentioned = new_list.fetch('members', []) - old_list.fetch('members', [])
-      send_notice(User.find(new_mentioned), record, current_user, :mention)
+      recipients = build_mention_recipients(current_user, mentioned_list, data)
+      send_notice(recipients, record, current_user, :mention)
     end
 
-    def create_comment_notice(record, current_user, status)
-      data = fetch_data(record.commentable)
+    def create_comment_notice(record, current_user, status, data)
       recipients = build_recipients(current_user, data)
       recipients.select! { |recipient| record.mentioned_list['members'].exclude?(recipient.id) }
       send_notice(recipients, record, current_user, status)
@@ -133,9 +136,28 @@ class NoticeCreateListener
       recipients - [current_user]
     end
 
+    def build_mention_recipients(current_user, mentioned_list, data)
+      members = data[:members]
+      project_participations = data[:project_participations]
+
+      recipients = []
+      mentioned_list.each do |member_id|
+        pp = project_participations.find {|pp| pp.user_id == member_id }
+        mm = members.find {|m| m.id == member_id }
+        recipients << mm if mention_subscribed?(pp, mm)
+      end
+
+      recipients - [current_user]
+    end
+
     def subscribed?(project_participation, member)
       target = (project_participation.notification_level == 3) ? member : project_participation
       target.notification_level == 1 || target.notification_level == 2
+    end
+
+    def mention_subscribed?(project_participation, member)
+      target = (project_participation.notification_level == 3) ? member : project_participation
+      target.notification_level != 0
     end
   end
 end
