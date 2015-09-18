@@ -52,7 +52,8 @@ class NoticeCreateListener
     private
 
     def create_notice(record, current_user, status)
-      recipients = build_recipients(record, current_user, record.project)
+      data = fetch_data(record)
+      recipients = build_recipients(current_user, data)
       send_notice(recipients, record, current_user, status)
     end
 
@@ -70,7 +71,8 @@ class NoticeCreateListener
     end
 
     def create_comment_notice(record, current_user, status)
-      recipients = build_recipients(record.commentable, current_user, record.project)
+      data = fetch_data(record.commentable)
+      recipients = build_recipients(current_user, data)
       recipients.select! { |recipient| record.mentioned_list['members'].exclude?(recipient.id) }
       send_notice(recipients, record, current_user, status)
     end
@@ -95,7 +97,14 @@ class NoticeCreateListener
       end
     end
 
-    def build_recipients(target, current_user, project)
+    def fetch_data(target)
+      project_participations = target.project.project_participations.includes(:user).to_a
+      members = project_participations.map(&:user)
+      participations = target.participations
+      { project_participations: project_participations, members: members, participations: participations }
+    end
+
+    def build_recipients(current_user, data)
       # 1. 撈出 project 底下所有的 project_participations
       # 2. 撈出 project 底下所有的 members
       # 3. 撈出 issue 底下所有的 participations
@@ -104,11 +113,11 @@ class NoticeCreateListener
       #       如果是，就去看 user 的 notification_level
       #       如果 notification_level 是 participation 或是 watch 就放入那個空 array ，其餘移除
       # 5. 對於剩下的 member，檢查他是不是 watch project
-      recipients = []
-      project_participations = project.project_participations.includes(:user).to_a
-      members = project_participations.map(&:user)
-      participations = target.participations
+      members = data[:members]
+      participations = data[:participations]
+      project_participations = data[:project_participations].dup
 
+      recipients = []
       participations.each do |p|
         pp = project_participations.find {|pp| pp.user_id == p.user_id }
         mm = members.find {|m| m.id == pp.user_id }
