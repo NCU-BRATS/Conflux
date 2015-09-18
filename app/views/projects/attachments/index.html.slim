@@ -22,34 +22,30 @@
     = search_form_for [@project, @q], class: 'ui form error' do |f|
       .field
         label 檔案類型
-        - options = Attachment.subclasses.map { |x| [x.model_name.human, x.name] } << ['全部種類', 'All']
+        - options = [['全部種類', 'All'], ['圖片', 'Image'], ['貼文', 'Post'], ['程式碼', 'Snippet'], ['其他檔案', 'OtherAttachment']]
         = f.select :type_eq, options_for_select(options, @q.type_eq)
-      /.field
-      /  label 檔案類型
-      /  .ui.selection.dropdown
-      /    .default.text ALL
-      /    input.optional type="hidden" name="q[type_eq]"
-      /    i.dropdown.icon
-      /    .menu
-      /
-      /      - Attachment.subclasses.each do |x|
-      /        .item data-value="#{x.name}"
-      /          = x.model_name.human
+
+    .ui.hidden.divider
+    form.ui.form
+      .field
+        label 檔案上傳者
+        = react_component( 'AttachmentUploaderSearchInput', { project: @project, current_uploader: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {} } )
 
     - if policy(:attachment).create?
       .ui.hidden.divider
       .ui.form
         .field
           label 新增
-          .ui.blue.button#upload-btn
-            i.icon.file.outline
-            = Attachment.model_name.human
-          .ui.green.button#create-post-btn
-            i.icon.file.text.outline
-            = Post.model_name.human
-          .ui.teal.button#create-snippet-btn
-            i.icon.file.code.outline
-            = Snippet.model_name.human
+          .ui.three.buttons
+            .ui.basic.blue.button#upload-btn
+              i.icon.file.outline
+              = Attachment.model_name.human
+            .ui.basic.green.button#create-post-btn
+              i.icon.file.text.outline
+              = Post.model_name.human
+            .ui.basic.teal.button#create-snippet-btn
+              i.icon.file.code.outline
+              = Snippet.model_name.human
 
 - if policy(:attachment).create?
   = render partial: 'projects/attachments/modals/upload_file', locals: {project: @project, form: Attachment.new}
@@ -61,10 +57,17 @@
 - content_for :javascripts
   javascript:
     var currentSearchType = "#{@q.type_eq}";
+    var currentSearchUser = "#{@q.user_id_eq}";
   coffee:
     $('#q_type_eq').dropdown({
       onChange: (value, text, choice) ->
         if(value != currentSearchType && value)
+          $(@).closest('form').submit()
+    })
+
+    $('#q_user_id_eq').dropdown({
+      onChange: (value, text, choice) ->
+        if(value != currentSearchUser && value)
           $(@).closest('form').submit()
     })
 
