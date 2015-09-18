@@ -112,7 +112,7 @@
 
   handleSave: (value) ->
     Ajaxer.patch
-      path: "/projects/#{this.props.project.slug}/channels/#{this.props.channel.id}.json"
+      path: "/projects/#{this.props.project.slug}/channels/#{this.props.channel.slug}.json"
       data: { channel: { name: value } }
 
   render: ->
@@ -134,7 +134,7 @@
   handleArchive: () ->
     if confirm( '確定要封存?' )
       Ajaxer.patch
-        path: "/projects/#{this.props.project.slug}/channels/#{@props.channel.id}.json"
+        path: "/projects/#{this.props.project.slug}/channels/#{@props.channel.slug}.json"
         data: { channel: { archived: true } }
 
   render: ->
