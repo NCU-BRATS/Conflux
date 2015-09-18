@@ -1,15 +1,15 @@
 class NoticeCreateListener
   class << self
     def on_issue_created(issue, current_user)
-      create_notice(issue, current_user, :created)
+      # create_notice(issue, current_user, :created)
     end
 
     def on_sprint_created(sprint, current_user)
-      create_notice(sprint, current_user, :created)
+      # create_notice(sprint, current_user, :created)
     end
 
     def on_poll_created(poll, current_user)
-      create_notice(poll, current_user, :created)
+      # create_notice(poll, current_user, :created)
     end
 
     def on_poll_closed(poll, current_user)
@@ -34,7 +34,7 @@ class NoticeCreateListener
     end
 
     def on_attachment_created(attachment, current_user)
-      create_notice(attachment, current_user, :uploaded)
+      # create_notice(attachment, current_user, :uploaded)
     end
 
     def on_attachment_deleted(project, type, attachment, current_user)
@@ -53,12 +53,6 @@ class NoticeCreateListener
 
     def create_notice(record, current_user, status)
       recipients = build_recipients(record, current_user, record.project)
-      send_notice(recipients, record, current_user, status)
-    end
-
-    def create_notice_without_mentioned(record, current_user, status, mentioned)
-      recipients = build_recipients(record, current_user, record.project)
-      recipients.select! { |recipient| mentioned.exclude?(recipient.id) }
       send_notice(recipients, record, current_user, status)
     end
 
