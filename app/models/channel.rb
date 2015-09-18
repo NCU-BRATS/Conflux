@@ -26,6 +26,6 @@ class Channel < ActiveRecord::Base
   end
 
   def to_param
-    self.sequential_id.to_s
+    self.slug
   end
 end

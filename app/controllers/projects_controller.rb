@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def resource
-    @project ||= Project.friendly.find(params[:id])
+    @project ||= Project.find_by_slug!(params[:id])
   end
 
   def interpolation_options
