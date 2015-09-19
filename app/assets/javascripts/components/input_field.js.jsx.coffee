@@ -231,7 +231,7 @@
               <div className="ui divider"></div>
               <div className="ui right floated small buttons">
                   { saveButton }
-                  <div className="ui button" onClick={this.handleCancel}>取消</div>
+                  <div className="ui button" onClick={this.handleCancel}>返回</div>
               </div>
           </div>`
 

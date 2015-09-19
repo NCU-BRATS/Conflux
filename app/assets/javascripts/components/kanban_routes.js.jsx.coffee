@@ -157,10 +157,9 @@
   render: ->
     sprintItems = @props.sprints.map (sprint,i) =>
       sprintActiveClass = if @props.sprint && @props.sprint.id == sprint.id then "active" else ""
-      icon = if moment(new Date(sprint.due_at)) < moment() then `<i className="red calendar icon" />`
+      sprintDateClass = if sprint.due_at && moment(new Date(sprint.due_at)) < moment() then "out-of-date" else ""
       handleClick = @chooseSprint(sprint)
-      `<a className={ sprintActiveClass + " item kanban-sprint-item"} onClick={handleClick} key={sprint.id} >
-          {icon}
+      `<a className={ sprintActiveClass + " item inverted kanban-sprint-item " + sprintDateClass } onClick={handleClick} key={sprint.id} >
           {sprint.title}
           <div className="ui label">
               { sprint.issues_count - sprint.issues_done_count }
@@ -422,7 +421,7 @@
     if confirm( '確定要刪除此狀態？' )
       if @props.issues.length != 0
         alert( '請先清空屬於此狀態的任務' )
-      if @props.sprint.statuses.length <= 2
+      else if @props.sprint.statuses.length <= 2
         alert( '已達戰役最少狀態數量' )
       else
         newStatuses = _.difference( @props.sprint.statuses, [ @props.status ] )
@@ -1045,9 +1044,12 @@
     issue:   React.PropTypes.object.isRequired
 
   handleSave: (value) ->
-    Ajaxer.patch
-      path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
-      data: { issue: { order: value } }
+    if value >= 0 && value <= 999
+      Ajaxer.patch
+        path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
+        data: { issue: { order: value } }
+    else
+      alert( '數值必須是整數且介於0~999' )
 
   render: ->
     content1 =
@@ -1070,9 +1072,12 @@
     issue:   React.PropTypes.object.isRequired
 
   handleSave: (value) ->
-    Ajaxer.patch
-      path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
-      data: { issue: { point: value } }
+    if value >= 0 && value <= 999
+      Ajaxer.patch
+        path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
+        data: { issue: { point: value } }
+    else
+      alert( '數值必須是整數且介於0~999' )
 
   render: ->
     content1 =
