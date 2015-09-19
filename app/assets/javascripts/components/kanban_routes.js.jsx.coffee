@@ -1045,9 +1045,12 @@
     issue:   React.PropTypes.object.isRequired
 
   handleSave: (value) ->
-    Ajaxer.patch
-      path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
-      data: { issue: { order: value } }
+    if value >= 0 && value <= 999
+      Ajaxer.patch
+        path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
+        data: { issue: { order: value } }
+    else
+      alert( '數值必須是整數且介於0~999' )
 
   render: ->
     content1 =
@@ -1070,9 +1073,12 @@
     issue:   React.PropTypes.object.isRequired
 
   handleSave: (value) ->
-    Ajaxer.patch
-      path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
-      data: { issue: { point: value } }
+    if value >= 0 && value <= 999
+      Ajaxer.patch
+        path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
+        data: { issue: { point: value } }
+    else
+      alert( '數值必須是整數且介於0~999' )
 
   render: ->
     content1 =
