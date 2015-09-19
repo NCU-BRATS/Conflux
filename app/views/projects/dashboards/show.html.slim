@@ -50,11 +50,20 @@
               - sprint.statuses.each do |status|
                 - if participated_issues2.has_key? "#{sprint.id}-#{status['id']}"
                   .ui.list
-                    - participated_issues2["#{sprint.id}-#{status['id']}"].each do |issue|
-                      .item
-                        .ui.label class=(status['name'] != 'backlog' ? 'yellow' : '')
-                          = status['name']
-                        = link_to "##{issue.sequential_id} #{issue.title}", project_issue_path(@project, issue)
+                    .item
+                      h4.header.ui.blue
+                        = " - #{status['name']}"
+                      - participated_issues2["#{sprint.id}-#{status['id']}"].each do |issue|
+                        .list
+                          .item
+                            = user_img_tag(issue.assignee)
+                            .content
+                              .header
+                                = link_to "##{issue.sequential_id} #{issue.title}", project_issue_path(@project, issue)
+                              - issue.labels.each do |label|
+                                .ui.label.issue-dashboard
+                                  i.certificate.icon style="color:#{label.color}"
+                                  = label.title
 
       .ui.issue.list
         .ui.attached.tertiary.segment

@@ -2,7 +2,9 @@ module UsersHelper
 
   def avatar_tag( user, options={} )
     options.merge!({:class => 'img-rounded'})
-    if user.try(:avatar_url).present?
+    if !user
+      image_tag('//i.imgur.com/geKmbu9.png', options)
+    elsif user.try(:avatar_url).present?
       image_tag(user.avatar_url, options)
     else
       options = options.symbolize_keys
@@ -41,7 +43,7 @@ module UsersHelper
   end
 
   def user_link( user )
-    user_path( user.slug )
+    user_path( user.slug ) if user
   end
 
 end
