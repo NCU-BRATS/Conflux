@@ -157,10 +157,9 @@
   render: ->
     sprintItems = @props.sprints.map (sprint,i) =>
       sprintActiveClass = if @props.sprint && @props.sprint.id == sprint.id then "active" else ""
-      icon = if moment(new Date(sprint.due_at)) < moment() then `<i className="red calendar icon" />`
+      sprintDateClass = if sprint.due_at && moment(new Date(sprint.due_at)) < moment() then "out-of-date" else ""
       handleClick = @chooseSprint(sprint)
-      `<a className={ sprintActiveClass + " item kanban-sprint-item"} onClick={handleClick} key={sprint.id} >
-          {icon}
+      `<a className={ sprintActiveClass + " item inverted kanban-sprint-item " + sprintDateClass } onClick={handleClick} key={sprint.id} >
           {sprint.title}
           <div className="ui label">
               { sprint.issues_count - sprint.issues_done_count }

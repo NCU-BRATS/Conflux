@@ -16,6 +16,11 @@
     }
   }
 
+  .kanban-sprint-item.out-of-date {
+    font-weight: 700;
+    color: rgba(255, 0, 0, 0.7);
+  }
+
   .kanban {
     @include flexbox;
     .kanban-columns.loading {
