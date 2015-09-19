@@ -99,3 +99,15 @@
 .ui.list .list > .item .header, .ui.list > .item .sub.header {
   color: rgba(0, 0, 0, 0.5);
 }
+
+.img-rounded {
+  border-radius: 15px !important;
+}
+
+.ui.label.issue-dashboard {
+  padding: 0.3em 0.5em;
+  margin-left: 0;
+  .icon {
+    margin-right: 0.4em;
+  }
+}
