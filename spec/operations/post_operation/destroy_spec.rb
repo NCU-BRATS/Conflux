@@ -9,9 +9,9 @@ RSpec.describe PostOperation::Destroy do
   describe '#process' do
     context 'when called' do
 
-      it 'destroys the post' do
+      it 'soft delete the post' do
         subject.process
-        expect( @post.destroyed? ).to be true
+        expect( @post.deleted? ).to be true
       end
 
     end
