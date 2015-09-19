@@ -4,7 +4,8 @@ class Projects::DashboardsController < Projects::ApplicationController
     @polls   = @project.polls.includes(:user).open.order('id DESC').limit(10)
     @sprints = @project.sprints.includes(:issues).where( archived: false ).order('id DESC').limit(10)
     @issues  = @project.issues.includes(:user).joins(:participations)
-                             .where(participations: { user_id: current_user.id }).order('id DESC').limit(30)
+                             .where(participations: { user_id: current_user.id })
+                             .where.not( status: '2' ).order('id DESC').limit(30)
     respond_with @project
   end
 
