@@ -13,14 +13,58 @@
 
       .ui.issue.list
         .ui.attached.tertiary.segment
+          i.icon.signal
+          | 進行中的投票
+        - @polls.each do |poll|
+          .ui.attached.segment.item
+            .content
+              .header
+                => "^#{poll.sequential_id}"
+                => link_to poll.title, project_poll_path(@project, poll)
+                span => time_format_relative_tag(poll.created_at)
+              .description
+                p
+                  - poll.options.each do |option|
+                    .ui.label
+                      = option.title
+                      .detail
+                        = option.votes_total
+
+
+      .ui.top.attached.tertiary.segment
+        i.icon.tasks
+        = t('issue.participated')
+
+      - participated_issues2 = @issues.group_by { |i| "#{i.sprint_id}-#{i.status.to_i}" }
+      - participated_issues1 = @issues.group_by { |i| "#{i.sprint_id}" }
+      - if !participated_issues1.empty?
+        - @sprints.each do |sprint|
+          - if participated_issues1.has_key? "#{sprint.id}"
+            .ui.attached.segment
+              - if sprint.planned? && sprint.expired?
+                a.ui.red.ribbon.label href=project_sprint_path(@project, sprint)
+                  = "###{sprint.sequential_id} #{sprint.title}"
+              - else
+                a.ui.green.ribbon.label href=project_sprint_path(@project, sprint)
+                  = "###{sprint.sequential_id} #{sprint.title}"
+              - sprint.statuses.each do |status|
+                - if participated_issues2.has_key? "#{sprint.id}-#{status['id']}"
+                  .ui.list
+                    - participated_issues2["#{sprint.id}-#{status['id']}"].each do |issue|
+                      .item
+                        .ui.label class=(status['name'] != 'backlog' ? 'yellow' : '')
+                          = status['name']
+                        = link_to "##{issue.sequential_id} #{issue.title}", project_issue_path(@project, issue)
+
+      .ui.issue.list
+        .ui.attached.tertiary.segment
           i.icon.flag
           | 進行中的戰役
         - @sprints.each do |sprint|
           .ui.attached.segment.item
-            - last_status_id = sprint.statuses.last[:id]
-            - issue_close_count = sprint.issues.select {|i| i.status == last_status_id }.size
-            - issue_open_count  = sprint.issues.select {|i| i.status != last_status_id }.size
-            - issues_count      = issue_close_count + issue_open_count
+            - issue_close_count = sprint.issues.select {|i| i.done? }.size
+            - issue_open_count  = sprint.issues_count - issue_close_count
+            - issues_count      = sprint.issues_count
             - if issues_count != 0
               - issues_finished_rate = ( issue_close_count / issues_count.to_f  * 100 ).round(0)
             .ui.grid
@@ -32,7 +76,7 @@
                     i.green.icon.wait
                   .content
                     - if sprint.planned? && sprint.expired?
-                      = link_to sprint.title, project_sprint_path(@project, sprint), class: 'red link'
+                      = link_to "###{sprint.sequential_id} #{sprint.title}", project_sprint_path(@project, sprint), class: 'red link'
                     - else
                       = link_to "###{sprint.sequential_id} #{sprint.title}", project_sprint_path(@project, sprint)
 
@@ -61,36 +105,6 @@
 
               .ui.bottom.attached.indicating.progress data-percent=issues_finished_rate style="border-radius: 0;"
                 .bar
-
-      .ui.issue.list
-        .ui.attached.tertiary.segment
-          i.icon.signal
-          | 進行中的投票
-        - @polls.each do |poll|
-          .ui.attached.segment.item
-            .content
-              .header
-                = link_to poll.title, project_poll_path(@project, poll)
-              = "##{poll.sequential_id} "
-              => user_tag poll.user, class: 'gray link'
-              => t('action.target.created_at', target: '')
-              span = time_format_relative_tag( poll.created_at )
-
-      .ui.issue.list
-        .ui.attached.tertiary.segment
-          i.icon.tasks
-          = t('issue.participated')
-        - @issues.each do |issue|
-          .ui.attached.segment.item
-            i.green.icon.unlock
-            .content
-              .header
-                = link_to issue.title, project_issue_path(@project, issue)
-              = "##{issue.sequential_id} "
-              => user_tag issue.user, class: 'gray link'
-              => t('action.target.created_at', target: '')
-              span = time_format_relative_tag( issue.created_at )
-
     .column
       = react_component('EventListApp')
 
