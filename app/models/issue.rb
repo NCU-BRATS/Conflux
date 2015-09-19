@@ -34,4 +34,8 @@ class Issue < ActiveRecord::Base
     :sequential_id
   end
 
+  def done?
+    status == '2'
+  end
+
 end

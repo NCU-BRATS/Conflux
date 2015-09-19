@@ -17,10 +17,9 @@
           | 進行中的戰役
         - @sprints.each do |sprint|
           .ui.attached.segment.item
-            - last_status_id = sprint.statuses.last[:id]
-            - issue_close_count = sprint.issues.select {|i| i.status == last_status_id }.size
-            - issue_open_count  = sprint.issues.select {|i| i.status != last_status_id }.size
-            - issues_count      = issue_close_count + issue_open_count
+            - issue_close_count = sprint.issues.select {|i| i.done? }.size
+            - issue_open_count  = sprint.issues_count - issue_close_count
+            - issues_count      = sprint.issues_count
             - if issues_count != 0
               - issues_finished_rate = ( issue_close_count / issues_count.to_f  * 100 ).round(0)
             .ui.grid
