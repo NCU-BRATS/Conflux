@@ -321,9 +321,7 @@
     openIssuePanel: React.PropTypes.func.isRequired
 
   render: ->
-    [...,lastStatus] = @props.sprint.statuses
-
-    isDone = @props.status.id == lastStatus.id
+    isDone = @props.status.id == 2
 
     if @props.sprint
       controlPanel =
@@ -719,10 +717,8 @@
     issues:  React.PropTypes.array
 
   render: ->
-    [...,lastStatus] = @props.sprint.statuses
-
     counts = _.countBy @props.issues, (issue) ->
-      if issue.status.toString() == lastStatus.id.toString()
+      if issue.status == 2
         'done'
       else
         'undone'

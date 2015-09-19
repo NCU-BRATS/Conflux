@@ -37,6 +37,10 @@ RSpec.describe SprintOperation::Update do
         subject.process( new_param( { sprint: { statuses: [ { id:3, name:'gg' } ] } } ) )
         expect( Sprint.find(@sprint.id).statuses ).not_to eq [ { id:3, name:'gg' } ]
       end
+      it 'doesnt change the statuses' do
+        subject.process( new_param( { sprint: { statuses: [ { id:2, name:'done' }, { id:1, name:'gg' } ] } } ) )
+        expect( Sprint.find(@sprint.id).statuses ).not_to eq [ { id:2, name:'done' }, { id:1, name:'gg' } ]
+      end
       it 'raise ActionController::ParameterMissing' do
         expect{ subject.process(new_param) }.to raise_error ActionController::ParameterMissing
       end
