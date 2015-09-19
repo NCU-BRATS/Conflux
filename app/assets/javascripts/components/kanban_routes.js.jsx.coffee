@@ -103,6 +103,7 @@
 
   openSprintPanel: () ->
     @setState { mode: 'sprint' }, () ->
+      window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}")
       $('#kanban-panel').sidebar('show')
 
   getURLParams: () ->
