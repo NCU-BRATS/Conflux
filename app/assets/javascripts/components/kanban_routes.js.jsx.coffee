@@ -421,7 +421,7 @@
     if confirm( '確定要刪除此狀態？' )
       if @props.issues.length != 0
         alert( '請先清空屬於此狀態的任務' )
-      if @props.sprint.statuses.length <= 2
+      else if @props.sprint.statuses.length <= 2
         alert( '已達戰役最少狀態數量' )
       else
         newStatuses = _.difference( @props.sprint.statuses, [ @props.status ] )
