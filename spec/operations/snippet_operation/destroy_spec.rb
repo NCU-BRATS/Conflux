@@ -9,9 +9,9 @@ RSpec.describe SnippetOperation::Destroy do
   describe '#process' do
     context 'when called' do
 
-      it 'destroys the snippet' do
+      it 'soft delete the snippet' do
         subject.process
-        expect( @snippet.destroyed? ).to be true
+        expect( @snippet.deleted? ).to be true
       end
 
     end

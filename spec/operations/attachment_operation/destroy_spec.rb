@@ -13,9 +13,9 @@ RSpec.describe AttachmentOperation::Destroy do
   describe '#process' do
     context 'when called' do
 
-      it 'destroys the post' do
+      it 'soft delete the post' do
         subject.process
-        expect( @attachment.destroyed? ).to be true
+        expect( @attachment.deleted? ).to be true
       end
 
     end

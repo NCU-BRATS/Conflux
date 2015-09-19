@@ -15,15 +15,15 @@ RSpec.describe BroadcastService do
 
       it 'fire a broadcast to event create listener' do
 
-        expect(EventCreateListener).to receive(:on_issue_created).with(@issue,@members[0])
-        BroadcastService.fire(:on_issue_created, @issue, @members[0])
+        expect(EventCreateListener).to receive(:on_channel_deleted).with(@issue,@members[0])
+        BroadcastService.fire(:on_channel_deleted, @issue, @members[0])
 
       end
 
       it 'fire a broadcast to notice create listener' do
 
-        expect(NoticeCreateListener).to receive(:on_issue_created).with(@issue,@members[0])
-        BroadcastService.fire(:on_issue_created, @issue, @members[0])
+        expect(NoticeCreateListener).to receive(:on_channel_deleted).with(@issue,@members[0])
+        BroadcastService.fire(:on_channel_deleted, @issue, @members[0])
 
       end
 
