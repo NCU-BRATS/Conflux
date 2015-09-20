@@ -49,13 +49,13 @@ class Projects::ChannelsController < Projects::ApplicationController
   end
 
   def destroy
-    @form = ChannelOperation::Destroy.new(current_user, @project, @channel)
-    @form.process
-    PrivatePub.publish_to("/projects/#{@project.id}/channels", {
-      action: 'destroy',
-      target: 'channel',
-      data:   private_pub_data
-    })
+    # @form = ChannelOperation::Destroy.new(current_user, @project, @channel)
+    # @form.process
+    # PrivatePub.publish_to("/projects/#{@project.id}/channels", {
+    #   action: 'destroy',
+    #   target: 'channel',
+    #   data:   private_pub_data
+    # })
     respond_with @project, @form, location: project_dashboard_path(@project)
   end
 
