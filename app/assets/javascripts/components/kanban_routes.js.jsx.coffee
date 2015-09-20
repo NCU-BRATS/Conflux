@@ -8,20 +8,25 @@ ItemTypes = {
 }
 
 issueSource = {
-  beginDrag: (props, monitor) ->
-    props.issue
+  beginDrag: (props, monitor, component) ->
+    { issue: props.issue, height: component.getDOMNode().offsetHeight }
 }
 
 issueGapTarget = {
   drop: (props, monitor) ->
-    issue = monitor.getItem()
-    preOrder = props.previousOrder || 0
-    nextOrder = props.nextOrder || 0
-    order = (preOrder + nextOrder) / 2
+    data = monitor.getItem()
+    issue = data.issue
+    prevOrder = props.prevOrder || 999
+    nextOrder = props.nextOrder || -2999
+    order = (prevOrder + nextOrder) / 2
     Ajaxer.patch
       path: "issues/#{issue.sequential_id}.json"
       data: { issue: { status: props.status.id, order: order } }
     {}
+  canDrop: (props, monitor) ->
+    issue = monitor.getItem().issue
+    id = issue.id.toString()
+    id != props.nextId && id != props.prevId
 };
 
 dragCollect = (connect, monitor) ->
@@ -33,13 +38,15 @@ dragCollect = (connect, monitor) ->
 dropCollect = (connect, monitor) ->
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
+    draggingIssue: monitor.getItem()
   }
 
 IssueGapPrototype = React.createClass
   propTypes:
     status: React.PropTypes.object.isRequired
-    # previousOrder: React.PropTypes.number.isRequired
+    # prevOrder: React.PropTypes.number.isRequired
     # nextOrder: React.PropTypes.number.isRequired
     isOver: React.PropTypes.bool.isRequired
     connectDropTarget: React.PropTypes.func.isRequired
@@ -48,20 +55,22 @@ IssueGapPrototype = React.createClass
     connectDropTarget = @props.connectDropTarget
     isOver = @props.isOver
     isLast = @props.nextOrder == undefined
+    canDrop = @props.canDrop
+    draggingIssue = @props.draggingIssue
 
     connectDropTarget(
-      `<div className='issue-gap'>
+      `<div className='issue-gap' style={{
+        height: isOver && canDrop ? draggingIssue.height + 20 : 10,
+        zIndex: draggingIssue && canDrop ? 3 : 1
+      }}>
         {this.props.children}
-        {isOver &&
+        { draggingIssue &&
           <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
             height: '100%',
             width: '100%',
             zIndex: 1,
             opacity: 0.5,
-            backgroundColor: isOver ? '#C1DBB5' : 'none'
+            backgroundColor: '#C1DBB5'
           }}>
           </div>
         }
@@ -569,14 +578,14 @@ KanbanApp = React.createClass
     issues = []
     for issue, i in @state.items
       pre = @state.items[i-1]
-      next = pre = @state.items[i]
-      preId = if pre then pre.id else ''
-      preOrder = if pre then pre.order else undefined
+      prevId = if pre then pre.id.toString() else ''
+      next = @state.items[i]
       nextId = next.id.toString()
-      issues.push(`<IssueGap key={preId + '-' + nextId} status={this.props.status} nextOrder={next.order} previousOrder={preOrder} />`)
+      prevOrder = if pre then pre.order else undefined
+      issues.push(`<IssueGap key={prevId + '-' + nextId} status={this.props.status} nextOrder={next.order} nextId={nextId} prevOrder={prevOrder} prevId={prevId} />`)
       issues.push(`<KanbanIssue issue={issue} key={issue.id} openIssuePanel={openIssuePanel} isDone={isDone} />`)
-    preOrder = if i then @state.items[i - 1].order else undefined
-    issues.push(`<IssueGap key={(nextId || '') + '-'} status={this.props.status} nextOrder={undefined} previousOrder={preOrder} />`)
+    prevOrder = if i then @state.items[i - 1].order else undefined
+    issues.push(`<IssueGap key={(nextId || '') + '-'} status={this.props.status} nextOrder={undefined} nextId={''} prevOrder={prevOrder} prevId={nextId}/>`)
     `<div className={ "ui attached segment secondary kanban-column-container " + ( isDone ? "done" : "" ) }>
         {issues}
     </div>`
@@ -606,7 +615,8 @@ KanbanIssuePrototype = React.createClass
 
     connectDragSource(
       `<div style={{
-        opacity: isDragging || this.props.isDone ? 0.5 : 1,
+        opacity: this.props.isDone ? 0.5 : 1,
+        display: isDragging ? 'none' : 'block',
         cursor: 'move'
       }} className={ "ui items segment kanban-issue " } onClick={this.handleOnClick}>
           <div className="ui corner teal label" >
