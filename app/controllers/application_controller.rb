@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   before_action :preload_sti_descendants
   before_action :configure_permitted_parameters, if: :devise_controller?
+  around_action :index_in_sidekiq, if: :production?
 
   protected
 
@@ -21,6 +22,16 @@ class ApplicationController < ActionController::Base
 
   def preload_sti_descendants
     [Post, Snippet, Image, OtherAttachment]
+  end
+
+  def index_in_sidekiq
+    Chewy.strategy(:sidekiq) do
+      yield
+    end
+  end
+
+  def production?
+    Rails.env.production?
   end
 
 end
