@@ -27,6 +27,8 @@
       result = "../../users/#{target.slug}"
     else if type == "OtherAttachment" || type == 'Image'
       result = 'attachments/' + (target.sequential_id || target.id)
+    else if type == "Channel"
+      result = 'channels/' + target.slug
     else
       result = _.pluralize(type.toLowerCase()) + '/' + (target.sequential_id || target.id)
     return result
