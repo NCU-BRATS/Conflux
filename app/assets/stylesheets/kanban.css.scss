@@ -53,11 +53,12 @@
         .kanban-column-container {
           height: calc( 100vh - 140px );
           overflow-y: auto;
-          padding: 5px 10px !important;
+          padding: 5px 15px !important;
           .kanban-issue {
+            z-index: 2;
             white-space: normal;
-            padding: 0 5px 3px 10px !important;
-            margin: 10px auto !important;
+            padding: 1px 5px 3px 10px !important;
+            margin: 0 auto !important;
             &:hover {
               cursor: pointer;
             }
@@ -136,5 +137,9 @@
   .editable-popup-content2 {
     min-width: 200px;
   }
-
+  .issue-gap {
+    position: relative;
+    height: 10px;
+    z-index: 1;
+  }
 }
