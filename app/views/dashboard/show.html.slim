@@ -31,7 +31,7 @@
         = 'Contribution'
       .description style='text-align:center'
         = 'bug reporting and code enhancement'
-    a.ui.bottom.attached.button href='https://github.com/NCU-BRATS/Conflux/issues'
+    .ui.bottom.attached.button.contribution-btn
       i.asterisk.icon
       = 'start'
   .card
@@ -68,3 +68,6 @@
   coffee:
     $('.about-button').click () ->
       alert('Conflux v1.0.0-Sleeping-Beauty')
+      
+    $('.contribution-btn').click () ->
+      alert("有任何問題與建議歡迎與我們聯繫!\nEmail: admin@conflux.me")
