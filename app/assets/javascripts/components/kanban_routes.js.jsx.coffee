@@ -1,4 +1,75 @@
-@KanbanApp = React.createClass
+DragDropContext = ReactDnD.DragDropContext
+HTML5Backend = ReactDnD.HTML5
+DragSource = ReactDnD.DragSource
+DropTarget = ReactDnD.DropTarget
+
+ItemTypes = {
+  ISSUE: 'issue'
+}
+
+issueSource = {
+  beginDrag: (props, monitor) ->
+    props.issue
+}
+
+issueGapTarget = {
+  drop: (props, monitor) ->
+    issue = monitor.getItem()
+    preOrder = props.previousOrder || 0
+    nextOrder = props.nextOrder || 0
+    order = (preOrder + nextOrder) / 2
+    Ajaxer.patch
+      path: "issues/#{issue.sequential_id}.json"
+      data: { issue: { status: props.status.id, order: order } }
+    {}
+};
+
+dragCollect = (connect, monitor) ->
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+
+dropCollect = (connect, monitor) ->
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  }
+
+IssueGapPrototype = React.createClass
+  propTypes:
+    status: React.PropTypes.object.isRequired
+    # previousOrder: React.PropTypes.number.isRequired
+    # nextOrder: React.PropTypes.number.isRequired
+    isOver: React.PropTypes.bool.isRequired
+    connectDropTarget: React.PropTypes.func.isRequired
+
+  render: ->
+    connectDropTarget = @props.connectDropTarget
+    isOver = @props.isOver
+    isLast = @props.nextOrder == undefined
+
+    connectDropTarget(
+      `<div className='issue-gap'>
+        {this.props.children}
+        {isOver &&
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            zIndex: 1,
+            opacity: 0.5,
+            backgroundColor: isOver ? '#C1DBB5' : 'none'
+          }}>
+          </div>
+        }
+      </div>`
+    )
+@IssueGap = DropTarget(ItemTypes.ISSUE, issueGapTarget, dropCollect)(IssueGapPrototype)
+
+KanbanApp = React.createClass
   propTypes:
     project: React.PropTypes.object.isRequired
     current_user: React.PropTypes.object.isRequired
@@ -495,18 +566,28 @@
   render: ->
     isDone = @props.isDone
     openIssuePanel = @props.openIssuePanel
-    issues = @state.items.map (issue,i) =>
-      `<KanbanIssue issue={issue} key={issue.id} openIssuePanel={openIssuePanel} isDone={isDone} />`
-
+    issues = []
+    for issue, i in @state.items
+      pre = @state.items[i-1]
+      next = pre = @state.items[i]
+      preId = if pre then pre.id else ''
+      preOrder = if pre then pre.order else undefined
+      nextId = next.id.toString()
+      issues.push(`<IssueGap key={preId + '-' + nextId} status={this.props.status} nextOrder={next.order} previousOrder={preOrder} />`)
+      issues.push(`<KanbanIssue issue={issue} key={issue.id} openIssuePanel={openIssuePanel} isDone={isDone} />`)
+    preOrder = if i then @state.items[i - 1].order else undefined
+    issues.push(`<IssueGap key={(nextId || '') + '-'} status={this.props.status} nextOrder={undefined} previousOrder={preOrder} />`)
     `<div className={ "ui attached segment secondary kanban-column-container " + ( isDone ? "done" : "" ) }>
         {issues}
     </div>`
 
-@KanbanIssue = React.createClass
+KanbanIssuePrototype = React.createClass
   propTypes:
     issue:  React.PropTypes.object.isRequired
     isDone: React.PropTypes.bool.isRequired
     openIssuePanel: React.PropTypes.func.isRequired
+    connectDragSource: React.PropTypes.func.isRequired
+    isDragging: React.PropTypes.bool.isRequired
 
   handleOnClick: () ->
     setTimeout( ()=>
@@ -514,38 +595,48 @@
     , 510)
 
   render: ->
+    connectDragSource = @props.connectDragSource
+    isDragging = @props.isDragging
+
     issue = @props.issue
 
     if issue.labels
       labelsContent = issue.labels.map (label) =>
         `<KanbanIssueLabel label={label} key={label.id}/>`
 
-    `<div className={ "ui items segment kanban-issue " + ( this.props.isDone ? "done" : "" ) } onClick={this.handleOnClick}>
-        <div className="ui corner teal label" >
-            <span className="kanban-issue-point">
-                { issue.point }
-            </span>
-        </div>
-        <div className="ui large list kanban-issue-content">
-            <div className="item">
-                <div className="ui image kanban-issue-avatar">
-                    <AvatarImage user={issue.assignee} />
-                </div>
-                <div className="middle aligned content">
-                    <div className="header">
-                        #{issue.sequential_id} {issue.title}
-                    </div>
-                </div>
-            </div>
-            <div className="item">
-                <div className="content">
-                    <div className="description">
-                        {labelsContent}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>`
+    connectDragSource(
+      `<div style={{
+        opacity: isDragging || this.props.isDone ? 0.5 : 1,
+        cursor: 'move'
+      }} className={ "ui items segment kanban-issue " } onClick={this.handleOnClick}>
+          <div className="ui corner teal label" >
+              <span className="kanban-issue-point">
+                  { issue.point }
+              </span>
+          </div>
+          <div className="ui large list kanban-issue-content">
+              <div className="item">
+                  <div className="ui image kanban-issue-avatar">
+                      <AvatarImage user={issue.assignee} />
+                  </div>
+                  <div className="middle aligned content">
+                      <div className="header">
+                          #{issue.sequential_id} {issue.title}
+                      </div>
+                  </div>
+              </div>
+              <div className="item">
+                  <div className="content">
+                      <div className="description">
+                          {labelsContent}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>`
+     )
+
+@KanbanIssue = DragSource(ItemTypes.ISSUE, issueSource, dragCollect)(KanbanIssuePrototype)
 
 @KanbanIssueLabel = React.createClass
   propTypes:
@@ -1241,3 +1332,5 @@
                     commentable_socket_path={commentableSocketPath}
                     is_unsubscribable={false} />
     </div>`
+
+@KanbanApp = DragDropContext(HTML5Backend)(KanbanApp)

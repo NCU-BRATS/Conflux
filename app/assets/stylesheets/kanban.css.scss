@@ -56,8 +56,8 @@
           padding: 5px 10px !important;
           .kanban-issue {
             white-space: normal;
-            padding: 0 5px 3px 10px !important;
-            margin: 10px auto !important;
+            padding: 1px 5px 3px 10px !important;
+            margin: 0 auto !important;
             &:hover {
               cursor: pointer;
             }
@@ -136,5 +136,10 @@
   .editable-popup-content2 {
     min-width: 200px;
   }
-
+  .issue-gap {
+    position: relative;
+    margin-left: -10px;
+    margin-right: -10px;
+    height: 15px;
+  }
 }
