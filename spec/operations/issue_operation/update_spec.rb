@@ -30,6 +30,15 @@ RSpec.describe IssueOperation::Update do
         expect( @issue.status ).to eq 'closed'
       end
 
+      it 'changes the status and fires event' do
+        expect{ subject.process( new_param( { issue: { status: '2' } } ) ) }.to broadcast(:on_issue_closed)
+      end
+
+      it 'changes the status and fires event' do
+        subject.process( new_param( { issue: { status: '2' } } ) )
+        expect{ subject.process( new_param( { issue: { status: '1' } } ) ) }.to broadcast(:on_issue_reopened)
+      end
+
       it 'changes the assignee and add to participations' do
         subject.process( new_param( { issue: { assignee_id: @members[2].id } } ) )
         expect( @issue.assignee ).to eq @members[2]
