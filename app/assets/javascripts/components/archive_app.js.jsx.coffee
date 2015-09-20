@@ -149,7 +149,7 @@
   handleOnDearchive: () ->
     if confirm( '確定要解除封存?' )
       Ajaxer.patch
-        path: "/projects/#{this.props.project.slug}/channels/#{this.props.item.id}.json"
+        path: "/projects/#{this.props.project.slug}/channels/#{this.props.item.slug}.json"
         data: { channel: { archived: false } }
 
   render: ->
