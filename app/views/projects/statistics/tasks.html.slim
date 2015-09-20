@@ -2,28 +2,30 @@
 
 - title t('structure.statistic', element:t('project.issues') )
 
-.ui.attached.segment.tertiary
+.ui.top.attached.segment.tertiary
   i.icon.tasks
-  = '任務標籤統計'
-.ui.attached.segment
+  = '任務標籤統計 (全部)'
+.ui.bottom.attached.segment
   - label_chart  = @project.labels.inject({}){ |map,label| map.merge( { label.title => label.issues.count } ) }
+  = column_chart label_chart, colors: %w(#2196f3)
+
+.ui.top.attached.segment.tertiary
+  i.icon.tasks
+  = '任務標籤統計 (進行中)'
+.ui.bottom.attached.segment
+  - label_chart  = @project.labels.inject({}){ |map,label| map.merge( { label.title => label.issues.where.not(status:'2').count } ) }
   = column_chart label_chart, colors: %w(#88f0d2)
 
-/.ui.hidden.divider
-/
-/.ui.attached.segment.tertiary
-/  i.icon.tasks
-/  = '任務狀態統計'
-/.ui.attached.segment
-/  = area_chart @project.issues.group(:status).group_by_day(:created_at).count, colors: %w(#87d2a0 #f17f49)
-/
-/
-/.ui.two.column.grid.doubling
-/
-/  - @project.members.each do |member|
-/    .column
-/      .ui.hidden.divider
-/      .ui.attached.segment.tertiary
-/        = user_luxury_tag member
-/      .ui.attached.segment
-/        = area_chart member.issues.where(project:@project).group(:status).group_by_day(:created_at).count, colors: %w(#87d2a0 #f17f49)
+.ui.top.attached.segment.tertiary
+  i.icon.tasks
+  = '任務完成統計'
+.ui.bottom.attached.segment
+  = line_chart @project.events.where(target_type:'Issue',action:2).group_by_day(:created_at).count
+
+.ui.two.column.grid.doubling
+  - @project.members.each do |member|
+    .column
+      .ui.top.attached.segment.tertiary
+        = user_luxury_tag member
+      .ui.bottom.attached.segment
+        = area_chart member.events.where(project:@project,target_type:'Issue',action:2).group_by_day(:created_at).count
