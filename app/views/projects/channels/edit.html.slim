@@ -9,5 +9,3 @@ h1
   = f.input :announcement, as: :text
 
   = f.button :submit, class: 'right floated icon inverted'
-
-  = link_to t('action.target.delete', target: Channel.model_name.human), project_channel_path, method: :delete, data: { confirm: t('question.confirm.action', action: t('action.word.delete')) }, class: 'ui red submit button'

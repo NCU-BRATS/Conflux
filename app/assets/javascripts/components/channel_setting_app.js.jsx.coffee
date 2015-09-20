@@ -78,7 +78,7 @@
         prevOrder = @state.items[ e.newIndex - 1 ].order
         Math.random() * ( nextOrder - prevOrder ) + prevOrder
       Ajaxer.patch
-        path: "/projects/#{this.props.project.slug}/channels/#{@state.items[e.newIndex].id}.json"
+        path: "/projects/#{this.props.project.slug}/channels/#{@state.items[e.newIndex].slug}.json"
         data: { channel: { order: nextOrder } }
 
   render: ->
