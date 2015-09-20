@@ -5,7 +5,8 @@
 ---
 :verbose: false
 :concurrency: 10
-
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
 # Set timeout to 8 on Heroku, longer if you manage your own systems.
 :timeout: 30
 
