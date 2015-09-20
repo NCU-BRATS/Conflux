@@ -16,7 +16,7 @@
 :queues:
   - critical
   - default
-  - <%= `hostname`.strip %>
+  - mailers
   - low
 
 # you can override concurrency based on environment
