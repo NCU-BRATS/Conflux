@@ -24,6 +24,7 @@
       $('#new_attachment').fileupload
         dataType: 'jsonp',
         add: (e, data) ->
+          $('#submit_file').unbind('click')
           $('#submit_file').click ()->
             $(@).hide()
             $('#upload-progress').show()
