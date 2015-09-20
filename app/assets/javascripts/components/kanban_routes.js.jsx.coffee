@@ -87,7 +87,7 @@
     @setState({loading: true})
     if sprint
       Ajaxer.get
-        path: "/projects/#{@props.project.slug}/issues.json?q[sprint_id_eq]=#{sprint.id}"
+        path: "/projects/#{@props.project.slug}/issues.json?q[sprint_id_eq]=#{sprint.id}&per=200"
         done: (data) =>
           window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{sprint.sequential_id}")
           @setState {sprint: sprint, issues: data, loading: false}, ()->
