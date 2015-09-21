@@ -1,4 +1,4 @@
-@AttachmentUploaderSearchInput = React.createClass
+@UserSearchInput = React.createClass
   propTypes:
     project: React.PropTypes.object.isRequired
     current_uploader: React.PropTypes.object.isRequired
@@ -10,7 +10,7 @@
 
 
   render: ->
-    `<AssociationInput name="q[user_id_eq]" collection={[this.props.current_uploader]} onChange={this.handleChange}
+    `<AssociationInput name="q[user_id_eq]" collection={[this.props.default_user]} onChange={this.handleChange}
                        data_set={
                 {
                     'resource-path' : "/projects/"+ this.props.project.slug + "/settings/members",

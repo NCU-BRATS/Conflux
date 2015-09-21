@@ -1,7 +1,7 @@
 
 - title t('structure.list', element: Attachment.model_name.human )
 
-.attachment-app
+.two-columns-app
   .contents
     .ui.relaxed.divided.items
       - @attachments.each do |attachment|
@@ -26,7 +26,7 @@
     form.ui.form
       .field
         label 檔案上傳者
-        = react_component( 'AttachmentUploaderSearchInput', { project: @project, current_uploader: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {} } )
+        = react_component( 'UserSearchInput', { project: @project, default_user: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {} } )
 
     - if policy(:attachment).create?
       .ui.hidden.divider
