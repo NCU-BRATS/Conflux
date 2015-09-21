@@ -52,7 +52,9 @@
 
   render: ->
     poll = @props.poll
-    content1 = ` <h3>{ poll.title }</h3>`
+    content1 = `<h3 style={{cursor: 'pointer'}}>
+                { poll.title } <i className="write icon"></i>
+               </h3>`
 
     `<div className="poll-container">
         <div className="poll-container-tag">

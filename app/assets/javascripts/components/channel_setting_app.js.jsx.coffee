@@ -116,7 +116,7 @@
       data: { channel: { name: value } }
 
   render: ->
-    content1 = ` <h1>{ this.props.channel.name } </h1>`
+    content1 = ` <h1 style={{cursor: 'pointer'}}>{ this.props.channel.name } <i className="write icon"></i></h1>`
 
     `<span className="channel-setting-item-name">
         <span className="">

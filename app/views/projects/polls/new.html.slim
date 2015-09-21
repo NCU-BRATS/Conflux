@@ -5,29 +5,28 @@ h1
       i.icon.chevron.left
       = t('action.word.back')
 
-= simple_nested_form_for [ @project, @form ] do |f|
-  = f.error_notification
+div style="max-width: 500px"
+  = simple_nested_form_for [ @project, @form ] do |f|
+    = f.error_notification
 
-  = f.input :title
+    = f.input :title
 
-  = f.input :allow_multiple_choice, as: :boolean
+    = f.input :allow_multiple_choice, as: :boolean
 
-  = f.fields_for :options do |of|
-    = of.input :title, label: t('activerecord.models.polling_option')
-    .field
-      label &nbsp;
-      = of.link_to_remove t('action.word.delete'), class: 'ui red button'
+    = f.fields_for :options do |of|
+      = of.input :title, label: t('activerecord.models.polling_option'), input_html: {style: 'width: 300px'}
+      .field
+        label &nbsp;
+        = of.link_to_remove t('action.word.delete'), class: 'ui red button'
 
-  = f.link_to_add t('action.target.add', target: PollingOption.model_name.human), :options, class: 'ui green button'
-
-  .ui.divider
-
-  = f.button :submit, class: 'fluid icon inverted'
+    = f.link_to_add t('action.target.add', target: PollingOption.model_name.human), :options, class: 'ui green button'
+    br
+    .ui.divider
+    br
+    = f.button :submit, class: 'fluid icon inverted'
 
 
 
 - content_for :javascripts
   coffee:
     $('.menu .item').tab()
-
-
