@@ -16,12 +16,14 @@ issueGapTarget = {
   drop: (props, monitor) ->
     data = monitor.getItem()
     issue = data.issue
-    prevOrder = props.prevOrder || 999
-    nextOrder = props.nextOrder || -2999
-    order = (prevOrder + nextOrder) / 2
-    Ajaxer.patch
-      path: "issues/#{issue.sequential_id}.json"
-      data: { issue: { status: props.status.id, order: order } }
+    id = issue.id.toString()
+    if id != props.nextId && id != props.prevId
+      prevOrder = props.prevOrder || 999
+      nextOrder = props.nextOrder || -2999
+      order = (prevOrder + nextOrder) / 2
+      Ajaxer.patch
+        path: "issues/#{issue.sequential_id}.json"
+        data: { issue: { status: props.status.id, order: order } }
     {}
   canDrop: (props, monitor) ->
     issue = monitor.getItem().issue
@@ -60,7 +62,7 @@ IssueGapPrototype = React.createClass
 
     connectDropTarget(
       `<div className='issue-gap' style={{
-        height: isOver && canDrop ? draggingIssue.height + 20 : 10,
+        height: isOver ? draggingIssue.height + 20 : 10,
         zIndex: draggingIssue && canDrop ? 3 : 1
       }}>
         {this.props.children}
