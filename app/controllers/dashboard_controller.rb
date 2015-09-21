@@ -40,7 +40,7 @@ class DashboardController < ApplicationController
   end
 
   def precious
-    params[:precious] ||= "comments" 
+    params[:precious] ||= "comments"
     case params[:precious]
 
     when "comments"
