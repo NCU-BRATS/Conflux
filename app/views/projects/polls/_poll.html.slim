@@ -13,6 +13,13 @@
             => user_tag poll.user, class: 'gray link'
             => t('action.target.created_at', target: '')
             span = time_format_relative_tag(poll.created_at)
+          .options
+            - poll.options.each do |option|
+              .ui.label style="margin-top: 3px;"
+                .detail title="#{option.title}" style="max-width: 8em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                  = option.title
+                .detail
+                  = option.votes_total
 
     .four.wide.column
       - if poll.closed?

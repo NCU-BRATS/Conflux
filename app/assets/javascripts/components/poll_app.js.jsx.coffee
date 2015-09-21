@@ -273,7 +273,7 @@
     optionClass = if _.find(@props.option.voted_users, (u) => u.id == @props.user.id) then ' active' else ''
 
     `<div className="poll-option">
-      <div className={'option' + optionClass} onClick={this.handleOnClick}>
+      <div className={'option' + optionClass} title={this.props.option.title} onClick={this.handleOnClick}>
         <span className="bar" style={{width: percent+'%'}}></span>
         <div className="content">
           <div className="option-title">{this.props.option.title}</div>
