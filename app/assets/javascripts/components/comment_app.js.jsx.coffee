@@ -405,7 +405,7 @@
       project_suggestions_path = "/projects/#{@props.project.slug}/suggestions"
       displayField =
         `<div className="ui attached segment">
-            <MentionableTextarea placeholder={'撰寫評論 支援 Markdown'} configurations={this.getConfigurations()} ref="textarea" valueLink={this.linkState('commentText')} data-suggestions-path={project_suggestions_path}/>
+            <MentionableTextarea placeholder={'撰寫評論 支援 Markdown\n\n使用 @ 可以通知成員\n使用 # 可以連結任務\n使用 ^ 可以連結投票\n使用 $ 可以連結檔案\n使用 : 可以連結頻道'} configurations={this.getConfigurations()} ref="textarea" valueLink={this.linkState('commentText')} data-suggestions-path={project_suggestions_path}/>
         </div>`
 
     `<form className="ui form" onSubmit={this.handleSubmit}>
