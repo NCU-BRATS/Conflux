@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917135401) do
+ActiveRecord::Schema.define(version: 20150921083844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "access_logs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "session_id"
+    t.string   "path"
+    t.string   "controller"
+    t.string   "action"
+    t.string   "format"
+    t.string   "remote_ip"
+    t.jsonb    "headers"
+    t.jsonb    "params"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "attachments", force: :cascade do |t|
     t.string   "name"
