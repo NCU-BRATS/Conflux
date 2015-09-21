@@ -1,6 +1,48 @@
-= render partial: 'projects/page_header'
 
-div
-  = render @polls
+.two-columns-app
+  .contents
+    - if @polls.length == 0
+      .ui.divided.items#search_results
+        .ui.secondary.segment#no_result
+          .ui.center.aligned.icon.header
+            - if params[:q]
+              i.frown.icon
+            - else
+              i.smile.icon
+            .content
+              - if params[:q]
+                | 我們沒有找到符合條件的投票
+              - else
+                | 您還沒有新增投票喔，請從右方的新增按鈕新增
+    - else
+      = render @polls
+
+  .attributes
+    = simple_form_for [@project, ProjectSearch.new(type: model_sym)], method: 'get', html: {'data-turboform' => 'true'} do |f|
+      .field
+        label 搜尋
+        input.string.optional placeholder='請輸入搜尋關鍵字' type="text" name="project_search[query]" id="project_search_query"
+        = f.input :type, as: :hidden
+    .ui.hidden.divider
+    form.ui.form
+      .field
+        label 投票發起人
+        = react_component('UserSearchInput', {project: @project, default_user: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {}})
+
+    - if policy(:poll).create?
+      .ui.hidden.divider
+      .ui.form
+        .field
+          = link_to t('action.target.add', target: Poll.model_name.human), [:new, @project, model_sym], class: 'ui fluid button'
 
 = paginate @polls
+
+- content_for :javascripts
+  javascript:
+    var currentSearchUser = "#{@q.user_id_eq}";
+  coffee:
+    $('#q_user_id_eq').dropdown({
+      onChange: (value, text, choice) ->
+        if(value != currentSearchUser && value)
+          $(@).closest('form').submit()
+    })

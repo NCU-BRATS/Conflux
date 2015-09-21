@@ -1,7 +1,7 @@
 class Projects::PollsController < Projects::ApplicationController
 
   def index
-    @q = @project.polls.includes(:user).order('id DESC').search(params[:q])
+    @q = @project.polls.includes(:user).includes(:options).order('id DESC').search(params[:q])
     @polls = @q.result.uniq.page(params[:page]).per(params[:per])
     respond_with @project, @polls
   end

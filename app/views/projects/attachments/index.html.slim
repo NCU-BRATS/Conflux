@@ -1,11 +1,24 @@
 
 - title t('structure.list', element: Attachment.model_name.human )
 
-.attachment-app
+.two-columns-app
   .contents
     .ui.relaxed.divided.items
       - @attachments.each do |attachment|
         = render partial: "sync/#{attachment.class.name.pluralize.underscore}/preview", locals: { attachment.class.name.underscore.to_sym => attachment }
+      - if @attachments.length == 0
+        .ui.divided.items#search_results
+          .ui.secondary.segment#no_result
+            .ui.center.aligned.icon.header
+              - if params[:q]
+                i.frown.icon
+              - else
+                i.smile.icon
+              .content
+                - if params[:q]
+                  | 我們沒有找到符合條件的檔案
+                - else
+                  | 您還沒有新增檔案喔，請從右方的新增按鈕新增
 
     = paginate @attachments
   .attributes
@@ -26,7 +39,7 @@
     form.ui.form
       .field
         label 檔案上傳者
-        = react_component( 'AttachmentUploaderSearchInput', { project: @project, current_uploader: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {} } )
+        = react_component( 'UserSearchInput', { project: @project, default_user: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {} } )
 
     - if policy(:attachment).create?
       .ui.hidden.divider
@@ -92,4 +105,3 @@
     PrivatePub.subscribe("/projects/#{@project.id}/attachments", function (res) {
       location.reload();
     });
-

@@ -1,4 +1,4 @@
-.attachment-app {
+.two-columns-app {
   @include flexbox;
   a.toggle, .plus, .minus {
     cursor: pointer;
@@ -14,17 +14,10 @@
     height: calc( 100vh );
     overflow-y: auto;
   }
+
   .contents, {
     @include flex(1);
-    .poll-container {
-      @include flexbox;
-      .poll-container-tag {
-        margin-right: 5px;
-      }
-      .poll-container-content {
-        @include flex(1);
-      }
-    }
+    padding-left: 5px;
   }
 
   .attributes {
