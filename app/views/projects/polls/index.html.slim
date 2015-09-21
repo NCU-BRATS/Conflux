@@ -1,7 +1,21 @@
 
 .two-columns-app
   .contents
-    = render @polls
+    - if @polls.length == 0
+      .ui.divided.items#search_results
+        .ui.secondary.segment#no_result
+          .ui.center.aligned.icon.header
+            - if params[:q]
+              i.frown.icon
+            - else
+              i.smile.icon
+            .content
+              - if params[:q]
+                | 我們沒有找到符合條件的投票
+              - else
+                | 您還沒有新增投票喔，請從右方的新增按鈕新增
+    - else
+      = render @polls
 
   .attributes
     = simple_form_for [@project, ProjectSearch.new(type: model_sym)], method: 'get', html: {'data-turboform' => 'true'} do |f|
@@ -12,7 +26,7 @@
     .ui.hidden.divider
     form.ui.form
       .field
-        label 檔案上傳者
+        label 投票發起人
         = react_component('UserSearchInput', {project: @project, default_user: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {}})
 
     - if policy(:poll).create?
