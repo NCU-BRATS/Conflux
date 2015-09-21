@@ -615,10 +615,9 @@ KanbanIssuePrototype = React.createClass
 
     connectDragSource(
       `<div style={{
-        opacity: this.props.isDone ? 0.5 : 1,
         display: isDragging ? 'none' : 'block',
         cursor: 'move'
-      }} className={ "ui items segment kanban-issue " } onClick={this.handleOnClick}>
+      }} className={ "ui items segment kanban-issue " + (this.props.isDone ? 'done' : '') } onClick={this.handleOnClick}>
           <div className="ui corner teal label" >
               <span className="kanban-issue-point">
                   { issue.point }
