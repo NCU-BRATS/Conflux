@@ -1,6 +1,34 @@
-= render partial: 'projects/page_header'
 
-div
-  = render @polls
+.two-columns-app
+  .contents
+    = render @polls
+
+  .attributes
+    = simple_form_for [@project, ProjectSearch.new(type: model_sym)], method: 'get', html: {'data-turboform' => 'true'} do |f|
+      .field
+        label 搜尋
+        input.string.optional placeholder='請輸入搜尋關鍵字' type="text" name="project_search[query]" id="project_search_query"
+        = f.input :type, as: :hidden
+    .ui.hidden.divider
+    form.ui.form
+      .field
+        label 檔案上傳者
+        = react_component('UserSearchInput', {project: @project, default_user: @q.user_id_eq ? (User.find(@q.user_id_eq) rescue {}) : {}})
+
+    - if policy(:poll).create?
+      .ui.hidden.divider
+      .ui.form
+        .field
+          = link_to t('action.target.add', target: Poll.model_name.human), [:new, @project, model_sym], class: 'ui fluid button'
 
 = paginate @polls
+
+- content_for :javascripts
+  javascript:
+    var currentSearchUser = "#{@q.user_id_eq}";
+  coffee:
+    $('#q_user_id_eq').dropdown({
+      onChange: (value, text, choice) ->
+        if(value != currentSearchUser && value)
+          $(@).closest('form').submit()
+    })
