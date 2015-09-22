@@ -130,7 +130,7 @@ class NoticeCreateListener
 
       project_participations.each do |pp|
         mm = members.find {|m| m.id == pp.user_id }
-        recipients << mm if subscribed?(pp, mm)
+        recipients << mm if watched?(pp, mm)
       end
 
       recipients - [current_user]
@@ -148,6 +148,11 @@ class NoticeCreateListener
       end
 
       recipients - [current_user]
+    end
+
+    def watched?(project_participation, member)
+      target = (project_participation.notification_level == 3) ? member : project_participation
+      target.notification_level == 2
     end
 
     def subscribed?(project_participation, member)
