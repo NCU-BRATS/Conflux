@@ -821,7 +821,7 @@ KanbanIssuePrototype = React.createClass
 
   render: ->
     counts = _.countBy @props.issues, (issue) ->
-      if issue.status == 2
+      if issue.status == '2'
         'done'
       else
         'undone'
