@@ -61,7 +61,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def should_reindex?
-    destroyed? || (previous_changes.keys & %w(name content type language)).present?
+    deleted? || (previous_changes.keys & %w(name content type language)).present?
   end
 
   def preview_html_decorate( preview_html, options={} )

@@ -1,7 +1,14 @@
 .item
   .content
     .header
-      i.icon class="#{sprint.status == 'open' ? 'green unlock' : 'red lock'}"
+      - if sprint.archived
+        - icon = 'red archive'
+      - elsif sprint.due_at && sprint.due_at < Time.now
+        - icon = 'red calendar'
+      - else
+        - icon = 'green calendar'
+
+      i.icon class="#{icon}"
       = link_to sprint.title.html_safe, [@project, sprint._object]
 
     .sequential-id
