@@ -431,16 +431,20 @@ KanbanApp = React.createClass
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     status:  React.PropTypes.node.isRequired
+    issues:  React.PropTypes.array.isRequired
 
   handleCreateIssue: () ->
     issueName = prompt( '請輸入新任務名稱 留空則使用預設值' )
     if issueName isnt null
+      issues = _.sortBy @props.issues, (issue)->
+        issue.order
       Ajaxer.post
         path: "/projects/#{this.props.project.slug}/issues.json"
         data: {
           issue: {
             title: if issueName is '' then '新增任務' else issueName,
             sprint_id: @props.sprint.id,
+            order: issues[0].order - ( 50 + Math.random() )
             status: @props.status.id
           }
         }
@@ -952,9 +956,8 @@ KanbanIssuePrototype = React.createClass
                 <KanbanIssuePanelSetting {...this.props} />
             </div>
             <KanbanIssuePanelTitle {...this.props} />
-            <div className="ui three item menu">
+            <div className="ui two item menu">
                 <KanbanIssuePanelAssignee {...this.props} />
-                <KanbanIssuePanelPriority {...this.props} />
                 <KanbanIssuePanelPoint {...this.props} />
             </div>
             <KanbanIssuePanelLabels {...this.props} />
@@ -1137,34 +1140,6 @@ KanbanIssuePrototype = React.createClass
                 }
               }
         />`
-
-@KanbanIssuePanelPriority = React.createClass
-  propTypes:
-    issue:   React.PropTypes.object.isRequired
-
-  handleSave: (value) ->
-    if value >= 0 && value <= 999
-      Ajaxer.patch
-        path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
-        data: { issue: { order: value } }
-    else
-      alert( '數值必須是整數且介於0~999' )
-
-  render: ->
-    content1 =
-      `<a className="ui icon label">
-          <i className="ui icon asterisk" />
-          { this.props.issue.order }
-      </a>`
-
-    `<div className="item">
-        <h6 className="ui header">
-            優先級
-        </h6>
-        <div className="">
-            <ContentClickEditablePopupInput type="number" content1={content1} content2={this.props.issue.order} onSave={this.handleSave} />
-        </div>
-    </div>`
 
 @KanbanIssuePanelPoint = React.createClass
   propTypes:
