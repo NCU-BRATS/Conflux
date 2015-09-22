@@ -28,7 +28,7 @@ class Comment < ActiveRecord::Base
   def commentable_proxy
     begin
       if commentable_type == 'Attachment'
-        Attachment.unscoped.find(commentable_id)
+        Attachment.with_deleted.find(commentable_id)
       else
         commentable
       end

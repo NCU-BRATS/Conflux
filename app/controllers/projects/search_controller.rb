@@ -5,7 +5,7 @@ class Projects::SearchController < Projects::ApplicationController
     @results = @search.search.per(10).page(params[:page]).preload(
       issue: { scope: Issue.includes(:user) },
       sprint: { scope: Sprint.includes(:user) },
-      attachment: { scope: Attachment.includes(:user) },
+      attachment: { scope: Attachment.with_deleted.includes(:user) },
       message: { scope: Message.includes(:user, :channel) }
     )
   end
