@@ -95,13 +95,16 @@ KanbanApp = React.createClass
       path: "/projects/#{@props.project.slug}/sprints.json?q[s]=id asc&q[archived_eq]=false"
       done: (data) =>
         @setState {sprints: data}, () ->
-          params = @getURLParams()
-          if params['sprint_sequential_id']
-            @chooseSprintAndIssue( params['sprint_sequential_id'], params['issue_sequential_id'] )
+          @chooseSprintIssueByUrl()
 
   componentWillUnmount: () ->
     PrivatePub.unsubscribe("/projects/#{@props.project.id}/sprints")
     PrivatePub.unsubscribe("/projects/#{@props.project.id}/issues")
+
+  chooseSprintIssueByUrl: () ->
+    params = @getURLParams()
+    if params['sprint_sequential_id']
+      @chooseSprintAndIssue( params['sprint_sequential_id'], params['issue_sequential_id'] )
 
   sprintRecieve: (res, channel) ->
     @appendSprint(res.data)  if res.target == 'sprint' && res.action == 'create'
@@ -162,6 +165,8 @@ KanbanApp = React.createClass
             @openIssuePanel( @state.issues[ issue_index ] )
           else
             alert( '不存在的任務' )
+        else if sprint_sequential_id
+          @openSprintPanel()
     else
       alert( '不存在的戰役' )
 
@@ -171,7 +176,7 @@ KanbanApp = React.createClass
       Ajaxer.get
         path: "/projects/#{@props.project.slug}/issues.json?q[sprint_id_eq]=#{sprint.id}&per=200"
         done: (data) =>
-          window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{sprint.sequential_id}")
+          window.history.pushState("kanban-sprint-#{sprint.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{sprint.sequential_id}")
           @setState {sprint: sprint, issues: data, loading: false}, ()->
             $('#kanban-panel').sidebar('hide')
             callback() if callback
@@ -180,12 +185,12 @@ KanbanApp = React.createClass
 
   openIssuePanel: (issue) ->
     @setState { issue: issue, mode: 'issue' }, () ->
-      window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}&issue_sequential_id=#{issue.sequential_id}")
+      window.history.pushState("kanban-sprint-#{@state.sprint.sequential_id}-issue-#{issue.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}&issue_sequential_id=#{issue.sequential_id}")
       $('#kanban-panel').sidebar('show')
 
   openSprintPanel: () ->
     @setState { mode: 'sprint' }, () ->
-      window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}")
+      window.history.pushState("kanban-sprint-#{@state.sprint.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}")
       $('#kanban-panel').sidebar('show')
 
   getURLParams: () ->
