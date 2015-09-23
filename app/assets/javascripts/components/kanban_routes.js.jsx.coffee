@@ -89,19 +89,24 @@ KanbanApp = React.createClass
     { sprints: [], sprint: null, issues: [], issue: null, mode: 'issue', loading: false }
 
   componentDidMount: () ->
+    window.onpopstate = () =>
+      @chooseSprintIssueByUrl()
     PrivatePub.subscribe("/projects/#{@props.project.id}/sprints", @sprintRecieve)
     PrivatePub.subscribe("/projects/#{@props.project.id}/issues", @issueRecieve)
     Ajaxer.get
       path: "/projects/#{@props.project.slug}/sprints.json?q[s]=id asc&q[archived_eq]=false"
       done: (data) =>
         @setState {sprints: data}, () ->
-          params = @getURLParams()
-          if params['sprint_sequential_id']
-            @chooseSprintAndIssue( params['sprint_sequential_id'], params['issue_sequential_id'] )
+          @chooseSprintIssueByUrl()
 
   componentWillUnmount: () ->
     PrivatePub.unsubscribe("/projects/#{@props.project.id}/sprints")
     PrivatePub.unsubscribe("/projects/#{@props.project.id}/issues")
+
+  chooseSprintIssueByUrl: () ->
+    params = @getURLParams()
+    if params['sprint_sequential_id']
+      @chooseSprintAndIssue( params['sprint_sequential_id'], params['issue_sequential_id'] )
 
   sprintRecieve: (res, channel) ->
     @appendSprint(res.data)  if res.target == 'sprint' && res.action == 'create'
@@ -162,6 +167,8 @@ KanbanApp = React.createClass
             @openIssuePanel( @state.issues[ issue_index ] )
           else
             alert( '不存在的任務' )
+        else if sprint_sequential_id
+          @openSprintPanel()
     else
       alert( '不存在的戰役' )
 
@@ -171,7 +178,6 @@ KanbanApp = React.createClass
       Ajaxer.get
         path: "/projects/#{@props.project.slug}/issues.json?q[sprint_id_eq]=#{sprint.id}&per=200"
         done: (data) =>
-          window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{sprint.sequential_id}")
           @setState {sprint: sprint, issues: data, loading: false}, ()->
             $('#kanban-panel').sidebar('hide')
             callback() if callback
@@ -180,13 +186,17 @@ KanbanApp = React.createClass
 
   openIssuePanel: (issue) ->
     @setState { issue: issue, mode: 'issue' }, () ->
-      window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}&issue_sequential_id=#{issue.sequential_id}")
       $('#kanban-panel').sidebar('show')
 
   openSprintPanel: () ->
     @setState { mode: 'sprint' }, () ->
-      window.history.pushState('kanban', 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}")
       $('#kanban-panel').sidebar('show')
+
+  pushSprintState: () ->
+    window.history.pushState("kanban-sprint-#{@state.sprint.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}")
+
+  pushIssueState: ( issue ) ->
+    window.history.pushState("kanban-sprint-#{@state.sprint.sequential_id}-issue-#{issue.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}&issue_sequential_id=#{issue.sequential_id}")
 
   getURLParams: () ->
     query = window.location.search.substring(1)
@@ -205,6 +215,7 @@ KanbanApp = React.createClass
                   sprints={this.state.sprints}
                   openIssuePanel={this.openIssuePanel}
                   openSprintPanel={this.openSprintPanel}
+                  pushSprintState={this.pushSprintState}
                   chooseSprintAndIssues={this.chooseSprintAndIssues}/>
           </div>
           <div className="">
@@ -215,6 +226,7 @@ KanbanApp = React.createClass
                   issue={this.state.issue}
                   mode={this.state.mode}
                   loading={this.state.loading}
+                  pushIssueState={this.pushIssueState}
                   openIssuePanel={this.openIssuePanel}/>
           </div>
       </div>`
@@ -224,6 +236,7 @@ KanbanApp = React.createClass
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     sprints: React.PropTypes.array.isRequired
+    pushSprintState: React.PropTypes.func.isRequired
     openIssuePanel:  React.PropTypes.func.isRequired
     openSprintPanel: React.PropTypes.func.isRequired
     chooseSprintAndIssues: React.PropTypes.func.isRequired
@@ -232,7 +245,8 @@ KanbanApp = React.createClass
     (e) =>
       $('.kanban-sprint-item').removeClass('active')
       $(e.currentTarget).addClass('active')
-      @props.chooseSprintAndIssues( sprint )
+      @props.chooseSprintAndIssues sprint, () =>
+        @props.pushSprintState()
 
   chooseDefault: () ->
     @chooseSprint(null)
@@ -303,35 +317,31 @@ KanbanApp = React.createClass
     issue:   React.PropTypes.object
     loading: React.PropTypes.bool.isRequired
     current_user: React.PropTypes.object.isRequired
+    pushIssueState:  React.PropTypes.func.isRequired
     openIssuePanel:  React.PropTypes.func.isRequired
-
-  getInitialState: () ->
-    { isEnable: false }
 
   componentDidMount: () ->
     $(@refs.kanbanPanel.getDOMNode()).sidebar
       context: $(@refs.kanban.getDOMNode())
       dimPage: false
       transition: 'overlay'
-      onVisible: () =>
-        @setState({ isEnable: true })
-      onHidden: () =>
-        @setState({ isEnable: false })
 
   closePanel: () ->
     $(@refs.kanbanPanel.getDOMNode()).sidebar('hide')
 
   render: ->
-
-    panelContent =  if @props.mode == 'issue'
-      `<KanbanIssuePanel closePanel={this.closePanel} {...this.props} />`
-    else
-      `<KanbanSprintPanel closePanel={this.closePanel} {...this.props} />`
+    issuePanelClass  = if @props.mode == 'issue'  then '' else 'not_show'
+    sprintPanelClass = if @props.mode == 'sprint' then '' else 'not_show'
 
     `<div className="ui pushable kanban" ref="kanban">
         <KanbanColumns {...this.props} />
-        <KanbanPanel isEnable={this.state.isEnable} ref="kanbanPanel">
-            { panelContent }
+        <KanbanPanel ref="kanbanPanel">
+            <div className={issuePanelClass} >
+                <KanbanIssuePanel closePanel={this.closePanel} {...this.props} />
+            </div>
+            <div className={sprintPanelClass} >
+                <KanbanSprintPanel closePanel={this.closePanel} {...this.props} />
+            </div>
         </KanbanPanel>
     </div>`
 
@@ -341,6 +351,7 @@ KanbanApp = React.createClass
     sprint:  React.PropTypes.object
     issues:  React.PropTypes.array
     loading: React.PropTypes.bool.isRequired
+    pushIssueState: React.PropTypes.func.isRequired
     openIssuePanel: React.PropTypes.func.isRequired
 
 #  mixins: [ SortableMixin ]
@@ -363,7 +374,8 @@ KanbanApp = React.createClass
         issue.status
       columns = _.map @props.sprint.statuses, (status,i) =>
         `<KanbanColumn status={status} issues={issuesMap[status.id] || []} key={status.id} sprint={props.sprint} project={props.project}
-                       openIssuePanel={props.openIssuePanel}/>`
+                       openIssuePanel={props.openIssuePanel}
+                       pushIssueState={props.pushIssueState}/>`
 
       loadingClass = if @props.loading then "loading" else ""
 
@@ -401,6 +413,7 @@ KanbanApp = React.createClass
     sprint:  React.PropTypes.object
     status:  React.PropTypes.node.isRequired
     issues:  React.PropTypes.array.isRequired
+    pushIssueState: React.PropTypes.func.isRequired
     openIssuePanel: React.PropTypes.func.isRequired
 
   render: ->
@@ -431,16 +444,20 @@ KanbanApp = React.createClass
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     status:  React.PropTypes.node.isRequired
+    issues:  React.PropTypes.array.isRequired
 
   handleCreateIssue: () ->
     issueName = prompt( '請輸入新任務名稱 留空則使用預設值' )
     if issueName isnt null
+      issues = _.sortBy @props.issues, (issue)->
+        issue.order
       Ajaxer.post
         path: "/projects/#{this.props.project.slug}/issues.json"
         data: {
           issue: {
             title: if issueName is '' then '新增任務' else issueName,
             sprint_id: @props.sprint.id,
+            order: issues[0].order - ( 50 + Math.random() )
             status: @props.status.id
           }
         }
@@ -558,6 +575,7 @@ KanbanApp = React.createClass
     issues: React.PropTypes.array.isRequired
     isDone: React.PropTypes.bool.isRequired
     openIssuePanel: React.PropTypes.func.isRequired
+    pushIssueState: React.PropTypes.func.isRequired
 
 #  mixins: [ SortableMixin ]
 
@@ -577,6 +595,7 @@ KanbanApp = React.createClass
   render: ->
     isDone = @props.isDone
     openIssuePanel = @props.openIssuePanel
+    pushIssueState = @props.pushIssueState
     issues = []
     for issue, i in @state.items
       pre = @state.items[i-1]
@@ -585,7 +604,7 @@ KanbanApp = React.createClass
       nextId = next.id.toString()
       prevOrder = if pre then pre.order else undefined
       issues.push(`<IssueGap key={prevId + '-' + nextId} status={this.props.status} nextOrder={next.order} nextId={nextId} prevOrder={prevOrder} prevId={prevId} />`)
-      issues.push(`<KanbanIssue issue={issue} key={issue.id} openIssuePanel={openIssuePanel} isDone={isDone} />`)
+      issues.push(`<KanbanIssue issue={issue} key={issue.id} openIssuePanel={openIssuePanel} pushIssueState={pushIssueState} isDone={isDone} />`)
     prevOrder = if i then @state.items[i - 1].order else undefined
     issues.push(`<IssueGap key={(nextId || '') + '-'} status={this.props.status} nextOrder={undefined} nextId={''} prevOrder={prevOrder} prevId={nextId}/>`)
     `<div className={ "ui attached segment secondary kanban-column-container " + ( isDone ? "done" : "" ) }>
@@ -597,12 +616,14 @@ KanbanIssuePrototype = React.createClass
     issue:  React.PropTypes.object.isRequired
     isDone: React.PropTypes.bool.isRequired
     openIssuePanel: React.PropTypes.func.isRequired
+    pushIssueState: React.PropTypes.func.isRequired
     connectDragSource: React.PropTypes.func.isRequired
     isDragging: React.PropTypes.bool.isRequired
 
   handleOnClick: () ->
     setTimeout( ()=>
       @props.openIssuePanel( @props.issue )
+      @props.pushIssueState( @props.issue )
     , 510)
 
   render: ->
@@ -680,17 +701,12 @@ KanbanIssuePrototype = React.createClass
     </div>`
 
 @KanbanPanel = React.createClass
-  propTypes:
-    isEnable: React.PropTypes.bool.isRequired
 
   render: ->
-    if @props.isEnable
-      content =
-        `<div>
-            { this.props.children }
-        </div>`
     `<div className="ui right sidebar" id="kanban-panel">
-        { content }
+      <div>
+          { this.props.children }
+      </div>
     </div>`
 
 @KanbanSprintPanel = React.createClass
@@ -821,7 +837,7 @@ KanbanIssuePrototype = React.createClass
 
   render: ->
     counts = _.countBy @props.issues, (issue) ->
-      if issue.status == 2
+      if issue.status == '2'
         'done'
       else
         'undone'
@@ -952,9 +968,8 @@ KanbanIssuePrototype = React.createClass
                 <KanbanIssuePanelSetting {...this.props} />
             </div>
             <KanbanIssuePanelTitle {...this.props} />
-            <div className="ui three item menu">
+            <div className="ui two item menu">
                 <KanbanIssuePanelAssignee {...this.props} />
-                <KanbanIssuePanelPriority {...this.props} />
                 <KanbanIssuePanelPoint {...this.props} />
             </div>
             <KanbanIssuePanelLabels {...this.props} />
@@ -1137,34 +1152,6 @@ KanbanIssuePrototype = React.createClass
                 }
               }
         />`
-
-@KanbanIssuePanelPriority = React.createClass
-  propTypes:
-    issue:   React.PropTypes.object.isRequired
-
-  handleSave: (value) ->
-    if value >= 0 && value <= 999
-      Ajaxer.patch
-        path: "/projects/#{this.props.project.slug}/issues/#{this.props.issue.sequential_id}.json"
-        data: { issue: { order: value } }
-    else
-      alert( '數值必須是整數且介於0~999' )
-
-  render: ->
-    content1 =
-      `<a className="ui icon label">
-          <i className="ui icon asterisk" />
-          { this.props.issue.order }
-      </a>`
-
-    `<div className="item">
-        <h6 className="ui header">
-            優先級
-        </h6>
-        <div className="">
-            <ContentClickEditablePopupInput type="number" content1={content1} content2={this.props.issue.order} onSave={this.handleSave} />
-        </div>
-    </div>`
 
 @KanbanIssuePanelPoint = React.createClass
   propTypes:
