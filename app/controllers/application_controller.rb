@@ -45,6 +45,9 @@ class ApplicationController < ActionController::Base
     param[:format] = request.format.to_s
     param[:remote_ip] = request.remote_ip
     param[:params] = params.as_json
+    if params[:attachment]
+      param[:params]['attachment'] = param[:params]['attachment'].except('path')
+    end
     param[:headers] = request.headers.to_h.slice(
       'SERVER_ADDR',
       'SERVER_NAME',
@@ -58,7 +61,7 @@ class ApplicationController < ActionController::Base
       param[:params]['user']['password_confirmation'] = '*' if param[:params]['user']['password_confirmation']
       param[:params]['user']['current_password'] = '*' if param[:params]['user']['current_password']
     end
-    AccessLoggerJob.perform_later(param)
+    AccessLoggerJob.perform_later(param) rescue nil
   end
 
 end
