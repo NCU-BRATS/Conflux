@@ -179,7 +179,6 @@ KanbanApp = React.createClass
         path: "/projects/#{@props.project.slug}/issues.json?q[sprint_id_eq]=#{sprint.id}&per=200"
         done: (data) =>
           @setState {sprint: sprint, issues: data, loading: false}, ()->
-            $('#kanban-panel').sidebar('hide')
             callback() if callback
     else
       @setState({sprint: sprint, loading: false})
@@ -246,6 +245,7 @@ KanbanApp = React.createClass
       $('.kanban-sprint-item').removeClass('active')
       $(e.currentTarget).addClass('active')
       @props.chooseSprintAndIssues sprint, () =>
+        $('#kanban-panel').sidebar('hide')
         @props.pushSprintState()
 
   chooseDefault: () ->
@@ -1036,18 +1036,24 @@ KanbanIssuePrototype = React.createClass
   render: ->
     currentStatus = _.find @props.sprint.statuses, (status) =>
       status.id.toString() == @props.issue.status.toString()
-    statusItems = @props.sprint.statuses.map (status) =>
-      if status.name == currentStatus.name
-        activeable = 'active'
-      handleClick = () =>
-        @handleChooseStatus(status)
-      `<a className={ "item " + activeable } key={status.id} onClick={handleClick}>{ status.name }</a>`
+
+    statusItems = if currentStatus
+      @props.sprint.statuses.map (status) =>
+        if status.name == currentStatus.name
+          activeable = 'active'
+        handleClick = () =>
+          @handleChooseStatus(status)
+        `<a className={ "item " + activeable } key={status.id} onClick={handleClick}>{ status.name }</a>`
+    else
+      `<div className="item" />`
+
+    currentStatusName = if currentStatus then currentStatus.name else '讀取中'
 
     `<span className="kanban-issue-panel-meta">
         <span className="kanban-issue-panel-meta">狀態:</span>
         <div className="ui dropdown" ref="dropdown">
             <div className="text simple gray bold link">
-                { currentStatus.name }
+                { currentStatusName }
             </div>
             <div className="menu">
                 { statusItems }
