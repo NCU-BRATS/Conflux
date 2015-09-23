@@ -1,9 +1,12 @@
 module LabelOperation
   class BaseForm < Reform::Form
+    extend ActiveModel::ModelValidations
     model :label
 
-    property :title, validates: {presence: true}
+    property :title
     property :color
+
+    copy_validations_from Label
 
     def label_params(params)
       params.require(:label)
