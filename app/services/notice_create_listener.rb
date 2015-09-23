@@ -70,7 +70,7 @@ class NoticeCreateListener
 
       data = fetch_data(record.commentable)
       new_mentioned = new_list.fetch('members', []) - old_list.fetch('members', [])
-      recipients = build_mention_recipients(current_user, mentioned_list, data)
+      recipients = build_mention_recipients(current_user, new_mentioned, data)
       send_notice(recipients, record, current_user, :mention)
     end
 
