@@ -457,7 +457,7 @@ KanbanApp = React.createClass
           issue: {
             title: if issueName is '' then '新增任務' else issueName,
             sprint_id: @props.sprint.id,
-            order: issues[0].order - ( 50 + Math.random() )
+            order: ( if issues[0] then issues[0].order else 0 ) - ( 50 + Math.random() )
             status: @props.status.id
           }
         }
