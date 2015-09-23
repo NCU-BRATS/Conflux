@@ -1034,8 +1034,9 @@ KanbanIssuePrototype = React.createClass
       data: { issue: { status: status.id } }
 
   render: ->
-    currentStatus = _.find @props.sprint.statuses, (status) =>
-      status.id.toString() == @props.issue.status.toString()
+    currentStatus = if @props.sprint
+      _.find @props.sprint.statuses, (status) =>
+        status.id.toString() == @props.issue.status.toString()
 
     statusItems = if currentStatus
       @props.sprint.statuses.map (status) =>
