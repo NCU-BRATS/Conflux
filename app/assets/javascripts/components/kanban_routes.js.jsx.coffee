@@ -250,6 +250,13 @@ KanbanApp = React.createClass
         $('#kanban-panel').sidebar('hide')
         @props.pushSprintState()
 
+  componentDidMount: () ->
+    $(@refs.help.getDOMNode()).popup
+      on: 'click'
+      position: 'bottom left'
+      html: '可以從右上角的 <strong>"新增"</strong> 按鈕新增戰役<br><br>可以從右上角的 <strong>"屬性"</strong> 按鈕檢視與修改該戰役的內容'
+      exclusive: true
+
   render: ->
     sprintItems = @props.sprints.map (sprint,i) =>
       sprintActiveClass = if @props.sprint && @props.sprint.id == sprint.id then "active" else ""
@@ -266,7 +273,7 @@ KanbanApp = React.createClass
       sprintInfo = `<KanbanShowSprintInfoButton openSprintPanel={this.props.openSprintPanel}/>`
 
     `<div className="ui green labeled menu sprint">
-        <a className="item kanban-sprint-item"><i className="icon flag"/></a>
+        <a ref="help" className="item kanban-sprint-item"><i className="help circle icon"/></a>
         { sprintItems }
         <KanbanAddSprintButton project={this.props.project} />
         { sprintInfo }
