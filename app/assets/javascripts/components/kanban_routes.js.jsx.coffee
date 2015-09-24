@@ -492,6 +492,7 @@ KanbanApp = React.createClass
           path: "/projects/#{@props.project.slug}/sprints/#{@props.sprint.sequential_id}.json"
           data: JSON.stringify( {sprint: {statuses: @props.sprint.statuses}} )
           contentType: 'application/json'
+        $(document).popup('hide all')
 
   handleDeleteStatus: (e) ->
     if confirm( '確定要刪除此狀態？' )
@@ -505,6 +506,7 @@ KanbanApp = React.createClass
           path: "/projects/#{@props.project.slug}/sprints/#{@props.sprint.sequential_id}.json"
           data: JSON.stringify( {sprint: {statuses: newStatuses}} )
           contentType: 'application/json'
+        $(document).popup('hide all')
 
   handleUpdateStatus: (e) ->
     newStatusName = prompt( '修改狀態名稱' )
@@ -519,6 +521,7 @@ KanbanApp = React.createClass
           path: "/projects/#{@props.project.slug}/sprints/#{@props.sprint.sequential_id}.json"
           data: JSON.stringify( {sprint: {statuses: statuses}} )
           contentType: 'application/json'
+        $(document).popup('hide all')
 
   render: ->
     unless @props.isDone
@@ -858,6 +861,7 @@ KanbanIssuePrototype = React.createClass
     Ajaxer.patch
       path: "/projects/#{this.props.project.slug}/sprints/#{@props.sprint.sequential_id}.json"
       data: { sprint: {begin_at: value } }
+    $(document).popup('hide all')
 
   render: ->
     beginTime = moment( new Date( this.props.sprint.begin_at ) )
@@ -895,6 +899,7 @@ KanbanIssuePrototype = React.createClass
     Ajaxer.patch
       path: "/projects/#{this.props.project.slug}/sprints/#{@props.sprint.sequential_id}.json"
       data: { sprint: {due_at: value } }
+    $(document).popup('hide all')
 
   render: ->
     dueTime = moment( new Date( this.props.sprint.due_at ) )
@@ -1126,6 +1131,7 @@ KanbanIssuePrototype = React.createClass
     Ajaxer.patch
       path: "/projects/#{this.props.project.slug}/issues/#{@props.issue.sequential_id}.json"
       data: { issue: {assignee_id: value } }
+    $(document).popup('hide all')
 
   render: ->
     `<AssociationInput name="issue[assignee_id]" collection={[this.props.issue.assignee]} onChange={this.handleChange}
