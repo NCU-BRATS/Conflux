@@ -107,6 +107,8 @@ KanbanApp = React.createClass
     params = @getURLParams()
     if params['sprint_sequential_id']
       @chooseSprintAndIssue( params['sprint_sequential_id'], params['issue_sequential_id'] )
+    else if @state.sprints.length > 0
+      @chooseSprintAndIssue( "#{ @state.sprints[0].sequential_id }" )
 
   sprintRecieve: (res, channel) ->
     @appendSprint(res.data)  if res.target == 'sprint' && res.action == 'create'
@@ -248,9 +250,6 @@ KanbanApp = React.createClass
         $('#kanban-panel').sidebar('hide')
         @props.pushSprintState()
 
-  chooseDefault: () ->
-    @chooseSprint(null)
-
   render: ->
     sprintItems = @props.sprints.map (sprint,i) =>
       sprintActiveClass = if @props.sprint && @props.sprint.id == sprint.id then "active" else ""
@@ -266,10 +265,8 @@ KanbanApp = React.createClass
     if @props.sprint
       sprintInfo = `<KanbanShowSprintInfoButton openSprintPanel={this.props.openSprintPanel}/>`
 
-    homeActiveClass = if @props.sprint then "" else "active"
-
     `<div className="ui green labeled menu sprint">
-        <a className={ homeActiveClass + " item kanban-sprint-item" } onClick={this.chooseDefault()}><i className="icon home"/></a>
+        <a className="item kanban-sprint-item"><i className="icon flag"/></a>
         { sprintItems }
         <KanbanAddSprintButton project={this.props.project} />
         { sprintInfo }
@@ -354,8 +351,6 @@ KanbanApp = React.createClass
     pushIssueState: React.PropTypes.func.isRequired
     openIssuePanel: React.PropTypes.func.isRequired
 
-#  mixins: [ SortableMixin ]
-
   sortableOptions:
     group: "column-container"
     handle: ".kanban-column-title"
@@ -381,31 +376,7 @@ KanbanApp = React.createClass
 
       `<div className={ "kanban-columns pusher " + loadingClass }>{columns}</div>`
     else
-      `<div className="kanban-columns pusher">
-          <KanbanDefaultPage />
-      </div>`
-
-@KanbanDefaultPage = React.createClass
-  render: ->
-    `<div>
-        <p>
-            <ul>
-                <li>點擊左上方各戰役項目以開啟看板</li>
-                <li>點擊右上方按鈕新增戰役</li>
-            </ul>
-        </p>
-        <p>
-            <ul>
-                <li>各戰役名稱旁顯示之數字代表未完成任務數量</li>
-                <li>各戰役名稱旁顯示之日曆圖案代表該戰役已過期</li>
-            </ul>
-        </p>
-        <p>
-            <ul>
-                <li>此看板功能尚處於實驗階段</li>
-            </ul>
-        </p>
-    </div>`
+      `<div className="kanban-columns pusher"/>`
 
 @KanbanColumn = React.createClass
   propTypes:
