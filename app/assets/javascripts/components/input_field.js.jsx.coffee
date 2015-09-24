@@ -227,8 +227,7 @@
       if @props.onSave
         saveButton = ` <div className="ui button" onClick={this.handleSave}>儲存</div>`
       control = `
-          <div>
-              <div className="ui divider"></div>
+          <div className="control-btns">
               <div className="ui right floated small buttons">
                   { saveButton }
                   <div className="ui button" onClick={this.handleCancel}>返回</div>
