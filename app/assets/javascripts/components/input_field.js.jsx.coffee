@@ -109,6 +109,9 @@
   getInitialState: () ->
     { inputValue: @props.content2 }
 
+  componentWillReceiveProps: (props) ->
+    @setState( { inputValue: props.content2 } )
+
   getFocusNode: () ->
     @refs.input.getDOMNode()
 
@@ -159,6 +162,9 @@
 
   getInitialState: () ->
     { text: @props.content2 }
+
+  componentWillReceiveProps: (props) ->
+    @setState( { text: props.content2 } )
 
   getFocusNode: () ->
     @refs.textarea.getDOMNode()
@@ -259,6 +265,9 @@
 
   getInitialState: () ->
     { inputValue: @props.content2 }
+
+  componentWillReceiveProps: (props) ->
+    @setState( { inputValue: props.content2 } )
 
   handleSave: () ->
     @props.onSave( @state.inputValue )
