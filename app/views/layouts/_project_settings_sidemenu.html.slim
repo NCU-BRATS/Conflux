@@ -19,5 +19,8 @@
   = active_link_to project_settings_channels_path(@project), class: 'item' do
     i.comments.icon
     span = t('project.channels') + t('project.settings')
+  = active_link_to project_archives_path(@project), class: 'item' do
+    i.archive.icon
+    span = t('project.archives')
 
   = render 'layouts/sidemenu_avatar'
