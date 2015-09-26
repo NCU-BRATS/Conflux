@@ -1199,7 +1199,7 @@ KanbanIssuePrototype = React.createClass
             </div>
         </div>
         <div className="kanban-issue-panel-container-content">
-            <ContentClickEditable content1={content1} content2={content2} />
+            <ContentClickEditable content1={content1} content2={content2} key={this.props.issue.id}/>
         </div>
     </div>`
 
