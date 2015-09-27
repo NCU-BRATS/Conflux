@@ -307,7 +307,7 @@
         <div ref="content1" title="點擊即可編輯" >
             { this.props.content1 }
         </div>
-        <div ref="content2" className="ui hidden transition inline popup" style={ style }>
+        <div ref="content2" className="content2 ui hidden transition inline popup" style={ style }>
             { this.props.content2 }
         </div>
     </div>`
