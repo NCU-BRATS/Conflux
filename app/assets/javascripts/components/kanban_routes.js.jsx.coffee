@@ -193,13 +193,11 @@ KanbanApp = React.createClass
     @setState { mode: 'sprint' }, () ->
       $('#kanban-panel').sidebar('show')
 
-  pushSprintState: ( sprint ) ->
-    target = sprint || @state.sprint
-    window.history.pushState("kanban-sprint-#{target.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{target.sequential_id}")
+  pushSprintState: () ->
+    window.history.pushState("kanban-sprint-#{@state.sprint.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}")
 
   pushIssueState: ( issue ) ->
-    target = issue || @state.issue
-    window.history.pushState("kanban-sprint-#{@state.sprint.sequential_id}-issue-#{target.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}&issue_sequential_id=#{target.sequential_id}")
+    window.history.pushState("kanban-sprint-#{@state.sprint.sequential_id}-issue-#{issue.sequential_id}", 'Title', "kanban?sprint_sequential_id=#{@state.sprint.sequential_id}&issue_sequential_id=#{issue.sequential_id}")
 
   getURLParams: () ->
     query = window.location.search.substring(1)
@@ -694,14 +692,13 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanSprintPanel = React.createClass
   propTypes:
-    mode:    React.PropTypes.string
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     issues:  React.PropTypes.array
     closePanel: React.PropTypes.func.isRequired
 
   componentWillReceiveProps: (props) ->
-    if !props.sprint && props.mode == 'sprint'
+    unless props.sprint
       props.closePanel()
 
   render: ->
@@ -933,7 +930,6 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanIssuePanel = React.createClass
   propTypes:
-    mode:    React.PropTypes.string
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object
     sprint:  React.PropTypes.object
@@ -942,7 +938,7 @@ KanbanIssuePrototype = React.createClass
     current_user: React.PropTypes.object.isRequired
 
   componentWillReceiveProps: (props) ->
-    if !props.issue && props.mode == 'issue'
+    unless props.issue
       props.closePanel()
 
   render: ->
@@ -1200,7 +1196,7 @@ KanbanIssuePrototype = React.createClass
             </div>
         </div>
         <div className="kanban-issue-panel-container-content">
-            <ContentClickEditable content1={content1} content2={content2} key={this.props.issue.id}/>
+            <ContentClickEditable content1={content1} content2={content2} />
         </div>
     </div>`
 
