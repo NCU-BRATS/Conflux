@@ -337,16 +337,18 @@ KanbanApp = React.createClass
 
   render: ->
     issuePanelClass  = if @props.mode == 'issue'  then '' else 'not_show'
+    issuePanelKey  = if @props.issue  then @props.issue.id else 'issue'
     sprintPanelClass = if @props.mode == 'sprint' then '' else 'not_show'
+    sprintPanelKey = if @props.sprint then @props.sprint.id else 'sprint'
 
     `<div className="ui pushable kanban" ref="kanban">
         <KanbanColumns {...this.props} />
         <KanbanPanel ref="kanbanPanel">
             <div className={issuePanelClass} >
-                <KanbanIssuePanel closePanel={this.closePanel} {...this.props} />
+                <KanbanIssuePanel key={issuePanelKey} closePanel={this.closePanel} {...this.props} />
             </div>
             <div className={sprintPanelClass} >
-                <KanbanSprintPanel closePanel={this.closePanel} {...this.props} />
+                <KanbanSprintPanel key={sprintPanelKey} closePanel={this.closePanel} {...this.props} />
             </div>
         </KanbanPanel>
     </div>`
