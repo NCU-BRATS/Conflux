@@ -7,6 +7,12 @@
     onChange:      React.PropTypes.func
 
   componentDidMount: ->
+    @initializeData(@props)
+
+  componentWillReceiveProps: (props) ->
+    @initializeData(props)
+
+  initializeData: (props) ->
     $element = $(@refs.select.getDOMNode())
     selectizeDefault = unless $element.data('resource-path') then {} else
       preload: 'focus'
@@ -31,16 +37,17 @@
       plugins: ['select_add_new', 'remove_button']
     }, selectizeDefault, $element.data())
     selectizeControl = $element.selectize settings
-    for element in @props.collection
+    for element in props.collection
       if element
         selectizeControl[0].selectize.addOption( element )
         selectizeControl[0].selectize.addItem( element.id )
     selectizeControl[0].selectize.refreshItems()
 
-    if @props.multiple
-      selectizeControl[0].selectize.on 'blur', @props.onChange
+    if props.multiple
+      selectizeControl[0].selectize.on 'blur', props.onChange
     else
-      selectizeControl[0].selectize.on 'change', @props.onChange
+      selectizeControl[0].selectize.on 'change', props.onChange
+
 
   parseJson: (json) ->
     if json instanceof Object then json else {}
@@ -67,8 +74,14 @@
     onChange: React.PropTypes.func.isRequired
 
   componentDidMount: ->
+    @initializeData(@props)
+
+  componentWillReceiveProps: (props) ->
+    @initializeData(props)
+
+  initializeData: (props) ->
     $input   = $(@refs.input.getDOMNode())
-    picktime = @props.is_time_enable
+    picktime = props.is_time_enable
     format   = if picktime then 'YYYY-MM-DD HH:mm' else 'YYYY-MM-DD'
 
     $input.val(moment($input.val()).format(format)) if $input.val() != ''
@@ -80,7 +93,7 @@
       format: format
 
     $input.on 'dp.hide', () =>
-      @props.onChange( $input.val() )
+      props.onChange( $input.val() )
 
     $input.on 'keydown', (e) =>
       $input.data('DateTimePicker').setDate(null)
@@ -108,6 +121,10 @@
 
   getInitialState: () ->
     { inputValue: @props.content2 }
+
+  componentWillReceiveProps: (props) ->
+    @setState { inputValue: props.content2 }, () ->
+      @toShowMode()
 
   getFocusNode: () ->
     @refs.input.getDOMNode()
@@ -160,6 +177,10 @@
   getInitialState: () ->
     { text: @props.content2 }
 
+  componentWillReceiveProps: (props) ->
+    @setState { text: props.content2 }, () ->
+      @toShowMode()
+
   getFocusNode: () ->
     @refs.textarea.getDOMNode()
 
@@ -169,6 +190,9 @@
   handleCancel: () ->
     @props.onCancel( @state.text ) if @props.onCancel
     @setState( @getInitialState() )
+
+  setToShowMode: (toShowMode) ->
+    @toShowMode = toShowMode
 
   render: ->
     content2 =
@@ -183,6 +207,7 @@
         content2={content2}
         onSave={this.handleSave}
         onCancel={this.handleCancel}
+        setToShowMode={this.setToShowMode}
         getFocusNode={this.getFocusNode} />`
 
 @ContentClickEditable = React.createClass
@@ -259,6 +284,11 @@
 
   getInitialState: () ->
     { inputValue: @props.content2 }
+
+  componentWillReceiveProps: (props) ->
+    
+    @setState { inputValue: props.content2 } , () ->
+      $(document).popup('hide all')
 
   handleSave: () ->
     @props.onSave( @state.inputValue )
