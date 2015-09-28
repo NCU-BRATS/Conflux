@@ -39,6 +39,7 @@
 
   scrollToBottom: ()->
     @$messageContainer.scrollTop(@calculateMessageContainerValue()[1]) # navigate to bottom
+    @readMessage()
 
   processMessage: (messages, i) ->
     curr = messages[i]
@@ -82,6 +83,19 @@
     @processMessage(messages, i) if i < messages.length # check appendMode of next message which index is now i after splice.
     @setState({messages: messages})
 
+  readMessage: () ->
+    message = @state.messages[@state.messages.length - 1]
+    return unless message
+
+    return if @lastReadFloor == message.sequential_id
+
+    $.ajax("#{@props.channel.slug}/read.json", {
+      method: 'PUT'
+      data: { last_read_floor: message.sequential_id }
+    })
+
+    @lastReadFloor = message.sequential_id
+
   replaceChannel: (channel) ->
     @setState({channel: channel})
 
@@ -123,7 +137,7 @@
     `<div className='ChnnelApp'>
       <ChannelHeader ref="header" channel={this.state.channel}/>
       <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} noMessages={this.state.noMessages} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
-      <MessageCreateForm ref="footer" channel={this.props.channel} />
+      <MessageCreateForm ref="footer" channel={this.props.channel} readMessage={this.readMessage} />
     </div>`
 
 @ChannelHeader = React.createClass
@@ -251,6 +265,7 @@
     @inputDOMNode = @refs.input.getDOMNode()
     @$inputDOMNode = $(@inputDOMNode)
   handleSubmit: (e) -> e.preventDefault()
+  handleClick: (e) -> @props.readMessage()
   handleKeyDown: (e) ->
     # press cmd+enter or ctrl+enter
     if ((e.keyCode == 10 || e.keyCode == 13) && (e.ctrlKey || e.metaKey))
@@ -276,7 +291,7 @@
   render: ->
     `<form id="channel_footer" className="ui form" onSubmit={this.handleSubmit}>
       <div className="field">
-        <textarea ref="input" onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp} placeholder="按下 enter 發送，ctrl + enter 換行，支援 markdown"></textarea>
+        <textarea ref="input" onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp} onClick={this.handleClick} placeholder="按下 enter 發送，ctrl + enter 換行，支援 markdown"></textarea>
       </div>
     </form>`
 

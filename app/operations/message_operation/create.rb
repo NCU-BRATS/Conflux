@@ -18,8 +18,6 @@ module MessageOperation
           @channel.max_floor = floor
           @channel.save
           @model.save
-
-          ChannelOperation::Read.new(@current_user, @channel).process({last_read_floor: floor})
         end
       end
     end

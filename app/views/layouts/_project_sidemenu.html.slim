@@ -21,6 +21,7 @@
     span = '統計'
   a.item.channels-toggle
     i.comments.icon
+    span.circular.floating.ui.label.red#channel_notice style="display: none;"
     span = t('project.channels')
   - if policy(:dashboard).update?
     a.item href=edit_project_settings_path(@project)

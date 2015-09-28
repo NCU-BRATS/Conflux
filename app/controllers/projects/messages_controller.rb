@@ -17,7 +17,7 @@ class Projects::MessagesController < Projects::ApplicationController
     PrivatePub.publish_to(private_pub_channels, {
       action: 'unread',
       target: 'channel',
-      data:   params[:channel_id]
+      data:   @channel.id
     })
   end
 

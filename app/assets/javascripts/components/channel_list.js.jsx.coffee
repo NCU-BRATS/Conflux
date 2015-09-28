@@ -7,7 +7,16 @@
 
   componentDidMount: () ->
     $.get("/projects/#{@props.project.slug}/channels.json?q[s]=order asc&q[archived_eq]=false")
-      .done (data) => @setState({channels: data})
+      .done (channels) =>
+        $.get("/projects/#{@props.project.slug}/channels/read_status.json")
+          .done (data) =>
+            $.each data, (id, readed) =>
+              if !readed
+                i = _.findIndex(channels, (c)-> +c.id == +id)
+                if i >= 0 && !@isCurrentChannel(channels[i])
+                  channels[i].unread = true
+                  $('#channel_notice').show()
+            @setState {channels: channels}
 
     PrivatePub.subscribe("/projects/#{@props.project.id}/channels", @messageRecieve)
 
@@ -20,6 +29,18 @@
     else
       @appendChannel(res.data)  if res.target == 'channel' && res.action == 'create'
       @replaceChannel(res.data) if res.target == 'channel' && res.action == 'update'
+      @unreadChannel(res.data) if res.target == 'channel' && res.action == 'unread'
+
+  isCurrentChannel: (channel) ->
+    window.location.pathname == "/projects/#{@props.project.slug}/channels/#{channel.slug}"
+
+  unreadChannel: (id) ->
+    channels = @state.channels.slice()
+    i = _.findIndex(channels, (c)-> +c.id == +id)
+    if i >= 0 && !@isCurrentChannel(channels[i])
+      channels[i].unread = true
+      $('#channel_notice').show()
+    @setState({channels: channels})
 
   appendChannel: (channel) ->
     newChannels = @state.channels.concat(channel)
@@ -55,4 +76,8 @@
 @ChannelLink = React.createClass
   render: ->
     channelPath = "/projects/#{@props.project.slug}/channels/#{@props.channel.slug}"
-    `<a className="item overflow ellipsis" href={channelPath}>{this.props.channel.name}</a>`
+    unread = `<span className="channel-unread ui circular red label"></span>` if @props.channel.unread
+    `<a className="item overflow ellipsis" href={channelPath}>
+      {unread}
+      {this.props.channel.name}
+    </a>`
