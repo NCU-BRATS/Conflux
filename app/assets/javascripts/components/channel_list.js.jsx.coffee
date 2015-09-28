@@ -32,7 +32,9 @@
       @unreadChannel(res.data) if res.target == 'channel' && res.action == 'unread'
 
   isCurrentChannel: (channel) ->
-    window.location.pathname == "/projects/#{@props.project.slug}/channels/#{channel.slug}"
+    project = encodeURIComponent(@props.project.slug)
+    channel = encodeURIComponent(channel.slug)
+    window.location.pathname == "/projects/#{project}/channels/#{channel}"
 
   unreadChannel: (id) ->
     channels = @state.channels.slice()
