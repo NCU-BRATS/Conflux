@@ -32,13 +32,13 @@ class Projects::MessagesController < Projects::ApplicationController
   end
 
   def destroy
-    @form = MessageOperation::Destroy.new(current_user, @message)
-    @form.process
-    PrivatePub.publish_to(private_pub_channel, {
-      action: 'destroy',
-      target: 'message',
-      data:   @form.model
-    })
+    # @form = MessageOperation::Destroy.new(current_user, @message)
+    # @form.process
+    # PrivatePub.publish_to(private_pub_channel, {
+    #   action: 'destroy',
+    #   target: 'message',
+    #   data:   @form.model
+    # })
   end
 
   protected

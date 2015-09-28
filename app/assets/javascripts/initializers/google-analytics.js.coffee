@@ -4,3 +4,4 @@ $(document).on 'page:change', ->
     path: window.location.pathname,
     search: window.location.search
   })
+  $('#favicon').attr('href', '/favicon.png')

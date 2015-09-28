@@ -16,6 +16,7 @@
                 if i >= 0 && !@isCurrentChannel(channels[i])
                   channels[i].unread = true
                   $('#channel_notice').show()
+                  $('#favicon').attr('href', '/favicon-unread.png')
             @setState {channels: channels}
 
     PrivatePub.subscribe("/projects/#{@props.project.id}/channels", @messageRecieve)
@@ -42,6 +43,7 @@
     if i >= 0 && !@isCurrentChannel(channels[i])
       channels[i].unread = true
       $('#channel_notice').show()
+      $('#favicon').attr('href', '/favicon-unread.png')
     @setState({channels: channels})
 
   appendChannel: (channel) ->
