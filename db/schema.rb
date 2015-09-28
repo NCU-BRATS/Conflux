@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928060338) do
+ActiveRecord::Schema.define(version: 20150928063601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -400,15 +400,14 @@ ActiveRecord::Schema.define(version: 20150928060338) do
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   create_table "users_channels", force: :cascade do |t|
-    t.integer  "last_read_message_id"
     t.integer  "user_id"
     t.integer  "channel_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "last_read_floor", default: 0
   end
 
   add_index "users_channels", ["channel_id"], name: "index_users_channels_on_channel_id", using: :btree
-  add_index "users_channels", ["last_read_message_id"], name: "index_users_channels_on_last_read_message_id", using: :btree
   add_index "users_channels", ["user_id"], name: "index_users_channels_on_user_id", using: :btree
 
   create_table "users_groups", force: :cascade do |t|
