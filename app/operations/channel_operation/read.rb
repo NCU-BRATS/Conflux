@@ -16,7 +16,7 @@ module ChannelOperation
       @model.channel = @channel if @model.channel.nil?
       @model.user = @current_user if @model.user.nil?
 
-      validate(params) && save
+      validate(params) && params[:last_read_floor].to_i > @model.last_read_floor && save
     end
   end
 end
