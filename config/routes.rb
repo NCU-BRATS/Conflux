@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       resource :dashboard
       resources :channels do
         resources :messages, only: [:index, :create]
+        put 'read', on: :member
+        get 'read_status', on: :collection
       end
       resources :messages, only: [:update, :destroy]
       resources :issues, concerns: [:commentable] do
