@@ -14,6 +14,11 @@ class Projects::MessagesController < Projects::ApplicationController
       target: 'message',
       data:   @form.model.as_json(include: :user)
     })
+    PrivatePub.publish_to(private_pub_channels, {
+      action: 'unread',
+      target: 'channel',
+      data:   @channel.id
+    })
   end
 
   def update
@@ -44,6 +49,10 @@ class Projects::MessagesController < Projects::ApplicationController
 
   def private_pub_channel
     @private_pub_channel ||= "/projects/#{@project.id}/channels/#{@form.model.channel.id}"
+  end
+
+  def private_pub_channels
+    @private_pub_channels ||= "/projects/#{@project.id}/channels"
   end
 
 end
