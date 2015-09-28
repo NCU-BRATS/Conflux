@@ -243,9 +243,6 @@
       <div className="ui icon circular button basic" onClick={this.props.toggleEdit}>
         <i className="icon write"></i>
       </div>
-      <a className="ui icon circular button basic" data-confirm="你確定要刪除嗎?" data-method="delete" data-remote="" href={deletePath}>
-        <i className="icon trash"></i>
-      </a>
     </div>`
 @MessageHeader = React.createClass
   render: ->
