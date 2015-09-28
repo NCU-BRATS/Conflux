@@ -227,8 +227,9 @@ shared_context 'project with mentionable resources' do
       channel.save(validate: false)
     end
     @messages = 3.times.map { FactoryGirl.create(:message) }
-    @messages.each do |message|
+    @messages.each_with_index do |message, i|
       message.channel = @channels[0]
+      message.sequential_id = i + 1
       message.save(validate: false)
     end
   end

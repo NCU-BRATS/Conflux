@@ -9,9 +9,17 @@ module MessageOperation
 
     def process(params)
       if validate(message_params(params)) && sync
-        @model.user        = @current_user
-        @model.channel     = @channel
-        @model.save
+        @channel.with_lock do
+          @model.user = @current_user
+          @model.channel = @channel
+
+          floor = @channel.max_floor + 1
+
+          @model.sequential_id = floor
+          @channel.max_floor = floor
+          @channel.save
+          @model.save
+        end
       end
     end
 
