@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921083844) do
+ActiveRecord::Schema.define(version: 20150928060338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150921083844) do
     t.float    "order",         default: 0.0
     t.boolean  "archived",      default: false
     t.integer  "sequential_id"
+    t.integer  "max_floor",     default: 0
   end
 
   add_index "channels", ["project_id"], name: "index_channels_on_project_id", using: :btree
