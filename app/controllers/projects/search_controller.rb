@@ -14,7 +14,7 @@ class Projects::SearchController < Projects::ApplicationController
 
   def search_param
     (params[:project_search] || params.class.new)
-      .permit(:query, :type, :label, :status, :attachment_type, :channel).merge({project: @project})
+      .permit(:query, :type, :label, :status, :attachment_type, :channel, :sprint, :assignee, :user).merge({project: @project})
   end
 
   def model

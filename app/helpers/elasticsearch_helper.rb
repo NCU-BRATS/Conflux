@@ -38,6 +38,14 @@ module ElasticsearchHelper
         end
         statuses.join(', ')
       end
+    when 'sprint'
+      sprints = project.sprints
+      sprint = sprints.find {|s| s.id == bucket['key']}
+      sprint.title if sprint
+    when 'assignee', 'user'
+      members = project.members
+      member = members.find {|m| m.id == bucket['key']}
+      member.name if member
     when 'label'
       bucket['key']
     when 'attachment_type'

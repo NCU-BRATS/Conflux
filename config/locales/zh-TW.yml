@@ -355,6 +355,9 @@ zh-TW:
       status: 狀態
       attachment_type: 類型
       channel: 頻道
+      sprint: 戰役
+      assignee: 負責人
+      user: 作者
   notice:
     seal: 封存
     unseal: 未封存
