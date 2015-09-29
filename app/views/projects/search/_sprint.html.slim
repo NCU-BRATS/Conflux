@@ -1,9 +1,9 @@
 .item
   .content
     .header
-      - if sprint.archived
+      - if sprint._object.archived
         - icon = 'red archive'
-      - elsif sprint.due_at && sprint.due_at < Time.now
+      - elsif sprint._object.due_at && sprint._object.due_at < Time.now
         - icon = 'red calendar'
       - else
         - icon = 'green calendar'
