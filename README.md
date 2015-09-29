@@ -2,15 +2,17 @@
 [![Test Coverage](https://codeclimate.com/github/NCU-BRATS/Conflux/badges/coverage.svg)](https://codeclimate.com/github/NCU-BRATS/Conflux/coverage)
 [![Build Status](https://travis-ci.org/NCU-BRATS/Conflux.svg?branch=travis-ci)](https://travis-ci.org/NCU-BRATS/Conflux)
 
+![conflux](http://i.imgur.com/frP1EyK.gif)
+
 # 系統需求
 
 * postgresql > 9.4 for jsonb support
-* elasticsearch 1.6
+* elasticsearch 1.7
 * elasticsearch plugin - Smart Chinese Analysis
 
 # 啟動
 
-為了啟動，我們需要設定 postgresql, elasticsearch, private_pub 這三個服務。
+為了啟動，我們需要設定 postgresql, elasticsearch, private_pub, redis 這四個服務。
 
 ## 設定 Postgresql
 
@@ -38,8 +40,8 @@ $ rake db:migrate
 smartcn plugin 對應的版本請閱 https://github.com/elastic/elasticsearch-analysis-smartcn
 
 ```bash
-$ cd elasticsearch-1.6.0
-$ ./bin/plugin install elasticsearch/elasticsearch-analysis-smartcn/2.6.0 # this version is only for elasticsearch 1.6 !
+$ cd elasticsearch-1.7.0
+$ ./bin/plugin install elasticsearch/elasticsearch-analysis-smartcn/2.7.0 # this version is only for elasticsearch 1.7 !
 ```
 
 為了 Debug 與監控 elasticsearch 狀態，可以再安裝 Marvel plugin。
@@ -71,7 +73,7 @@ $ rake chewy:reset:all
 
 ## 設定 Private_Pub
 
-我們使用了 private_pub gem 使用 Faye 提供 websocket 功能。其設定檔在於 config/private_pub.yml。
+我們使用了 private_pub gem 使用 Faye 提供 websocket 功能。其設定檔在於 config/private_pub.yml (請複製config/private_pub.yml.example)。
 ```yml
 development:
   server: "http://localhost:9292/faye"
@@ -89,6 +91,11 @@ production:
 啟動 private_pub
 ```
 $ rackup private_pub.ru -s thin -E production
+```
+
+請確保 redis 正在運行，並啟動 sidkiq ( redis 與 sidekiq 在開發環境下並非必需)
+```
+$ bundle exec sidekiq
 ```
 
 ## 啟動 rails server
