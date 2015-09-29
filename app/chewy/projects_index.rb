@@ -15,6 +15,7 @@ class ProjectsIndex < Chewy::Index
     field :sequential_id, type: 'integer'
     field :project_id,    type: 'integer'
     field :user_id,       type: 'integer'
+    field :assignee_id,   type: 'integer'
     field :sprint_id,     type: 'integer'
     field :status,        index: 'not_analyzed'
     field :begin_at,      type: 'date'

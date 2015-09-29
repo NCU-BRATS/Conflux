@@ -16,7 +16,7 @@
         .item class="#{active ? 'active' : ''}" data-value=bucket['key'] data-filter=agg data-count=bucket['doc_count']
           span.bar
           a.ui.fluid.label.filter
-            = filter_name(agg, bucket, @results)
+            = filter_name(agg, bucket, @project)
             - if active
               i.delete.icon
             - else

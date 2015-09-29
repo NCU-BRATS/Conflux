@@ -11,7 +11,10 @@ class ProjectSearch
     'status'          => 'status',
     'label'           => 'labels.title',
     'channel'         => 'channel_id',
-    'attachment_type' => 'type'
+    'attachment_type' => 'type',
+    'sprint'          => 'sprint_id',
+    'assignee'        => 'assignee_id',
+    'user'            => 'user_id'
   }
 
   def index
@@ -22,6 +25,9 @@ class ProjectSearch
     # We can merge multiple scopes
     scopes = [query_string, project_id_filter, type_agg, post_filter, highlight]
     scopes << label_agg           if issue?
+    scopes << sprint_agg          if issue?
+    scopes << assignee_agg        if issue?
+    scopes << user_agg            if poll? || attachment? || message?
     scopes << status_agg          if issue? || sprint? || poll?
     scopes << channel_agg         if message?
     scopes << attachment_type_agg if attachment?
@@ -90,7 +96,7 @@ class ProjectSearch
     end
   end
 
-  ['status', 'label', 'attachment_type', 'channel'].each do |filter|
+  ['status', 'label', 'attachment_type', 'channel', 'sprint', 'assignee', 'user'].each do |filter|
     define_method(filter) do
       (@attributes[filter] || []).join(',')
     end

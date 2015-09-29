@@ -1,7 +1,7 @@
 .item
   .content
     .header
-      i.icon class="#{issue.done? ? 'red lock' : 'green unlock'}"
+      i.icon class="#{issue._object.done? ? 'red lock' : 'green unlock'}"
       = link_to issue.title.html_safe, [@project, issue._object]
 
     .sequential-id

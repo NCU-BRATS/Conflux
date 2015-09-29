@@ -24,17 +24,34 @@ module ElasticsearchHelper
     '<div class="markdown-body">' + markdown_pipeline.call( text )[:output].to_s + '</div>'
   end
 
-  def filter_name(agg, bucket, results)
+  def filter_name(agg, bucket, project)
     case agg
     when 'status'
-      t("search.#{agg}.#{bucket['key']}")
+      if bucket['key'] == 'open' || bucket['key'] == 'closed'
+        t("search.#{agg}.#{bucket['key']}")
+      else
+        statuses = []
+        sprints = project.sprints
+        sprints.each do |sprint|
+          status = sprint.statuses.find {|s| s['id'].to_s == bucket['key']}
+          statuses << status['name'] if status && !statuses.include?(status['name'])
+        end
+        statuses.join(', ')
+      end
+    when 'sprint'
+      sprints = project.sprints
+      sprint = sprints.find {|s| s.id == bucket['key']}
+      sprint.title if sprint
+    when 'assignee', 'user'
+      members = project.members
+      member = members.find {|m| m.id == bucket['key']}
+      member.name if member
     when 'label'
       bucket['key']
     when 'attachment_type'
       bucket['key'].constantize.model_name.human
     when 'channel'
-      messages = results.map(&:_object)
-      channel = messages.map(&:channel).find { |c| c.id == bucket['key']}
+      channel = project.channels.find { |c| c.id == bucket['key']}
       channel.name if channel
     end
   end
