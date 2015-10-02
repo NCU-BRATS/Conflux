@@ -13,5 +13,17 @@
 
 .ui.very.massive.relaxed.divided.selection.list
   = render partial: 'project', collection: @projects
+  - if @projects.empty?
+    .ui.secondary.segment#no_result
+      .ui.center.aligned.icon.header
+        i.frown.icon
+        .content
+          | 目前還沒有公開的專案喔
+          br
+          br
+          | 您可以從
+          a href=new_project_path 這裡
+          | 新增一個
+
 
 = paginate @projects
