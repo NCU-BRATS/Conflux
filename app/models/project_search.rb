@@ -39,7 +39,7 @@ class ProjectSearch
     index.query(
       multi_match: {
         query: query,
-        fields: [:title, :name, :content, :comments, :'labels.title', :'options.title']
+        fields: [:title, :name, :content, :comments, :memo, :'labels.title', :'options.title']
       }
     ) if query?
   end
@@ -52,6 +52,7 @@ class ProjectSearch
     index.highlight(
       fields: {
         title: {number_of_fragments: 0},
+        memo: {number_of_fragments: 0},
         name:  {number_of_fragments: 0},
         content: {
           pre_tags: [HIGHLIGHT_TAG], post_tags: [HIGHLIGHT_CLOSE_TAG],
