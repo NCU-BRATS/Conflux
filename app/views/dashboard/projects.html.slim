@@ -13,6 +13,13 @@
 
 .ui.hidden.divider
 
+- if @projects.empty?
+  .ui.secondary.segment#no_result
+    .ui.center.aligned.icon.header
+      i.frown.icon
+      .content
+        | 您目前還沒有參與任何專案
+        
 = render partial: 'projects/project', collection: @projects
 
 = paginate @projects

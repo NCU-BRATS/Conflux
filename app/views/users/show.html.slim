@@ -18,9 +18,9 @@
           th
           th
         tr
-          th = 'name'
-          th = 'character'
-          th = 'description'
+          th = '名字'
+          th = '角色'
+          th = '描述'
 
       tbody
         = render partial: 'project_participation', collection: @user.project_participations.includes(:project).select { |project_participation| project_participation.project.visibility_level.public? }

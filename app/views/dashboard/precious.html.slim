@@ -3,9 +3,13 @@
     = link_to precious_dashboard_path(precious: type), class: "item #{params[:precious] == type ? 'active' : ''}" do
       = t('project.'+type)
 .ui.divider.hidden
-
+- if @precious.empty?
+  .ui.secondary.segment#no_result
+    .ui.center.aligned.icon.header
+      i.frown.icon
+      .content
+        | 您目前還沒有任何收藏
 - @precious.each do |precious|
   = render  'precious/precious', precious: precious
   .ui.divider.hidden
   = paginate @precious
-

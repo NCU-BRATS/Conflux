@@ -8,6 +8,13 @@
 
 .ui.hidden.divider
 
+- if @issues.empty?
+  .ui.secondary.segment#no_result
+    .ui.center.aligned.icon.header
+      i.frown.icon
+      .content
+        | 您目前還沒有任何任務
+
 div
   - @issues.each do |issue|
 

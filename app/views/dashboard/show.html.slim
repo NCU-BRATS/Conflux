@@ -8,10 +8,10 @@
       .header style='text-align:center'
         = 'Project'
       .description style='text-align:center'
-        = 'task management and discussion'
+        = 'Task management and discussion'
     a.ui.bottom.attached.button href=new_project_path
       i.add.icon
-      = 'create'
+      = '創建專案'
   .card
     .image style='text-align:center'
       i.massive.find.icon style='margin-top:40px;margin-bottom:40px'
@@ -19,10 +19,10 @@
       .header style='text-align:center'
         = 'Exploration'
       .description style='text-align:center'
-        = 'find interesting project'
+        = 'Find interesting project'
     a.ui.bottom.attached.button href=projects_path
       i.asterisk.icon
-      = 'start'
+      = '開始探索'
   .card
     .image style='text-align:center'
       i.massive.trophy.icon style='margin-top:40px;margin-bottom:40px'
@@ -30,10 +30,10 @@
       .header style='text-align:center'
         = 'Contribution'
       .description style='text-align:center'
-        = 'bug reporting and code enhancement'
+        = 'Bug reporting and code enhancement'
     .ui.bottom.attached.button.contribution-btn
       i.asterisk.icon
-      = 'start'
+      = '聯絡我們'
   .card
     .image style='text-align:center'
       i.massive.info.circle.icon style='margin-top:40px;margin-bottom:40px'
@@ -41,10 +41,10 @@
       .header style='text-align:center'
         = 'About'
       .description style='text-align:center'
-        = 'system information'
+        = 'System information'
     .ui.bottom.attached.button.about-button
       i.asterisk.icon
-      = 'read'
+      = '關於'
 
 .ui.divider.hidden
 
@@ -52,9 +52,18 @@
   = '我的專案'
 - if @projects.empty?
   .ui.attached.segment
-    = '尚無資料 可以在'
+    h1 您目前還沒有參與任何專案。
+    p
+     | 請等待您的專案管理員將您加入他的專案，或是從
+     a href=new_project_path 這裡
+     | 自行創建一個專案。
+    br
+    br
+    | 您也可以在
     a href=projects_path 這裡
-    = '尋找專案加入'
+    | 瀏覽所有公開的專案。
+    
+    
 - @projects.each do |project|
   .ui.attached.segment
     .ui.header
