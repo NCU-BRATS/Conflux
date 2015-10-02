@@ -55,7 +55,7 @@
                         = " - #{status['name']}"
                       - participated_issues2["#{sprint.id}-#{status['id']}"].each do |issue|
                         .list
-                          .item
+                          .item.thumb
                             = user_img_tag(issue.assignee)
                             .content
                               .header
