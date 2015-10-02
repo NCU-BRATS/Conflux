@@ -16,6 +16,8 @@
       = issue._data['_source']['comments'].size
 
     .description
+      i.icon.file.text
+      = issue.memo.html_safe
       .ui.divided.very.relaxed.list
         - issue.comments.each do |comment|
           .item = comment.html_safe
