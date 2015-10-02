@@ -9,6 +9,12 @@
 .ui.hidden.divider
 
 .ui.relaxed.divided.items
+  - if @attachments.empty?
+    .ui.secondary.segment#no_result
+      .ui.center.aligned.icon.header
+        i.frown.icon
+        .content
+          | 您目前還沒有任何檔案
   - @attachments.each do |attachment|
     .item
       = render partial: attachment.type.underscore + '_preview', locals: {attachment: attachment}
