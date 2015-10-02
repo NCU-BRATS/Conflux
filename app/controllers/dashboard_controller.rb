@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
 
   def show
     @q = current_user.projects.page.search( params[:q] )
-    @projects = @q.result.uniq.page( params[:page] ).per( params[:per] ).limit(5)
+    @projects = @q.result.uniq.page( params[:page] ).per( params[:per] ).limit(20)
     respond_with @projects
   end
 
