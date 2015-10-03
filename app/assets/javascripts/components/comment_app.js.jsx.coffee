@@ -154,7 +154,7 @@
   propTypes:
     comment: React.PropTypes.object.isRequired
   render: ->
-    time = moment(new Date(@props.comment.created_at)).format('h:mm a')
+    time = moment(new Date(@props.comment.created_at)).fromNow()
     `<span className="time">{time}</span>`
 
 @CommentControl = React.createClass
