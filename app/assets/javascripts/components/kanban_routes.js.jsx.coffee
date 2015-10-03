@@ -989,9 +989,9 @@ KanbanIssuePrototype = React.createClass
 
   render: ->
     issue = @props.issue
+    title = "#{ issue.sprint.title }"
     sprintItems = @props.sprints.map (sprint) =>
-      if sprint.title == issue.sprint.title
-        activeable = 'active'
+      activeable = if sprint.title == issue.sprint.title then 'active' else ''
       handleClick = () =>
         @handleChooseSprint(sprint)
       `<a className={ "item " + activeable } key={sprint.id} onClick={handleClick}>{ sprint.title }</a>`
@@ -999,7 +999,9 @@ KanbanIssuePrototype = React.createClass
     `<span className="kanban-issue-panel-meta">
         <span className="kanban-issue-panel-meta"> 戰役:</span>
         <div className="ui dropdown" ref="dropdown">
-            <div className="text simple gray bold link"> { this.props.issue.sprint.title } </div>
+            <div className="text simple gray bold link">
+              { title }
+            </div>
             <div className="menu">
                 { sprintItems }
             </div>
