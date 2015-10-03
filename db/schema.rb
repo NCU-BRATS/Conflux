@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928063601) do
+ActiveRecord::Schema.define(version: 20151003112319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,6 +213,17 @@ ActiveRecord::Schema.define(version: 20150928063601) do
 
   add_index "participations", ["participable_type", "participable_id"], name: "index_participations_on_participable_type_and_participable_id", using: :btree
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
+
+  create_table "pending_members", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "inviter_id"
+    t.string   "invitee_email"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "pending_members", ["inviter_id"], name: "index_pending_members_on_inviter_id", using: :btree
+  add_index "pending_members", ["project_id"], name: "index_pending_members_on_project_id", using: :btree
 
   create_table "polling_options", force: :cascade do |t|
     t.string   "title"
