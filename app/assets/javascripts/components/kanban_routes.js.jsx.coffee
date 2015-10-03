@@ -93,11 +93,15 @@ KanbanApp = React.createClass
       @chooseSprintIssueByUrl()
     PrivatePub.subscribe("/projects/#{@props.project.id}/sprints", @sprintRecieve)
     PrivatePub.subscribe("/projects/#{@props.project.id}/issues", @issueRecieve)
+    @reloadSprints () =>
+      @chooseSprintIssueByUrl()
+
+  reloadSprints: (callback) ->
     Ajaxer.get
       path: "/projects/#{@props.project.slug}/sprints.json?q[s]=id asc&q[archived_eq]=false"
       done: (data) =>
         @setState {sprints: data}, () ->
-          @chooseSprintIssueByUrl()
+          callback() if callback
 
   componentWillUnmount: () ->
     PrivatePub.unsubscribe("/projects/#{@props.project.id}/sprints")
@@ -229,6 +233,7 @@ KanbanApp = React.createClass
                   issue={this.state.issue}
                   mode={this.state.mode}
                   loading={this.state.loading}
+                  reloadSprints={this.reloadSprints}
                   pushIssueState={this.pushIssueState}
                   openIssuePanel={this.openIssuePanel}/>
           </div>
@@ -323,6 +328,7 @@ KanbanApp = React.createClass
     issue:   React.PropTypes.object
     loading: React.PropTypes.bool.isRequired
     current_user: React.PropTypes.object.isRequired
+    reloadSprints:   React.PropTypes.func.isRequired
     pushIssueState:  React.PropTypes.func.isRequired
     openIssuePanel:  React.PropTypes.func.isRequired
 
@@ -940,7 +946,8 @@ KanbanIssuePrototype = React.createClass
     issue:   React.PropTypes.object
     sprint:  React.PropTypes.object
     sprints: React.PropTypes.array.isRequired
-    closePanel:   React.PropTypes.func.isRequired
+    closePanel:    React.PropTypes.func.isRequired
+    reloadSprints: React.PropTypes.func.isRequired
     current_user: React.PropTypes.object.isRequired
 
   componentWillReceiveProps: (props) ->
@@ -975,6 +982,7 @@ KanbanIssuePrototype = React.createClass
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
     sprints: React.PropTypes.array.isRequired
+    reloadSprints: React.PropTypes.func.isRequired
 
   componentDidMount: () ->
     $(@refs.dropdown.getDOMNode()).dropdown()
@@ -986,12 +994,14 @@ KanbanIssuePrototype = React.createClass
     Ajaxer.patch
       path: "/projects/#{this.props.project.slug}/issues/#{@props.issue.sequential_id}.json"
       data: { issue: { sprint_id: sprint.id, status: sprint.statuses[0].id } }
+      done: () =>
+        @props.reloadSprints()
 
   render: ->
     issue = @props.issue
+    title = "#{ issue.sprint.title }"
     sprintItems = @props.sprints.map (sprint) =>
-      if sprint.title == issue.sprint.title
-        activeable = 'active'
+      activeable = if sprint.title == issue.sprint.title then 'active' else ''
       handleClick = () =>
         @handleChooseSprint(sprint)
       `<a className={ "item " + activeable } key={sprint.id} onClick={handleClick}>{ sprint.title }</a>`
@@ -999,7 +1009,9 @@ KanbanIssuePrototype = React.createClass
     `<span className="kanban-issue-panel-meta">
         <span className="kanban-issue-panel-meta"> 戰役:</span>
         <div className="ui dropdown" ref="dropdown">
-            <div className="text simple gray bold link"> { this.props.issue.sprint.title } </div>
+            <div className="text simple gray bold link">
+              { title }
+            </div>
             <div className="menu">
                 { sprintItems }
             </div>
