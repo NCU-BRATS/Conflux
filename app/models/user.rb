@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :name, format: { with: /\A\D.+\Z/, message: I18n.t('validation.slug.format') }
+  validates :name, format: { with: /\A[a-zA-Z][a-zA-Z0-9_]+\Z/, message: I18n.t('validation.slug.format') }
   validates :mention_email_enabled, inclusion: { in: [true, false] }
   validates :participating_email_enabled, inclusion: { in: [true, false] }
   validates :watch_email_enabled, inclusion: { in: [true, false] }
