@@ -1,2 +1,3 @@
-= link_to path, data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui circular right floated icon basic button' do
-  i.trash.icon
+- if policy(:attachment).destroy?
+  = link_to path, data: {:confirm => t('question.confirm.action', action: t('action.word.delete'))}, :method => :delete, class: 'ui circular right floated icon basic button' do
+    i.trash.icon

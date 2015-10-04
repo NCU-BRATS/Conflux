@@ -135,9 +135,9 @@
 
   render: ->
     `<div className='ChnnelApp'>
-      <ChannelHeader ref="header" channel={this.state.channel}/>
+      <ChannelHeader ref="header" channel={this.state.channel} policy={this.props.policy}/>
       <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} noMessages={this.state.noMessages} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
-      <MessageCreateForm ref="footer" channel={this.props.channel} readMessage={this.readMessage} />
+      <MessageCreateForm ref="footer" channel={this.props.channel} readMessage={this.readMessage} policy={this.props.policy}/>
     </div>`
 
 @ChannelHeader = React.createClass
@@ -145,6 +145,8 @@
     $(@refs.modal.getDOMNode()).modal({detachable: false}).modal('show')
   render: ->
     editPath = "#{@props.channel.slug}/edit"
+    if @props.policy
+      editBtn = `<a className="ui button basic red" href={editPath}><i className="icon edit"></i>編輯</a>`
     `<div className='channelHeader'>
       <div className="page-header">
         <h3 className="ui header search-field">
@@ -158,7 +160,7 @@
           <div className="ui button basic orange" onClick={this.showModal}>
             <i className="icon flag"></i>公告
           </div>
-          <a className="ui button basic red" href={editPath}><i className="icon edit"></i>編輯</a>
+          {editBtn}
         </div>
       </div>
       <div className="ui standard modal" ref="modal">
@@ -261,6 +263,9 @@
   componentDidMount: ->
     @inputDOMNode = @refs.input.getDOMNode()
     @$inputDOMNode = $(@inputDOMNode)
+    if !@props.policy
+      @inputDOMNode.disabled = true
+    console.log(@props.policy)
   handleSubmit: (e) -> e.preventDefault()
   handleClick: (e) -> @props.readMessage()
   handleKeyDown: (e) ->

@@ -1,2 +1,3 @@
-= link_to path, class: 'ui circular right floated icon basic button' do
-  i.write.icon
+- if policy(:attachment).edit?  
+  = link_to path, class: 'ui circular right floated icon basic button' do
+    i.write.icon
