@@ -18,6 +18,9 @@
     return result += " #{target.title || target.name}"
 
   translate: (t) ->
+    if t.action == "leave" || t.action == "participated"
+      return t.project.name
+
     return @translateTargetName(t.target_type, t.target_json)
 
   targetPath: (type, target) ->
@@ -54,6 +57,12 @@
       when "left"
         contentPre   = "將"
         contentPost  = "從此專案移除"
+      when "participated"
+        contentPre   = "將您加入了 "
+        contentPost  = " 專案"
+      when "leave"
+        contentPre   = "將您從 "
+        contentPost  = " 專案移除"
       when "deleted"
         contentPre   = "將"
         contentPost  = "刪除了"
@@ -68,4 +77,7 @@
     return {contentPre, contentPost, contentBody}
 
   noticePath: (t) ->
+    if t.action == "leave" || t.action == "participated"
+      return "/projects/#{t.project.slug}"
+      
     return "/projects/#{t.project.slug}/#{@targetPath(t.target_type, t.target_json)}"

@@ -1,6 +1,6 @@
 class Notice < ActiveRecord::Base
 
-  enum action: [ :created, :updated, :closed, :reopened, :commented, :uploaded, :deleted, :mention ]
+  enum action: [ :created, :updated, :closed, :reopened, :commented, :uploaded, :deleted, :mention, :participated, :leave ]
   enum state: [ :unseal, :seal ]
   enum mode: [ :unread, :read]
 
