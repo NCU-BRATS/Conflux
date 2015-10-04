@@ -6,6 +6,6 @@ html
 
   body
     p
-      = "由#{@inviter.name}邀請"
+      = "#{@inviter.name} 已邀請您加入 #{@project.name} 專案"
     p
-      = "請直接登入您的帳號"
+      = link_to '請由此處查看', project_dashboard_url(@project)
