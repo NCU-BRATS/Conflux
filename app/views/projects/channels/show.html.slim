@@ -1,2 +1,2 @@
 = subscribe_to_ujs @private_pub_channel
-= react_component('ChannelApp', {user_id: current_user.id, project: @project, channel: @channel})
+= react_component('ChannelApp', {user_id: current_user.id, project: @project, channel: @channel, policy: policy(:message).create?})

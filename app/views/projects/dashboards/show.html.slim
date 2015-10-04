@@ -6,9 +6,10 @@
       .sub.header
         = @project.description
 
-  a.ui.button#add_member href=new_project_settings_member_path(@project)
-    i.icon.add.user
-    | 加入成員
+  - if policy(:project_participation).create?
+    a.ui.button#add_member href=new_project_settings_member_path(@project)
+      i.icon.add.user
+      | 加入成員
 
 .ui.divider
 .ui.grid

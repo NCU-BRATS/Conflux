@@ -1,7 +1,8 @@
 = subscribe_to_ujs "/projects/#{@project.id}/channels"
 .ui.left.vertical.inverted.channels.sidebar.large.menu
-  a.item href=new_project_channel_path( @project )
-    i.add.square.icon
-    = t('action.target.add', target: Channel.model_name.human)
+  - if policy(:channel).create?
+    a.item href=new_project_channel_path( @project )
+      i.add.square.icon
+      = t('action.target.add', target: Channel.model_name.human)
 
   = react_component('ChannelList', {project: @project})
