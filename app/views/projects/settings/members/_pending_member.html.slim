@@ -1,0 +1,6 @@
+.card.pending
+  .image
+    = email_avatar_tag pending_member.invitee_email, :size => '130'
+  .content
+    .header.overflow.ellipsis style='text-align:center;'
+      = pending_member.invitee_email

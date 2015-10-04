@@ -3,6 +3,7 @@ class Projects::Settings::MembersController < Projects::SettingsController
   def index
     @q = @project.project_participations.includes(:user).search(params[:q])
     @participations = @q.result.page(params[:page]).per(params[:per])
+    @pending_members = @project.pending_members
     respond_with @participations
   end
 

@@ -3,6 +3,14 @@
 .ui.six.doubling.cards
   = render partial: 'project_participant', collection: @participations
 
+br
+br
+h4.ui.horizontal.divider.header
+  | 等待加入
+
+.ui.six.doubling.cards
+  = render partial: 'pending_member', collection: @pending_members
+
 = paginate @participations
 
 - content_for :javascripts

@@ -16,6 +16,7 @@ class Project < ActiveRecord::Base
   has_many :events,       dependent: :destroy
   has_many :channels,     dependent: :destroy
   has_many :project_roles, dependent: :destroy
+  has_many :pending_members, dependent: :destroy
 
   has_many :attachments,  dependent: :destroy
   has_many :posts,        dependent: :destroy
