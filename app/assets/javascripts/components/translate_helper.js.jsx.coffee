@@ -31,6 +31,8 @@
       result = 'attachments/' + (target.sequential_id || target.id)
     else if type == "Channel"
       result = 'channels/' + target.slug
+    else if type == "PendingMember"
+      result = '#'
     else
       result = _.pluralize(type.toLowerCase()) + '/' + (target.sequential_id || target.id)
     return result
@@ -44,8 +46,8 @@
       when "reopened"
         contentPre   = "重新開啟了"
       when "invited"
-        contentPre   = "將"
-        contentPost  = "邀請加入此專案"
+        contentPre   = "邀請了"
+        contentPost  = "加入此專案"
       when "joined"
         contentPre   = "將"
         contentPost  = "加入了此專案"
