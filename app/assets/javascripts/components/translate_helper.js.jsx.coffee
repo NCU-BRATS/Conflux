@@ -78,6 +78,6 @@
 
   noticePath: (t) ->
     if t.action == "leave" || t.action == "participated"
-      return "/projects/#{t.project.slug}"
-      
+      return "/projects/#{t.project.slug}/dashboard"
+
     return "/projects/#{t.project.slug}/#{@targetPath(t.target_type, t.target_json)}"
