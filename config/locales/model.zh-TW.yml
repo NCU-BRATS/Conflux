@@ -18,12 +18,15 @@ zh-TW:
       message: '訊息'
       poll: 投票
       polling_option: 投票選項
+      pending_member: 邀請成員
     attributes:
       user:
         name: '名稱'
         title: '職稱'
         email: '信箱'
         password: '密碼'
+      pending_member:
+        invitee_emails: 邀請成員的信箱
       project:
         name: '名稱'
         description: '描述'

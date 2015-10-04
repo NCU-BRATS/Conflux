@@ -52,7 +52,13 @@ class EventCreateListener
       create_delete_event(project, type, attachment, current_user, :deleted)
     end
 
+    def on_pending_member_created(pending_member, current_user)
+      InvitedMailer.invite_user(pending_member.invitee_email, pending_member.project, current_user).deliver_later
+      create_event(pending_member, current_user, :invited)
+    end
+
     def on_project_participation_created(participation, current_user)
+      InvitedMailer.join_user(participation.user, participation.project, current_user).deliver_later
       create_member_event(participation, current_user, :joined)
     end
 

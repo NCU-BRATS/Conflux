@@ -50,6 +50,14 @@ class NoticeCreateListener
       # create_notice(channel, current_user, :deleted)
     end
 
+    def on_project_participation_created(participation, current_user)
+      send_participation_notice(participation.user, participation.project, current_user, :participated)
+    end
+
+    def on_project_participation_deleted(project, user, current_user)
+      send_participation_notice(user, project, current_user, :leave)
+    end
+
     private
 
     def create_notice(record, current_user, status)
@@ -78,6 +86,24 @@ class NoticeCreateListener
       recipients = build_recipients(current_user, data)
       recipients.select! { |recipient| record.mentioned_list['members'].exclude?(recipient.id) }
       send_notice(recipients, record, current_user, status)
+    end
+
+    def send_participation_notice(user, project, current_user, status)
+      Notice.create(
+        target_id: user.id,
+        target_type: user.class.name,
+        target_json: user.to_target_json,
+        project: project,
+        action: status,
+        state: :unseal,
+        mode: :unread,
+        author_id: current_user.id,
+        owner_id: user.id
+      )
+      PrivatePub.publish_to("/users/#{user.id}", {
+        action: 'count',
+        target: 'notices'
+      })
     end
 
     def send_notice(recipients, record, current_user, status)

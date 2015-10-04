@@ -1,18 +1,33 @@
 h1 = title t('action.target.add', target: ProjectParticipation.model_name.human)
 
-= simple_form_for([@project, :settings, @form]) do |f|
-  = f.error_notification
+.ui.segment.tertiary.top.attached
+  = '單一使用者邀請'
 
-  = f.input :user_id, collection: {},
-            input_html: { data:     { :'resource-path' => users_path,
-                                      :'search-field' => '["name", "email"]',
-                                      :'option-tpl'   => 'option-user' } }
+.ui.segment.bottom.attached
+  = simple_form_for([@project, :settings, @form]) do |f|
+    = f.error_notification
 
-  = f.input :project_role_id, collection: {},
-            input_html: { data: { :'resource-path' => project_settings_roles_path(@project),
-                                  :'search-field'  => '["name"]',
-                                  :'option-tpl'    => 'option-default',
-                                  :'item-tpl'      => 'item-default',
-                                  :'add-new'       => true } }
+    = f.input :user_id, collection: {},
+              input_html: { data:     { :'resource-path' => users_path,
+                                        :'search-field' => '["name", "email"]',
+                                        :'option-tpl'   => 'option-user' } }
 
-  = f.button :submit
+    = f.input :project_role_id, collection: {},
+              input_html: { data: { :'resource-path' => project_settings_roles_path(@project),
+                                    :'search-field'  => '["name"]',
+                                    :'option-tpl'    => 'option-default',
+                                    :'item-tpl'      => 'item-default',
+                                    :'add-new'       => true } }
+
+    = f.button :submit
+
+.ui.segment.tertiary.top.attached
+  = '大量使用者邀請'
+
+.ui.segment.bottom.attached
+  = simple_form_for([@project, :settings, PendingMemberOperation::Create.new(@project, current_user)], url: project_settings_project_participations_path(@project)) do |f|
+    = f.error_notification
+
+    = f.input :invitee_emails, as: :text, placeholder: "輸入多個 email 並以 , 隔開", label: false
+
+    = f.button :submit

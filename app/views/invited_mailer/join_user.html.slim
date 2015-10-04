@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    meta http-equiv="content-type" content="text/html;charset=UTF-8"
+    meta charset="utf-8"
+
+  body
+    p
+      = "#{@inviter.name} 已邀請您加入 #{@project.name} 專案"
+    p
+      = link_to '請由此處查看', project_dashboard_url(@project)

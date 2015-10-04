@@ -33,7 +33,7 @@
 
   render: ->
     userPath    = "/users/#{@props.notice.author.slug}"
-    projectPath = "/projects/#{@props.notice.project.slug}"
+    projectPath = "/projects/#{@props.notice.project.slug}/dashboard"
     time        = moment(new Date(@props.notice.created_at)).fromNow()
     closeBtn    = `<i className="close icon" onClick={this.handleOnClose}></i>` if @props.notice.state == 'unseal'
 
