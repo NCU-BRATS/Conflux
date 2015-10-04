@@ -22,6 +22,22 @@ module UsersHelper
     end
   end
 
+  def email_avatar_tag( email, options={} )
+    options.merge!({:class => 'img-rounded'})
+    options = options.symbolize_keys
+    options[:alt] = options[:alt] || email
+
+    if ( size = options.delete(:size) ).present?
+      options[:width] = options[:height] = size
+    end
+
+    options[:data] ||= {}
+    options[:data][:gravatar] = email
+    options[:data][:size] = size
+
+    tag('img', options)
+  end
+
   def user_tag( user, options={} )
     options = options.symbolize_keys
     options[:href] = user_link( user )
