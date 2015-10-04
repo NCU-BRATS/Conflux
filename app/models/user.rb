@@ -56,4 +56,13 @@ class User < ActiveRecord::Base
     @notification ||= Notification.new(self)
   end
 
+  def after_confirmation
+    pendings = PendingMember.includes(:inviter, :project).where(invitee_email: self.email)
+    pendings.each do |pending|
+      @form = ProjectParticipationOperation::Create.new(pending.inviter, pending.project)
+      @form.process(ActionController::Parameters.new({project_participation: {user_id: self.id}}))
+      pending.destroy
+    end
+  end
+
 end
