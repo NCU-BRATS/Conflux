@@ -12,8 +12,13 @@ class Projects::Settings::MembersController < Projects::SettingsController
   end
 
   def create
-    @form = ProjectParticipationOperation::Create.new(current_user, @project)
-    @form.process(params)
+    if params[:pending_member]
+      @form = PendingMemberOperation::Create.new(current_user, @project)
+      @form.process(params)
+    else
+      @form = ProjectParticipationOperation::Create.new(current_user, @project)
+      @form.process(params)
+    end
     respond_with @project, @form, location: project_settings_members_path
   end
 
