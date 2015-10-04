@@ -15,10 +15,12 @@ module PendingMemberOperation
         emails.each do |email|
           invitee_email = email.strip
 
-          if User.exists?( email: invitee_email, confirmed_at: nil )
-            param = ActionController::Parameters.new( { project_participation: { user_id: @user.id } } )
-            ProjectParticipationOperation.new( @current_user, @project ).process( param )
-          elsif !PendingMember.exists?( invitee_email: invitee_email )
+          next if invitee_email.length == 0
+
+          if user = User.where(email: invitee_email).where.not(confirmed_at: nil).first
+            param = ActionController::Parameters.new( { project_participation: { user_id: user.id } } )
+            ProjectParticipationOperation::Create.new( @current_user, @project ).process( param )
+          elsif !PendingMember.exists?( invitee_email: invitee_email, project_id: @project.id )
             pending_member = PendingMember.new
             pending_member.project = @project
             pending_member.inviter = @current_user

@@ -25,9 +25,9 @@ h1 = title t('action.target.add', target: ProjectParticipation.model_name.human)
   = '大量使用者邀請'
 
 .ui.segment.bottom.attached
-  = simple_form_for([@project, :settings, PendingMemberOperation::Create.new(nil,nil)], url: project_settings_project_participations_path(@project)) do |f|
+  = simple_form_for([@project, :settings, PendingMemberOperation::Create.new(@project, current_user)], url: project_settings_project_participations_path(@project)) do |f|
     = f.error_notification
 
-    = f.input :invitee_emails, as: :text, placeholder: "輸入多個 email 並以 , 隔開"
+    = f.input :invitee_emails, as: :text, placeholder: "輸入多個 email 並以 , 隔開", label: false
 
     = f.button :submit
