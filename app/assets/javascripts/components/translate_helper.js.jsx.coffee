@@ -9,6 +9,8 @@
       when "Post"    then result = "貼文"
       when "Snippet" then result = "程式碼"
       when "Channel" then result = "頻道"
+      when "PendingMember"
+        return "#{target.invitee_email}"
       when "User"
         return `<span className="member"><Avatar user={target} />{target.name}</span>`
       when "Comment"
@@ -41,6 +43,9 @@
         contentPre   = "關閉了"
       when "reopened"
         contentPre   = "重新開啟了"
+      when "invited"
+        contentPre   = "將"
+        contentPost  = "邀請加入此專案"
       when "joined"
         contentPre   = "將"
         contentPost  = "加入了此專案"

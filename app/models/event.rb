@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   default_scope { where.not(author_id: nil) }
 
-  enum action: [ :created, :updated, :closed, :reopened, :commented, :joined, :left, :uploaded, :deleted ]
+  enum action: [ :created, :updated, :closed, :reopened, :commented, :joined, :left, :uploaded, :deleted, :invited ]
 
   delegate :name, :email, to: :author, prefix: true, allow_nil: true
   delegate :title, to: :issue, prefix: true, allow_nil: true
