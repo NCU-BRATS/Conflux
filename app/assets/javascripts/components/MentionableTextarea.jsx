@@ -38,12 +38,12 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
       }
     },
 
-    filter: function(query, data, searchKey) {
+    filter: function(query, data, field) {
       var _results, i, item, len;
       _results = [];
       for (i = 0, len = data.length; i < len; i++) {
         item = data[i];
-        if (~new String(item[searchKey]).toLowerCase().indexOf(query.toLowerCase())) {
+        if (~new String(item[field]).toLowerCase().indexOf(query.toLowerCase())) {
           _results.push(item);
         }
       }
@@ -92,6 +92,22 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
 
     isOptBoxVisible: function () {
         return this.state.display === 'block';
+    },
+
+    tplEval: function(tpl, map) {
+        var error, template;
+        template = tpl;
+        try {
+            if (typeof tpl !== 'string') {
+                template = tpl(map);
+            }
+            return template.replace(/\$\{([^\}]*)\}/g, function(tag, key, pos) {
+                return map[key];
+            });
+        } catch (_error) {
+            error = _error;
+            return "";
+        }
     },
 
     handleMention: function (event) {
@@ -151,9 +167,14 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
 
                 // var data = this.fakeFetchData(conf.flag, currentStage);
                 currentStageConf.dataFetcher(this.state.stageChoices, function(data){
-                    var result = this.filter(query.text, data, currentStageConf.searchField);
+                    for(var i = 0; i < data.length; i += 1){
+                        var item = data[i];
+                        data[i].displayText = this.tplEval(currentStageConf.displayTpl, item);
+                    }
+
+                    var result = this.filter(query.text, data, 'displayText');
                     if(result.length > 0){
-                        this.setState({data: result, searchField: currentStageConf.searchField, insertField: currentStageConf.insertField});
+                        this.setState({data: result, insertField: currentStageConf.insertField});
                         this.showOptBox();
                     } else {
                         this.hideOptBox();
@@ -335,7 +356,7 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
                     onKeyDown={this.handleKeyDown}
                     ref="inputor">
                 </textarea>
-                <OptionsBox conf={this.state} query={this.state.query.text} searchField={this.state.searchField}
+                <OptionsBox conf={this.state} query={this.state.query.text}
                     onItemClicked={this.handleItemClick}
                     onItemHovered={this.onItemHovered} />
             </div>
