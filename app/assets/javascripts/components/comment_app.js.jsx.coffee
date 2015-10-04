@@ -325,6 +325,7 @@
           stages: [{
             searchField: 'name'
             insertField: 'name'
+            displayTpl: '${name}'
             dataFetcher: (stageChoices, callback) =>
               $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.members)
@@ -335,6 +336,7 @@
           stages: [{
             searchField: 'title'
             insertField: 'sequential_id'
+            displayTpl: '${sequential_id} ${title}'
             dataFetcher: (stageChoices, callback) =>
               $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.polls)
@@ -345,6 +347,7 @@
           stages: [{
             searchField: 'name'
             insertField: 'sequential_id'
+            displayTpl: '${sequential_id} ${name}'
             dataFetcher: (stageChoices, callback) =>
               $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.attachments)
@@ -355,6 +358,7 @@
           stages: [{
             searchField: 'title'
             insertField: 'sequential_id'
+            displayTpl: '${sequential_id} ${title}'
             dataFetcher: (stageChoices, callback) =>
               $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.issues)
@@ -365,6 +369,7 @@
           stages: [{
             searchField: 'title'
             insertField: 'sequential_id'
+            displayTpl: '${sequential_id} ${title}'
             dataFetcher: (stageChoices, callback) =>
               $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                 callback(data.sprints)
@@ -376,6 +381,7 @@
             {
               searchField: 'name'
               insertField: 'sequential_id'
+              displayTpl: '${sequential_id} ${name}'
               dataFetcher: (stageChoices, callback) =>
                 $.get "/projects/#{@props.project.slug}/suggestions.json", (data) =>
                   callback(data.channels)
@@ -383,6 +389,7 @@
             {
               searchField: 'content'
               insertField: 'sequential_id'
+              displayTpl: '${sequential_id} ${content}'
               dataFetcher: (stageChoices, callback) =>
                 $.get "/projects/#{@props.project.slug}/suggestions/channels/#{stageChoices[0]}/messages", (data) =>
                   callback(data.messages)
