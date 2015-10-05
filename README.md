@@ -2,7 +2,21 @@
 [![Test Coverage](https://codeclimate.com/github/NCU-BRATS/Conflux/badges/coverage.svg)](https://codeclimate.com/github/NCU-BRATS/Conflux/coverage)
 [![Build Status](https://travis-ci.org/NCU-BRATS/Conflux.svg?branch=travis-ci)](https://travis-ci.org/NCU-BRATS/Conflux)
 
+# Conflux 專案管理系統
+
 ![conflux](http://i.imgur.com/frP1EyK.gif)
+
+# 主要功能
+- 投票系統
+- 搜尋系統
+- 檔案系統
+- 看板系統
+- 溝通系統
+- 統計系統
+- 事件系統
+- 通知系統
+- 收藏系統
+- 倉庫系統
 
 # 系統需求
 
@@ -10,7 +24,7 @@
 * elasticsearch 1.7
 * elasticsearch plugin - Smart Chinese Analysis
 
-# 啟動
+# 如何啟動
 
 為了啟動，我們需要設定 postgresql, elasticsearch, private_pub, redis 這四個服務。
 
