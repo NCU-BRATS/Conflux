@@ -78,14 +78,24 @@
 
   render: ->
     props = @props
-    list = @state.items.map (item,i) =>
-      `<ArchiveModelViewSelector item={item} key={item.id} {...props}/>`
+
+    content = if @state.items.length > 0
+      list = @state.items.map (item,i) =>
+        `<ArchiveModelViewSelector item={item} key={item.id} {...props}/>`
+      `<div className="ui four doubling cards">
+          { list }
+      </div>`
+    else
+      `<div className="ui secondary segment">
+          <div className="ui center aligned icon header">
+              <i className="icon info circle"/>
+              <div className="content">目前還沒有任何已封存資料</div>
+          </div>
+      </div>`
 
     `<div className="archive-model-app ui one column center aligned grid">
         <div className="archive-list column" ref="list" onWheel={this.handleOnWheel}>
-            <div className="ui four doubling cards">
-                { list }
-            </div>
+            { content }
         </div>
     </div>`
 
