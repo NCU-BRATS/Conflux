@@ -39,12 +39,13 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
     },
 
     filter: function(query, data, field) {
-      var _results, i, item, len;
+      var _results, i, item, len, currentMatched = 0;
       _results = [];
-      for (i = 0, len = data.length; i < len; i++) {
+      for (i = 0, len = data.length; i < len && currentMatched < this.props.limit; i++) {
         item = data[i];
         if (~new String(item[field]).toLowerCase().indexOf(query.toLowerCase())) {
           _results.push(item);
+          currentMatched += 1;
         }
       }
       return _results;
