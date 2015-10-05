@@ -2,12 +2,9 @@
     position: absolute;
     border: 1px;
     box-shadow: 1px 1px 2px #ccc, -1px -1px 2px #ccc;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
     background-color: #fff;
     margin-left: 10px;
+    z-index: 9999;
 }
 
 .options-box ul {
@@ -17,8 +14,7 @@
 }
 
 .options-box ul li {
-    padding-left: 10px;
-    padding-right: 10px;
+  padding: 10px;
 }
 
 .options-box ul li:hover {

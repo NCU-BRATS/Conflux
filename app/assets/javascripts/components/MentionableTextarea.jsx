@@ -17,7 +17,7 @@ KEY_CODE = {
 var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
     getInitialState: function () {
         return {left: '0px', top: '0px', display: 'none', data: [], selectedOpt: 0, currentConf: {},
-             cursorPos: 0, flag: '', searchField: '', insertField: '', query: {}, mentionResult: '', stageChoices: [], currentStage: 0};
+             cursorPos: 0, flag: '', insertField: '', query: {}, mentionResult: '', stageChoices: [], currentStage: 0};
     },
 
     matcher: function(flag, subtext, should_startWithSpace, acceptSpaceBar) {
@@ -39,12 +39,13 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
     },
 
     filter: function(query, data, field) {
-      var _results, i, item, len;
+      var _results, i, item, len, currentMatched = 0;
       _results = [];
-      for (i = 0, len = data.length; i < len; i++) {
+      for (i = 0, len = data.length; i < len && currentMatched < this.props.limit; i++) {
         item = data[i];
         if (~new String(item[field]).toLowerCase().indexOf(query.toLowerCase())) {
           _results.push(item);
+          currentMatched += 1;
         }
       }
       return _results;
@@ -110,6 +111,13 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
         }
     },
 
+    reposition: function (offset, height) {
+        if (offset.top + height > $(window).height()){
+            offset.top = offset.top - height - offset.height;
+        }
+        return offset;
+    },
+
     handleMention: function (event) {
         if(this.filterKey(event)) return;
 
@@ -118,17 +126,6 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
         }
 
         var inputorNode = $(React.findDOMNode(this.refs.inputor));
-
-        var offset = inputorNode.caret('offset');
-
-        var inputorTop = inputorNode.offsetParent().offset().top;
-        var inputorLeft = inputorNode.offsetParent().offset().left;
-        offset.top = offset.top - inputorTop + offset.height;
-        offset.left -= inputorLeft;
-        delete offset.height;
-
-        this.setState(offset);
-
         var pos = inputorNode.caret('pos');
         this.setState({cursorPos: pos});
 
@@ -174,7 +171,23 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
 
                     var result = this.filter(query.text, data, 'displayText');
                     if(result.length > 0){
-                        this.setState({data: result, insertField: currentStageConf.insertField});
+                        this.setState({data: result, insertField: currentStageConf.insertField}, function() {
+
+                            var optionsBoxNode = $(React.findDOMNode(this.refs.optionsBox));
+                            var offset = inputorNode.caret('offset');
+
+                            var inputorTop = inputorNode.offsetParent().offset().top;
+                            var inputorLeft = inputorNode.offsetParent().offset().left;
+
+                            offset = this.reposition(offset, optionsBoxNode.height());
+
+                            offset.top = offset.top - inputorTop + offset.height;
+                            offset.left -= inputorLeft;
+
+                            delete offset.height;
+
+                            this.setState(offset);
+                        });
                         this.showOptBox();
                     } else {
                         this.hideOptBox();
@@ -356,7 +369,7 @@ var MentionableTextarea = React.createClass({displayName: 'MentionableTextarea',
                     onKeyDown={this.handleKeyDown}
                     ref="inputor">
                 </textarea>
-                <OptionsBox conf={this.state} query={this.state.query.text}
+                <OptionsBox conf={this.state} query={this.state.query.text} ref="optionsBox"
                     onItemClicked={this.handleItemClick}
                     onItemHovered={this.onItemHovered} />
             </div>

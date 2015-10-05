@@ -19,10 +19,11 @@ var OptionsBox = React.createClass({displayName: 'OptionsBox',
             <div style={optionBoxStyle} className="options-box">
                 <ul>
                     {options.map(function(option, index) {
+                        var highlightedText = this.highlighter(option.displayText, query);
                         if(index === selectedOpt) {
-                            return <li key={option.id} className="selected" onClick={this.props.onItemClicked} dangerouslySetInnerHTML={{__html: this.highlighter(option.displayText, query)}} />;
+                            return <li key={option.id} className="selected" onClick={this.props.onItemClicked} dangerouslySetInnerHTML={{__html: highlightedText}} />;
                         } else {
-                            return <li key={option.id} onMouseOver={this.props.onItemHovered.bind(null, index)} dangerouslySetInnerHTML={{__html: this.highlighter(option.displayText, query)}} />;
+                            return <li key={option.id} onMouseOver={this.props.onItemHovered.bind(null, index)} dangerouslySetInnerHTML={{__html: highlightedText}} />;
                         }
                     }.bind(this))}
                 </ul>
