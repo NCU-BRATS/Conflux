@@ -323,7 +323,6 @@
         {
           flag: '@'
           stages: [{
-            searchField: 'name'
             insertField: 'name'
             displayTpl: '${name}'
             dataFetcher: (stageChoices, callback) =>
@@ -334,7 +333,6 @@
         {
           flag: '^'
           stages: [{
-            searchField: 'title'
             insertField: 'sequential_id'
             displayTpl: '${sequential_id} ${title}'
             dataFetcher: (stageChoices, callback) =>
@@ -345,7 +343,6 @@
         {
           flag: '$'
           stages: [{
-            searchField: 'name'
             insertField: 'sequential_id'
             displayTpl: '${sequential_id} ${name}'
             dataFetcher: (stageChoices, callback) =>
@@ -356,7 +353,6 @@
         {
           flag: '#'
           stages: [{
-            searchField: 'title'
             insertField: 'sequential_id'
             displayTpl: '${sequential_id} ${title}'
             dataFetcher: (stageChoices, callback) =>
@@ -367,7 +363,6 @@
         {
           flag: '##'
           stages: [{
-            searchField: 'title'
             insertField: 'sequential_id'
             displayTpl: '${sequential_id} ${title}'
             dataFetcher: (stageChoices, callback) =>
@@ -379,7 +374,6 @@
           flag: ':'
           stages: [
             {
-              searchField: 'name'
               insertField: 'sequential_id'
               displayTpl: '${sequential_id} ${name}'
               dataFetcher: (stageChoices, callback) =>
@@ -387,7 +381,6 @@
                   callback(data.channels)
             }
             {
-              searchField: 'content'
               insertField: 'sequential_id'
               displayTpl: '${sequential_id} ${content}'
               dataFetcher: (stageChoices, callback) =>
