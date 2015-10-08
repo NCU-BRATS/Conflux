@@ -18,3 +18,13 @@
       = f.button :submit, '重寄認證信', class: 'fluid'
   .ui.attached.segment.tertiary
     = render 'devise/shared/links'
+
+coffee:
+  getParameterByName = (name) ->
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
+    regex = new RegExp("[\\?&]" + name + "=([^&#]*)")
+    results = regex.exec(location.search)
+    if results == null then "" else decodeURIComponent(results[1].replace(/\+/g, " "))
+  
+  if email = getParameterByName('email')
+    $('#user_email').val(email)
