@@ -8,16 +8,19 @@
   componentDidMount: () ->
     $.get("/projects/#{@props.project.slug}/channels.json?q[s]=order asc&q[archived_eq]=false")
       .done (channels) =>
-        $.get("/projects/#{@props.project.slug}/channels/read_status.json")
-          .done (data) =>
-            $.each data, (id, readed) =>
-              if !readed
-                i = _.findIndex(channels, (c)-> +c.id == +id)
-                if i >= 0 && !@isCurrentChannel(channels[i])
-                  channels[i].unread = true
-                  $('#channel_notice').show()
-                  $('#favicon').attr('href', '/favicon-unread.png')
-            @setState {channels: channels}
+        if @props.policy
+          $.get("/projects/#{@props.project.slug}/channels/read_status.json")
+            .done (data) =>
+              $.each data, (id, readed) =>
+                if !readed
+                  i = _.findIndex(channels, (c)-> +c.id == +id)
+                  if i >= 0 && !@isCurrentChannel(channels[i])
+                    channels[i].unread = true
+                    $('#channel_notice').show()
+                    $('#favicon').attr('href', '/favicon-unread.png')
+              @setState {channels: channels}
+        else
+          @setState {channels: channels}
 
     PrivatePub.subscribe("/projects/#{@props.project.id}/channels", @messageRecieve)
 
@@ -30,7 +33,7 @@
     else
       @appendChannel(res.data)  if res.target == 'channel' && res.action == 'create'
       @replaceChannel(res.data) if res.target == 'channel' && res.action == 'update'
-      @unreadChannel(res.data) if res.target == 'channel' && res.action == 'unread'
+      @unreadChannel(res.data) if res.target == 'channel' && res.action == 'unread' && @props.policy
 
   isCurrentChannel: (channel) ->
     project = encodeURIComponent(@props.project.slug)
