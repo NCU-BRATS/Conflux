@@ -8,12 +8,13 @@ html
     p
       = "#{@inviter.name} 已邀請您加入 #{@project.name} 專案"
     p
-      = "請以此信箱註冊會員，您將會被自動加入該專案"
+      = "請以 #{@email} 信箱註冊會員，您將會被自動加入該專案"
       
     p
-      = link_to '請由此處註冊', new_user_registration_url
-      
+      = link_to '請由此處註冊', new_user_registration_url(email: @email)
+    
+    br  
     p
       | 已經註冊過了嗎？
       br
-      = link_to '請由此處重寄驗證信來啟用您的帳號', new_user_confirmation_url
+      = link_to '請由此處重寄驗證信來啟用您的帳號', new_user_confirmation_url(email: @email)
