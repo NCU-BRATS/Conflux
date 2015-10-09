@@ -83,6 +83,7 @@ IssueGapPrototype = React.createClass
 KanbanApp = React.createClass
   propTypes:
     project: React.PropTypes.object.isRequired
+    policy:  React.PropTypes.bool.isRequired
     current_user: React.PropTypes.object.isRequired
 
   getInitialState: () ->
@@ -241,6 +242,7 @@ KanbanApp = React.createClass
 
 @KanbanMenu = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     sprints: React.PropTypes.array.isRequired
@@ -279,10 +281,13 @@ KanbanApp = React.createClass
     if @props.sprint
       sprintInfo = `<KanbanShowSprintInfoButton openSprintPanel={this.props.openSprintPanel}/>`
 
+    if @props.policy
+      sprintAddButton = `<KanbanAddSprintButton project={this.props.project} />`
+
     `<div className="ui green labeled menu sprint">
         <a ref="help" className="item kanban-sprint-item"><i className="help circle icon"/></a>
         { sprintItems }
-        <KanbanAddSprintButton project={this.props.project} />
+        { sprintAddButton }
         { sprintInfo }
     </div>`
 
@@ -320,6 +325,7 @@ KanbanApp = React.createClass
 
 @Kanban = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     mode:    React.PropTypes.string
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
@@ -361,6 +367,7 @@ KanbanApp = React.createClass
 
 @KanbanColumns = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     issues:  React.PropTypes.array
@@ -387,7 +394,8 @@ KanbanApp = React.createClass
       columns = _.map @props.sprint.statuses, (status,i) =>
         `<KanbanColumn status={status} issues={issuesMap[status.id] || []} key={status.id} sprint={props.sprint} project={props.project}
                        openIssuePanel={props.openIssuePanel}
-                       pushIssueState={props.pushIssueState}/>`
+                       pushIssueState={props.pushIssueState}
+                       policy={props.policy}/>`
 
       loadingClass = if @props.loading then "loading" else ""
 
@@ -397,6 +405,7 @@ KanbanApp = React.createClass
 
 @KanbanColumn = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     status:  React.PropTypes.node.isRequired
@@ -408,11 +417,12 @@ KanbanApp = React.createClass
     isDone = @props.status.id == 2
 
     if @props.sprint
-      controlPanel =
-        `<div className="ui right floated buttons ">
-            <KanbanColumnControl {...this.props} isDone={isDone}/>
-        </div>`
-      unless isDone
+      if @props.policy
+        controlPanel =
+          `<div className="ui right floated buttons ">
+              <KanbanColumnControl {...this.props} isDone={isDone}/>
+          </div>`
+      if !isDone && @props.policy
         addIssueButton = `<KanbanColumnAddIssueButton {...this.props} />`
 
     `<div className="kanban-column">
@@ -458,6 +468,7 @@ KanbanApp = React.createClass
 
 @KanbanColumnControl = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
     status:  React.PropTypes.node.isRequired
@@ -567,8 +578,6 @@ KanbanApp = React.createClass
     isDone: React.PropTypes.bool.isRequired
     openIssuePanel: React.PropTypes.func.isRequired
     pushIssueState: React.PropTypes.func.isRequired
-
-#  mixins: [ SortableMixin ]
 
   sortableOptions:
     group: "issue-container"
@@ -702,6 +711,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanSprintPanel = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     mode:    React.PropTypes.string
     project: React.PropTypes.object.isRequired
     sprint:  React.PropTypes.object
@@ -714,11 +724,13 @@ KanbanIssuePrototype = React.createClass
 
   render: ->
     if @props.sprint
+      if @props.policy
+        settings = `<KanbanSprintPanelSetting {...this.props} />`
       content =
         `<div>
             <div>
                 <KanbanSprintPanelCreatedAt {...this.props} />
-                <KanbanSprintPanelSetting {...this.props} />
+                { settings }
             </div>
             <KanbanSprintPanelTitle   {...this.props} />
             <KanbanSprintPanelMessage {...this.props} />
@@ -781,6 +793,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanSprintPanelTitle = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     sprint:   React.PropTypes.object.isRequired
 
@@ -797,7 +810,7 @@ KanbanIssuePrototype = React.createClass
             <h1>#{ this.props.sprint.sequential_id }</h1>
         </div>
         <div className="kanban-issue-panel-container-content">
-            <ContentClickEditableInput type="text" content1={content1} content2={this.props.sprint.title} onSave={this.handleSave} />
+            <ContentClickEditableInput type="text" content1={content1} content2={this.props.sprint.title} onSave={this.handleSave} policy={this.props.policy}/>
         </div>
     </div>`
 
@@ -865,6 +878,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanSprintPanelBeginAt = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     sprint:   React.PropTypes.object.isRequired
 
@@ -897,12 +911,13 @@ KanbanIssuePrototype = React.createClass
     `<div className="ui huge icon message">
         <i className="flag outline icon" />
         <div className="content">
-            <ContentClickEditablePopup content1={content1} content2={content2} />
+            <ContentClickEditablePopup content1={content1} content2={content2} policy={this.props.policy}/>
         </div>
     </div>`
 
 @KanbanSprintPanelDueAt = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     sprint:   React.PropTypes.object.isRequired
 
@@ -935,12 +950,13 @@ KanbanIssuePrototype = React.createClass
     `<div className="ui huge icon message">
         <i className="checkered flag icon" />
         <div className="content">
-            <ContentClickEditablePopup content1={content1} content2={content2} />
+            <ContentClickEditablePopup content1={content1} content2={content2} policy={this.props.policy}/>
         </div>
     </div>`
 
 @KanbanIssuePanel = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     mode:    React.PropTypes.string
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object
@@ -956,12 +972,14 @@ KanbanIssuePrototype = React.createClass
 
   render: ->
     if @props.issue
+      if @props.policy
+        settings = `<KanbanIssuePanelSetting {...this.props} />`
       content =
         `<div>
             <div className="">
                 <KanbanIssuePanelSprint {...this.props} />
                 <KanbanIssuePanelStatus {...this.props} />
-                <KanbanIssuePanelSetting {...this.props} />
+                { settings }
             </div>
             <KanbanIssuePanelTitle {...this.props} />
             <div className="ui two item menu">
@@ -979,6 +997,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanIssuePanelSprint = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
     sprints: React.PropTypes.array.isRequired
@@ -1000,11 +1019,15 @@ KanbanIssuePrototype = React.createClass
   render: ->
     issue = @props.issue
     title = "#{ issue.sprint.title }"
-    sprintItems = @props.sprints.map (sprint) =>
-      activeable = if sprint.title == issue.sprint.title then 'active' else ''
-      handleClick = () =>
-        @handleChooseSprint(sprint)
-      `<a className={ "item " + activeable } key={sprint.id} onClick={handleClick}>{ sprint.title }</a>`
+
+    sprintItems = if @props.policy
+      @props.sprints.map (sprint) =>
+        activeable = if sprint.title == issue.sprint.title then 'active' else ''
+        handleClick = () =>
+          @handleChooseSprint(sprint)
+        `<a className={ "item " + activeable } key={sprint.id} onClick={handleClick}>{ sprint.title }</a>`
+    else
+      `<div className="item" />`
 
     `<span className="kanban-issue-panel-meta">
         <span className="kanban-issue-panel-meta"> 戰役:</span>
@@ -1020,6 +1043,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanIssuePanelStatus = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     sprint:  React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
 
@@ -1039,7 +1063,7 @@ KanbanIssuePrototype = React.createClass
       _.find @props.sprint.statuses, (status) =>
         status.id.toString() == @props.issue.status.toString()
 
-    statusItems = if currentStatus
+    statusItems = if currentStatus && @props.policy
       @props.sprint.statuses.map (status) =>
         if status.name == currentStatus.name
           activeable = 'active'
@@ -1086,6 +1110,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanIssuePanelTitle = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
 
@@ -1102,12 +1127,13 @@ KanbanIssuePrototype = React.createClass
             <h1>#{ this.props.issue.sequential_id }</h1>
         </div>
         <div className="kanban-issue-panel-container-content">
-            <ContentClickEditableInput type="text" content1={content1} content2={this.props.issue.title} onSave={this.handleSave} />
+            <ContentClickEditableInput type="text" content1={content1} content2={this.props.issue.title} onSave={this.handleSave} policy={this.props.policy} />
         </div>
     </div>`
 
 @KanbanIssuePanelAssignee = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
 
@@ -1125,7 +1151,7 @@ KanbanIssuePrototype = React.createClass
             執行者
         </h6>
         <div className="">
-            <ContentClickEditablePopup content1={content1} content2={content2} popupWidth="300px"/>
+            <ContentClickEditablePopup content1={content1} content2={content2} popupWidth="300px" policy={this.props.policy}/>
         </div>
     </div>`
 
@@ -1164,6 +1190,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanIssuePanelPoint = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     issue:   React.PropTypes.object.isRequired
 
   handleSave: (value) ->
@@ -1187,12 +1214,13 @@ KanbanIssuePrototype = React.createClass
             內容點數
         </h6>
         <div className="">
-            <ContentClickEditablePopupInput type="number" content1={content1} content2={this.props.issue.point} onSave={this.handleSave} />
+            <ContentClickEditablePopupInput type="number" content1={content1} content2={this.props.issue.point} onSave={this.handleSave} policy={this.props.policy} />
         </div>
     </div>`
 
 @KanbanIssuePanelLabels = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
 
@@ -1214,7 +1242,7 @@ KanbanIssuePrototype = React.createClass
             </div>
         </div>
         <div className="kanban-issue-panel-container-content">
-            <ContentClickEditable content1={content1} content2={content2} />
+            <ContentClickEditable content1={content1} content2={content2}  policy={this.props.policy}/>
         </div>
     </div>`
 
@@ -1246,6 +1274,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanIssuePanelmMemo = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
 
@@ -1268,7 +1297,7 @@ KanbanIssuePrototype = React.createClass
                 </div>
             </span>
             <div className="kanban-issue-panel-container-content" >
-                <ContentClickEditableTextArea content1={content1} content2={this.props.issue.memo||""} onSave={this.handleSave} />
+                <ContentClickEditableTextArea content1={content1} content2={this.props.issue.memo||""} onSave={this.handleSave} policy={this.props.policy}/>
             </div>
     </div>`
 
@@ -1310,6 +1339,7 @@ KanbanIssuePrototype = React.createClass
 
 @KanbanIssuePanelComments = React.createClass
   propTypes:
+    policy:  React.PropTypes.bool.isRequired
     project: React.PropTypes.object.isRequired
     issue:   React.PropTypes.object.isRequired
     current_user: React.PropTypes.object.isRequired
@@ -1332,7 +1362,7 @@ KanbanIssuePrototype = React.createClass
   render: ->
     commentableSocketPath = "/projects/#{@props.project.id}/issues/comments"
     `<div className="">
-        <CommentApp is_user_in_project={true} project={this.props.project} user={this.props.current_user}
+        <CommentApp is_user_in_project={this.props.policy} project={this.props.project} user={this.props.current_user}
                     comments={this.state.comments}
                     commentable_type="issue"
                     commentable_record_id={this.props.issue.id}

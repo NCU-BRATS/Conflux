@@ -96,6 +96,7 @@
 
 @ContentClickEditableInput = React.createClass
   propTypes:
+    policy:       React.PropTypes.bool
     type:         React.PropTypes.string.isRequired
     content1:     React.PropTypes.node.isRequired
     content2:     React.PropTypes.node.isRequired
@@ -142,6 +143,7 @@
       </div>`
 
     `<ContentClickEditable
+        policy={this.props.policy}
         content1={this.props.content1}
         content2={content2}
         onSave={this.handleSave}
@@ -152,6 +154,7 @@
 
 @ContentClickEditableTextArea = React.createClass
   propTypes:
+    policy:       React.PropTypes.bool
     content1:     React.PropTypes.node.isRequired
     content2:     React.PropTypes.node.isRequired
     onSave:       React.PropTypes.func
@@ -185,6 +188,7 @@
       </div>`
 
     `<ContentClickEditable
+        policy={this.props.policy}
         content1={this.props.content1}
         content2={content2}
         onSave={this.handleSave}
@@ -193,6 +197,7 @@
 
 @ContentClickEditable = React.createClass
   propTypes:
+    policy:       React.PropTypes.bool
     content1:     React.PropTypes.node.isRequired
     content2:     React.PropTypes.node.isRequired
     onSave:       React.PropTypes.func
@@ -206,9 +211,10 @@
 
   componentDidMount: () ->
     @props.setToShowMode( @toShowMode ) if @props.setToShowMode
-    $(@refs.editable1.getDOMNode()).click () =>
-      if !getSelection().toString()
-        @setState { editMode: true }
+    if @props.policy
+      $(@refs.editable1.getDOMNode()).click () =>
+        if !getSelection().toString()
+          @setState { editMode: true }
 
   toShowMode: () ->
     @setState( { editMode: false } )
@@ -240,8 +246,10 @@
               </div>
           </div>`
 
+    title = if @props.policy then "點擊即可編輯" else null
+
     `<div className="content-click-editable">
-        <div ref="editable1" title="點擊即可編輯" className={ editable1Class || "" }>
+        <div ref="editable1" title={title} className={ editable1Class || "" }>
             { this.props.content1 }
         </div>
         <div ref="editable2" className={ editable2Class || "" }>
@@ -254,6 +262,7 @@
 
 @ContentClickEditablePopupInput = React.createClass
   propTypes:
+    policy:    React.PropTypes.bool
     type:      React.PropTypes.string.isRequired
     content1:  React.PropTypes.node.isRequired
     content2:  React.PropTypes.node.isRequired
@@ -287,6 +296,7 @@
       </div>`
 
     `<ContentClickEditablePopup
+        policy={this.props.policy}
         content1={this.props.content1}
         content2={content2}
         popupWidth={this.props.popupWidth}
@@ -294,26 +304,30 @@
 
 @ContentClickEditablePopup = React.createClass
   propTypes:
+    policy:    React.PropTypes.bool
     content1:  React.PropTypes.node.isRequired
     content2:  React.PropTypes.node.isRequired
     focusNode: React.PropTypes.func
     popupWidth: React.PropTypes.string
 
   componentDidMount: () ->
-    $(@refs.content1.getDOMNode()).popup
-      popup: $(@refs.content2.getDOMNode())
-      on: 'click'
-      exclusive: false
-      onVisible: () =>
-        if @props.focusNode
-          $(@props.focusNode()).focus()
+    if @props.policy
+      $(@refs.content1.getDOMNode()).popup
+        popup: $(@refs.content2.getDOMNode())
+        on: 'click'
+        exclusive: false
+        onVisible: () =>
+          if @props.focusNode
+            $(@props.focusNode()).focus()
 
   render: ->
     if @props.popupWidth
       style = { 'minWidth' : @props.popupWidth }
 
+    title = if @props.policy then "點擊即可編輯" else null
+
     `<div>
-        <div ref="content1" title="點擊即可編輯" >
+        <div ref="content1" title={title} >
             { this.props.content1 }
         </div>
         <div ref="content2" className="content2 ui hidden transition inline popup" style={ style }>
