@@ -5,4 +5,4 @@
       i.add.square.icon
       = t('action.target.add', target: Channel.model_name.human)
 
-  = react_component('ChannelList', {project: @project})
+  = react_component('ChannelList', {project: @project, policy: policy(:message).create?})

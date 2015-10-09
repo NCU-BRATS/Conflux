@@ -86,6 +86,7 @@
   readMessage: () ->
     message = @state.messages[@state.messages.length - 1]
     return unless message
+    return unless @props.policy
 
     return if @lastReadFloor == message.sequential_id
 
@@ -265,7 +266,6 @@
     @$inputDOMNode = $(@inputDOMNode)
     if !@props.policy
       @inputDOMNode.disabled = true
-    console.log(@props.policy)
   handleSubmit: (e) -> e.preventDefault()
   handleClick: (e) -> @props.readMessage()
   handleKeyDown: (e) ->
