@@ -345,6 +345,15 @@
     }).done () =>
       @setState {loading: false}, ()=>
         @props.toggleEdit()
+      ga('send', {
+        hitType: 'event', 
+        eventCategory: 'Channel', 
+        eventAction: 'create_message'
+      })
+      amplitude.logEvent('create_message', {
+        channel_id: @props.channel.id,
+        project_id: @props.project.id
+      })
     .fail () =>
       console.log("post err")
 
