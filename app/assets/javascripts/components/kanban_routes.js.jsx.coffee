@@ -573,6 +573,7 @@ KanbanApp = React.createClass
 
 @KanbanColumnContainer = React.createClass
   propTypes:
+    policy: React.PropTypes.bool.isRequired
     status: React.PropTypes.node.isRequired
     issues: React.PropTypes.array.isRequired
     isDone: React.PropTypes.bool.isRequired
@@ -594,6 +595,7 @@ KanbanApp = React.createClass
 
   render: ->
     isDone = @props.isDone
+    policy = @props.policy
     openIssuePanel = @props.openIssuePanel
     pushIssueState = @props.pushIssueState
     issues = []
@@ -607,7 +609,7 @@ KanbanApp = React.createClass
       issues.push(`<KanbanIssue issue={issue} key={issue.id} openIssuePanel={openIssuePanel} pushIssueState={pushIssueState} isDone={isDone} />`)
     prevOrder = if i then @state.items[i - 1].order else undefined
     issues.push(`<IssueGap key={(nextId || '') + '-'} status={this.props.status} nextOrder={undefined} nextId={''} prevOrder={prevOrder} prevId={nextId}/>`)
-    `<div className={ "ui attached segment secondary kanban-column-container " + ( isDone ? "done" : "" ) }>
+    `<div className={ "ui attached segment secondary kanban-column-container " + ( isDone || !policy ? "done" : "" ) }>
         {issues}
     </div>`
 
