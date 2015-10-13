@@ -59,20 +59,20 @@
     is_user_in_project = @props.is_user_in_project
 
     if is_user_in_project
-      commentCreateForm = `<CommentCreateForm {...this.props}/>`
+      commentCreateForm =
+        `<div className="comment header">
+          <div className="thumb">
+            <Avatar user={this.props.user}/>
+          </div>
+          <div className="content">
+            <CommentCreateForm {...this.props}/>
+          </div>
+        </div>`
 
     `<div className='commentApp'>
         <CommentList {...this.props} comments={this.state.comments} />
         <div className="ui divider hidden"></div>
-
-      <div className="comment header">
-        <div className="thumb">
-          <Avatar user={this.props.user}/>
-        </div>
-        <div className="content">
-            {commentCreateForm}
-        </div>
-      </div>
+        { commentCreateForm }
     </div>`
 
 @CommentList = React.createClass
