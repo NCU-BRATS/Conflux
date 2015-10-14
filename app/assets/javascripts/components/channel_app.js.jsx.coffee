@@ -283,6 +283,16 @@
 
       @inputDOMNode.value = ''
 
+      ga('send', {
+        hitType: 'event', 
+        eventCategory: 'Channel', 
+        eventAction: 'create_message'
+      })
+      amplitude.logEvent('create_message', {
+        channel_id: @props.channel.id,
+        project_id: @props.project.id
+      })
+
   handleKeyUp: (e) ->
     if @inputDOMNode.value.split(/\r\n|\r|\n/).length <= 1
       @$inputDOMNode.css('height', '3em')
@@ -345,17 +355,18 @@
     }).done () =>
       @setState {loading: false}, ()=>
         @props.toggleEdit()
-      ga('send', {
-        hitType: 'event', 
-        eventCategory: 'Channel', 
-        eventAction: 'create_message'
-      })
-      amplitude.logEvent('create_message', {
-        channel_id: @props.channel.id,
-        project_id: @props.project.id
-      })
     .fail () =>
       console.log("post err")
+
+    ga('send', {
+        hitType: 'event', 
+      eventCategory: 'Channel', 
+      eventAction: 'edit_message'
+    })
+    amplitude.logEvent('edit_message', {
+      channel_id: @props.channel.id,
+      project_id: @props.project.id
+    })
 
   render: ->
     formClass = "ui form"
