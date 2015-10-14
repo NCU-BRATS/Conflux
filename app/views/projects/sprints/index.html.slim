@@ -5,4 +5,4 @@
 = subscribe_to_ujs @private_pub_channel2
 = subscribe_to_ujs @private_pub_channel3
 
-= react_component( 'KanbanApp', { project: @project, current_user: current_user } )
+= react_component( 'KanbanApp', { project: @project, current_user: current_user, policy: policy(:sprint).create? } )

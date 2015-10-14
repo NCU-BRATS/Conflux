@@ -9,11 +9,11 @@ class IssuePolicy < ProjectResourcePolicy
   end
 
   def participations?
-    is_user_project_member?
+    is_user_project_public? || is_user_project_member?
   end
 
   def comments?
-    is_user_project_member?
+    is_user_project_public? || is_user_project_member?
   end
 
 end
