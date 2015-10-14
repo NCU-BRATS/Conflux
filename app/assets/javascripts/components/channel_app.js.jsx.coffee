@@ -138,7 +138,7 @@
     `<div className='ChnnelApp'>
       <ChannelHeader ref="header" channel={this.state.channel} policy={this.props.policy}/>
       <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} noMessages={this.state.noMessages} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
-      <MessageCreateForm ref="footer" project={this.props.project} channel={this.props.channel} readMessage={this.readMessage} policy={this.props.policy}/>
+      <MessageCreateForm ref="footer" channel={this.props.channel} readMessage={this.readMessage} policy={this.props.policy}/>
     </div>`
 
 @ChannelHeader = React.createClass
