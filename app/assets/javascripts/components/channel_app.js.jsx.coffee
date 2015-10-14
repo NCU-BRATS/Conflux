@@ -358,16 +358,6 @@
     .fail () =>
       console.log("post err")
 
-    ga('send', {
-        hitType: 'event', 
-      eventCategory: 'Channel', 
-      eventAction: 'edit_message'
-    })
-    amplitude.logEvent('edit_message', {
-      channel_id: @props.channel.id,
-      project_id: @props.project.id
-    })
-
   render: ->
     formClass = "ui form"
     formClass += " loading" if @state.loading
