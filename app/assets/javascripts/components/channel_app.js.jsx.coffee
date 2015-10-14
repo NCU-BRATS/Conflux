@@ -138,7 +138,7 @@
     `<div className='ChnnelApp'>
       <ChannelHeader ref="header" channel={this.state.channel} policy={this.props.policy}/>
       <MessagesList ref="list" messages={this.state.messages} user_id={this.props.user_id} noMessages={this.state.noMessages} loading={this.state.loading} handleLoadMore={this.handleLoadMore} handleOnWheel={this.handleOnWheel}/>
-      <MessageCreateForm ref="footer" channel={this.props.channel} readMessage={this.readMessage} policy={this.props.policy}/>
+      <MessageCreateForm ref="footer" project={this.props.project} channel={this.props.channel} readMessage={this.readMessage} policy={this.props.policy}/>
     </div>`
 
 @ChannelHeader = React.createClass
@@ -283,6 +283,16 @@
 
       @inputDOMNode.value = ''
 
+      ga('send', {
+        hitType: 'event', 
+        eventCategory: 'Channel', 
+        eventAction: 'create_message'
+      })
+      amplitude.logEvent('create_message', {
+        channel_id: @props.channel.id,
+        project_id: @props.project.id
+      })
+
   handleKeyUp: (e) ->
     if @inputDOMNode.value.split(/\r\n|\r|\n/).length <= 1
       @$inputDOMNode.css('height', '3em')
@@ -345,15 +355,6 @@
     }).done () =>
       @setState {loading: false}, ()=>
         @props.toggleEdit()
-      ga('send', {
-        hitType: 'event', 
-        eventCategory: 'Channel', 
-        eventAction: 'create_message'
-      })
-      amplitude.logEvent('create_message', {
-        channel_id: @props.channel.id,
-        project_id: @props.project.id
-      })
     .fail () =>
       console.log("post err")
 
