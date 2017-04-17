@@ -1,9 +1,9 @@
 module V1
   class ProjectIssueAPI < Grape::API
     resources :issues do
-      route_param :id do
+      route_param :issue_id do
         before do
-          @issue ||= @project.issues.includes(participations: :user).where(sequential_id: params[:id]).first
+          @issue ||= @project.issues.includes(participations: :user).where(sequential_id: params[:issue_id]).first
         end
 
         desc 'issue show'

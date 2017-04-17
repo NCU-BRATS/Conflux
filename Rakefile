@@ -4,3 +4,12 @@
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
+
+desc "API Routes"
+task :routes do
+  ConfluxAPI.routes.each do |api|
+    method = api.route_method.ljust(10)
+    path = api.route_path
+    puts "     #{method} #{path}"
+  end
+end
